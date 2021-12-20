@@ -11,12 +11,13 @@ const BreadcrumbComponent = styled(Chip)(({ theme }) => {
       color: theme.palette.text.primary,
       fontWeight: theme.typography.fontWeightRegular,
       '&:hover, &:focus': {
-        backgroundColor: emphasize(backgroundColor, 0.06),
-        cursor: "pointer"
+        backgroundColor: emphasize("#ff6347", 0.06),
+        cursor: "pointer",
+        color: "#ffffff"
       },
       '&:active': {
         boxShadow: theme.shadows[1],
-        backgroundColor: emphasize(backgroundColor, 0.12),
+        backgroundColor: emphasize("#ff6347", 0.12),
       },
     }
 })
@@ -24,11 +25,7 @@ const BreadcrumbComponent = styled(Chip)(({ theme }) => {
 const StyledBreadcrumb = ({link}) => {
     const {label, href, icon} = link
     return (
-        <BreadcrumbComponent
-          href = {href}
-          label = {label}
-          icon = {icon}
-        />
+        <BreadcrumbComponent href = {href} label = {label} icon = {icon}/>
     )
 }
 
