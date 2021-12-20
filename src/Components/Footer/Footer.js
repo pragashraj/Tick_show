@@ -1,7 +1,10 @@
 import React from 'react'
 
+import Newsletter from '../NewsLetter/Newsletter'
+
 //Material-UI
 import Grid from '@mui/material/Grid'
+import Divider from '@mui/material/Divider'
 
 import './Footer.css'
 import logo from '../../assets/Icons/logo.png'
@@ -83,6 +86,24 @@ const Footer = () => {
         )
     }
 
+    const renderNewsLetter = () => {
+        return (
+            <div className = "subscribe_newsletter">
+                <Grid container spacing = {5}>
+                    <Grid item xs = {12} sm = {12} md = {6}>
+                        <div className = "newsletter_text">
+                            <h3>Stay Updated</h3>
+                            <p>Your domain control panel is designed for ease-of-use and allows for all aspects of yours</p>
+                        </div>
+                    </Grid>
+                    <Grid item xs = {12} sm = {12} md = {6}>
+                        <Newsletter/>
+                    </Grid>
+                </Grid>
+            </div>
+        )
+    }
+
     const renderFooterBottom = () => {
         return (
             <div className = "footer_bottom">
@@ -103,6 +124,8 @@ const Footer = () => {
         <div className = 'footer_root'>
             <div className = 'footer_container'>
                 { renderFooterMainContent() }
+                { renderNewsLetter() }
+                <Divider/>
                 { renderFooterBottom() }
             </div>
         </div>

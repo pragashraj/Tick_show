@@ -1,0 +1,14 @@
+.submit_btn {
+    height: 65px;
+    border: none;
+    font-size: 16px;
+    color: #fff;
+    background: #ff6347;
+    padding: 10px;
+    padding: 0 30px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Poppins", sans-serif;
+    border-radius: 5px;
+}

@@ -138,6 +138,28 @@
     font-weight: bold;
 }
 
+.subscribe_newsletter {
+    width: 90%;
+    padding-right: 15px;
+    margin-right: auto;
+    text-align: left;
+    font-family: "Poppins", sans-serif;
+}
+
+.newsletter_text {
+    margin-left: 2%;
+}
+
+.subscribe_newsletter h3 {
+    color: white;
+    text-transform: uppercase;
+}
+
+.subscribe_newsletter p {
+    color: rgb(192, 190, 190);
+    font-size: 0.8rem;
+}
+
 @media screen and (max-width: 800px) {
     .menu__link {
         font-size: 10px;
