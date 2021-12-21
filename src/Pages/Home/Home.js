@@ -25,7 +25,7 @@ class Home extends Component {
     ]
 
     handleBuyTicketOnClick = () => {
-        
+
     }
 
     handleCarouselOnChange = (idx) => {

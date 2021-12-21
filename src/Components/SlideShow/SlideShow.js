@@ -27,7 +27,7 @@ const SlideShow = ({images, coverInfo, carouselOnChange, handleBuyTicketOnClick}
     return (
         <div>
             <div className = 'carousel_vertical_cover'>
-                <Paper elevation = {5} sx = {{height: "100%", backgroundColor: "rgba(247, 64, 31, 0.3)"}}>
+                <Paper elevation = {5} sx = {{height: "100%", backgroundColor: "rgba(247, 64, 31, 0.5)"}}>
                     <div className = 'carousel_vertical_info'>
                         <h2>{title}</h2>
                         <div className = 'info_synopsis'>
@@ -47,13 +47,13 @@ const SlideShow = ({images, coverInfo, carouselOnChange, handleBuyTicketOnClick}
             </div>
             <SimpleImageSlider
                 width = {"100%"}
-                height = {"80vh"}
+                height = {"90vh"}
                 images = {images}
                 showBullets = {true}
                 showNavs = {false}
-                loop = {true}
-                autoPlay = {true}
-                autoPlayDelay = {3.0}
+                // loop = {true}
+                // autoPlay = {true}
+                // autoPlayDelay = {3.0}
                 onClickBullets = {idx => { handleCarouselOnChange("bulletIndex", idx) }}
                 onCompleteSlide = {idx => { handleCarouselOnChange("CompleteSlide", idx) }}
             />
