@@ -74,10 +74,10 @@ const Footer = () => {
                 </div>
                 <div className = "content_wrapper_items">
                     <Grid container>
-                        <Grid item xs = {12} sm = {6} md = {6}>
+                        <Grid item xs = {12} sm = {4} md = {6}>
                             { renderSocials() }
                         </Grid>
-                        <Grid item xs = {12} sm = {6} md = {6}>
+                        <Grid item xs = {12} sm = {8} md = {6}>
                             { renderLinks() }
                         </Grid>
                     </Grid>
@@ -90,13 +90,13 @@ const Footer = () => {
         return (
             <div className = "subscribe_newsletter">
                 <Grid container spacing = {5}>
-                    <Grid item xs = {12} sm = {12} md = {6}>
+                    <Grid item xs = {12} sm = {6} md = {6}>
                         <div className = "newsletter_text">
                             <h3>Stay Updated</h3>
                             <p>Your domain control panel is designed for ease-of-use and allows for all aspects of yours</p>
                         </div>
                     </Grid>
-                    <Grid item xs = {12} sm = {12} md = {6}>
+                    <Grid item xs = {12} sm = {6} md = {6}>
                         <Newsletter/>
                     </Grid>
                 </Grid>

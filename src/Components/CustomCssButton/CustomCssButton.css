@@ -1,0 +1,22 @@
+.panel-button {
+    -webkit-text-size-adjust: 100%;
+    overflow: visible;
+    line-height: 1.15;
+    -webkit-appearance: button;
+    margin: 1.3rem 3.5rem;
+    padding: 0.8em 1.3em;
+    background: none;
+    border: 1px solid #fff;
+    cursor: pointer;
+    font-family: "Montserrat";
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: box-shadow 0.5s ease-in-out, color 0.5s ease-in-out;
+    color: rgb(255, 255, 255);
+}
+
+.panel-button:hover {
+    color: black;
+    background-color: rgb(255, 255, 255);
+}
