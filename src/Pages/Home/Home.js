@@ -7,8 +7,6 @@ import ContentRight from './ContentRight'
 import './Home.css'
 import image1 from '../../assets/CarouselImages/1.jpg'
 import imageKids from '../../assets/images/kids.jpg'
-import imageApp from '../../assets/images/app.jpg'
-import imageBooking from '../../assets/images/ticket.jpg'
 
 import {synopsis, des} from '../../Constants/Value'
 
@@ -26,9 +24,10 @@ class Home extends Component {
     ]
 
     CONTENT_INFO = [
-        {id: "1", head: "Book your tickets quickly", des, type: "Left", src: imageBooking},
-        {id: "2", head: "Mobile app for ticket booking", des, type: "Right", src: imageApp},
-        {id: "3", head: "Kids Packages", des, type: "Left", src: imageKids},
+        {id: "1", head: "Book your tickets quickly", des, type: "Left", src: imageKids},
+        {id: "2", head: "Mobile app for ticket booking", des, type: "Right", src: imageKids},
+        {id: "3", head: "Anywhere. Anytime", des, type: "Left", src: imageKids},
+        {id: "4", head: "Kids Packages", des, type: "Right", src: imageKids},
     ]
 
     handleBuyTicketOnClick = () => {
@@ -61,7 +60,7 @@ class Home extends Component {
                     handleBuyTicketOnClick = {this.handleBuyTicketOnClick}
                 />
                 <div className = 'home_body_content_root'>
-                    { this.renderBodyContent() }
+                    
                 </div>
             </div>
         )
