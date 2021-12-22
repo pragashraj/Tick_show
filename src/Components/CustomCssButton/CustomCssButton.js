@@ -4,7 +4,7 @@ import './CustomCssButton.css'
 
 const CustomCssButton = ({label, onClick}) => {
     return (
-        <button className = "panel-button" onClick = {onClick}>{label}</button>
+        <button className = "primary-btn" onClick = {onClick}>{label}</button>
     )
 }
 

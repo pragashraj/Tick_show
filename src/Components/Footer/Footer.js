@@ -5,6 +5,9 @@ import Newsletter from '../NewsLetter/Newsletter'
 //Material-UI
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
+import FacebookIcon from '@mui/icons-material/FacebookRounded'
+import TwitterIcon from '@mui/icons-material/Twitter'
+import InstagramIcon from '@mui/icons-material/Instagram'
 
 import './Footer.css'
 import logo from '../../assets/Icons/logo.png'
@@ -12,9 +15,9 @@ import logo from '../../assets/Icons/logo.png'
 const Footer = () => {
 
     const SOCIAL_LINKS = [
-        {id: "1", url : "https://www.twitter.com", className: "fab fa-twitter", title: "Twitter"},
-        {id: "2", url : "https://www.facebook.com", className: "fab fa-facebook", title: "Facebook"},
-        {id: "3", url : "https://www.instagram.com", className: "fab fa-instagram", title: "Instagram"},
+        {id: "1", url : "https://twitter.com", title: "Twitter"},
+        {id: "2", url : "https://www.facebook.com", title: "Facebook"},
+        {id: "3", url : "https://www.instagram.com", title: "Instagram"},
     ]
 
     const LINKS = [
@@ -24,6 +27,15 @@ const Footer = () => {
         {id : "4", href : "#", title: "Contact"},
         {id : "5", href : "#", title: "News"},
     ]
+
+    const getSocialIcon = (title) => {
+        switch(title) {
+            case "Facebook": return <FacebookIcon sx = {{width: "100%", height: "100%"}}/>
+            case "Twitter": return <TwitterIcon sx = {{width: "100%", height: "100%"}}/>
+            case "Instagram": return <InstagramIcon sx = {{width: "100%", height: "100%"}}/>
+            default : return
+        }
+    }
 
     const renderLinks = () => {
         return (
@@ -52,10 +64,10 @@ const Footer = () => {
                     <p>Follow us</p>
                     <div className = "footer-social">
                         { SOCIAL_LINKS.map(item => {
-                            const {id, url, className} = item
+                            const {id, url, title} = item
                             return (
                                 <a href = {url} target = "_blank" rel = "noreferrer noopener" key = {id}>
-                                    <i className = {className}/>
+                                    { getSocialIcon(title) }
                                 </a>
                             )
                         }) }

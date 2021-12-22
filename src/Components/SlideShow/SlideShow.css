@@ -52,10 +52,11 @@
         margin-left: 10%;
         height: 60vh;
         margin-top: 10vh;
+        width: 80%;
     }
 
     .carousel_vertical_info h2 {
-        font-size: 0.7rem;
+        font-size: 0.9rem;
         letter-spacing: 0.1rem;
     }
 
@@ -64,15 +65,16 @@
     }
 
     .info_synopsis p {
-        font-size: 0.45rem;
+        font-size: 0.7rem;
     }
 }
 
 @media screen and (max-height: 500px) {
     .carousel_vertical_cover {
-        margin-left: 10%;
+        margin-left: 5%;
         height: 60vh;
         margin-top: 10vh;
+        width: 90%;
     }
 
     .carousel_vertical_info h2 {
