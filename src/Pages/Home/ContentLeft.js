@@ -12,7 +12,7 @@ const ContentLeft = ({item}) => {
     return (
         <div className = 'body_content_root'>
             <Box sx = {{ flexGrow: 1 }}>
-                <Grid container>
+                <Grid container spacing = {2}>
                     <Grid item xs = {12} sm = {6} md = {7}>
                         <div className = 'body_info_container'>
                             <h1>{head}</h1>
