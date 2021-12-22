@@ -162,7 +162,7 @@
 
 @media screen and (max-width: 800px) {
     .menu__link {
-        font-size: 10px;
+        font-size: 8px;
     }
 
     .footer-social a {
@@ -176,5 +176,15 @@
 
     .footer_bottom_copyrights span {
         font-size: 0.6rem;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .menu__link {
+        font-size: 8px;
+    }
+
+    .footer_nav_ul {
+        flex-direction: column;
     }
 }

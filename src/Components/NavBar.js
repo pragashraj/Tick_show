@@ -20,7 +20,7 @@ import ContactsIcon from '@mui/icons-material/Call'
 import logo from '../assets/Icons/logo.png'
 
 const NavBar = () => {
-    const matches = useMediaQuery('(min-width:800px)')
+    const matches = useMediaQuery('(min-width:950px)')
 
     const NAV_LINKS = [
         {id: "1", label: "Home", href: "#", icon: <HomeIcon fontSize = "small" />},
