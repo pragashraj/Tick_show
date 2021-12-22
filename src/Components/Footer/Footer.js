@@ -12,7 +12,7 @@ import logo from '../../assets/Icons/logo.png'
 const Footer = () => {
 
     const SOCIAL_LINKS = [
-        {id: "1", url : "https://www.twitter.com", className: "fab fa-twitter", title: "Twitter"},
+        {id: "1", url : "https://twitter.com", className: "fab fa-twitter", title: "Twitter"},
         {id: "2", url : "https://www.facebook.com", className: "fab fa-facebook", title: "Facebook"},
         {id: "3", url : "https://www.instagram.com", className: "fab fa-instagram", title: "Instagram"},
     ]

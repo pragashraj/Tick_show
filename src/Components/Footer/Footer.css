@@ -1,7 +1,7 @@
 .footer_root {
     display: block;
     min-height: 100px;
-    background: #2C3E50;
+    background: rgb(44, 62, 80);
     position: relative;
     z-index: 0;
     width: 100%;
