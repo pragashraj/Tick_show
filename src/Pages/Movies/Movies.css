@@ -46,7 +46,7 @@
 
 .movies_block_list {
     margin-top: 2vh;
-    padding: 2em;
+    padding: 1em;
 }
 
 .list_item {
@@ -71,4 +71,8 @@
     width: 100px;
     background: #ff6347;
     content: "";
+}
+
+.list_item_movies {
+    padding: 30px;
 }
