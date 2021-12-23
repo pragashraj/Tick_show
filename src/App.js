@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Home from './Pages/Home/Home'
+import Movies from './Pages/Movies/Movies'
 import NavBar from './Components/NavBar'
 import Footer from './Components/Footer/Footer'
 
@@ -8,7 +8,7 @@ const App = () => {
     return (
         <div>
             <NavBar/>
-            <Home/>
+            <Movies/>
             <Footer/>
         </div>
     )

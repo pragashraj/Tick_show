@@ -122,7 +122,7 @@ const Footer = () => {
                 <div className = "footer_bottom_content_wrapper">
                     <div className = "footer_bottom_copyrights">
                         <p>
-                            Copyright © 2021 All rights reserved 
+                            Copyright © 2021/22 All rights reserved 
                             | Designed by <i className = "fa fa-heart color-primary" aria-hidden = "true"/> 
                             <span> S.Pragashraj </span>
                         </p>

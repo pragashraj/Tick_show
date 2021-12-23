@@ -3,3 +3,72 @@
     width: 100%;
     height: 100%;
 }
+
+.movies_header {
+    width: 100%;
+    height: 92vh;
+    background-color: cadetblue;
+    background-image: url("../../assets/images/moviesWallpaper.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.movies_header h1 {
+    position: absolute;
+    top: 65vh;
+    left: 5vh;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 30px;
+    letter-spacing: 0.15rem;
+    color: rgb(255, 255, 255);
+    font-size: 2.8rem;
+}
+
+.parallax {
+    position: relative;
+    z-index: 0;
+    background-image: url("../../assets/images/parallax.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+    width: 100%;
+    display: block;
+}
+
+.movies_block {
+    display: block;
+    padding: 25px;
+}
+
+.movies_block_list {
+    margin-top: 2vh;
+    padding: 2em;
+}
+
+.list_item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.list_item h2 {
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    font-size: 25px;
+    letter-spacing: 0.1rem;
+    padding-bottom: 25px;
+}
+
+.list_item h2::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 100px;
+    background: #ff6347;
+    content: "";
+}
