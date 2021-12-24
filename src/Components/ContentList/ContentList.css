@@ -1,0 +1,40 @@
+.block_list_root {
+    margin-top: 2vh;
+    padding: 1em;
+}
+
+.block_list_container{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.block_list_container h2 {
+    font-weight: 700;
+    text-transform: uppercase;
+    position: relative;
+    font-size: 25px;
+    letter-spacing: 0.1rem;
+    padding-bottom: 25px;
+    color: #ffffff;
+}
+
+.block_list_container h2::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 100px;
+    background: #ff6347;
+    content: "";
+}
+
+.list_items {
+    padding: 5px;
+}
+
+.show_more_text {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    letter-spacing: 0.01rem;
+}

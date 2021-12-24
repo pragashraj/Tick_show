@@ -3,11 +3,23 @@
     height: 100%;
 }
 
+.parallax {
+    position: relative;
+    z-index: 0;
+    background-image: url("../../assets/images/parallax1.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    position: relative;
+    width: 100%;
+    display: block;
+}
+
 .home_body_content_root {
     width: 100%;
     height: 100%;
     display: block;
-    background-color: rgb(44, 62, 80);
 }
 
 .home_body_content {
@@ -49,13 +61,12 @@
 }
 
 .body_info_container p {
-    color: #979696;
+    color: #ffffff;
     display: block;
-    font-size: 16px;
-    letter-spacing: 2px;
+    font-size: 14px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     margin-bottom: 0px;
-    font-family: "Montserrat";
 }
 
 .content_img_source {

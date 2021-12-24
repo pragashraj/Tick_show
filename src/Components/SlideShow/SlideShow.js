@@ -40,7 +40,7 @@ const SlideShow = ({images, coverInfo, carouselOnChange, handleBuyTicketOnClick}
             </div>
             <SimpleImageSlider
                 width = {"100%"}
-                height = {"90vh"}
+                height = {"92vh"}
                 images = {images}
                 showBullets = {true}
                 showNavs = {false}
