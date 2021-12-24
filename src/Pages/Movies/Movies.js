@@ -1,10 +1,39 @@
 import React, { Component } from 'react'
 
-import MovieCard from '../../Components/MovieCard'
+import ContentList from '../../Components/ContentList/ContentList'
 
 import './Movies.css'
 
 class Movies extends Component {
+    state = {
+        nowShowingExpanded: false,
+        upcomingExpanded: false
+    }
+
+    MOVIES_BLOCK = [
+        {title: "Now Showing", list: ["1", "2", "3", "4", "5", "6"]},
+        {title: "Upcoming Movies", list: ["1", "2", "3", "4", "5", "6"]},
+    ]
+
+    getExpandStateAttribute = (title) => {
+        let name = "nowShowingExpanded"
+
+        switch (title) {
+            case "Now Showing": name = "nowShowingExpanded"
+                break
+            case "Upcoming Movies": name = "upcomingExpanded"
+                break
+            default : return name
+        }
+
+        return name
+    }
+
+    handleExpandOnClick = (title) => {
+        let name = this.getExpandStateAttribute(title)
+        this.setState({ [name]: !this.state[name] })
+    }
+
     render() {
         return (
             <div className = 'movies_root_container'>
@@ -13,14 +42,19 @@ class Movies extends Component {
                 </div>
                 <div className = 'parallax'>
                     <div className = 'movies_block'>
-                        <div className = 'movies_block_list'>
-                            <div className = 'list_item'>
-                                <h2>Now Showing</h2>
-                                <div className = 'list_item_movies'>
-                                    <MovieCard/>
-                                </div>
-                            </div>
-                        </div>
+                        { this.MOVIES_BLOCK.map((item, idx) => {
+                            const {title, list} = item
+                            const name = this.getExpandStateAttribute(title)
+                            return (
+                                <ContentList 
+                                    title = {title}
+                                    listItems = {list}
+                                    expanded = {this.state[name]}
+                                    handleExpandOnClick = {this.handleExpandOnClick}
+                                    key = {idx}
+                                />
+                            ) 
+                        }) }
                     </div>
                 </div>
             </div>
