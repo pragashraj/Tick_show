@@ -12,7 +12,7 @@ import movieCardImage5 from '../../assets/images/5.jpg'
 class Movies extends Component {
     state = {
         movies_block: [],
-        nowShowingExpanded: false,
+        nowShowingExpanded: true,
         upcomingExpanded: false
     }
 
@@ -22,7 +22,7 @@ class Movies extends Component {
         let dummyBlockArray = ["Now Showing", "Upcoming Movies"]
 
         dummyBlockArray.forEach(e => {
-            let dummyArray = [movieCardImage1, movieCardImage2, movieCardImage3, movieCardImage5, movieCardImage4]
+            let dummyArray = [movieCardImage1, movieCardImage2, movieCardImage3, movieCardImage5, movieCardImage4, movieCardImage1]
 
             let movieCards = []
             dummyArray.forEach(e => {

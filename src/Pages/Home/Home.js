@@ -6,7 +6,9 @@ import ContentRight from './ContentRight'
 
 import './Home.css'
 import image1 from '../../assets/CarouselImages/1.jpg'
-import imageKids from '../../assets/images/kids.jpg'
+import image2 from '../../assets/CarouselImages/2.jpg'
+import image3 from '../../assets/CarouselImages/3.jpg'
+import imageKids from '../../assets/images/kid.png'
 
 import {synopsis, des} from '../../Constants/Value'
 
@@ -17,10 +19,14 @@ class Home extends Component {
 
     CAROUSEL_IMAGES = [
         { url: image1 },
+        { url: image2 },
+        { url: image3 } 
     ]
 
     CAROUSEL_COVER_INFO = [
         {title: "Fantastic Beasts 3", synopsis},
+        {title: "The Batman", synopsis},
+        {title: "Spiderman no way home", synopsis},
     ]
 
     CONTENT_INFO = [
@@ -59,8 +65,10 @@ class Home extends Component {
                     carouselOnChange = {this.handleCarouselOnChange}
                     handleBuyTicketOnClick = {this.handleBuyTicketOnClick}
                 />
-                <div className = 'home_body_content_root'>
-                    
+                <div className = 'parallax'>
+                    <div className = 'home_body_content_root'>
+                        { this.renderBodyContent() }
+                    </div>
                 </div>
             </div>
         )
