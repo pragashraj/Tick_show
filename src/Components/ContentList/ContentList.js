@@ -21,7 +21,7 @@ const ExpandMore = styled((props) => {
         transition: theme.transitions.create('transform', { duration: theme.transitions.duration.shortest })
 }))
 
-const ContentList = ({title, listItems, expanded, handleExpandOnClick}) => {
+const ContentList = ({title, listItems, expanded, handleExpandOnClick, handleBuyOnClick}) => {
     const [initialList, setInitialList] = useState([])
     const [expandedList, setExpandedList] = useState([])
 
@@ -36,11 +36,19 @@ const ContentList = ({title, listItems, expanded, handleExpandOnClick}) => {
         }
     }, [listItems])
 
-    const renderList = (idx) => (
-        <Grid item xs = {12} sm = {6} md = {3} key = {idx}>
-            <MovieCard/>
-        </Grid>
-    )
+    const renderList = (item, idx) => {
+        const {title, otherInfo, imageSrc} = item
+        return (
+            <Grid item xs = {12} sm = {6} md = {3} key = {idx}>
+                <MovieCard
+                    title= {title}
+                    otherInfo = {otherInfo}
+                    imageSrc = {imageSrc}
+                    handleBuyOnClick = {handleBuyOnClick}
+                />
+            </Grid>
+        )
+    }
 
     const renderTop = () => (
         <CardActions disableSpacing>
@@ -53,17 +61,18 @@ const ContentList = ({title, listItems, expanded, handleExpandOnClick}) => {
             >
                 <ExpandMoreIcon sx = {{color: "#ffffff"}}/>
             </ExpandMore>
+            <span className = 'show_more_text'>{expanded ? "show less" : "show more"}</span>
         </CardActions> 
     )
 
     const renderContentList = () => (
         <div className = 'list_items'>
             <Grid container spacing = {2}>
-                { initialList.map((i, idx) => renderList(idx) ) }
+                { initialList.map((item, idx) => renderList(item, idx) ) }
             </Grid>
             <Collapse in = {expanded} timeout = "auto" unmountOnExit>
                 <Grid container spacing = {2}>
-                    { expandedList.map((i, idx) => renderList(idx) ) }
+                    { expandedList.map((item, idx) => renderList(item, idx) ) }
                 </Grid>
             </Collapse>
         </div>
