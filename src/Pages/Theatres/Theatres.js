@@ -13,6 +13,9 @@ class Theatres extends Component {
                     <div className = 'theatres_block'>
                         <h1>Our Theatres</h1>
                     </div>
+                    <div className = 'theatres_list'>
+                        
+                    </div>
                 </div>
             </div>
         )
