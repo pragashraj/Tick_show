@@ -25,8 +25,8 @@ class Home extends Component {
 
     CAROUSEL_COVER_INFO = [
         {title: "Fantastic Beasts 3", synopsis},
-        {title: "The Batman", synopsis},
         {title: "Spiderman no way home", synopsis},
+        {title: "The Batman", synopsis},
     ]
 
     CONTENT_INFO = [
