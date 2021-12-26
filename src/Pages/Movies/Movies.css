@@ -76,3 +76,9 @@
 .list_movie_items {
     padding: 5px;
 }
+
+.filter_header_title {
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
