@@ -20,9 +20,11 @@ class Movies extends Component {
         movies_block: [],
         nowShowingExpanded: true,
         upcomingExpanded: false,
-        categoryChecked: [0],
         show: 10,
-        sortBy: "Now Showing"
+        sortBy: "Now Showing",
+        languageChecked: [],
+        experienceChecked: [],
+        genreChecked: []
     }
 
     sort_data = [
@@ -76,20 +78,6 @@ class Movies extends Component {
         this.setState({ filters: array })
     }
 
-    getExpandStateAttribute = (title) => {
-        let name = "nowShowingExpanded"
-
-        switch (title) {
-            case "Now Showing": name = "nowShowingExpanded"
-                break
-            case "Upcoming Movies": name = "upcomingExpanded"
-                break
-            default : return name
-        }
-
-        return name
-    }
-
     handleExpandOnClick = (title) => {
         let name = this.getExpandStateAttribute(title)
         this.setState({ [name]: !this.state[name] })
@@ -104,18 +92,83 @@ class Movies extends Component {
         this.setState({ [name]: value })
     }
 
-    renderFilters = () => {
-        const {categoryChecked, filters} = this.state
+    handleFilterCheckBoxToggle = (label, index) => {
+        let name = this.getCheckedStateAttribute(label)
+
+        const checked = this.state[name]
+        const currentIndex = checked.indexOf(index)
+        const newChecked = [...checked]
+
+        if (currentIndex === -1) {
+            newChecked.push(index)
+        } 
+        else {
+            newChecked.splice(currentIndex, 1)
+        }
+
+        this.setState({ [name]: newChecked })
+    }
+
+    handleFilterClear = () => {
+        this.setState({ checked: [] })
+    }
+
+    getCheckedStateAttribute = (label) => {
+        let name = "languageChecked"
+
+        switch(label) {
+            case "Language": name = "languageChecked"
+                break
+            case "Experience": name = "experienceChecked"
+                break
+            case "Genre": name = "genreChecked"
+                break
+            default: return name
+        }
+
+        return name
+    }
+
+    getExpandStateAttribute = (title) => {
+        let name = "nowShowingExpanded"
+
+        switch (title) {
+            case "Now Showing": name = "nowShowingExpanded"
+                break
+            case "Upcoming Movies": name = "upcomingExpanded"
+                break
+            default : return name
+        }
+
+        return name
+    }
+
+    renderSort = () => {
+        const {show, sortBy} = this.state
+        const values = {show, sortBy}
         return (
-            <Grid container spacing = {2} sx = {{marginTop: "10px"}}>
+            <Sorter 
+                sort_data = {this.sort_data} 
+                handleChange = {this.handleSortOnChange}
+                values = {values}
+            />
+        )
+    }
+
+    renderFilters = () => {
+        const {filters} = this.state
+        return (
+            <Grid container spacing = {2} sx = {{marginTop: "5px"}}>
                 { filters.map((item, idx) => {
-                    const {label, list } = item
+                    const {label, list} = item
+                    const name = this.getCheckedStateAttribute(label)
                     return (
                         <Grid item xs = {4} sm = {12} md = {12} key = {idx}>
                             <Filter 
                                 label = {label}
                                 list = {list}
-                                checked = {categoryChecked}
+                                checked = {this.state[name]}
+                                handleToggle = {this.handleFilterCheckBoxToggle}
                             />
                         </Grid>
                     )
@@ -125,22 +178,19 @@ class Movies extends Component {
     }
 
     renderMoviesBlockExtended = () => {
-        const {show, sortBy} = this.state
-        const values = {show, sortBy}
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {4} md = {2}>
-                    <span className = 'filter_header_title'>Filter by</span>
+                    <div className = 'filter_header'>
+                        <span className = 'filter_header_title'>Filter by</span>
+                        <span className = 'filter_header_clear' onClick = {this.handleFilterClear}>Clear all</span>
+                    </div>
                     { this.renderFilters() }
                 </Grid>
                 <Grid item xs = {12} sm = {8} md = {10}>
                     <Grid container spacing = {2}>
                         <Grid item xs = {12} sm = {12} md = {12}>
-                            <Sorter 
-                                sort_data = {this.sort_data} 
-                                handleChange = {this.handleSortOnChange}
-                                values = {values}
-                            />
+                            { this.renderSort() }
                         </Grid>
                         <Grid item xs = {12} sm = {12} md = {12}></Grid>
                     </Grid>
