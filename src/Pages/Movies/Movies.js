@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import ContentList from '../../Components/ContentList/ContentList'
 import Filter from '../../Components/Filter.js/Filter'
+import Sorter from '../../Components/Sorter'
 
 //Material-UI
 import { Grid } from '@mui/material'
@@ -19,8 +20,15 @@ class Movies extends Component {
         movies_block: [],
         nowShowingExpanded: true,
         upcomingExpanded: false,
-        categoryChecked: [0]
+        categoryChecked: [0],
+        show: 10,
+        sortBy: "Now Showing"
     }
+
+    sort_data = [
+        {name: "show", label: "show", menuItems: ["5", "10", "20"]},
+        {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Movies"]}
+    ]
 
     componentDidMount() {
         //for creating dummy data list
@@ -91,14 +99,19 @@ class Movies extends Component {
 
     }
 
+    handleSortOnChange = (e) => {
+        const {name, value} = e.target
+        this.setState({ [name]: value })
+    }
+
     renderFilters = () => {
         const {categoryChecked, filters} = this.state
         return (
             <Grid container spacing = {2} sx = {{marginTop: "10px"}}>
-                { filters.map(item => {
+                { filters.map((item, idx) => {
                     const {label, list } = item
                     return (
-                        <Grid item xs = {4} sm = {4} md = {12}>
+                        <Grid item xs = {4} sm = {12} md = {12} key = {idx}>
                             <Filter 
                                 label = {label}
                                 list = {list}
@@ -112,6 +125,8 @@ class Movies extends Component {
     }
 
     renderMoviesBlockExtended = () => {
+        const {show, sortBy} = this.state
+        const values = {show, sortBy}
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {4} md = {2}>
@@ -119,7 +134,16 @@ class Movies extends Component {
                     { this.renderFilters() }
                 </Grid>
                 <Grid item xs = {12} sm = {8} md = {10}>
-                    
+                    <Grid container spacing = {2}>
+                        <Grid item xs = {12} sm = {12} md = {12}>
+                            <Sorter 
+                                sort_data = {this.sort_data} 
+                                handleChange = {this.handleSortOnChange}
+                                values = {values}
+                            />
+                        </Grid>
+                        <Grid item xs = {12} sm = {12} md = {12}></Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         )
