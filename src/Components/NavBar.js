@@ -87,7 +87,7 @@ const NavBar = () => {
     }
 
     return (
-        <AppBar position = "static" sx = {{backgroundColor: "#2C3E50"}}>
+        <AppBar position = "static" sx = {{backgroundColor: "#154360"}}>
             { matches ?  renderDesktopBar() : renderMobileBar() }
         </AppBar>
     )
