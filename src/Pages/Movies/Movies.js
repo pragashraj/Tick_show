@@ -110,7 +110,11 @@ class Movies extends Component {
     }
 
     handleFilterClear = () => {
-        this.setState({ checked: [] })
+        this.setState({         
+            languageChecked: [],
+            experienceChecked: [],
+            genreChecked: [] 
+        })
     }
 
     getCheckedStateAttribute = (label) => {
