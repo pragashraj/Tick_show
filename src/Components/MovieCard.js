@@ -50,10 +50,10 @@ const MovieCard = ({title, otherInfo, imageSrc, handleBuyOnClick}) => {
         <Paper elevation = {5} sx = {{ width: 350, marginRight: "5px", marginBottom: "20px", height: 180 }}>
             <Card sx = {{ display: 'flex', height: 180 }}>
                 <Box sx = {{ display: 'flex', flexDirection: 'column' }}>
-                    {renderContent()}
-                    { renderButtonBlock()}
+                    { renderContent() }
+                    { renderButtonBlock() }
                 </Box>
-                {renderMedia()}
+                { renderMedia() }
             </Card>
         </Paper>
     )
