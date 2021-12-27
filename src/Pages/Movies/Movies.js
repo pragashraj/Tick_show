@@ -147,6 +147,28 @@ class Movies extends Component {
         return name
     }
 
+    renderMoviesBlock = () => {
+        const {movies_block} = this.state
+        return (
+            <div className = 'movies_block'>
+                { movies_block.map((item, idx) => {
+                    const {title, list} = item
+                    const name = this.getExpandStateAttribute(title)
+                    return (
+                        <ContentList 
+                            title = {title}
+                            listItems = {list}
+                            expanded = {this.state[name]}
+                            handleExpandOnClick = {this.handleExpandOnClick}
+                            handleBuyOnClick = {this.handleBuyTicketOnClick}
+                            key = {idx}
+                        />
+                    ) 
+                }) }
+            </div>
+        )
+    }
+
     renderSort = () => {
         const {show, sortBy} = this.state
         const values = {show, sortBy}
@@ -196,32 +218,12 @@ class Movies extends Component {
                         <Grid item xs = {12} sm = {12} md = {12}>
                             { this.renderSort() }
                         </Grid>
-                        <Grid item xs = {12} sm = {12} md = {12}></Grid>
+                        <Grid item xs = {12} sm = {12} md = {12}>
+                            { this.renderMoviesBlock() }
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        )
-    }
-
-    renderMoviesBlock = () => {
-        const {movies_block} = this.state
-        return (
-            <div className = 'movies_block'>
-                { movies_block.map((item, idx) => {
-                    const {title, list} = item
-                    const name = this.getExpandStateAttribute(title)
-                    return (
-                        <ContentList 
-                            title = {title}
-                            listItems = {list}
-                            expanded = {this.state[name]}
-                            handleExpandOnClick = {this.handleExpandOnClick}
-                            handleBuyOnClick = {this.handleBuyTicketOnClick}
-                            key = {idx}
-                        />
-                    ) 
-                }) }
-            </div>
         )
     }
 
