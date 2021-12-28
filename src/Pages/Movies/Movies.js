@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import ContentList from '../../Components/ContentList/ContentList'
 import Filter from '../../Components/Filter.js/Filter'
 import Sorter from '../../Components/Sorter'
+import MovieItem from '../../Components/MovieItem'
 
 //Material-UI
 import { Grid } from '@mui/material'
@@ -17,7 +17,7 @@ import movieCardImage5 from '../../assets/images/5.jpg'
 class Movies extends Component {
     state = {
         filters: [],
-        movies_block: [],
+        data: [],
         nowShowingExpanded: true,
         upcomingExpanded: false,
         show: 10,
@@ -41,24 +41,11 @@ class Movies extends Component {
     }
 
     createDataBlock = () => {
-        let dummyDataArray = []
-        let dummyBlockArray = ["Now Showing", "Upcoming Movies"]
+        const data = [
+            {name: "Spiderman", src: movieCardImage1, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "December 17 2021", rotten: "94%", imdb: "99%" }
+        ]
 
-        dummyBlockArray.forEach(e => {
-            let dummyArray = [movieCardImage1, movieCardImage2, movieCardImage3, movieCardImage5, movieCardImage4, movieCardImage1]
-
-            let movieCards = []
-            dummyArray.forEach(e => {
-                const movieCard = {title: "Spiderman no way home", otherInfo: "English", imageSrc: e}
-                movieCards.push(movieCard)
-            })
-
-            const blockData = {title: e, list: movieCards}
-
-            dummyDataArray.push(blockData)
-        })
-
-        this.setState({ movies_block: dummyDataArray })
+        this.setState({ data })
     }
 
     createFilters = () => {
@@ -147,24 +134,29 @@ class Movies extends Component {
         return name
     }
 
+    renderMovieCard = (item, idx) => {
+        return (
+            <Grid item xs = {6} sm = {6} md = {6} key = {idx}>
+                <MovieItem
+                    item = {item}
+                    handleBuyOnClick = {this.handleBuyTicketOnClick}
+                />
+            </Grid>
+        )
+    }
+
     renderMoviesBlock = () => {
-        const {movies_block} = this.state
+        const {data, sortBy} = this.state
         return (
             <div className = 'movies_block'>
-                { movies_block.map((item, idx) => {
-                    const {title, list} = item
-                    const name = this.getExpandStateAttribute(title)
-                    return (
-                        <ContentList 
-                            title = {title}
-                            listItems = {list}
-                            expanded = {this.state[name]}
-                            handleExpandOnClick = {this.handleExpandOnClick}
-                            handleBuyOnClick = {this.handleBuyTicketOnClick}
-                            key = {idx}
-                        />
-                    ) 
-                }) }
+                <div className = 'movies_list_header'>
+                    <h2>{sortBy}</h2>
+                </div>
+                <div className = 'movies_list'>
+                    <Grid container spacing = {1}>
+                        { data.map((i, idx) => this.renderMovieCard(i, idx)) }
+                    </Grid>
+                </div>
             </div>
         )
     }
