@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import ContentList from '../../Components/ContentList/ContentList'
 import Filter from '../../Components/Filter.js/Filter'
 import Sorter from '../../Components/Sorter'
+import MovieItem from '../../Components/MovieItem'
 
 //Material-UI
 import { Grid } from '@mui/material'
@@ -12,14 +12,11 @@ import movieCardImage1 from '../../assets/images/1.jpg'
 import movieCardImage2 from '../../assets/images/2.jpg'
 import movieCardImage3 from '../../assets/images/3.jpg'
 import movieCardImage4 from '../../assets/images/4.jpg'
-import movieCardImage5 from '../../assets/images/5.jpg'
 
 class Movies extends Component {
     state = {
         filters: [],
-        movies_block: [],
-        nowShowingExpanded: true,
-        upcomingExpanded: false,
+        data: [],
         show: 10,
         sortBy: "Now Showing",
         languageChecked: [],
@@ -41,24 +38,14 @@ class Movies extends Component {
     }
 
     createDataBlock = () => {
-        let dummyDataArray = []
-        let dummyBlockArray = ["Now Showing", "Upcoming Movies"]
+        const data = [
+            {name: "Spiderman No Way home", src: movieCardImage1, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "December 17 2021", rotten: "94%", imdb: "99%" },
+            {name: "The Batman", src: movieCardImage2, duration: "2hrs 30mins", genre: ["Action", "Adventure", "Crime"], release: "May 15 2022", rotten: "94%", imdb: "99%" },
+            {name: "Fantastic Beasts 3", src: movieCardImage3, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "May 17 2022", rotten: "94%", imdb: "99%" },
+            {name: "The Amazing Spiderman 3", src: movieCardImage4, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "October 17 2023", rotten: "94%", imdb: "99%" }
+        ]
 
-        dummyBlockArray.forEach(e => {
-            let dummyArray = [movieCardImage1, movieCardImage2, movieCardImage3, movieCardImage5, movieCardImage4, movieCardImage1]
-
-            let movieCards = []
-            dummyArray.forEach(e => {
-                const movieCard = {title: "Spiderman no way home", otherInfo: "English", imageSrc: e}
-                movieCards.push(movieCard)
-            })
-
-            const blockData = {title: e, list: movieCards}
-
-            dummyDataArray.push(blockData)
-        })
-
-        this.setState({ movies_block: dummyDataArray })
+        this.setState({ data })
     }
 
     createFilters = () => {
@@ -78,12 +65,15 @@ class Movies extends Component {
         this.setState({ filters: array })
     }
 
-    handleExpandOnClick = (title) => {
-        let name = this.getExpandStateAttribute(title)
-        this.setState({ [name]: !this.state[name] })
+    handleBuyTicketOnClick = () => {
+
     }
 
-    handleBuyTicketOnClick = () => {
+    handleLikeOnClick = () => {
+
+    }
+
+    handleWatchTrailerOnClick = () => {
 
     }
 
@@ -133,38 +123,31 @@ class Movies extends Component {
         return name
     }
 
-    getExpandStateAttribute = (title) => {
-        let name = "nowShowingExpanded"
-
-        switch (title) {
-            case "Now Showing": name = "nowShowingExpanded"
-                break
-            case "Upcoming Movies": name = "upcomingExpanded"
-                break
-            default : return name
-        }
-
-        return name
+    renderMovieCard = (item, idx) => {
+        return (
+            <Grid item xs = {6} sm = {6} md = {6} key = {idx}>
+                <MovieItem
+                    item = {item}
+                    handleLikeOnClick = {this.handleLikeOnClick}
+                    handleBuyTicketOnClick = {this.handleBuyTicketOnClick}
+                    handleWatchTrailerOnClick = {this.handleWatchTrailerOnClick}
+                />
+            </Grid>
+        )
     }
 
     renderMoviesBlock = () => {
-        const {movies_block} = this.state
+        const {data, sortBy} = this.state
         return (
             <div className = 'movies_block'>
-                { movies_block.map((item, idx) => {
-                    const {title, list} = item
-                    const name = this.getExpandStateAttribute(title)
-                    return (
-                        <ContentList 
-                            title = {title}
-                            listItems = {list}
-                            expanded = {this.state[name]}
-                            handleExpandOnClick = {this.handleExpandOnClick}
-                            handleBuyOnClick = {this.handleBuyTicketOnClick}
-                            key = {idx}
-                        />
-                    ) 
-                }) }
+                <div className = 'movies_list_header'>
+                    <h2>{sortBy}</h2>
+                </div>
+                <div className = 'movies_list'>
+                    <Grid container spacing = {2}>
+                        { data.map((i, idx) => this.renderMovieCard(i, idx)) }
+                    </Grid>
+                </div>
             </div>
         )
     }

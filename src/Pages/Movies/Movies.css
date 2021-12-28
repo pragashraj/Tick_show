@@ -40,41 +40,7 @@
 
 .movies_block {
     display: block;
-    padding: 25px;
-}
-
-.movies_block_list {
-    margin-top: 2vh;
-    padding: 1em;
-}
-
-.list_item {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.list_item h2 {
-    font-weight: 700;
-    text-transform: uppercase;
-    position: relative;
-    font-size: 25px;
-    letter-spacing: 0.1rem;
-    padding-bottom: 25px;
-    color: #ffffff;
-}
-
-.list_item h2::after {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 5px;
-    width: 100px;
-    background: #ff6347;
-    content: "";
-}
-
-.list_movie_items {
-    padding: 5px;
+    padding: 20px;
 }
 
 .filter_header {
@@ -100,4 +66,32 @@
 .filter_header_clear:hover {
     cursor: pointer;
     color: rgb(145, 145, 145);
+}
+
+.movies_list_header {
+    width: 100%;
+}
+
+.movies_list_header h2 {
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 25px;
+    padding-bottom: 25px;
+    position: relative;
+}
+
+.movies_list_header h2::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 100px;
+    background: #ff6347;
+    content: "";
+} 
+
+.movies_list {
+    margin-top: 8vh;
 }
