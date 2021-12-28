@@ -12,14 +12,11 @@ import movieCardImage1 from '../../assets/images/1.jpg'
 import movieCardImage2 from '../../assets/images/2.jpg'
 import movieCardImage3 from '../../assets/images/3.jpg'
 import movieCardImage4 from '../../assets/images/4.jpg'
-import movieCardImage5 from '../../assets/images/5.jpg'
 
 class Movies extends Component {
     state = {
         filters: [],
         data: [],
-        nowShowingExpanded: true,
-        upcomingExpanded: false,
         show: 10,
         sortBy: "Now Showing",
         languageChecked: [],
@@ -42,7 +39,10 @@ class Movies extends Component {
 
     createDataBlock = () => {
         const data = [
-            {name: "Spiderman", src: movieCardImage1, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "December 17 2021", rotten: "94%", imdb: "99%" }
+            {name: "Spiderman No Way home", src: movieCardImage1, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "December 17 2021", rotten: "94%", imdb: "99%" },
+            {name: "The Batman", src: movieCardImage2, duration: "2hrs 30mins", genre: ["Action", "Adventure", "Crime"], release: "May 15 2022", rotten: "94%", imdb: "99%" },
+            {name: "Fantastic Beasts 3", src: movieCardImage3, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "May 17 2022", rotten: "94%", imdb: "99%" },
+            {name: "The Amazing Spiderman 3", src: movieCardImage4, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "October 17 2023", rotten: "94%", imdb: "99%" }
         ]
 
         this.setState({ data })
@@ -65,12 +65,15 @@ class Movies extends Component {
         this.setState({ filters: array })
     }
 
-    handleExpandOnClick = (title) => {
-        let name = this.getExpandStateAttribute(title)
-        this.setState({ [name]: !this.state[name] })
+    handleBuyTicketOnClick = () => {
+
     }
 
-    handleBuyTicketOnClick = () => {
+    handleLikeOnClick = () => {
+
+    }
+
+    handleWatchTrailerOnClick = () => {
 
     }
 
@@ -120,26 +123,14 @@ class Movies extends Component {
         return name
     }
 
-    getExpandStateAttribute = (title) => {
-        let name = "nowShowingExpanded"
-
-        switch (title) {
-            case "Now Showing": name = "nowShowingExpanded"
-                break
-            case "Upcoming Movies": name = "upcomingExpanded"
-                break
-            default : return name
-        }
-
-        return name
-    }
-
     renderMovieCard = (item, idx) => {
         return (
             <Grid item xs = {6} sm = {6} md = {6} key = {idx}>
                 <MovieItem
                     item = {item}
-                    handleBuyOnClick = {this.handleBuyTicketOnClick}
+                    handleLikeOnClick = {this.handleLikeOnClick}
+                    handleBuyTicketOnClick = {this.handleBuyTicketOnClick}
+                    handleWatchTrailerOnClick = {this.handleWatchTrailerOnClick}
                 />
             </Grid>
         )
@@ -153,7 +144,7 @@ class Movies extends Component {
                     <h2>{sortBy}</h2>
                 </div>
                 <div className = 'movies_list'>
-                    <Grid container spacing = {1}>
+                    <Grid container spacing = {2}>
                         { data.map((i, idx) => this.renderMovieCard(i, idx)) }
                     </Grid>
                 </div>

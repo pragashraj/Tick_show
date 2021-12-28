@@ -19,7 +19,7 @@ import imdbImg from '../assets/Icons/imdb.png'
 const useStyles = makeStyles({
     root: {
         display: "block",
-        border: "0.5px solid #ABB2B9",
+        border: "1px solid #2C3E50",
         borderRadius: "10px",
         padding: "4px"
     },
@@ -161,7 +161,7 @@ const MovieItem = ({item}) => {
         <div className = {classes.genreRoot}>
             { genre.map((i, idx) => {
                 return ( 
-                    <div className = {classes.genreBlock}>
+                    <div className = {classes.genreBlock} key = {idx}>
                         <span className = {classes.genre}>{i}</span>
                         { genre.length - 1 !== idx && <Divider orientation = "vertical" style = {{ background: 'black' }} /> }
                     </div>
