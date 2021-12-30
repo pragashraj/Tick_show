@@ -1,31 +1,40 @@
 import React from 'react'
 
-import { emphasize, styled } from '@mui/material/styles'
+//Material-UI
+import { emphasize } from '@mui/material/styles'
 import Chip from '@mui/material/Chip'
+import Link from '@mui/material/Link'
+import { makeStyles } from '@mui/styles'
 
-const BreadcrumbComponent = styled(Chip)(({ theme }) => {
-    const backgroundColor = theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[800]
-    return {
-      backgroundColor,
-      height: theme.spacing(3),
-      color: theme.palette.text.primary,
-      fontWeight: theme.typography.fontWeightRegular,
-      '&:hover, &:focus': {
-        backgroundColor: emphasize("#ff6347", 0.06),
-        cursor: "pointer",
-        color: "#ffffff"
-      },
-      '&:active': {
-        boxShadow: theme.shadows[1],
-        backgroundColor: emphasize("#ff6347", 0.12),
-      },
-    }
+const useStyles = makeStyles({
+    link: {
+        '&:hover': {
+          textDecoration: 'none'
+        },
+    },
+    chip: {
+        color: "#fff",
+        boxShadow: "10px",
+        padding: "2px",
+        '&:hover': {
+            cursor: "pointer",
+            backgroundColor: emphasize("rgba(0, 0, 0, 0.4)", 0.06),
+        },
+    },
 })
 
 const StyledBreadcrumb = ({link}) => {
+    const classes = useStyles()
     const {label, href, icon} = link
+
     return (
-        <BreadcrumbComponent href = {href} label = {label} icon = {icon}/>
+      <Link
+          underline = "hover"
+          className = {classes.link}
+          href = {href}
+      >
+          <Chip label = {label} icon = {icon} className = {classes.chip} variant = "outlined" color = "primary"/>
+      </Link>
     )
 }
 

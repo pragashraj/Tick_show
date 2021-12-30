@@ -8,9 +8,9 @@ import SearchIcon from '@mui/icons-material/Search'
 const SearchInput = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    backgroundColor: alpha(theme.palette.common.white, 0.05),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.25),
+      backgroundColor: alpha(theme.palette.common.white, 0.15),
     },
     marginLeft: 0,
     width: '100%',
@@ -38,9 +38,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         transition: theme.transitions.create('width'),
         width: '100%',
         [theme.breakpoints.up('sm')]: {
-            width: '20ch',
+            width: '30ch',
             '&:focus': {
-                width: '30ch',
+                width: '40ch',
             },
         },
     },

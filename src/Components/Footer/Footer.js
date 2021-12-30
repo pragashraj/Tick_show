@@ -21,9 +21,9 @@ const Footer = () => {
     ]
 
     const LINKS = [
-        {id : "1", href : "#", title: "Home"},
-        {id : "2", href : "#", title: "Movies"},
-        {id : "3", href : "#", title: "Theatres"},
+        {id : "1", href : "/", title: "Home"},
+        {id : "2", href : "/movies", title: "Movies"},
+        {id : "3", href : "/theatres", title: "Theatres"},
         {id : "4", href : "#", title: "Contact"},
         {id : "5", href : "#", title: "News"},
     ]
@@ -82,7 +82,7 @@ const Footer = () => {
             <div className = 'footer_main_content_wrapper'>
                 <div className = 'content_wrapper_logo'>
                     <img src = {logo} alt = "Tick Show"/>
-                    <h1>Tick Show</h1>
+                    <h1>@Tick Show</h1>
                 </div>
                 <div className = "content_wrapper_items">
                     <Grid container>

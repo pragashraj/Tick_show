@@ -25,13 +25,15 @@
 
 .footer_main_content_wrapper .content_wrapper_logo img{
     float: left;
+    width: 180px;
 }
 
 .footer_main_content_wrapper .content_wrapper_logo h1 {
-    color: #ffffff;
-    font-size: 1.5rem;
+    color: #a7a4a4;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.1rem;
+    margin-left: 8px;
 }
 
 .content_wrapper_items {

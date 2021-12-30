@@ -23,14 +23,14 @@ const NavBar = () => {
     const matches = useMediaQuery('(min-width:950px)')
 
     const NAV_LINKS = [
-        {id: "1", label: "Home", href: "#", icon: <HomeIcon fontSize = "small" />},
-        {id: "2", label: "Movies", href: "#", icon: <TheaterComedyIcon fontSize = "small" />},
-        {id: "3", label: "Theatres", href: "#", icon: <TheatersIcon fontSize = "small" />},
-        {id: "4", label: "Contacts", href: "#", icon: <ContactsIcon fontSize = "small" />},
+        {label: "Home", href: "/", icon: <HomeIcon fontSize = "small" />},
+        {label: "Movies", href: "/movies", icon: <TheaterComedyIcon fontSize = "small" />},
+        {label: "Theatres", href: "/theatres", icon: <TheatersIcon fontSize = "small" />},
+        {label: "Contacts", href: "#", icon: <ContactsIcon fontSize = "small" />},
     ]
 
     const renderLogo = () => (
-        <img src = {logo} alt = "Tick Show"/>
+        <img src = {logo} alt = "Tick Show" style = {{width: "80px"}}/>
     )
 
     const renderMenuIcon = () => (
@@ -78,9 +78,9 @@ const NavBar = () => {
                 <Search placeholder = "Search movies"/>
                 <Box sx = {{ flexGrow: 1 }} />
                 <Breadcrumbs aria-label = "nav-links">
-                    { NAV_LINKS.map(item => <StyledBreadcrumb link = {item} key = {item.id}/> ) }
+                    { NAV_LINKS.map((item, idx) => <StyledBreadcrumb link = {item} key = {idx}/> ) }
                 </Breadcrumbs>
-                <Box sx = {{ width: "50px" }} />
+                <Box sx = {{ width: "20px" }} />
                 { renderUserActionBtn() }
             </Toolbar>
         )
