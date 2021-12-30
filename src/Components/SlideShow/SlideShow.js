@@ -46,7 +46,7 @@ const SlideShow = ({images, coverInfo, carouselOnChange, handleBuyTicketOnClick}
                 showNavs = {false}
                 loop = {true}
                 autoPlay = {true}
-                autoPlayDelay = {5.0}
+                autoPlayDelay = {8.0}
                 onClickBullets = {idx => { handleCarouselOnChange("bulletIndex", idx) }}
                 onCompleteSlide = {idx => { handleCarouselOnChange("CompleteSlide", idx) }}
             />

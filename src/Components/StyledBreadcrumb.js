@@ -18,13 +18,14 @@ const useStyles = makeStyles({
         padding: "2px",
         '&:hover': {
             cursor: "pointer",
-            backgroundColor: emphasize("rgba(0, 0, 0, 0.4)", 0.06),
+            backgroundColor: emphasize("rgba(255, 255, 255, 0.4)", 0.06),
         },
     },
 })
 
 const StyledBreadcrumb = ({link}) => {
     const classes = useStyles()
+    
     const {label, href, icon} = link
 
     return (
@@ -33,7 +34,7 @@ const StyledBreadcrumb = ({link}) => {
           className = {classes.link}
           href = {href}
       >
-          <Chip label = {label} icon = {icon} className = {classes.chip} variant = "outlined" color = "primary"/>
+          <Chip label = {label} icon = {icon} className = {classes.chip} variant = "contained"/>
       </Link>
     )
 }

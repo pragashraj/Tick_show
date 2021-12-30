@@ -8,9 +8,9 @@ import SearchIcon from '@mui/icons-material/Search'
 const SearchInput = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.05),
+    backgroundColor: alpha(theme.palette.common.white, 0.2),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.15),
+      backgroundColor: alpha(theme.palette.common.white, 0.35),
     },
     marginLeft: 0,
     width: '100%',
@@ -52,10 +52,7 @@ const Search = ({placeholder}) => {
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
-            <StyledInputBase
-              placeholder = {placeholder}
-              inputProps = {{ 'aria-label': 'search' }}
-            />
+            <StyledInputBase placeholder = {placeholder} inputProps = {{ 'aria-label': 'search' }}/>
         </SearchInput>
     )
 }
