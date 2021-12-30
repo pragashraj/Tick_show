@@ -7,19 +7,19 @@ const routes = {
         {
           name: "Home",
           path: "/",
-          component: Home,
+          component: <Home/>,
           type: "main",
         },
         {
             name: "Movies",
             path: "/movies",
-            component: Movies,
+            component: <Movies/>,
             type: "",
         },
         {
             name: "Theatres",
             path: "/theatres",
-            component: Theatres,
+            component: <Theatres/>,
             type: "",
         },
     ]
