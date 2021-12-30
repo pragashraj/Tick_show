@@ -84,7 +84,7 @@ const AppBar = () => {
             <div className = 'top_nav_container'>
                 <div className = 'row'>
                     <img src = {logo} alt = "Tick Show" style = {{width: "100px"}}/>
-                    <Search placeholder = "Search movies"/>
+                    <Search placeholder = "Search for movies or theatres"/>
                 </div>
                 <div className = 'row'>
                     <Breadcrumbs aria-label = "nav-links">
