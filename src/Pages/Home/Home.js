@@ -46,30 +46,45 @@ class Home extends Component {
 
     renderBodyContent = () => {
         return (
-            <div className = 'home_body_content'>
-                { this.CONTENT_INFO.map(item => {
-                    const {id, type} = item
-                    return type === "Left" ? <ContentLeft item = {item} key = {id}/> : <ContentRight item = {item} key = {id}/>
-                }) }
+            <div className = 'parallax'>
+                <div className = 'home_body_content_root'>
+                    <div className = 'home_body_content'>
+                        { this.CONTENT_INFO.map(item => {
+                            const {id, type} = item
+                            return type === "Left" ? <ContentLeft item = {item} key = {id}/> : <ContentRight item = {item} key = {id}/>
+                        }) }
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    renderSlideShow = () => {
+        const {carouselIndex} = this.state
+        return (
+            <SlideShow 
+                images = {this.CAROUSEL_IMAGES} 
+                coverInfo = {this.CAROUSEL_COVER_INFO[carouselIndex]}
+                carouselOnChange = {this.handleCarouselOnChange}
+                handleBuyTicketOnClick = {this.handleBuyTicketOnClick}
+            />
+        )
+    }
+
+    renderBodyContentExtended = () => {
+        return (
+            <div className = 'home_container'>
+                <div className = 'home_header_slide'>
+                    <div className = "overlay"/>
+                </div>
             </div>
         )
     }
 
     render() {
-        const {carouselIndex} = this.state
         return (
             <div className = 'home_root_container'>
-                <SlideShow 
-                    images = {this.CAROUSEL_IMAGES} 
-                    coverInfo = {this.CAROUSEL_COVER_INFO[carouselIndex]}
-                    carouselOnChange = {this.handleCarouselOnChange}
-                    handleBuyTicketOnClick = {this.handleBuyTicketOnClick}
-                />
-                <div className = 'parallax'>
-                    <div className = 'home_body_content_root'>
-                        { this.renderBodyContent() }
-                    </div>
-                </div>
+                { this.renderBodyContentExtended() }
             </div>
         )
     }

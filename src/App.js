@@ -1,14 +1,14 @@
 import React from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
-import NavBar from './Components/NavBar'
+import AppBar from './Components/AppBar/AppBar'
 import Footer from './Components/Footer/Footer'
 import routes from './Routes/Routes'
 
 const App = () => {
     return (
         <div>
-            <NavBar/>
+            <AppBar/>
             <BrowserRouter>
                 <Routes>
                     { routes.data.map((route,i) => {

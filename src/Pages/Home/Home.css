@@ -11,7 +11,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    position: relative;
     width: 100%;
     display: block;
 }
@@ -72,4 +71,40 @@
 .content_img_source {
     width: 80%;
     height: 80%;
+}
+
+/* Extended version styles*/
+
+.home_container {
+    display: block;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.home_header_slide {
+    background-image: url(../../assets/CarouselImages/header_slider.jpg);
+    height: 85vh;
+    background-position: 50% 0px;
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100%;
+    z-index: 0;
+}
+
+.home_header_slide .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    content: '';
+    opacity: .4;
+    background: linear-gradient(45deg,#2f88fc 0%,#ff5959 100%);
 }
