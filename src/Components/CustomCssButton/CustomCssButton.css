@@ -1,47 +1,22 @@
-.panel-button {
-    -webkit-text-size-adjust: 100%;
-    overflow: visible;
-    line-height: 1.15;
-    -webkit-appearance: button;
-    margin: 1.3rem 3.5rem;
-    padding: 0.8em 1.3em;
-    background: none;
-    border: 1px solid #fff;
-    cursor: pointer;
-    font-family: "Montserrat";
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    transition: box-shadow 0.5s ease-in-out, color 0.5s ease-in-out;
-    color: rgb(255, 255, 255);
-}
-
-.panel-button:hover {
-    color: black;
-    background-color: rgb(255, 255, 255);
-}
-
 .custom_button {
     display: flex;
     color: #fff;
-    border: 1px solid #ff6347;
+    border: 1px solid #f74e30;
     padding: 15px;
-    background: #ff6347;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    transition: .8s all ease;
-    text-decoration: none;
-    margin-left: 10px;
+    background: #f74e30;
+    border-radius: 10px;
+    transition: .4s all ease;
     text-transform: uppercase;
     font-size: 0.85rem;
-    border-radius: 10px;
     min-width: 80px;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
-@media screen and (max-height: 600px) {
-    .panel-button {
-        font-size: 0.6rem;
-    }
+.custom_button:hover {
+    -webkit-font-smoothing: antialiased;
+    text-shadow: rgb(0 0 0 / 1%) 0 0 1px;
+    background-color: transparent;
+    font-weight: bold;
 }
