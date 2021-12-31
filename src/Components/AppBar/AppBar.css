@@ -49,4 +49,11 @@
     text-transform: uppercase;
     font-size: 0.85rem;
     border-radius: 10px;
+    transition: all 400ms ease;
+}
+
+.nav-link:hover {
+    -webkit-font-smoothing: antialiased;
+    text-shadow: rgb(0 0 0 / 1%) 0 0 1px;
+    background-color: transparent;
 }
