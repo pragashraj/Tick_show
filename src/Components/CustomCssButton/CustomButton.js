@@ -2,9 +2,9 @@ import React from 'react'
 
 import './CustomCssButton.css'
 
-const CustomButton = ({label}) => {
+const CustomButton = ({label, variant}) => {
     return (
-        <div className = "custom_button">{label}</div>
+        <div className = {variant === "outlined" ? "custom_button_outlined" : "custom_button_contained"}>{label}</div>
     )
 }
 

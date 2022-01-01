@@ -4,6 +4,7 @@ import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomSearch from './CustomSearch'
 import SelectorDropDown from './SelectorDropDown'
 import ContentList from '../../Components/ContentList/ContentList'
+import ContentLeft from './ContentLeft'
 
 import { Grid } from '@mui/material'
 import EditLocation from '@mui/icons-material/EditLocation'
@@ -34,6 +35,15 @@ class Home extends Component {
         ]
 
         this.setState({ movies: data })
+    }
+
+    renderContentList = (title, movies) => {
+        return (
+            <ContentList 
+                title = {title}
+                listItems = {movies}
+            />
+        )
     }
 
     renderSelector = (label, value, icon) => {
@@ -105,9 +115,16 @@ class Home extends Component {
                     { this.renderHeaderSlideFooter() }
                 </div>
                 <div className = 'home_body_container'>
-                    <div className = 'parallax'>
+                    <div className = 'home_parallax'>
+                    <div className = "overlay"/>
                         <div className = 'content_list'>
-                            <ContentList title = "Movies" listItems = {movies}/>
+                            { this.renderContentList("Movies", movies) }
+                        </div>
+                        <div className = 'content_info'>
+                            <ContentLeft/>
+                        </div>
+                        <div className = 'content_list'>
+                            { this.renderContentList("Upcoming Movies", movies) }
                         </div>
                     </div>
                 </div>

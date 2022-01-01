@@ -1,4 +1,4 @@
-.custom_button {
+.custom_button_contained {
     display: flex;
     color: #fff;
     border: 1px solid #f74e30;
@@ -14,9 +14,30 @@
     cursor: pointer;
 }
 
-.custom_button:hover {
+.custom_button_outlined {
+    display: flex;
+    color: #fff;
+    border: 1px solid #f74e30;
+    padding: 15px;
+    background: transparent;
+    border-radius: 10px;
+    transition: .4s all ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    min-width: 80px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.custom_button_contained:hover {
     -webkit-font-smoothing: antialiased;
     text-shadow: rgb(0 0 0 / 1%) 0 0 1px;
     background-color: transparent;
-    font-weight: bold;
+}
+
+.custom_button_outlined:hover {
+    -webkit-font-smoothing: antialiased;
+    text-shadow: rgb(0 0 0 / 1%) 0 0 1px;
+    background: #f74e30;
 }

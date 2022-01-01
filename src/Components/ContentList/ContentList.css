@@ -20,7 +20,7 @@
     font-size: 2.2rem;
     letter-spacing: 0.1rem;
     padding-bottom: 20px;
-    color: #000000;
+    color: #ffffff;
 }
 
 .block_list_container h1::after {
@@ -38,7 +38,7 @@
 }
 
 .show_more_text {
-    color: #000000;
+    color: #ffffff;
     text-transform: uppercase;
     font-size: 0.7rem;
     letter-spacing: 0.01rem;

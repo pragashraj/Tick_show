@@ -26,14 +26,14 @@
     z-index: 0;
 }
 
-.home_header_slide .overlay {
+.overlay {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     content: '';
-    opacity: .4;
+    opacity: .3;
     background: linear-gradient(45deg,#2f88fc 0%,#ff5959 100%);
 }
 
@@ -124,12 +124,13 @@
 
 .content_list {
     padding: 15px;
+    transform: translateZ(0px) translateY(0%);
 }
 
-.parallax {
+.home_parallax {
     position: relative;
     z-index: 0;
-    background-image: url(../../assets/images/parallax1.jpg);
+    background-image: url(../../assets/images/parallax.jpg);
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
@@ -138,6 +139,92 @@
     display: block;
 }
 
+.content_info {
+    display: block;
+    transform: translateZ(0px) translateY(0%);
+}
+
+.body_info_container {
+    display: flex;
+    flex-direction: column;
+    background: #171126;
+    padding: 50px;
+    justify-content: center;
+    text-align: left;
+}
+
+.section_title > span {
+    font-family: 'Playfair Display',serif;
+    font-style: italic;
+    font-size: 90px;
+    font-weight: 700;
+    color: #3a3744;
+    line-height: .75;
+    z-index: 0;
+}
+
+.section_title h1 {
+    position: relative;
+    font-size: 27px;
+    font-weight: 400;
+    color: #e9e7e7;
+    z-index: 1;
+    margin-top: -35px;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+}
+
+.synopsis_container h2 {
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    font-size: 17px;
+}
+
+.synopsis_container {
+    margin-top: 10px;
+}
+
+.synopsis_container p {
+    color: #bfc8d8;
+}
+
+.attribute_list {
+    margin-top: 2px;
+}
+
+.attribute_list ul {
+    list-style: none;
+    margin-bottom: 0;
+}
+
+.attribute_list ul li:not(:last-of-type) {
+    margin-bottom: 14px;
+}
+
+.attribute_list ul li {
+    display: flex;
+}
+
+.attribute_list ul li span {
+    font-size: 15px;
+    font-weight: 400;
+    color: #bfc8d8;
+    margin-left: 10px;
+}
+
+.button_block {
+    margin-top: 30px;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+}
+
+.content_img img {
+    width: 100%;
+    height: 100%;
+}
 
 @media screen and (max-width: 800px) {
     .header_mid_text_container {
