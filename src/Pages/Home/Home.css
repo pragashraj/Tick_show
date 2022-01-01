@@ -115,10 +115,21 @@
     transform: translateZ(0px) translateY(0%);
 }
 
+.home_body_container {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+}
+
+.content_list {
+    padding: 15px;
+}
+
 .parallax {
     position: relative;
     z-index: 0;
-    background-image: url("../../assets/images/parallax1.jpg");
+    background-image: url(../../assets/images/parallax1.jpg);
     background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;

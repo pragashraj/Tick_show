@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomSearch from './CustomSearch'
 import SelectorDropDown from './SelectorDropDown'
+import ContentList from '../../Components/ContentList/ContentList'
 
 import { Grid } from '@mui/material'
 import EditLocation from '@mui/icons-material/EditLocation'
@@ -10,18 +11,29 @@ import CalendarToday from '@mui/icons-material/CalendarToday'
 import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
 
 import './Home.css'
+import movieCardImage1 from '../../assets/images/1.jpg'
+import movieCardImage2 from '../../assets/images/2.jpg'
+import movieCardImage3 from '../../assets/images/3.jpg'
+import movieCardImage4 from '../../assets/images/4.jpg'
 
 class Home extends Component {
     state = {
-        carouselIndex: 0
+        movies: []
     }
 
-    handleBuyTicketOnClick = () => {
-
+    componentDidMount() {
+        this.createDummyData()
     }
 
-    handleCarouselOnChange = (idx) => {
-        this.setState({ carouselIndex: idx })
+    createDummyData = () => {
+        const data = [
+            {name: "Spiderman No Way home", src: movieCardImage1, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
+            {name: "The Batman", src: movieCardImage2, genre: ["Action", "Adventure", "Crime"], rotten: "94%", imdb: "99%" },
+            {name: "Fantastic Beasts 3", src: movieCardImage3, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
+            {name: "The Amazing Spiderman 3", src: movieCardImage4, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" }
+        ]
+
+        this.setState({ movies: data })
     }
 
     renderSelector = (label, value, icon) => {
@@ -84,12 +96,20 @@ class Home extends Component {
     }
 
     renderBodyContentExtended = () => {
+        const {movies} = this.state
         return (
             <div className = 'home_container'>
                 <div className = 'home_header_slide'>
                     <div className = "overlay"/>
                     { this.renderHeaderTextContainer() }
                     { this.renderHeaderSlideFooter() }
+                </div>
+                <div className = 'home_body_container'>
+                    <div className = 'parallax'>
+                        <div className = 'content_list'>
+                            <ContentList title = "Movies" listItems = {movies}/>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
