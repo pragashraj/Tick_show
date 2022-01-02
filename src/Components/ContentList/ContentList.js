@@ -1,80 +1,50 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 
 import MovieCard from '../MovieCard'
+import TheatreCard from '../TheatreCard'
 
 //Material-UI
-import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
-import IconButton from '@mui/material/IconButton'
-import CardActions from '@mui/material/CardActions'
-import Collapse from '@mui/material/Collapse'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 import './ContentList.css'
 
-const ExpandMore = styled((props) => {
-    const { expand, ...other } = props
-    return <IconButton {...other} />
-})(({ theme, expand }) => ({
-        transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-        marginLeft: 'auto',
-        transition: theme.transitions.create('transform', { duration: theme.transitions.duration.shortest })
-}))
+const ContentList = ({type, title, listItems, handleViewMoreOnClick}) => {
 
-const ContentList = ({title, listItems, expanded, handleExpandOnClick, handleBuyOnClick}) => {
-    const [initialList, setInitialList] = useState([])
-    const [expandedList, setExpandedList] = useState([])
+    const getHref = () => {
+        if (type === "Movies")
+            return "/movies"
+        else
+            return "/theatres"
+    }
 
-    useEffect(() => {
-        let len = listItems.length
-        if (len > 4) {
-            setInitialList(listItems.slice(0, 4))
-            setExpandedList(listItems.slice(4, len))
-        } 
-        else {
-            setInitialList(listItems)
-        }
-    }, [listItems])
-
-    const renderList = (item, idx) => {
-        const {title, otherInfo, imageSrc} = item
+    const renderTheatresList = (item, idx) => {
         return (
             <Grid item xs = {12} sm = {6} md = {3} key = {idx}>
-                <MovieCard
-                    title= {title}
-                    otherInfo = {otherInfo}
-                    imageSrc = {imageSrc}
-                    handleBuyOnClick = {handleBuyOnClick}
-                />
+                <TheatreCard item = {item}/>
+            </Grid>
+        )
+    }
+
+    const renderList = (item, idx) => {
+        return (
+            <Grid item xs = {6} sm = {6} md = {2} key = {idx}>
+                <MovieCard item = {item}/>
             </Grid>
         )
     }
 
     const renderTop = () => (
-        <CardActions disableSpacing>
-            <h2>{title}</h2>
-            <ExpandMore
-                expand = {expanded}
-                onClick = {() => handleExpandOnClick(title)}
-                aria-expanded = {expanded}
-                aria-label = "show more"
-            >
-                <ExpandMoreIcon sx = {{color: "#ffffff"}}/>
-            </ExpandMore>
-            <span className = 'show_more_text'>{expanded ? "show less" : "show more"}</span>
-        </CardActions> 
+        <div className = 'list_header'>
+            <h1>{title}</h1>
+            <a href = {getHref()} className = 'show_more_text' onClick = {handleViewMoreOnClick}>View More</a>
+        </div> 
     )
 
     const renderContentList = () => (
         <div className = 'list_items'>
             <Grid container spacing = {2}>
-                { initialList.map((item, idx) => renderList(item, idx) ) }
+                { listItems.map((item, idx) => type === "Movies" ? renderList(item, idx) : renderTheatresList(item, idx) ) }
             </Grid>
-            <Collapse in = {expanded} timeout = "auto" unmountOnExit>
-                <Grid container spacing = {2}>
-                    { expandedList.map((item, idx) => renderList(item, idx) ) }
-                </Grid>
-            </Collapse>
         </div>
     )
 
