@@ -44,6 +44,7 @@
     letter-spacing: 0.01rem;
     font-weight: 600;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .show_more_text:hover {
