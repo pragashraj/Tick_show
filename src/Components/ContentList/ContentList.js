@@ -11,7 +11,7 @@ const ContentList = ({title, listItems, handleViewMoreOnClick}) => {
 
     const renderList = (item, idx) => {
         return (
-            <Grid item xs = {6} sm = {6} md = {3} key = {idx}>
+            <Grid item xs = {6} sm = {6} md = {2} key = {idx}>
                 <MovieCard item = {item}/>
             </Grid>
         )

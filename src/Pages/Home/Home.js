@@ -31,6 +31,8 @@ class Home extends Component {
             {name: "Spiderman No Way home", src: movieCardImage1, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
             {name: "The Batman", src: movieCardImage2, genre: ["Action", "Adventure", "Crime"], rotten: "94%", imdb: "99%" },
             {name: "Fantastic Beasts 3", src: movieCardImage3, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
+            {name: "The Amazing Spiderman 3", src: movieCardImage4, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
+            {name: "Fantastic Beasts 3", src: movieCardImage3, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
             {name: "The Amazing Spiderman 3", src: movieCardImage4, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" }
         ]
 
@@ -122,9 +124,6 @@ class Home extends Component {
                         </div>
                         <div className = 'content_info'>
                             <ContentLeft/>
-                        </div>
-                        <div className = 'content_list'>
-                            { this.renderContentList("Upcoming Movies", movies) }
                         </div>
                     </div>
                 </div>

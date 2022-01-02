@@ -12,12 +12,14 @@ const useStyles = makeStyles({
         border: "1px solid #AEB6BF",
         borderRadius: "10px",
         padding: "4px",
+        background: "transparent"
     },
     title: {
         fontSize: "0.7rem", 
         letterSpacing: "0.02rem", 
         fontWeight: "bold", 
-        textTransform: "uppercase"
+        textTransform: "uppercase",
+        color: "#fff",
     },
     genreRoot: {
         marginTop: "20px",
@@ -51,12 +53,13 @@ const useStyles = makeStyles({
         alignItems: "center"
     },
     rateIcon: {
-        width: "20px",
+        width: "35px",
         marginRight: "5px"
     },
     rateValue: {
         color: "#000",
-        fontSize: "0.85rem"
+        fontSize: "0.85rem",
+        fontWeight: "bold"
     },
 })
 
@@ -106,18 +109,18 @@ const MovieCard = ({item}) => {
             component = "img"
             image = {src}
             alt = {name}
-            sx = {{height: "100%"}}
+            sx = {{height: "25vh"}}
         />
     )
 
     return (
         <Paper elevation = {3} className = {classes.root}>
             <Grid container>
-                <Grid item xs = {12} sm = {6} md = {7}>
-                    { renderContent() }
-                </Grid>
-                <Grid item xs = {12} sm = {6} md = {5}>
+                <Grid item xs = {12} sm = {12} md = {12}>
                     { renderMedia() }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {12}>
+                    { renderContent() }
                 </Grid>  
             </Grid>
         </Paper>
