@@ -53,19 +53,19 @@ const useStyles = makeStyles({
     }
 })
 
-const Sorter = ({sort_data, values, handleChange}) => {
+const Sorter = ({sort_data, values, handleChange, handleListTypeIconOnClick}) => {
     const classes = useStyles()
     const matches = useMediaQuery('(min-width:950px)')
 
     const renderGridIcon = () => (
-        <IconButton aria-label = "add to favorites">
-            <GridView className = {classes.iconSelected}/>
+        <IconButton aria-label = "add to favorites" onClick = {() => handleListTypeIconOnClick("Grid")}>
+            <GridView className = {values.dataListType === "Grid" ? classes.iconSelected : classes.iconNotSelected}/>
         </IconButton>
     )
 
     const renderListIcon = () => (
-        <IconButton aria-label = "add to favorites">
-            <FormatListBulleted className = {classes.iconNotSelected}/>
+        <IconButton aria-label = "add to favorites" onClick = {() => handleListTypeIconOnClick("List")}>
+            <FormatListBulleted className = {values.dataListType === "List" ? classes.iconSelected : classes.iconNotSelected}/>
         </IconButton>
     )
 
@@ -86,7 +86,7 @@ const Sorter = ({sort_data, values, handleChange}) => {
                     }) }
                 </div>
                 <div>
-                    { matches && renderGridIcon() }
+                    { renderGridIcon() }
                     { renderListIcon() }
                 </div>
             </div>

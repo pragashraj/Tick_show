@@ -25,7 +25,8 @@ class Movies extends Component {
         sortBy: "Now Showing",
         languageChecked: [],
         experienceChecked: [],
-        genreChecked: []
+        genreChecked: [],
+        dataListType: "Grid"
     }
 
     sort_data = [
@@ -86,6 +87,10 @@ class Movies extends Component {
 
     }
 
+    handleListTypeIconOnClick = (value) => {
+        this.setState({ dataListType: value })
+    }
+
     handleSortOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
@@ -133,8 +138,10 @@ class Movies extends Component {
     }
 
     renderMovieCard = (item, idx) => {
+        const {dataListType} = this.state
+        let no = dataListType === "Grid" ? 6 : 12
         return (
-            <Grid item xs = {6} sm = {6} md = {6} key = {idx}>
+            <Grid item xs = {no} sm = {no} md = {no} key = {idx}>
                 <MovieItem
                     item = {item}
                     handleLikeOnClick = {this.handleLikeOnClick}
@@ -162,13 +169,14 @@ class Movies extends Component {
     }
 
     renderSort = () => {
-        const {show, sortBy} = this.state
-        const values = {show, sortBy}
+        const {show, sortBy, dataListType} = this.state
+        const values = {show, sortBy, dataListType}
         return (
             <Sorter 
                 sort_data = {this.sort_data} 
-                handleChange = {this.handleSortOnChange}
                 values = {values}
+                handleChange = {this.handleSortOnChange}
+                handleListTypeIconOnClick = {this.handleListTypeIconOnClick}
             />
         )
     }
