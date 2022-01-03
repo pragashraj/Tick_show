@@ -24,7 +24,7 @@ const SlideShow = ({images, carouselOnChange}) => {
             height = {"80vh"}
             images = {images}
             showBullets = {true}
-            showNavs = {false}
+            showNavs = {true}
             loop = {true}
             autoPlay = {true}
             autoPlayDelay = {8.0}

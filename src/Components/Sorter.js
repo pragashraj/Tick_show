@@ -11,7 +11,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 
 const useStyles = makeStyles({
     root: {
-        backgroundColor: "rgba(21, 67, 96, 0.3)", 
+        backgroundColor: "rgba(27, 79, 114, 0.4)", 
         padding: "5px",
         width: "100%"
     },

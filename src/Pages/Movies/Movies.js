@@ -7,11 +7,15 @@ import MovieItem from '../../Components/MovieItem'
 //Material-UI
 import { Grid } from '@mui/material'
 
+import SlideShow from '../../Components/SlideShow/SlideShow'
+
 import './Movies.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import movieCardImage2 from '../../assets/images/2.jpg'
 import movieCardImage3 from '../../assets/images/3.jpg'
 import movieCardImage4 from '../../assets/images/4.jpg'
+import headerImg1 from '../../assets/CarouselImages/header_slider1.png'
+import headerImg2 from '../../assets/CarouselImages/header_slider2.jpg'
 
 class Movies extends Component {
     state = {
@@ -27,6 +31,11 @@ class Movies extends Component {
     sort_data = [
         {name: "show", label: "show", menuItems: ["5", "10", "20"]},
         {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Movies"]}
+    ]
+
+    images = [
+        {url: headerImg1},
+        {url: headerImg2}
     ]
 
     componentDidMount() {
@@ -65,7 +74,7 @@ class Movies extends Component {
         this.setState({ filters: array })
     }
 
-    handleBuyTicketOnClick = () => {
+    handleBuyTicketOnClick = (data) => {
 
     }
 
@@ -214,9 +223,10 @@ class Movies extends Component {
         return (
             <div className = 'movies_root_container'>
                 <div className = 'movies_header'>
+                    <SlideShow images = {this.images}/>
                     <h1>Explore More movies</h1>
                 </div>
-                <div className = 'parallax'>
+                <div className = 'movie_parallax'>
                     <div className = 'movies_block'>
                         { this.renderMoviesBlockExtended() }
                     </div>

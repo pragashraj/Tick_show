@@ -42,7 +42,7 @@ const Filter = ({label, list, checked, handleToggle}) => {
     }
 
     return (
-        <Card sx = {{ maxWidth: 300, minHeight: 240,backgroundColor: "#154360" }}>
+        <Card sx = {{ maxWidth: 300, minHeight: 240,backgroundColor: "rgba(27, 79, 114, 0.4)" }}>
             { renderHeaderLabel() }
             <Divider sx = {{bgcolor: "white"}}/>
             { renderContentList() }

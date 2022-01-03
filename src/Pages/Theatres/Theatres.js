@@ -113,7 +113,7 @@ class Theatres extends Component {
                 <div className = 'theatres_header'>
                     <h1>Explore More Theatres</h1>
                 </div>
-                <div className = 'parallax'>
+                <div className = 'theatre_parallax'>
                     <div className = 'theatres_block'>
                         <h1>Our Theatres</h1>
                         { this.renderTheatresBlockExtended() }

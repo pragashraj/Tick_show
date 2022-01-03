@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
+import { useMediaQuery } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import ConfirmationNumberIcon from '@mui/icons-material/ConfirmationNumber'
@@ -19,17 +20,17 @@ import imdbImg from '../assets/Icons/imdb.png'
 const useStyles = makeStyles({
     root: {
         display: "block",
-        border: "1px solid #2C3E50",
+        border: "1px solid #F2F4F4",
         borderRadius: "10px",
         padding: "4px"
     },
-    title: {
-        fontSize: "0.9rem", 
+    title: props => ({
+        fontSize: props.mobile ? "0.7rem" : "0.9rem", 
         letterSpacing: "0.05rem", 
         fontWeight: "bold", 
         textTransform: "uppercase",
         color: "#ffffff"
-    },
+    }),
     duration: {
         fontSize: "0.7rem", 
         letterSpacing: "0.08rem",
@@ -49,8 +50,9 @@ const useStyles = makeStyles({
         color: "#E5E8E8",
         marginRight: "15px",
         textTransform: "uppercase",
-        letterSpacing: "0.02rem",
-        fontSize: "0.8rem"
+        letterSpacing: "0.005rem",
+        fontSize: "0.65rem",
+        fontWeight: "bold"
     },
     releaseRoot: {
         marginTop: "10px",
@@ -81,7 +83,7 @@ const useStyles = makeStyles({
         alignItems: "center"
     },
     rateIcon: {
-        width: "20px",
+        width: "25px",
         marginRight: "10px"
     },
     rateValue: {
@@ -104,7 +106,8 @@ const useStyles = makeStyles({
 })
 
 const MovieItem = ({item}) => {
-    const classes = useStyles()
+    const matches = useMediaQuery('(max-width:600px)')
+    const classes = useStyles({mobile: matches})
 
     const {name, src, duration, genre, rotten, imdb, release} = item
 
@@ -116,7 +119,7 @@ const MovieItem = ({item}) => {
 
     const renderIconButton = () => (
         <IconButton
-            size = "medium"
+            size = "small"
             edge = "start"
             aria-haspopup = "true"
             sx = {{color: "#ffffff", marginRight: "15px", backgroundColor: "rgba(0, 0, 0, 0.1)"}}
@@ -127,26 +130,38 @@ const MovieItem = ({item}) => {
 
     const renderFooter = () => (
         <div className = {classes.footerRoot}>
-            <div className = {classes.footerBtnBlock}>
-                { renderIconButton() }
-                { renderButton(<ConfirmationNumberIcon />, "Buy Tickets") }
-            </div>
-            <div className = {classes.footerTrailerLink}>
-                { renderButton(<SlowMotionVideoIcon />, "Watch trailer") }
-            </div>
+            <Grid container spacing = {2}>
+                <Grid item xs = {12} sm = {6} md = {6}>
+                    <div className = {classes.footerBtnBlock}>
+                        { renderIconButton() }
+                        { renderButton(<ConfirmationNumberIcon />, "Buy Tickets") }
+                    </div>
+                </Grid>
+                <Grid item xs = {12} sm = {6} md = {6}>
+                    <div className = {classes.footerTrailerLink}>
+                        { renderButton(<SlowMotionVideoIcon />, "Watch trailer") }
+                    </div>              
+                </Grid>
+            </Grid>
         </div>
     )
 
     const renderRatings = () => (
         <div className = {classes.rateRoot}>
-            <div className = {classes.rateIconRoot}>
-                <img src = {rottenImg} alt = "rotten" className = {classes.rateIcon}/>
-                <span className = {classes.rateValue}>{rotten}</span>
-            </div>
-            <div className = {classes.rateIconRoot}>
-                <img src = {imdbImg} alt = "rotten" className = {classes.rateIcon}/>
-                <span className = {classes.rateValue}>{imdb}</span>
-            </div>
+            <Grid container>
+                <Grid item xs = {6} sm = {6} md = {6}>
+                    <div className = {classes.rateIconRoot}>
+                        <img src = {rottenImg} alt = "rotten" className = {classes.rateIcon}/>
+                        <span className = {classes.rateValue}>{rotten}</span>
+                    </div>
+                </Grid>
+                <Grid item xs = {6} sm = {6} md = {6}>
+                    <div className = {classes.rateIconRoot}>
+                        <img src = {imdbImg} alt = "rotten" className = {classes.rateIcon}/>
+                        <span className = {classes.rateValue}>{imdb}</span>
+                    </div>
+                </Grid>
+            </Grid>
         </div>
     )
 
@@ -200,7 +215,7 @@ const MovieItem = ({item}) => {
     const renderMedia = () => (
         <CardMedia
             component = "img"
-            sx = {{ height: "100%" }}
+            sx = {{ height: matches ? "20vh":"100%" }}
             image = {src}
             alt = {name}
         />
