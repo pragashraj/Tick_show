@@ -13,6 +13,7 @@ const Selector = ({name, value, menuItems, handleChange}) => {
                     onChange = {handleChange}
                     name = {name}
                     sx = {{borderRadius: "25px", height: "35px", padding: "5px"}}
+                    MenuProps = {{ disableScrollLock: true }}
                 >
                 { menuItems.map(i => <MenuItem value = {i} key = {i}>{i}</MenuItem>) }
                 </Select>

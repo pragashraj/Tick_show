@@ -32,7 +32,7 @@ const AppBar = () => {
     const handleScroll = () => {
         const offset = window.scrollY
         
-        if (offset > 150 ) {
+        if (offset > 50 ) {
             setScrolled(true)
         }
         else {
