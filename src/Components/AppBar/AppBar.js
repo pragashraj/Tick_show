@@ -32,7 +32,7 @@ const AppBar = () => {
     const handleScroll = () => {
         const offset = window.scrollY
         
-        if (offset > 150 ) {
+        if (offset > 50 ) {
             setScrolled(true)
         }
         else {
@@ -47,10 +47,10 @@ const AppBar = () => {
     }
 
     const NAV_LINKS = [
-        {label: "Home", href: "/", icon: <HomeIcon fontSize = "small" />},
-        {label: "Movies", href: "/movies", icon: <TheaterComedyIcon fontSize = "small" />},
-        {label: "Theatres", href: "/theatres", icon: <TheatersIcon fontSize = "small" />},
-        {label: "Contacts", href: "#", icon: <ContactsIcon fontSize = "small" />},
+        {label: "Home", href: "/", icon: HomeIcon},
+        {label: "Movies", href: "/movies", icon: TheaterComedyIcon},
+        {label: "Theatres", href: "/theatres", icon: TheatersIcon},
+        {label: "Contacts", href: "#", icon: ContactsIcon},
     ]
 
     const renderUserActionBtn = () => (

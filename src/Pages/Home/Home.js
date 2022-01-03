@@ -129,7 +129,6 @@ class Home extends Component {
         const {movies, theatres} = this.state
         return (
             <div className = 'home_parallax'>
-                <div className = "overlay"/>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Movies", movies) }
                 </div>
@@ -147,7 +146,6 @@ class Home extends Component {
         return (
             <div className = 'home_container'>
                 <div className = 'home_header_slide'>
-                    <div className = "overlay"/>
                     { this.renderHeaderTextContainer() }
                     { this.renderHeaderSlideFooter() }
                 </div>

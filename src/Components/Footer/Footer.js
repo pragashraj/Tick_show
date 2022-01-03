@@ -133,12 +133,14 @@ const Footer = () => {
     }
 
     return (
-        <div className = 'footer_root'>
-            <div className = 'footer_container'>
-                { renderFooterMainContent() }
-                { renderNewsLetter() }
-                <Divider/>
-                { renderFooterBottom() }
+        <div className= 'footer_parallax'>
+            <div className = 'footer_root'>
+                <div className = 'footer_container'>
+                    { renderFooterMainContent() }
+                    { renderNewsLetter() }
+                    <Divider/>
+                    { renderFooterBottom() }
+                </div>
             </div>
         </div>
     )

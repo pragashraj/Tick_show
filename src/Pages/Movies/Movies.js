@@ -7,11 +7,15 @@ import MovieItem from '../../Components/MovieItem'
 //Material-UI
 import { Grid } from '@mui/material'
 
+import SlideShow from '../../Components/SlideShow/SlideShow'
+
 import './Movies.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import movieCardImage2 from '../../assets/images/2.jpg'
 import movieCardImage3 from '../../assets/images/3.jpg'
 import movieCardImage4 from '../../assets/images/4.jpg'
+import headerImg1 from '../../assets/CarouselImages/header_slider1.png'
+import headerImg2 from '../../assets/CarouselImages/header_slider2.jpg'
 
 class Movies extends Component {
     state = {
@@ -21,12 +25,18 @@ class Movies extends Component {
         sortBy: "Now Showing",
         languageChecked: [],
         experienceChecked: [],
-        genreChecked: []
+        genreChecked: [],
+        dataListType: "Grid"
     }
 
     sort_data = [
         {name: "show", label: "show", menuItems: ["5", "10", "20"]},
         {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Movies"]}
+    ]
+
+    images = [
+        {url: headerImg1},
+        {url: headerImg2}
     ]
 
     componentDidMount() {
@@ -65,7 +75,7 @@ class Movies extends Component {
         this.setState({ filters: array })
     }
 
-    handleBuyTicketOnClick = () => {
+    handleBuyTicketOnClick = (data) => {
 
     }
 
@@ -75,6 +85,10 @@ class Movies extends Component {
 
     handleWatchTrailerOnClick = () => {
 
+    }
+
+    handleListTypeIconOnClick = (value) => {
+        this.setState({ dataListType: value })
     }
 
     handleSortOnChange = (e) => {
@@ -124,8 +138,10 @@ class Movies extends Component {
     }
 
     renderMovieCard = (item, idx) => {
+        const {dataListType} = this.state
+        let no = dataListType === "Grid" ? 6 : 12
         return (
-            <Grid item xs = {6} sm = {6} md = {6} key = {idx}>
+            <Grid item xs = {no} sm = {no} md = {no} key = {idx}>
                 <MovieItem
                     item = {item}
                     handleLikeOnClick = {this.handleLikeOnClick}
@@ -153,13 +169,14 @@ class Movies extends Component {
     }
 
     renderSort = () => {
-        const {show, sortBy} = this.state
-        const values = {show, sortBy}
+        const {show, sortBy, dataListType} = this.state
+        const values = {show, sortBy, dataListType}
         return (
             <Sorter 
                 sort_data = {this.sort_data} 
-                handleChange = {this.handleSortOnChange}
                 values = {values}
+                handleChange = {this.handleSortOnChange}
+                handleListTypeIconOnClick = {this.handleListTypeIconOnClick}
             />
         )
     }
@@ -214,9 +231,10 @@ class Movies extends Component {
         return (
             <div className = 'movies_root_container'>
                 <div className = 'movies_header'>
+                    <SlideShow images = {this.images}/>
                     <h1>Explore More movies</h1>
                 </div>
-                <div className = 'parallax'>
+                <div className = 'movie_parallax'>
                     <div className = 'movies_block'>
                         { this.renderMoviesBlockExtended() }
                     </div>

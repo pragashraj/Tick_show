@@ -1,10 +1,12 @@
 import React from 'react'
 
+import PropTypes from "prop-types"
+
 //Material-UI
-import { emphasize } from '@mui/material/styles'
 import Chip from '@mui/material/Chip'
 import Link from '@mui/material/Link'
 import { makeStyles } from '@mui/styles'
+import { emphasize } from '@mui/material/styles'
 
 const useStyles = makeStyles({
     link: {
@@ -28,15 +30,26 @@ const StyledBreadcrumb = ({link}) => {
     
     const {label, href, icon} = link
 
+    const IconImage = icon
+
     return (
       <Link
           underline = "hover"
           className = {classes.link}
           href = {href}
       >
-          <Chip label = {label} icon = {icon} className = {classes.chip} variant = "contained"/>
+          <Chip 
+                label = {label} 
+                className = {classes.chip} 
+                variant = "contained" 
+                avatar = {<IconImage style = {{ color: "white" }} />}
+            />
       </Link>
     )
+}
+
+StyledBreadcrumb.propTypes = {
+    IconImage: PropTypes.element
 }
 
 export default StyledBreadcrumb
