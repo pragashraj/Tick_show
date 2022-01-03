@@ -1,7 +1,19 @@
+.footer_parallax {
+    position: relative;
+    z-index: 0;
+    background-image: url("../../assets/images/parallax.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    display: block;
+}
+
 .footer_root {
     display: block;
     min-height: 100px;
-    background: #154360;
+    background: rgba(27, 79, 114, 0.5);
     position: relative;
     z-index: 0;
     width: 100%;
