@@ -1,9 +1,10 @@
 import React from 'react'
 
 //Material-UI
-import { Grid, Paper, Rating, useMediaQuery } from '@mui/material'
+import { Grid, Paper, Rating, useMediaQuery, Typography, Divider } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import SlowMotionVideoIcon from '@mui/icons-material/SlowMotionVideo'
+import TimelapseIcon from '@mui/icons-material/Timelapse'
 
 import rottenImg from '../../assets/Icons/rotten.png'
 import imdbImg from '../../assets/Icons/imdb.png'
@@ -23,11 +24,22 @@ const useStyles = makeStyles({
         height: "100%",
         width: "100%"
     }),
-    infoRoot: {
+    infoRoot: props => ({
         height: "20vh",
         width: "100%",
         position: "absolute",
-        bottom: "20vh",
+        bottom: props.mobile ? "40vh" : "20vh",
+    }),
+    infoContainer: {
+        display: "flex",
+        flexDirection: "column"
+    },
+    infoTitle: {
+        color: "#fff",
+        fontSize: "1.8rem",
+        textTransform: "uppercase",
+        letterSpacing: "0.05rem",
+        fontWeight: "bold"
     },
     footer: props => ({
         height: props.mobile ? "40vh" : "20vh",
@@ -94,12 +106,88 @@ const useStyles = makeStyles({
         fontWeight: "600",
         textTransform: "uppercase",
         letterSpacing: "0.08rem"
+    },
+    duration: {
+        fontSize: "0.7rem", 
+        letterSpacing: "0.08rem",
+        color: "#ABEBC6",
+    },
+    genreRoot: {
+        marginTop: "10px",
+        display: "flex",
+        flexDirection: "row"
+    },
+    genreBlock: {
+        display: "flex",
+        flexDirection: "row",
+        marginRight: "10px"
+    },
+    genre: {
+        color: "#E5E8E8",
+        marginRight: "15px",
+        textTransform: "uppercase",
+        letterSpacing: "0.005rem",
+        fontSize: "0.65rem",
+        fontWeight: "bold"
+    },
+    releaseRoot: {
+        marginTop: "10px",
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        marginRight: "50px"
+    },
+    releaseName: {
+        marginRight: "5px",
+        color: "#ABEBC6",
+        textTransform: "uppercase",
+        letterSpacing: "0.05rem",
+        fontSize: "0.7rem"
+    },
+    releaseValue: {
+        color: "#ABEBC6",
+        textTransform: "uppercase",
+        letterSpacing: "0.05rem",
+        fontSize: "0.7rem"
+    },
+    row: {
+        display: "flex",
+        flexDirection: "row" ,
+        marginTop: "25px"
     }
 })
 
 const SelectedMovieHeader = ({src}) => {
     const matches = useMediaQuery('(max-width:800px)')
     const classes = useStyles({img: src, mobile: matches})
+
+    const genre = ["Action", "Adventure"]
+
+    const renderReleaseData = () => (
+        <div className = {classes.releaseRoot}>
+            <span className = {classes.releaseName}>Release : </span>
+            <span className = {classes.releaseValue}>16 Dec 2021</span>
+        </div>
+    )
+
+    const renderGenre = () => (
+        <div className = {classes.genreRoot}>
+            { genre.map((i, idx) => {
+                return ( 
+                    <div className = {classes.genreBlock} key = {idx}>
+                        <span className = {classes.genre}>{i}</span>
+                        { genre.length - 1 !== idx && <Divider orientation = "vertical" style = {{ background: 'white' }} /> }
+                    </div>
+                )
+            }) }
+        </div>
+    )
+
+    const renderDuration = () => (
+        <Typography variant = "subtitle1" component = "div" className = {classes.duration}>
+            Duration: <TimelapseIcon/> 2hrs 50mins
+        </Typography>
+    )
 
     const renderRateAction = (name, value) => (
         <div className = {classes.rateRoot}>
@@ -127,7 +215,7 @@ const SelectedMovieHeader = ({src}) => {
 
     const renderTrailerCard = () => (
         <Paper elevation = {4} className = {classes.card}>
-            <div className = 'overlay'/>
+
             <SlowMotionVideoIcon sx = {{color: "#fff", fontSize: "70px"}}/>
         </Paper>
     )
@@ -158,10 +246,29 @@ const SelectedMovieHeader = ({src}) => {
         </Grid>
     )
 
+    const renderInfoContainer = () => (
+        <div className = {classes.infoRoot}>
+            <Grid container>
+                <Grid item xs = {1} sm = {1} md = {4}/>
+                <Grid item xs = {10} sm = {10} md = {8}>
+                    <div className = {classes.infoContainer}>
+                        <span className = {classes.infoTitle}>Spiderman no way home</span>
+                        { renderGenre() }
+                        <div className = {classes.row}>
+                            { renderReleaseData() }
+                            { renderDuration() }
+                        </div>
+                    </div>
+                </Grid>
+            </Grid>
+        </div>
+    )
+
     return (
         <div className = {classes.root}>
             <div className = {classes.backImg}>
-                <div className = {classes.infoRoot}></div>
+                <div className = 'overlay'/>
+                { renderInfoContainer() }
                 <div className = {classes.footer}>
                     <Grid container>
                         <Grid item xs = {1} sm = {1} md = {2}/>
