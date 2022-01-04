@@ -1,6 +1,7 @@
 import Home from "../Pages/Home/Home"
 import Movies from "../Pages/Movies/Movies"
 import Theatres from "../Pages/Theatres/Theatres"
+import SelectedMovie from "../Pages/Movies/SelectedMovie"
 
 const routes = {
     data: [
@@ -20,6 +21,12 @@ const routes = {
             name: "Theatres",
             path: "/theatres",
             component: <Theatres/>,
+            type: "",
+        },
+        {
+            name: "SelectedMovie",
+            path: "/selectedMovie",
+            component: <SelectedMovie/>,
             type: "",
         },
     ]

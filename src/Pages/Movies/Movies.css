@@ -97,3 +97,15 @@
         font-size: 2.3rem;
     }
 }
+
+
+/*.............Selected movie styles.............*/
+
+.selected_movie_root {
+    width: 100%;
+    height: 100%;
+}
+
+.sel_movie_main_container {
+    display: block;
+}
