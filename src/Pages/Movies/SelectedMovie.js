@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
 
+import SelectedMovieHeader from './SelectedMovieHeader'
+
 import './Movies.css'
 import headerImg from '../../assets/images/movie_sample.jpg'
 
 class SelectedMovie extends Component {
-
-    renderHeader = () => {
+    
+    renderMainContainer = () => {
         return (
-            <div className = 'sel_mov_header_container'>
-                <div className = 'sel_mov_head_cont_top'>
-                    <img src = {headerImg} alt = {"title"}/>
-                </div>
-                <div className = 'sel_mov_head_cont_foot'>
-                    <div className = 'sel_mov_head_cont_trailer_card'>
-                    </div>
-                </div>
+            <div className = 'sel_movie_main_container'>
+
             </div>
         )
     }
@@ -22,8 +18,9 @@ class SelectedMovie extends Component {
     render() {
         return (
             <div className = 'selected_movie_root'>
-                <div className = 'selected_movie_header'>
-                    { this.renderHeader() }
+                <SelectedMovieHeader src = {headerImg}/>
+                <div className = 'movie_parallax'>
+                    { this.renderMainContainer() }
                 </div>
             </div>
         )

@@ -102,36 +102,10 @@
 /*.............Selected movie styles.............*/
 
 .selected_movie_root {
+    width: 100%;
+    height: 100%;
+}
+
+.sel_movie_main_container {
     display: block;
-    width: 100%;
-    height: 100%;
-}
-
-.selected_movie_header {
-    width: 100%;
-    height: 70vh;
-}
-
-.sel_mov_head_cont_top {
-    width: 100%;
-    height: 80%;
-    z-index: 0;
-}
-
-.sel_mov_head_cont_top img {
-    width: 100%;
-    height: 100%;
-}
-
-.sel_mov_head_cont_foot {
-    width: 100%;
-    height: 20%;
-    z-index: 0;
-}
-
-.sel_mov_head_cont_trailer_card {
-    position: absolute;
-    width: 20vw;
-    height: 30vh;
-    z-index: 1;
 }
