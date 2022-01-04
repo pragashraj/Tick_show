@@ -2,23 +2,30 @@ import React, { Component } from 'react'
 
 import Sorter from '../../Components/Sorter'
 import TheatreListItem from '../../Components/TheatreListItem'
+import SlideShow from '../../Components/SlideShow/SlideShow'
 
 //Material-UI
 import Grid from '@mui/material/Grid'
 
 import './Theatres.css'
 import theatreImage from '../../assets/images/Theatres.jpg'
+import headerImg1 from '../../assets/CarouselImages/header_slider2.jpg'
 
 class Theatres extends Component {
     state = {
         location: "Colombo",
         experience: "2D",
-        theatreList: []
+        theatreList: [],
+        dataListType: "Grid"
     }
 
     sort_data = [
         {name: "location", label: "Location", menuItems: ["Colombo", "Jaffna"]},
         {name: "experience", label: "Experience", menuItems: ["2D", "3D"]}
+    ]
+
+    images = [
+        {url: headerImg1},
     ]
 
     componentDidMount() {
@@ -59,9 +66,15 @@ class Theatres extends Component {
         
     }
 
+    handleListTypeIconOnClick = (value) => {
+        this.setState({ dataListType: value })
+    }
+
     renderTheatreListItem = (item, idx) => {
+        const {dataListType} = this.state
+        let no = dataListType === "Grid" ? 6 : 12
         return (
-            <Grid item xs = {12} sm = {6} md = {6} key = {idx}>
+            <Grid item xs = {12} sm = {no} md = {no} key = {idx}>
                 <TheatreListItem 
                     item = {item}
                     handleLikeOnClick = {this.handleLikeOnClick}
@@ -83,13 +96,14 @@ class Theatres extends Component {
     }
 
     renderSort = () => {
-        const {location, experience} = this.state
-        const values = {location, experience}
+        const {location, experience, dataListType} = this.state
+        const values = {location, experience, dataListType}
         return (
             <Sorter 
                 sort_data = {this.sort_data} 
-                handleChange = {this.handleSortOnChange}
                 values = {values}
+                handleChange = {this.handleSortOnChange}
+                handleListTypeIconOnClick = {this.handleListTypeIconOnClick}
             />
         )
     }
@@ -111,6 +125,7 @@ class Theatres extends Component {
         return (
             <div className = 'theatres_root_container'>
                 <div className = 'theatres_header'>
+                    <SlideShow images = {this.images}/>
                     <h1>Explore More Theatres</h1>
                 </div>
                 <div className = 'theatre_parallax'>

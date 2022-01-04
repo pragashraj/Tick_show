@@ -3,11 +3,10 @@ import React, { Component } from 'react'
 import Filter from '../../Components/Filter.js/Filter'
 import Sorter from '../../Components/Sorter'
 import MovieItem from '../../Components/MovieItem'
+import SlideShow from '../../Components/SlideShow/SlideShow'
 
 //Material-UI
 import { Grid } from '@mui/material'
-
-import SlideShow from '../../Components/SlideShow/SlideShow'
 
 import './Movies.css'
 import movieCardImage1 from '../../assets/images/1.jpg'

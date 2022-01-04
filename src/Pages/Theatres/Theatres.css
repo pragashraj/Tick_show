@@ -7,10 +7,6 @@
 .theatres_header {
     width: 100%;
     height: 80vh;
-    background-image: url("../../assets/CarouselImages/header_slider3.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .theatres_header h1 {
@@ -33,7 +29,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    position: relative;
     width: 100%;
     display: block;
 }
