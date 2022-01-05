@@ -1,0 +1,46 @@
+.member_root {
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    border: 1px dashed rgb(129, 129, 129);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.avatar_container {
+    align-items: center;
+    justify-content: center;
+}
+
+.cast_crew_root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.cast_crew_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.cast_crew_name {
+    color: #ffffff;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.05rem;
+}
+
+.cast_crew_profession {
+    color: #ABEBC6;
+    font-size: 0.7rem;
+}
+
+.cast_crew_character {
+    color: #ABEBC6;
+    font-size: 0.7rem;
+}
