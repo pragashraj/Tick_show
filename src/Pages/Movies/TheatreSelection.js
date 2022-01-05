@@ -1,9 +1,9 @@
 import React from 'react'
 
 //Material-UI
-import { Paper, Grid, Divider } from '@mui/material'
+import { Grid, Divider } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { LocationOn, Bolt } from '@mui/icons-material'
+import { LocationOn } from '@mui/icons-material'
 
 const useStyles = makeStyles({
     root: {
