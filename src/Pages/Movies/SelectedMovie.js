@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import SelectedMovieHeader from './SelectedMovieHeader'
 import Cast from '../../Components/CastAndCrew/Cast'
 import Crew from '../../Components/CastAndCrew/Crew'
+import InputField from '../../Components/InputField'
+import TheatreSelection from './TheatreSelection'
 
 //Material-UI
 import { Grid, Card, CardMedia, Divider, IconButton } from '@mui/material'
@@ -12,6 +14,65 @@ import './Movies.css'
 import headerImg from '../../assets/images/movie_sample.jpg'
 
 class SelectedMovie extends Component {
+    state = {
+
+    }
+
+    handleOnChange = (e) => {
+        const {name, value} = e.target
+        this.setState({ [name]: value })
+    }
+
+    renderInputField = (label, readOnly) => {
+        return (
+            <InputField 
+                label = {label} 
+                type = "number" 
+                readOnly = {readOnly} 
+                handleOnChange = {this.handleOnChange}
+            />
+        )
+    }
+
+    renderTheatreSelection = () => {
+        return (
+            <div className = 'buy_tickets_block'>
+                <h3 className = 'sub_header_text'>Select Theatre & Time Slot</h3>
+                <div className = 'count_block'>
+                    <Grid container>
+                        { ["1", "2", "3"].map((i, idx) =>{
+                            return (
+                                <Grid item xs = {12} sm = {12} md = {12} key = {idx} sx = {{marginBottom: "15px"}}>
+                                    <TheatreSelection/>
+                                </Grid>
+                            )
+                        }) }
+                    </Grid>
+                </div>
+            </div>
+        )
+    }
+
+    renderTicketSelection = () => {
+        return (
+            <div className = 'buy_tickets_block'>
+                <h3 className = 'sub_header_text'>How Many Tickets ?</h3>
+                <div className = 'count_block'>
+                    <Grid container spacing = {2}>
+                        <Grid item xs = {6} sm = {6} md = {4}>
+                            { this.renderInputField("No of full tickets", false) }
+                        </Grid>
+                        <Grid item xs = {6} sm = {6} md = {4}>
+                            { this.renderInputField("No of Kids tickets", false) }
+                        </Grid>
+                        <Grid item xs = {6} sm = {6} md = {4}>
+                            { this.renderInputField("Total tickets", true) }
+                        </Grid>
+                    </Grid>
+                </div>
+            </div>
+        )
+    }
 
     renderIconButton = (type) => {
         return (
@@ -44,6 +105,7 @@ class SelectedMovie extends Component {
         return (
             <div className = 'summary_block'>
                 { this.renderCast_CrewHeader("Crew") }
+                <Divider sx = {{background: "rgba(0, 0, 0, 0.1)", marginBottom: "10px"}}/>
                 <div className = 'summary_block_list'>
                     <Grid container>
                         { ["1", "2", "3", "4", "5", "6"].map((i, idx) => {
@@ -63,6 +125,7 @@ class SelectedMovie extends Component {
         return (
             <div className = 'summary_block'>
                 { this.renderCast_CrewHeader("Cast") }
+                <Divider sx = {{background: "rgba(0, 0, 0, 0.1)", marginBottom: "10px"}}/>
                 <div className = 'summary_block_list'>
                     <Grid container>
                         { ["1", "2", "3", "4", "5", "6"].map((i, idx) => {
@@ -93,6 +156,17 @@ class SelectedMovie extends Component {
                     Morbi tempus malesuada erat sed pellentesque.
                     </p>
                 </div>
+            </div>
+        )
+    }
+
+    renderBuyTickets = () => {
+        return (
+            <div className = 'buy_tickets_container'>
+                <h2 className = 'header_text'>Buy Tickets</h2>
+                <Divider sx = {{background: "#fff"}}/>
+                { this.renderTicketSelection() }
+                { this.renderTheatreSelection() }
             </div>
         )
     }
@@ -136,6 +210,7 @@ class SelectedMovie extends Component {
             <div className = 'sel_movie_main_container'>
                 { this.renderPhotoGallery() }
                 { this.renderSummary() }
+                { this.renderBuyTickets() }
             </div>
         )
     }
@@ -145,7 +220,7 @@ class SelectedMovie extends Component {
             <div className = 'selected_movie_root'>
                 <SelectedMovieHeader src = {headerImg}/>
                 <div className = 'movie_parallax'>
-                    <div className = 'movies_block'>
+                    <div className = 'selected_block'>
                         { this.renderMainContainer() }
                     </div>
                 </div>

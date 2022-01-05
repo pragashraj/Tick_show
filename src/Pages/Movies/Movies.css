@@ -99,6 +99,10 @@
     height: 100%;
 }
 
+.selected_block {
+    display: block;
+}
+
 .sel_movie_main_container {
     width: 80%;
     height: 100%;
@@ -160,6 +164,20 @@
     flex-direction: row;
 }
 
+.buy_tickets_container {
+    margin-top: 30px;
+    padding: 20px;
+}
+
+.buy_tickets_block {
+    margin-top: 45px;
+}
+
+.count_block {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
 @media screen and (max-width: 800px) {
     .movies_header h1 {
         top: 45vh;
@@ -167,8 +185,8 @@
     }
 
     .sel_movie_main_container {
-        width: 90%;
-        margin-left: 5%;
+        width: 100%;
+        margin-left: 0%;
     }
 
     .synopsis_value {
