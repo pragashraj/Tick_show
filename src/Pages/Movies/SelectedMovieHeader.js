@@ -220,29 +220,39 @@ const SelectedMovieHeader = ({src}) => {
         </Paper>
     )
 
+    const renderFooterItems = () => (
+        <Grid container>
+            <Grid item xs = {6} sm = {6} md = {3}>
+                {renderRate("TomotoMeter", rottenImg, "94%")}
+            </Grid>
+            <Grid item xs = {6} sm = {6} md = {3}>
+                {renderRate("Audience Socre", imdbImg, "94%")}
+            </Grid>
+            <Grid item xs = {6} sm = {6} md = {3}>
+                {renderRate("User rating", starImg, "4.5")}
+            </Grid>
+            <Grid item xs = {6} sm = {6} md = {3}>
+                {renderRateAction("Rate it", "0.0")}
+            </Grid>
+        </Grid>
+    )
+
     const renderfooterContainer = () => (
         <Grid container>
-            <Grid item xs = {false} sm = {false} md = {3}>
-                { !matches && renderTrailerCard() }
-            </Grid>
-            <Grid item xs = {12} sm = {12} md = {9}>
-                <div className = {classes.footerContainer}>
-                    <Grid container>
-                        <Grid item xs = {6} sm = {6} md = {3}>
-                            {renderRate("TomotoMeter", rottenImg, "94%")}
-                        </Grid>
-                        <Grid item xs = {6} sm = {6} md = {3}>
-                            {renderRate("Audience Socre", imdbImg, "94%")}
-                        </Grid>
-                        <Grid item xs = {6} sm = {6} md = {3}>
-                            {renderRate("User rating", starImg, "4.5")}
-                        </Grid>
-                        <Grid item xs = {6} sm = {6} md = {3}>
-                            {renderRateAction("Rate it", "0.0")}
-                        </Grid>
+            <Grid item xs = {1} sm = {1} md = {2}/>
+            <Grid item xs = {10} sm = {10} md = {8}>
+                <Grid container>
+                    <Grid item xs = {false} sm = {false} md = {3}>
+                        { !matches && renderTrailerCard() }
                     </Grid>
-                </div>
+                    <Grid item xs = {12} sm = {12} md = {9}>
+                        <div className = {classes.footerContainer}>
+                            { renderFooterItems() }
+                        </div>
+                    </Grid>
+                </Grid>
             </Grid>
+            <Grid item xs = {1} sm = {1} md = {2}/>
         </Grid>
     )
 
@@ -270,13 +280,7 @@ const SelectedMovieHeader = ({src}) => {
                 <div className = 'overlay'/>
                 { renderInfoContainer() }
                 <div className = {classes.footer}>
-                    <Grid container>
-                        <Grid item xs = {1} sm = {1} md = {2}/>
-                        <Grid item xs = {10} sm = {10} md = {8}>
-                            { renderfooterContainer() }
-                        </Grid>
-                        <Grid item xs = {1} sm = {1} md = {2}/>
-                    </Grid>
+                    { renderfooterContainer() }
                 </div>
             </div>
         </div>

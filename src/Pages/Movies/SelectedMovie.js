@@ -10,7 +10,7 @@ class SelectedMovie extends Component {
     renderMainContainer = () => {
         return (
             <div className = 'sel_movie_main_container'>
-
+                
             </div>
         )
     }
