@@ -38,6 +38,22 @@
 
 .custom_button_outlined:hover {
     -webkit-font-smoothing: antialiased;
-    text-shadow: rgb(0 0 0 / 1%) 0 0 1px;
+    text-shadow: rgba(136, 135, 135, 0.01) 0 0 1px;
     background: #f74e30;
+}
+
+.panel-button {
+    display: flex;
+    color: #ffffff;
+    border: 1px solid #868584;
+    padding: 15px;
+    background: transparent;
+    border-radius: 10px;
+    transition: .4s all ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    min-width: 80px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }

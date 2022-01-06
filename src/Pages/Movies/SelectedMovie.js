@@ -5,6 +5,9 @@ import Cast from '../../Components/CastAndCrew/Cast'
 import Crew from '../../Components/CastAndCrew/Crew'
 import InputField from '../../Components/InputField'
 import TheatreSelection from './TheatreSelection'
+import CustomButton from '../../Components/CustomCssButton/CustomButton'
+import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
+import TheatreSeatSelection from '../../Components/TheatreSeatSelection'
 
 //Material-UI
 import { Grid, Card, CardMedia, Divider, IconButton } from '@mui/material'
@@ -15,12 +18,24 @@ import headerImg from '../../assets/images/movie_sample.jpg'
 
 class SelectedMovie extends Component {
     state = {
+        openSeatAllocation: false
+    }
+
+    handleContinueOnClick = () => {
+        this.handleSeatAllocationPopup()
+    }
+
+    handleCancelOnClick = () => {
 
     }
 
     handleOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
+    }
+
+    handleSeatAllocationPopup = () => {
+        this.setState({ openSeatAllocation: !this.state.openSeatAllocation })
     }
 
     renderInputField = (label, readOnly) => {
@@ -167,6 +182,18 @@ class SelectedMovie extends Component {
                 <Divider sx = {{background: "#fff"}}/>
                 { this.renderTicketSelection() }
                 { this.renderTheatreSelection() }
+                <div className = 'buy_tickets_block'>
+                    <div className = 'btn_footer_container'></div>
+                    <Grid container spacing = {2}>
+                        <Grid item xs = {6} sm = {6} md = {6}>
+                            <SecondaryButton label = "Cancel" onClick = {this.handleCancelOnClick}/>
+                        </Grid>
+                        <Grid item xs = {6} sm = {6} md = {6}>
+                            <CustomButton label = "Continue" onClick = {this.handleContinueOnClick}/>
+                        </Grid>
+                    </Grid>
+                    
+                </div>
             </div>
         )
     }
@@ -216,6 +243,7 @@ class SelectedMovie extends Component {
     }
 
     render() {
+        const {openSeatAllocation} = this.state
         return (
             <div className = 'selected_movie_root'>
                 <SelectedMovieHeader src = {headerImg}/>
@@ -224,6 +252,7 @@ class SelectedMovie extends Component {
                         { this.renderMainContainer() }
                     </div>
                 </div>
+                <TheatreSeatSelection open = {openSeatAllocation} handleClose = {this.handleSeatAllocationPopup}/>
             </div>
         )
     }
