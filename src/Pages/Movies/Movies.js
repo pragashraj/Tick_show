@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { useNavigate } from "react-router-dom"
+
 import Filter from '../../Components/Filter.js/Filter'
 import Sorter from '../../Components/Sorter'
 import MovieItem from '../../Components/MovieItem'
@@ -15,6 +17,10 @@ import movieCardImage3 from '../../assets/images/3.jpg'
 import movieCardImage4 from '../../assets/images/4.jpg'
 import headerImg1 from '../../assets/CarouselImages/header_slider1.png'
 import headerImg2 from '../../assets/CarouselImages/header_slider2.jpg'
+
+function withNavigate(Component) {
+    return props => <Component {...props} navigate = {useNavigate()}/>
+}
 
 class Movies extends Component {
     state = {
@@ -74,16 +80,16 @@ class Movies extends Component {
         this.setState({ filters: array })
     }
 
-    handleBuyTicketOnClick = (data) => {
-
+    handleBuyTicketOnClick = (movieItem) => {
+        this.props.navigate(`/selectedMovie`)
     }
 
-    handleLikeOnClick = () => {
-
+    handleLikeOnClick = (movieItem) => {
+        
     }
 
-    handleWatchTrailerOnClick = () => {
-
+    handleWatchTrailerOnClick = (url) => {
+        window.open(url, '_blank', 'noopener,noreferrer')
     }
 
     handleListTypeIconOnClick = (value) => {
@@ -243,4 +249,4 @@ class Movies extends Component {
     }
 }
 
-export default Movies
+export default withNavigate(Movies)

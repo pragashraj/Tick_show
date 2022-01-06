@@ -18,7 +18,7 @@ import imdbImg from '../assets/Icons/imdb.png'
 const useStyles = makeStyles({
     root: {
         display: "block",
-        border: "1px solid #2C3E50",
+        border: "1px solid #F2F4F4",
         borderRadius: "10px",
         padding: "4px"
     },
