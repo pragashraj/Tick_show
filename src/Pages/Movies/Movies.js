@@ -89,7 +89,7 @@ class Movies extends Component {
     }
 
     handleWatchTrailerOnClick = (url) => {
-        window.open(url, '_blank', 'noopener,noreferrer')
+        window.open(url, '_blank', 'noopener, noreferrer')
     }
 
     handleListTypeIconOnClick = (value) => {
