@@ -11,10 +11,9 @@ import SlideShow from '../../Components/SlideShow/SlideShow'
 import { Grid } from '@mui/material'
 
 import './Movies.css'
-import movieCardImage1 from '../../assets/images/1.jpg'
-import movieCardImage2 from '../../assets/images/2.jpg'
-import movieCardImage3 from '../../assets/images/3.jpg'
-import movieCardImage4 from '../../assets/images/4.jpg'
+import movie_sample from '../../assets/images/movie_sample.jpg'
+import cast_sample from '../../assets/images/cast_sample.jpg'
+import crew_sample from '../../assets/images/crew_sample.jpg'
 import headerImg1 from '../../assets/CarouselImages/header_slider1.png'
 import headerImg2 from '../../assets/CarouselImages/header_slider2.jpg'
 
@@ -53,12 +52,38 @@ class Movies extends Component {
     }
 
     createDataBlock = () => {
-        const data = [
-            {name: "Spiderman No Way home", src: movieCardImage1, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "December 17 2021", rotten: "94%", imdb: "99%" },
-            {name: "The Batman", src: movieCardImage2, duration: "2hrs 30mins", genre: ["Action", "Adventure", "Crime"], release: "May 15 2022", rotten: "94%", imdb: "99%" },
-            {name: "Fantastic Beasts 3", src: movieCardImage3, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "May 17 2022", rotten: "94%", imdb: "99%" },
-            {name: "The Amazing Spiderman 3", src: movieCardImage4, duration: "2hrs 30mins", genre: ["Action", "Adventure"], release: "October 17 2023", rotten: "94%", imdb: "99%" }
-        ]
+        const cast_crew_dum = ["1", "2", "3", "4", "5", "6"]
+        let cast = []
+        let crew = []
+
+        const castObj = { name: "Tom Holland", character: "Peter Parker", src: cast_sample }
+        const crewObj = { name: "John Watts", profession: "Director", src: crew_sample }
+
+        cast_crew_dum.forEach(e => {
+            cast.push(castObj)
+            crew.push(crewObj)
+        })
+
+        const movie = {
+            name: "Spiderman No Way home", 
+            src: movie_sample, 
+            duration: "2hrs 30mins", 
+            genre: ["Action", "Adventure"], 
+            release: "December 17 2021", 
+            rotten: "94%", 
+            imdb: "99%",
+            userRate: "4.5",
+            url: "https://Google.com",
+            gallery: [movie_sample, movie_sample, movie_sample, movie_sample],
+            synopsis: "",
+            cast,
+            crew,
+        }
+
+        const dummyArr = ["1", "2", "3", "4"]
+        let data = []
+
+        dummyArr.forEach(e => data.push(movie))
 
         this.setState({ data })
     }
@@ -81,7 +106,7 @@ class Movies extends Component {
     }
 
     handleBuyTicketOnClick = (movieItem) => {
-        this.props.navigate(`/selectedMovie`)
+        this.props.navigate(`/selectedMovie`, { state: movieItem })
     }
 
     handleLikeOnClick = (movieItem) => {

@@ -148,7 +148,7 @@ const useStyles = makeStyles({
         color: "#ABEBC6",
         textTransform: "uppercase",
         letterSpacing: "0.05rem",
-        fontSize: "0.7rem"
+        fontSize: "0.7rem",
     },
     row: {
         display: "flex",
@@ -157,16 +157,17 @@ const useStyles = makeStyles({
     }
 })
 
-const SelectedMovieHeader = ({src}) => {
+const SelectedMovieHeader = ({movieItem, handleWatchTrailerOnClick}) => {
     const matches = useMediaQuery('(max-width:800px)')
-    const classes = useStyles({img: src, mobile: matches})
 
-    const genre = ["Action", "Adventure"]
+    const {name, src, duration, genre, rotten, imdb, release, userRate = "4.6", url =  "Https://Google.com"} = movieItem
+
+    const classes = useStyles({img: src, mobile: matches})
 
     const renderReleaseData = () => (
         <div className = {classes.releaseRoot}>
             <span className = {classes.releaseName}>Release : </span>
-            <span className = {classes.releaseValue}>16 Dec 2021</span>
+            <span className = {classes.releaseValue}>{release}</span>
         </div>
     )
 
@@ -185,7 +186,7 @@ const SelectedMovieHeader = ({src}) => {
 
     const renderDuration = () => (
         <Typography variant = "subtitle1" component = "div" className = {classes.duration}>
-            Duration: <TimelapseIcon/> 2hrs 50mins
+            Duration: <TimelapseIcon/> {duration}
         </Typography>
     )
 
@@ -214,8 +215,7 @@ const SelectedMovieHeader = ({src}) => {
     )
 
     const renderTrailerCard = () => (
-        <Paper elevation = {4} className = {classes.card}>
-
+        <Paper elevation = {4} className = {classes.card} onClick = {() => handleWatchTrailerOnClick(url)}>
             <SlowMotionVideoIcon sx = {{color: "#fff", fontSize: "70px"}}/>
         </Paper>
     )
@@ -223,13 +223,13 @@ const SelectedMovieHeader = ({src}) => {
     const renderFooterItems = () => (
         <Grid container>
             <Grid item xs = {6} sm = {6} md = {3}>
-                {renderRate("TomotoMeter", rottenImg, "94%")}
+                {renderRate("TomotoMeter", rottenImg, rotten)}
             </Grid>
             <Grid item xs = {6} sm = {6} md = {3}>
-                {renderRate("Audience Socre", imdbImg, "94%")}
+                {renderRate("Audience Socre", imdbImg, imdb)}
             </Grid>
             <Grid item xs = {6} sm = {6} md = {3}>
-                {renderRate("User rating", starImg, "4.5")}
+                {renderRate("User rating", starImg, userRate)}
             </Grid>
             <Grid item xs = {6} sm = {6} md = {3}>
                 {renderRateAction("Rate it", "0.0")}
@@ -262,7 +262,7 @@ const SelectedMovieHeader = ({src}) => {
                 <Grid item xs = {1} sm = {1} md = {4}/>
                 <Grid item xs = {10} sm = {10} md = {8}>
                     <div className = {classes.infoContainer}>
-                        <span className = {classes.infoTitle}>Spiderman no way home</span>
+                        <span className = {classes.infoTitle}>{name}</span>
                         { renderGenre() }
                         <div className = {classes.row}>
                             { renderReleaseData() }

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { useLocation } from "react-router-dom"
+
 import SelectedMovieHeader from './SelectedMovieHeader'
 import Cast from '../../Components/CastAndCrew/Cast'
 import Crew from '../../Components/CastAndCrew/Crew'
@@ -14,11 +16,20 @@ import { Grid, Card, CardMedia, Divider, IconButton } from '@mui/material'
 import {ArrowBackIos, ArrowForwardIos} from '@mui/icons-material'
 
 import './Movies.css'
-import headerImg from '../../assets/images/movie_sample.jpg'
+
+function withLocation(Component) {
+    return props => <Component {...props} location = {useLocation()}/>
+}
 
 class SelectedMovie extends Component {
     state = {
-        openSeatAllocation: false
+        openSeatAllocation: false,
+    }
+
+    selectedMovieItem = this.props.location.state
+
+    componentDidMount() {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
     handleContinueOnClick = () => {
@@ -27,6 +38,10 @@ class SelectedMovie extends Component {
 
     handleCancelOnClick = () => {
 
+    }
+
+    handleWatchTrailerOnClick = (url) => {
+        window.open(url, '_blank', 'noopener, noreferrer')
     }
 
     handleOnChange = (e) => {
@@ -117,16 +132,18 @@ class SelectedMovie extends Component {
     }
 
     renderCrew = () => {
+        const crew = this.selectedMovieItem.crew
         return (
             <div className = 'summary_block'>
                 { this.renderCast_CrewHeader("Crew") }
                 <Divider sx = {{background: "rgba(0, 0, 0, 0.1)", marginBottom: "10px"}}/>
                 <div className = 'summary_block_list'>
                     <Grid container>
-                        { ["1", "2", "3", "4", "5", "6"].map((i, idx) => {
+                        { crew.map((item, idx) => {
+                            const {src, name, profession} = item
                             return (
                                 <Grid item xs = {4} sm = {3} md = {2} key = {idx}>
-                                    <Crew/>
+                                    <Crew src = {src} name = {name} profession = {profession}/>
                                 </Grid>
                             )
                         }) }
@@ -137,16 +154,18 @@ class SelectedMovie extends Component {
     }
 
     renderCast = () => {
+        const cast = this.selectedMovieItem.cast
         return (
             <div className = 'summary_block'>
                 { this.renderCast_CrewHeader("Cast") }
                 <Divider sx = {{background: "rgba(0, 0, 0, 0.1)", marginBottom: "10px"}}/>
                 <div className = 'summary_block_list'>
                     <Grid container>
-                        { ["1", "2", "3", "4", "5", "6"].map((i, idx) => {
+                        { cast.map((item, idx) => {
+                            const {src, name, character} = item
                             return (
                                 <Grid item xs = {4} sm = {3} md = {2} key = {idx}>
-                                    <Cast/>
+                                    <Cast src = {src} name = {name} character = {character}/>
                                 </Grid>
                             )
                         }) }
@@ -211,17 +230,18 @@ class SelectedMovie extends Component {
     }
 
     renderPhotoGallery = () => {
+        const gallery = this.selectedMovieItem.gallery
         return (
             <div className = 'photo_gallery_container'>
                 <h2 className = 'header_text'>Photos</h2>
                 <Divider sx = {{background: "#fff"}}/>
                 <div className = 'gallery_block'>
                     <Grid container spacing = {2}>
-                        { ["1", "2", "3", "4"].map((i, idx) => {
+                        { gallery.map((i, idx) => {
                             return (
                                 <Grid item xs = {6} sm = {4} md = {3} key = {idx}>
                                     <Card>
-                                        <CardMedia component = "img" image = {headerImg} alt = "gal" sx = {{ height: "20vh" }}/>
+                                        <CardMedia component = "img" image = {i} alt = "gal" sx = {{ height: "20vh" }}/>
                                     </Card>
                                 </Grid>
                             )
@@ -246,7 +266,10 @@ class SelectedMovie extends Component {
         const {openSeatAllocation} = this.state
         return (
             <div className = 'selected_movie_root'>
-                <SelectedMovieHeader src = {headerImg}/>
+                <SelectedMovieHeader
+                    movieItem = {this.selectedMovieItem} 
+                    handleWatchTrailerOnClick = {this.handleWatchTrailerOnClick}
+                />
                 <div className = 'movie_parallax'>
                     <div className = 'selected_block'>
                         { this.renderMainContainer() }
@@ -258,4 +281,4 @@ class SelectedMovie extends Component {
     }
 }
 
-export default SelectedMovie
+export default withLocation(SelectedMovie)

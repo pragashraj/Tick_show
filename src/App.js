@@ -12,7 +12,12 @@ const App = () => {
             <BrowserRouter>
                 <Routes>
                     { routes.data.map((route,i) => {
-                        return <Route index = {route.type === "main"} path = {route.path} element = {route.component} key = {i}/> 
+                        return <Route 
+                            index = {route.type === "main"} 
+                            path = {route.path} 
+                            element = {route.component} 
+                            key = {i}
+                        /> 
                     }) }
                 </Routes>
             </BrowserRouter>
