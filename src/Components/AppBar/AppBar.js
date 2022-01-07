@@ -50,7 +50,7 @@ const AppBar = () => {
         {label: "Home", href: "/", icon: HomeIcon},
         {label: "Movies", href: "/movies", icon: TheaterComedyIcon},
         {label: "Theatres", href: "/theatres", icon: TheatersIcon},
-        {label: "Contacts", href: "#", icon: ContactsIcon},
+        {label: "Contacts", href: "/contacts", icon: ContactsIcon},
     ]
 
     const renderUserActionBtn = () => (
