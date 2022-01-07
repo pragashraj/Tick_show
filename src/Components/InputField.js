@@ -31,7 +31,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }))
 
-const InputField = ({label, type, readOnly, handleOnChange}) => {
+const InputField = ({name, label, type, readOnly, handleOnChange}) => {
     return (
         <SearchInput>
             <StyledInputBase 

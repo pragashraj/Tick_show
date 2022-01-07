@@ -24,8 +24,8 @@ const Footer = () => {
         {id : "1", href : "/", title: "Home"},
         {id : "2", href : "/movies", title: "Movies"},
         {id : "3", href : "/theatres", title: "Theatres"},
-        {id : "4", href : "#", title: "Contact"},
-        {id : "5", href : "#", title: "News"},
+        {id : "4", href : "/contacts", title: "Contact"},
+        {id : "5", href : "/news", title: "News"},
     ]
 
     const getSocialIcon = (title) => {
