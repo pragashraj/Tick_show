@@ -71,19 +71,21 @@ h1 {
     margin: 0;
 }
 
-.not_found a {
+.page_not_found_container a {
     font-family: montserrat,sans-serif;
     display: inline-block;
     text-transform: uppercase;
-    color: #f74e30;
+    color: #ffffff;
     text-decoration: none;
-    border: 2px solid;
+    border: 2px solid #f74e30;
     background: 0 0;
     padding: 10px 40px;
     font-size: 14px;
-    font-weight: 700;
     -webkit-transition: .2s all;
     transition: .2s all;
+    letter-spacing: 0.2rem;
+    border-radius: 15px;
+    font-weight: 600;
 }
 
 @media screen and (max-width: 600px) {
