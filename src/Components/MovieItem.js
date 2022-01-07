@@ -102,17 +102,32 @@ const useStyles = makeStyles({
     footerTrailerLink: {
         display: "flex",
         flexDirection: "row",
+    },
+    btn: {
+        color: "#ffffff", 
+        fontSize: "0.8rem"
     }
 })
 
-const MovieItem = ({item}) => {
+const MovieItem = ({item, handleLikeOnClick, handleBuyTicketOnClick, handleWatchTrailerOnClick}) => {
     const matches = useMediaQuery('(max-width:600px)')
     const classes = useStyles({mobile: matches})
 
-    const {name, src, duration, genre, rotten, imdb, release} = item
+    const {name, src, duration, genre, rotten, imdb, release, url =  "Https://Google.com"} = item
+
+    const handleButtonClick = (label) => {
+        switch (label) {
+            case "Buy Tickets" : handleBuyTicketOnClick(item)
+                break
+            case "Watch trailer" : handleWatchTrailerOnClick(url)
+                break
+            default : return
+        }
+
+    }
 
     const renderButton = (icon, label) => (
-        <Button variant = "text" sx = {{color: "#ffffff", fontSize: "0.8rem"}} startIcon = {icon}>
+        <Button variant = "text" className = {classes.btn} startIcon = {icon} onClick = {() => handleButtonClick(label)}>
             {label}
         </Button>
     )
@@ -121,8 +136,8 @@ const MovieItem = ({item}) => {
         <IconButton
             size = "small"
             edge = "start"
-            aria-haspopup = "true"
             sx = {{color: "#ffffff", marginRight: "15px", backgroundColor: "rgba(0, 0, 0, 0.1)"}}
+            onClick = {() => handleLikeOnClick(item)}
         >
             <FavoriteIcon />
         </IconButton>

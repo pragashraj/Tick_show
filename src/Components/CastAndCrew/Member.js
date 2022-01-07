@@ -4,13 +4,12 @@ import React from 'react'
 import { Avatar } from '@mui/material'
 
 import './CastAndCrew.css'
-import castImg from '../../assets/images/cast.jpg'
 
-const Member = () => {
+const Member = ({src}) => {
     return (
         <div className = 'member_root'>
             <div className = 'avatar_container'>
-                <Avatar alt = "Remy Sharp" src = {castImg} sx = {{width: "12vh", height: "12vh"}}/>
+                <Avatar alt = "Remy Sharp" src = {src} sx = {{width: "12vh", height: "12vh"}}/>
             </div>
         </div>
     )

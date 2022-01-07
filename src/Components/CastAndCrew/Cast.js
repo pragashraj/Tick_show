@@ -4,14 +4,14 @@ import Member from './Member'
 
 import './CastAndCrew.css'
 
-const Cast = () => {
+const Cast = ({src, name, character}) => {
     return (
         <div className = 'cast_crew_root'>
-            <Member/>
+            <Member src = {src}/>
             <div className = 'cast_crew_info'>
-                <span className = 'cast_crew_name'>Tom Holland</span>
+                <span className = 'cast_crew_name'>{name}</span>
                 <span className = 'cast_crew_profession'>as</span>
-                <span className = 'cast_crew_character'>Peter Parker</span> 
+                <span className = 'cast_crew_character'>{character}</span> 
             </div>
         </div>
     )
