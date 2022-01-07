@@ -1,0 +1,103 @@
+.page_not_found_root {
+    height: 50vh;
+    position: relative;
+    display: block;
+    background-image: url(../../assets/images/parallax.jpg);
+    background-repeat: no-repeat;
+    background-position: center, center;
+    padding-top: 8rem;
+    padding-bottom: 5rem;
+}
+
+.page_not_found_container {
+    position: absolute;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%,-50%);
+    max-width: 767px;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.notfound-404 {
+    position: relative;
+    height: 180px;
+    margin-bottom: 20px;
+    z-index: -1;
+}
+
+.notfound-404 h1 {
+    font-family: montserrat,sans-serif;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    font-size: 200px;
+    font-weight: 900;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: -12px;
+    color: #030005;
+    text-transform: uppercase;
+    text-shadow: -1px -1px 0 #8400ff, 1px 1px 0 #f74e30;
+    letter-spacing: -20px;
+}
+
+h1 {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+}
+
+.notfound-404 h2 {
+    font-family: montserrat,sans-serif;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 110px;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+    text-shadow: 0 2px 0 #8400ff;
+    letter-spacing: 13px;
+    margin: 0;
+}
+
+.page_not_found_container a {
+    font-family: montserrat,sans-serif;
+    display: inline-block;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-decoration: none;
+    border: 2px solid #f74e30;
+    background: 0 0;
+    padding: 10px 40px;
+    font-size: 14px;
+    -webkit-transition: .2s all;
+    transition: .2s all;
+    letter-spacing: 0.2rem;
+    border-radius: 15px;
+    font-weight: 600;
+}
+
+@media screen and (max-width: 600px) {
+    .notfound-404 {
+        margin-bottom: 70px;
+    }
+
+    .notfound-404 h1 { 
+        font-size: 150px;
+    }
+
+    .notfound-404 h2 {
+        font-size: 25px;
+    }
+}

@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 import AppBar from './Components/AppBar/AppBar'
 import Footer from './Components/Footer/Footer'
+import PageNotFound from './Pages/PageNotFound/PageNotFound'
 import routes from './Routes/Routes'
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
                             key = {i}
                         /> 
                     }) }
+                    <Route path = "*" element = {<PageNotFound/>} />
                 </Routes>
             </BrowserRouter>
             <Footer/>
