@@ -30,7 +30,12 @@ class Contact extends Component {
         return (
             <div className = "contact_form-input_wrapper">
                 <span className = "contact_form-input_wrapper-label-input">{label}</span>
-                <InputField name = {name} label = {placeholder} handleOnChange = {this.handleInputOnChange}/>
+                <InputField 
+                    name = {name} 
+                    label = {placeholder} 
+                    handleOnChange = {this.handleInputOnChange}
+                    value = {this.state[name]}
+                />
             </div>
         )
     }
