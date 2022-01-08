@@ -24,6 +24,10 @@ function withLocation(Component) {
 class SelectedMovie extends Component {
     state = {
         openSeatAllocation: false,
+        theatres: ["1", "2", "3"],
+        fullTickets: 0,
+        kidsTickets: 0,
+        totalTickets: 0
     }
 
     selectedMovieItem = this.props.location.state
@@ -53,10 +57,12 @@ class SelectedMovie extends Component {
         this.setState({ openSeatAllocation: !this.state.openSeatAllocation })
     }
 
-    renderInputField = (label, readOnly) => {
+    renderInputField = (label, name, readOnly) => {
         return (
             <InputField 
-                label = {label} 
+                name = {name}
+                label = {label}
+                value = {this.state[name]} 
                 type = "number" 
                 readOnly = {readOnly} 
                 handleOnChange = {this.handleOnChange}
@@ -65,12 +71,13 @@ class SelectedMovie extends Component {
     }
 
     renderTheatreSelection = () => {
+        const theatres = this.state.theatres
         return (
             <div className = 'buy_tickets_block'>
                 <h3 className = 'sub_header_text'>Select Theatre & Time Slot</h3>
                 <div className = 'count_block'>
                     <Grid container>
-                        { ["1", "2", "3"].map((i, idx) =>{
+                        { theatres.map((i, idx) =>{
                             return (
                                 <Grid item xs = {12} sm = {12} md = {12} key = {idx} sx = {{marginBottom: "15px"}}>
                                     <TheatreSelection/>
@@ -90,13 +97,13 @@ class SelectedMovie extends Component {
                 <div className = 'count_block'>
                     <Grid container spacing = {2}>
                         <Grid item xs = {6} sm = {6} md = {4}>
-                            { this.renderInputField("No of full tickets", false) }
+                            { this.renderInputField("No of full tickets", "fullTickets", false) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {4}>
-                            { this.renderInputField("No of Kids tickets", false) }
+                            { this.renderInputField("No of Kids tickets", "kidsTickets", false) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {4}>
-                            { this.renderInputField("Total tickets", true) }
+                            { this.renderInputField("Total tickets", "totalTickets", true) }
                         </Grid>
                     </Grid>
                 </div>
