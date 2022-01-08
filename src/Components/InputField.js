@@ -31,17 +31,19 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }))
 
-const InputField = ({name, label, type, readOnly, handleOnChange}) => {
+const InputField = ({name, label, value, type, readOnly, handleOnChange}) => {
     return (
         <SearchInput>
             <StyledInputBase 
                 id = {`outlined-${label}`}
                 label = {label}
                 type = {type}
-                fullWidth
                 placeholder = {label}
                 readOnly = {readOnly}
                 onChange = {handleOnChange}
+                name = {name}
+                value = {value}
+                fullWidth
             />
         </SearchInput>
     )
