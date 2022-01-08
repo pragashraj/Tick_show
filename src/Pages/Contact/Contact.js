@@ -10,12 +10,27 @@ import InputField from '../../Components/InputField'
 import './Contact.css'
 
 class Contact extends Component {
+    state = {
+        name: "",
+        email: "",
+        subject: "",
+        message: ""
+    }
+
+    handleSubmitOnClick = () => {
+
+    }
+
+    handleInputOnChange = (e) => {
+        const {name, value} = e.target
+        this.setState({[name]: value})
+    }
 
     renderInputField = (name, label, placeholder) => {
         return (
             <div className = "contact_form-input_wrapper">
                 <span className = "contact_form-input_wrapper-label-input">{label}</span>
-                <InputField name = {name} label = {placeholder}/>
+                <InputField name = {name} label = {placeholder} handleOnChange = {this.handleInputOnChange}/>
             </div>
         )
     }
@@ -28,7 +43,7 @@ class Contact extends Component {
                 { this.renderInputField("email", "Email", "Enter your email address") }
                 { this.renderInputField("subject", "Subject", "Enter subject") }
                 { this.renderInputField("message", "Message", "Enter message") }
-                <CustomButton label = "Submit"/>
+                <CustomButton label = "Submit" onClick = {this.handleSubmitOnClick}/>
             </div>
         )
     }

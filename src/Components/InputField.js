@@ -42,6 +42,7 @@ const InputField = ({name, label, type, readOnly, handleOnChange}) => {
                 placeholder = {label}
                 readOnly = {readOnly}
                 onChange = {handleOnChange}
+                name = {name}
             />
         </SearchInput>
     )
