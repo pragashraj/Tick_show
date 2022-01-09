@@ -51,7 +51,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }))
 
-const CustomSearch = ({placeholder}) => {
+const CustomSearch = ({placeholder, name, value, handleOnChange}) => {
     const classes = useStyles()
 
     return (
@@ -59,7 +59,13 @@ const CustomSearch = ({placeholder}) => {
             <div className = {classes.searchRoot}>
                 <Search className = {classes.icon}/>
                 <SearchInput>
-                    <StyledInputBase placeholder = {placeholder} inputProps = {{ 'aria-label': 'search' }}/>
+                    <StyledInputBase 
+                        placeholder = {placeholder} 
+                        inputProps = {{ 'aria-label': 'search' }}
+                        name = {name}
+                        value = {value}
+                        onChange = {handleOnChange}
+                    />
                 </SearchInput>
             </div>
         </div>

@@ -22,6 +22,7 @@ import './AppBar.css'
 
 const AppBar = () => {
     const [scrolled, setScrolled] = useState(false)
+    const [searchValue, setSearchValue] = useState("")
 
     const matches = useMediaQuery('(min-width:1200px)')
 
@@ -52,6 +53,10 @@ const AppBar = () => {
         {label: "Theatres", href: "/theatres", icon: TheatersIcon},
         {label: "Contacts", href: "/contacts", icon: ContactsIcon},
     ]
+
+    const handleInputOnChange = (e) => {
+        setSearchValue(e.target.value)
+    }
 
     const renderUserActionBtn = () => (
         <Box sx = {{ display: { md: 'flex' } }}>
@@ -84,7 +89,12 @@ const AppBar = () => {
             <div className = 'top_nav_container'>
                 <div className = 'row'>
                     <img src = {logo} alt = "Tick Show" style = {{width: "100px"}}/>
-                    <Search placeholder = "Search for movies or theatres"/>
+                    <Search 
+                        placeholder = "Search for movies or theatres"
+                        name = "searchValue"
+                        value = {searchValue}
+                        handleOnChange = {handleInputOnChange}
+                    />
                 </div>
                 <div className = 'row'>
                     <Breadcrumbs aria-label = "nav-links">
