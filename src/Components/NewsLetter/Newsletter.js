@@ -7,7 +7,7 @@ import Divider from '@mui/material/Divider'
 
 import './Newsletter.css'
 
-const Newsletter = () => {
+const Newsletter = ({value, onChange, onSubmit}) => {
     return (
         <Paper
             component = "form"
@@ -17,9 +17,11 @@ const Newsletter = () => {
                 sx = {{ ml: 1, flex: 1 }}
                 placeholder = "Email address"
                 inputProps = {{ 'aria-label': 'Email address' }}
+                value = {value}
+                onChange = {onChange}
             />
             <Divider sx = {{ height: 28, m: 0.5 }} orientation = "vertical" />
-            <button type = "submit" className = 'submit_btn'>Subscribe Now</button>
+            <button className = 'submit_btn' onClick = {onSubmit}>Subscribe Now</button>
         </Paper>
     )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import Newsletter from '../NewsLetter/Newsletter'
 
@@ -13,6 +13,7 @@ import './Footer.css'
 import logo from '../../assets/Icons/logo.png'
 
 const Footer = () => {
+    const [email, setEmail] = useState("")
 
     const SOCIAL_LINKS = [
         {id: "1", url : "https://twitter.com", title: "Twitter"},
@@ -27,6 +28,14 @@ const Footer = () => {
         {id : "4", href : "/contacts", title: "Contact"},
         {id : "5", href : "/news", title: "News"},
     ]
+
+    const handleSubcribeOnClick = (e) => {
+        e.preventDefault()
+    }
+
+    const handleInputOnChange = (e) => {
+        setEmail(e.target.vale)
+    }
 
     const getSocialIcon = (title) => {
         switch(title) {
@@ -109,7 +118,11 @@ const Footer = () => {
                         </div>
                     </Grid>
                     <Grid item xs = {12} sm = {6} md = {6}>
-                        <Newsletter/>
+                        <Newsletter 
+                            value = {email} 
+                            onChange = {handleInputOnChange}
+                            onSubmit = {handleSubcribeOnClick}
+                        />
                     </Grid>
                 </Grid>
             </div>
