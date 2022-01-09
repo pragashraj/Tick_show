@@ -21,11 +21,21 @@ import theatreImage from '../../assets/images/Theatres.jpg'
 class Home extends Component {
     state = {
         movies: [],
-        theatres: []
+        theatres: [],
+        movieSearchValue: ""
     }
 
     componentDidMount() {
         this.createDummyData()
+    }
+
+    handleSearchOnClick = () => {
+
+    }
+
+    handleInputOnChange = (e) => {
+        const {name, value} = e.target
+        this.setState({ [name]: value })
     }
 
     createDummyData = () => {
@@ -76,9 +86,14 @@ class Home extends Component {
         )
     }
 
-    rederCustomSearch = () => {
+    renderCustomSearch = () => {
         return (
-            <CustomSearch placeholder = "search for movies"/>
+            <CustomSearch 
+                placeholder = "search for movies"
+                name = "movieSearchValue"
+                value = {this.state.movieSearchValue}
+                handleOnChange = {this.handleInputOnChange}
+            />
         )
     }
 
@@ -90,7 +105,7 @@ class Home extends Component {
                 <div className = 'header_slide_footer_conatiner'>
                     <Grid container spacing = {2}>
                         <Grid item xs = {6} sm = {6} md = {3}>
-                            { this.rederCustomSearch() }
+                            { this.renderCustomSearch() }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
                             { this.renderSelector("City", "Colombo", EditLocation) }
@@ -103,7 +118,7 @@ class Home extends Component {
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {1}/>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            <CustomButton label = "Search"/>
+                            <CustomButton label = "Search" onClick = {this.handleSearchOnClick}/>
                         </Grid>
                     </Grid>
                 </div>
