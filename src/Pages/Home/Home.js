@@ -22,7 +22,10 @@ class Home extends Component {
     state = {
         movies: [],
         theatres: [],
-        movieSearchValue: ""
+        movieSearchValue: "",
+        city: "Colombo",
+        date: "31/12/2021",
+        experience: "2D"
     }
 
     componentDidMount() {
@@ -98,6 +101,7 @@ class Home extends Component {
     }
 
     renderHeaderSlideFooter = () => {
+        const {city, date, experience} = this.state
         return (
             <div className = 'header_slide_footer'>
                 <div className = "overlay"/>
@@ -108,13 +112,13 @@ class Home extends Component {
                             { this.renderCustomSearch() }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("City", "Colombo", EditLocation) }
+                            { this.renderSelector("City", city, EditLocation) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("Date", "31/12/2021", CalendarToday) }
+                            { this.renderSelector("Date", date, CalendarToday) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("Experience", "2D", AccessibilityNew) }
+                            { this.renderSelector("Experience", experience, AccessibilityNew) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {1}/>
                         <Grid item xs = {6} sm = {6} md = {2}>
