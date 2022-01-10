@@ -14,17 +14,20 @@ import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
-import theatreImage from '../../assets/images/Theatres.jpg'
+import image2 from '../../assets/CarouselImages/2.jpg'
+import eventSample from '../../assets/images/event_sample.jpg'
 
 class Home extends Component {
     state = {
         movies: [],
-        theatres: [],
+        events: [],
         movieSearchValue: "",
         city: "Colombo",
         date: "31/12/2021",
         experience: "2D"
     }
+
+    dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
 
     componentDidMount() {
         this.createDummyData()
@@ -39,24 +42,22 @@ class Home extends Component {
             imdb: "99%" 
         }
 
-        const theatre = {
-            name: "Ja-ela Cinemax", 
-            src: theatreImage, 
+        const event = {
+            name: "Ar Rahman Live-in-concert", 
+            src: eventSample, 
             location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
             contact: "0117 549 650",
-            timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"] 
         }
 
-        const dummyArr = ["1", "2", "3", "4"]
-        let theatres_Data = []
+        const dummyMovieArr = ["1", "2", "3", "4", "5", "6"]
+        const dummyEventsArr = ["1", "2", "3", "4"]
+        let events_Data = []
         let movies_Data = []
 
-        dummyArr.forEach(e => {
-            theatres_Data.push(theatre)
-            movies_Data.push(movie)
-        })
+        dummyMovieArr.forEach(() => movies_Data.push(movie))
+        dummyEventsArr.forEach(() => events_Data.push(event))
 
-        this.setState({ movies: movies_Data, theatres: theatres_Data })
+        this.setState({ movies: movies_Data, events: events_Data })
     }
 
     handleSearchOnClick = () => {
@@ -68,12 +69,12 @@ class Home extends Component {
         this.setState({ [name]: value })
     }
 
-    renderContentList = (type, title, movies) => {
+    renderContentList = (type, title, dataList) => {
         return (
             <ContentList
                 type = {type} 
                 title = {title}
-                listItems = {movies}
+                listItems = {dataList}
             />
         )
     }
@@ -144,23 +145,47 @@ class Home extends Component {
     }
 
     renderBodyContents = () => {
-        const {movies, theatres} = this.state
+        const {movies, events} = this.state
         return (
             <div className = 'home_parallax'>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Movies", movies) }
                 </div>
                 <div className = 'content_info'>
-                    <ContentLeft/>
+                    <ContentLeft 
+                        title = "Now Showing" 
+                        name = "Spiderman No Way Home"
+                        synopsis = {this.dummySynopsis}
+                        src = {image2}
+                    />
                 </div>
                 <div className = 'content_list'>
-                    { this.renderContentList("Theatres", "Theatres", theatres) }
+                    { this.renderContentList("Movies", "Upcoming Movies", movies) }
+                </div>
+                <div className = 'content_info'>
+                    <ContentLeft 
+                        title = "UpComing" 
+                        name = "Spiderman No Way Home"
+                        synopsis = {this.dummySynopsis}
+                        src = {image2}
+                    />
+                </div>
+                <div className = 'content_list'>
+                    { this.renderContentList("Events", "Events", events) }
+                </div>
+                <div className = 'content_info'>
+                    <ContentLeft 
+                        title = "Events" 
+                        name = "Live-In-Concert"
+                        synopsis = {this.dummySynopsis}
+                        src = {eventSample}
+                    />
                 </div>
             </div>
         )
     }
 
-    renderBodyContentExtended = () => {
+    renderBody = () => {
         return (
             <div className = 'home_container'>
                 <div className = 'home_header_slide'>
@@ -177,7 +202,7 @@ class Home extends Component {
     render() {
         return (
             <div className = 'home_root_container'>
-                { this.renderBodyContentExtended() }
+                { this.renderBody() }
             </div>
         )
     }
