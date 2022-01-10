@@ -14,13 +14,13 @@ import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
-import theatreImage from '../../assets/images/Theatres.jpg'
 import image2 from '../../assets/CarouselImages/2.jpg'
+import eventSample from '../../assets/images/event_sample.jpg'
 
 class Home extends Component {
     state = {
         movies: [],
-        theatres: [],
+        events: [],
         movieSearchValue: "",
         city: "Colombo",
         date: "31/12/2021",
@@ -42,23 +42,22 @@ class Home extends Component {
             imdb: "99%" 
         }
 
-        const theatre = {
-            name: "Ja-ela Cinemax", 
-            src: theatreImage, 
+        const event = {
+            name: "Ar Rahman Live-in-concert", 
+            src: eventSample, 
             location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
             contact: "0117 549 650",
-            timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"] 
         }
 
         const dummyMovieArr = ["1", "2", "3", "4", "5", "6"]
-        const dummyTheatreArr = ["1", "2", "3", "4"]
-        let theatres_Data = []
+        const dummyEventsArr = ["1", "2", "3", "4"]
+        let events_Data = []
         let movies_Data = []
 
         dummyMovieArr.forEach(() => movies_Data.push(movie))
-        dummyTheatreArr.forEach(() => theatres_Data.push(theatre))
+        dummyEventsArr.forEach(() => events_Data.push(event))
 
-        this.setState({ movies: movies_Data, theatres: theatres_Data })
+        this.setState({ movies: movies_Data, events: events_Data })
     }
 
     handleSearchOnClick = () => {
@@ -146,7 +145,7 @@ class Home extends Component {
     }
 
     renderBodyContents = () => {
-        const {movies, theatres} = this.state
+        const {movies, events} = this.state
         return (
             <div className = 'home_parallax'>
                 <div className = 'content_list'>
@@ -172,7 +171,15 @@ class Home extends Component {
                     />
                 </div>
                 <div className = 'content_list'>
-                    { this.renderContentList("Events", "Events", theatres) }
+                    { this.renderContentList("Events", "Events", events) }
+                </div>
+                <div className = 'content_info'>
+                    <ContentLeft 
+                        title = "Events" 
+                        name = "Live-In-Concert"
+                        synopsis = {this.dummySynopsis}
+                        src = {eventSample}
+                    />
                 </div>
             </div>
         )

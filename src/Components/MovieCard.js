@@ -33,12 +33,12 @@ const useStyles = makeStyles({
         marginTop: "20px"
     },
     genre: {
-        color: "#000",
         marginRight: "7px",
         textTransform: "uppercase",
         letterSpacing: "0.02rem",
         fontSize: "0.6rem",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "silver"
     },
     rateRoot: {
         marginTop: "10px",
@@ -57,9 +57,9 @@ const useStyles = makeStyles({
         marginRight: "5px"
     },
     rateValue: {
-        color: "#000",
         fontSize: "0.85rem",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "silver"
     },
 })
 

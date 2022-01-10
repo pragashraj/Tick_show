@@ -7,11 +7,8 @@ import CardContent from '@mui/material/CardContent'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
-import Button from '@mui/material/Button'
-import ButtonGroup from '@mui/material/ButtonGroup'
 import { makeStyles } from '@mui/styles'
-
-import rottenImg from '../assets/Icons/rotten.png'
+import { AttachMoney, FmdGood, Call } from '@mui/icons-material'
 
 const useStyles = makeStyles({
     root: {
@@ -21,16 +18,29 @@ const useStyles = makeStyles({
         background: "transparent"
     },
     title: {
-        fontSize: "0.9rem", 
-        letterSpacing: "0.05rem", 
+        fontSize: "0.7rem", 
+        letterSpacing: "0.1rem", 
         fontWeight: "bold", 
         textTransform: "uppercase",
         color: "#fff",
     },
-    subtitle: {
+    location: {
         fontSize: "0.7rem", 
         letterSpacing: "0.08rem",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "silver",
+        marginTop: "10px",
+        display: "flex",
+        marginLeft: "10px",
+        marginBottom: "5px"
+    },
+    contact: {
+        fontSize: "0.7rem", 
+        letterSpacing: "0.08rem",
+        fontWeight: "bold",
+        color: "silver",
+        display: "flex",
+        marginLeft: "10px"
     },
     cardContent: {
         flex: '1 0 auto'
@@ -38,40 +48,41 @@ const useStyles = makeStyles({
     cardMedia: {
         height: "25vh"
     },
-    timeSlots: {
-        display: 'flex',
+    priceRoot: {
+        width: "100%",
+        display: "flex",
+        justifyContent: "flex-end"
     },
-    slotBtn: {
-        color: "#ffffff",
-    },
-    rateIconRoot: {
+    priceIconRoot: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
         marginLeft: "-7px",
         marginTop: "15px"
     },
-    rateIcon: {
+    icon: {
         width: "35px",
-        marginRight: "5px"
+        marginRight: "5px",
+        color: "#ABEBC6"
     },
-    rateValue: {
-        color: "#000",
+    priceValue: {
         fontSize: "0.85rem",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: "#ABEBC6",
+        marginLeft: "-8px"
     },
 })
 
-const TheatreCard = ({item}) => {
+const EventCard = ({item}) => {
     const classes = useStyles()
 
-    const {name, src, location, contact, timeSlots} = item
+    const {name, src, location, contact} = item
 
     const renderRatings = () => (
-        <div className = {classes.rateRoot}>
-            <div className = {classes.rateIconRoot}>
-                <img src = {rottenImg} alt = "rotten" className = {classes.rateIcon}/>
-                <span className = {classes.rateValue}>{"95%"}</span>
+        <div className = {classes.priceRoot}>
+            <div className = {classes.priceIconRoot}>
+                <AttachMoney className = {classes.icon}/>
+                <span className = {classes.priceValue}>2500 onwards</span>
             </div>
         </div>
     )
@@ -81,11 +92,11 @@ const TheatreCard = ({item}) => {
             <Typography component = "div" variant = "h4" className = {classes.title}> 
                 {name}
             </Typography>
-            <Typography variant = "subtitle1" component = "div" className = {classes.subtitle}>
-                {location}
+            <Typography variant = "subtitle1" component = "div" className = {classes.location}>
+                <FmdGood className = {classes.icon}/> {location}
             </Typography>
-            <Typography variant = "subtitle1" component = "div" className = {classes.subtitle}>
-                {contact}
+            <Typography variant = "subtitle1" component = "div" className = {classes.contact}>
+                <Call className = {classes.icon}/> {contact}
             </Typography>
             { renderRatings() }
         </CardContent>
@@ -100,14 +111,6 @@ const TheatreCard = ({item}) => {
         />
     )
 
-    const renderTimeSlots = () => (
-        <Box className = {classes.timeSlots}>
-            <ButtonGroup size = "small" aria-label = "outlined button group">
-                { timeSlots.map((i, idx) => <Button key = {idx} className = {classes.slotBtn}>{i}</Button>) }
-            </ButtonGroup>
-        </Box>
-    )
-
     return (
         <Paper elevation = {3} className = {classes.root}>
             <Grid container>
@@ -117,7 +120,6 @@ const TheatreCard = ({item}) => {
                 <Grid item xs = {12} sm = {12} md = {12}>
                     <Box sx = {{ display: 'flex', flexDirection: 'column' }}>
                         { renderContent() }
-                        { renderTimeSlots() }
                     </Box>
                 </Grid>
             </Grid>
@@ -125,4 +127,4 @@ const TheatreCard = ({item}) => {
     )
 }
 
-export default TheatreCard
+export default EventCard

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import MovieCard from '../MovieCard'
-import TheatreCard from '../TheatreCard'
+import EventCard from '../EventCard'
 
 //Material-UI
 import Grid from '@mui/material/Grid'
@@ -16,13 +16,13 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick}) => {
         "Events": "/"
     }
 
-    const renderTheatresList = () => {
+    const renderEventsList = () => {
         return (
             <Grid container spacing = {2}>
                 { listItems.map((item, idx) => {
                     return (
                         <Grid item xs = {12} sm = {6} md = {3} key = {idx}>
-                            <TheatreCard item = {item}/>
+                            <EventCard item = {item}/>
                         </Grid>
                     )
                 }) }
@@ -47,8 +47,8 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick}) => {
     const renderContentList = () => {
         switch (type) {
             case "Movies": return renderMoviesList()
-            case "Theatres": return renderTheatresList()
-            default: return renderTheatresList()
+            case "Events": return renderEventsList()
+            default: return 
         }
     }
 
