@@ -11,10 +11,18 @@ import './ContentList.css'
 const ContentList = ({type, title, listItems, handleViewMoreOnClick}) => {
 
     const getHref = () => {
-        if (type === "Movies")
-            return "/movies"
-        else
-            return "/theatres"
+        let href = "/"
+        switch (type) {
+            case "Movies": href = "/movies"
+                break
+            case "Theatres": href = "/theatres"
+                break
+            case "Events": href = "/"
+                break
+            default: return
+        }
+
+        return href
     }
 
     const renderTheatresList = (item, idx) => {

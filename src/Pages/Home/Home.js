@@ -50,14 +50,13 @@ class Home extends Component {
             timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"] 
         }
 
-        const dummyArr = ["1", "2", "3", "4", "5", "6"]
+        const dummyMovieArr = ["1", "2", "3", "4", "5", "6"]
+        const dummyTheatreArr = ["1", "2", "3", "4"]
         let theatres_Data = []
         let movies_Data = []
 
-        dummyArr.forEach(e => {
-            theatres_Data.push(theatre)
-            movies_Data.push(movie)
-        })
+        dummyMovieArr.forEach(() => movies_Data.push(movie))
+        dummyTheatreArr.forEach(() => theatres_Data.push(theatre))
 
         this.setState({ movies: movies_Data, theatres: theatres_Data })
     }
