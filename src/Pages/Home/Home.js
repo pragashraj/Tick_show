@@ -6,6 +6,7 @@ import SelectorDropDown from './SelectorDropDown'
 import ContentList from '../../Components/ContentList/ContentList'
 import ContentLeft from './ContentLeft'
 
+//Material-UI
 import { Grid } from '@mui/material'
 import EditLocation from '@mui/icons-material/EditLocation'
 import CalendarToday from '@mui/icons-material/CalendarToday'
@@ -13,9 +14,6 @@ import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
-import movieCardImage2 from '../../assets/images/2.jpg'
-import movieCardImage3 from '../../assets/images/3.jpg'
-import movieCardImage4 from '../../assets/images/4.jpg'
 import theatreImage from '../../assets/images/Theatres.jpg'
 
 class Home extends Component {
@@ -32,24 +30,14 @@ class Home extends Component {
         this.createDummyData()
     }
 
-    handleSearchOnClick = () => {
-
-    }
-
-    handleInputOnChange = (e) => {
-        const {name, value} = e.target
-        this.setState({ [name]: value })
-    }
-
     createDummyData = () => {
-        const movies_Data = [
-            {name: "Spiderman No Way home", src: movieCardImage1, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
-            {name: "The Batman", src: movieCardImage2, genre: ["Action", "Adventure", "Crime"], rotten: "94%", imdb: "99%" },
-            {name: "Fantastic Beasts 3", src: movieCardImage3, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
-            {name: "The Amazing Spiderman 3", src: movieCardImage4, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
-            {name: "Fantastic Beasts 3", src: movieCardImage3, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" },
-            {name: "The Amazing Spiderman 3", src: movieCardImage4, genre: ["Action", "Adventure"], rotten: "94%", imdb: "99%" }
-        ]
+        const movie = { 
+            name: "Spiderman No Way home", 
+            src: movieCardImage1, 
+            genre: ["Action", "Adventure"], 
+            rotten: "94%", 
+            imdb: "99%" 
+        }
 
         const theatre = {
             name: "Ja-ela Cinemax", 
@@ -61,12 +49,23 @@ class Home extends Component {
 
         const dummyArr = ["1", "2", "3", "4"]
         let theatres_Data = []
+        let movies_Data = []
 
         dummyArr.forEach(e => {
             theatres_Data.push(theatre)
+            movies_Data.push(movie)
         })
 
         this.setState({ movies: movies_Data, theatres: theatres_Data })
+    }
+
+    handleSearchOnClick = () => {
+
+    }
+
+    handleInputOnChange = (e) => {
+        const {name, value} = e.target
+        this.setState({ [name]: value })
     }
 
     renderContentList = (type, title, movies) => {
