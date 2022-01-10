@@ -70,12 +70,12 @@ class Home extends Component {
         this.setState({ [name]: value })
     }
 
-    renderContentList = (type, title, movies) => {
+    renderContentList = (type, title, dataList) => {
         return (
             <ContentList
                 type = {type} 
                 title = {title}
-                listItems = {movies}
+                listItems = {dataList}
             />
         )
     }
@@ -163,8 +163,16 @@ class Home extends Component {
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Upcoming Movies", movies) }
                 </div>
+                <div className = 'content_info'>
+                    <ContentLeft 
+                        title = "UpComing" 
+                        name = "Spiderman No Way Home"
+                        synopsis = {this.dummySynopsis}
+                        src = {image2}
+                    />
+                </div>
                 <div className = 'content_list'>
-                    { this.renderContentList("Theatres", "Theatres", theatres) }
+                    { this.renderContentList("Events", "Events", theatres) }
                 </div>
             </div>
         )
