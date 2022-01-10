@@ -15,6 +15,7 @@ import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import theatreImage from '../../assets/images/Theatres.jpg'
+import image2 from '../../assets/CarouselImages/2.jpg'
 
 class Home extends Component {
     state = {
@@ -25,6 +26,8 @@ class Home extends Component {
         date: "31/12/2021",
         experience: "2D"
     }
+
+    dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
 
     componentDidMount() {
         this.createDummyData()
@@ -47,7 +50,7 @@ class Home extends Component {
             timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"] 
         }
 
-        const dummyArr = ["1", "2", "3", "4"]
+        const dummyArr = ["1", "2", "3", "4", "5", "6"]
         let theatres_Data = []
         let movies_Data = []
 
@@ -151,7 +154,15 @@ class Home extends Component {
                     { this.renderContentList("Movies", "Movies", movies) }
                 </div>
                 <div className = 'content_info'>
-                    <ContentLeft/>
+                    <ContentLeft 
+                        title = "Now Showing" 
+                        name = "Spiderman No Way Home"
+                        synopsis = {this.dummySynopsis}
+                        src = {image2}
+                    />
+                </div>
+                <div className = 'content_list'>
+                    { this.renderContentList("Movies", "Upcoming Movies", movies) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Theatres", "Theatres", theatres) }
@@ -160,7 +171,7 @@ class Home extends Component {
         )
     }
 
-    renderBodyContentExtended = () => {
+    renderBody = () => {
         return (
             <div className = 'home_container'>
                 <div className = 'home_header_slide'>
@@ -177,7 +188,7 @@ class Home extends Component {
     render() {
         return (
             <div className = 'home_root_container'>
-                { this.renderBodyContentExtended() }
+                { this.renderBody() }
             </div>
         )
     }
