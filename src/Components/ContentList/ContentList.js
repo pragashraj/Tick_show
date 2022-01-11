@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 })
 
-const ContentList = ({type, title, listItems, handleViewMoreOnClick}) => {
+const ContentList = ({type, title, listItems, handleViewMoreOnClick, handleCardOnClick}) => {
     const classes = useStyles()
 
     const HREF = {
@@ -31,7 +31,10 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick}) => {
             <Grid container spacing = {2}>
                 { listItems.map((item, idx) => {
                     return (
-                        <Grid item xs = {12} sm = {6} md = {3} key = {idx}>
+                        <Grid item xs = {12} sm = {6} md = {3} key = {idx} 
+                            className = {classes.card} 
+                            onClick = {() => handleCardOnClick(item)}
+                        >
                             <EventCard item = {item}/>
                         </Grid>
                     )
@@ -45,7 +48,10 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick}) => {
             <Grid container spacing = {2}>
                 { listItems.map((item, idx) => {
                     return (
-                        <Grid item xs = {6} sm = {6} md = {2} key = {idx} className = {classes.card}>
+                        <Grid item xs = {6} sm = {6} md = {2} key = {idx} 
+                            className = {classes.card} 
+                            onClick = {() => handleCardOnClick(item)}
+                        >
                             <MovieCard item = {item}/>
                         </Grid>
                     )

@@ -77,6 +77,10 @@ class Home extends Component {
 
     }
 
+    handleCardOnClick = (item) => {
+
+    }
+
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
@@ -100,6 +104,7 @@ class Home extends Component {
                 type = {type} 
                 title = {title}
                 listItems = {dataList}
+                handleCardOnClick = {this.handleCardOnClick}
             />
         )
     }
