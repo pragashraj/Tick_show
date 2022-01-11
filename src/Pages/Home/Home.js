@@ -39,7 +39,12 @@ class Home extends Component {
             src: movieCardImage1, 
             genre: ["Action", "Adventure"], 
             rotten: "94%", 
-            imdb: "99%" 
+            imdb: "99%",
+            userRate: "4.5",
+            url: "https://Google.com",
+            synopsis: this.dummySynopsis,
+            cast: [],
+            crew: [],
         }
 
         const event = {
@@ -47,6 +52,7 @@ class Home extends Component {
             src: eventSample, 
             location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
             contact: "0117 549 650",
+            des: this.dummySynopsis
         }
 
         const dummyMovieArr = ["1", "2", "3", "4", "5", "6"]
@@ -67,6 +73,17 @@ class Home extends Component {
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
+    }
+
+    renderContentLeft = (title, name, src, des) => {
+        return (
+            <ContentLeft 
+                title = {title}
+                name = {name}
+                synopsis = {des}
+                src = {src}
+            />
+        )
     }
 
     renderContentList = (type, title, dataList) => {
@@ -146,40 +163,27 @@ class Home extends Component {
 
     renderBodyContents = () => {
         const {movies, events} = this.state
+        const movie = movies[0]
+        const event = events[0]
         return (
             <div className = 'home_parallax'>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Movies", movies) }
                 </div>
                 <div className = 'content_info'>
-                    <ContentLeft 
-                        title = "Now Showing" 
-                        name = "Spiderman No Way Home"
-                        synopsis = {this.dummySynopsis}
-                        src = {image2}
-                    />
+                    { this.renderContentLeft("Now Showing", movie && movie.name, image2, movie && movie.synopsis) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Upcoming Movies", movies) }
                 </div>
                 <div className = 'content_info'>
-                    <ContentLeft 
-                        title = "UpComing" 
-                        name = "Spiderman No Way Home"
-                        synopsis = {this.dummySynopsis}
-                        src = {image2}
-                    />
+                    { this.renderContentLeft("UpComing", movie && movie.name, image2, movie && movie.synopsis) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Events", "Events", events) }
                 </div>
                 <div className = 'content_info'>
-                    <ContentLeft 
-                        title = "Events" 
-                        name = "Live-In-Concert"
-                        synopsis = {this.dummySynopsis}
-                        src = {eventSample}
-                    />
+                    { this.renderContentLeft("Events", event && event.name, eventSample, event && event.des) }
                 </div>
             </div>
         )
