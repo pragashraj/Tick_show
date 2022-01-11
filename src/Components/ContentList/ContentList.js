@@ -5,10 +5,20 @@ import EventCard from '../EventCard'
 
 //Material-UI
 import Grid from '@mui/material/Grid'
+import { makeStyles } from '@mui/styles'
 
 import './ContentList.css'
 
+const useStyles = makeStyles({
+    card: {
+        '&:hover': {
+            cursor: "pointer",
+        }
+    },
+})
+
 const ContentList = ({type, title, listItems, handleViewMoreOnClick}) => {
+    const classes = useStyles()
 
     const HREF = {
         "Movies": "/movies",
@@ -35,7 +45,7 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick}) => {
             <Grid container spacing = {2}>
                 { listItems.map((item, idx) => {
                     return (
-                        <Grid item xs = {6} sm = {6} md = {2} key = {idx}>
+                        <Grid item xs = {6} sm = {6} md = {2} key = {idx} className = {classes.card}>
                             <MovieCard item = {item}/>
                         </Grid>
                     )
