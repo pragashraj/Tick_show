@@ -14,7 +14,6 @@ import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
-import image2 from '../../assets/CarouselImages/2.jpg'
 import eventSample from '../../assets/images/event_sample.jpg'
 
 class Home extends Component {
@@ -52,7 +51,7 @@ class Home extends Component {
             src: eventSample, 
             location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
             contact: "0117 549 650",
-            des: this.dummySynopsis
+            description: this.dummySynopsis
         }
 
         const dummyMovieArr = ["1", "2", "3", "4", "5", "6"]
@@ -70,18 +69,27 @@ class Home extends Component {
 
     }
 
+    handleWatchTrailerOnClick = () => {
+
+    }
+
+    handleBuyTicketsOnClick = () => {
+
+    }
+
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
     }
 
-    renderContentLeft = (title, name, src, des) => {
+    renderContentLeft = (title, type, item) => {
         return (
             <ContentLeft 
                 title = {title}
-                name = {name}
-                synopsis = {des}
-                src = {src}
+                type = {type}
+                item = {item}
+                handleWatchTrailerOnClick = {this.handleWatchTrailerOnClick}
+                handleBuyTicketsOnClick = {this.handleBuyTicketsOnClick}
             />
         )
     }
@@ -163,27 +171,25 @@ class Home extends Component {
 
     renderBodyContents = () => {
         const {movies, events} = this.state
-        const movie = movies[0]
-        const event = events[0]
         return (
             <div className = 'home_parallax'>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Movies", movies) }
                 </div>
                 <div className = 'content_info'>
-                    { this.renderContentLeft("Now Showing", movie && movie.name, image2, movie && movie.synopsis) }
+                    { this.renderContentLeft("Now Showing", "Movies", movies[0]) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Upcoming Movies", movies) }
                 </div>
                 <div className = 'content_info'>
-                    { this.renderContentLeft("UpComing", movie && movie.name, image2, movie && movie.synopsis) }
+                    { this.renderContentLeft("UpComing", "Movies", movies[0]) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Events", "Events", events) }
                 </div>
                 <div className = 'content_info'>
-                    { this.renderContentLeft("Events", event && event.name, eventSample, event && event.des) }
+                    { this.renderContentLeft("Events", "Events", events[0]) }
                 </div>
             </div>
         )
