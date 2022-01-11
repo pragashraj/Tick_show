@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
+import SlideShow from '../../Components/SlideShow/SlideShow'
 
 //Material-UI
-import { Grid, Button } from '@mui/material'
+import { Button } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import CheckCircleOutline from '@mui/icons-material/CheckCircleOutline'
 import SlowMotionVideoIcon from '@mui/icons-material/SlowMotionVideo'
@@ -16,12 +17,20 @@ const useStyles = makeStyles({
         border: "1px solid #AEB6BF",
         background: "transparent",
         borderRadius: "10px",
-        padding: "4px"
+        padding: "5px"
     },
+    container: {
+        display: "flex",
+        position: "absolute",
+        width: "40%",
+        marginLeft: "7%",
+        height: "88%"
+    }
 })
 
 const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTicketsOnClick}) => {
     const classes = useStyles()
+    
     const [data, setData] = useState({
         name: "",
         description: "",
@@ -44,7 +53,6 @@ const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTic
         }
         setData({name: data_name, description: data_description, src: data_src})
     }, [item, type])
-
 
     const renderWatchTrailerBtn = () => (
         <Button 
@@ -98,19 +106,17 @@ const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTic
     )
 
     return (
-        <Grid container className = {classes.root}>
-            <Grid item xs = {12} sm = {12} md = {4} sx = {{display: "flex"}}>
+        <div container className = {classes.root}>
+            <SlideShow images = {[{url: data.src}]}/>
+            <div className = {classes.container}>
                 <div className = 'body_info_container'>
                     { renderSectionTitle() }
                     { renderSectionSynopsis() }
                     { renderAttributeList() }
                     { renderSectionButton() }
                 </div>
-            </Grid>
-            <Grid item xs = {12} sm = {12} md = {8} sx = {{display: "flex"}}>
-                <img src = {data.src} alt = {`${title} - ${data.name}`} style = {{width: "100%"}}/>
-            </Grid>
-        </Grid>
+            </div>
+        </div>
     )
 }
 
