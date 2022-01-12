@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { useNavigate } from "react-router-dom"
+
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomSearch from './CustomSearch'
 import SelectorDropDown from './SelectorDropDown'
@@ -15,6 +17,10 @@ import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import eventSample from '../../assets/images/event_sample.jpg'
+
+function withNavigate(Component) {
+    return props => <Component {...props} navigate = {useNavigate()}/>
+}
 
 class Home extends Component {
     state = {
@@ -73,12 +79,12 @@ class Home extends Component {
 
     }
 
-    handleBuyTicketsOnClick = () => {
-
+    handleBuyTicketsOnClick = (movieItem) => {
+        this.props.navigate(`/selectedMovie`, { state: movieItem })
     }
 
     handleCardOnClick = (item) => {
-
+        this.props.navigate(`/movies`, { state: item })
     }
 
     handleInputOnChange = (e) => {
@@ -223,4 +229,4 @@ class Home extends Component {
     }
 }
 
-export default Home
+export default withNavigate(Home)
