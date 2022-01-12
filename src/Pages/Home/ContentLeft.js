@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SlideShow from '../../Components/SlideShow/SlideShow'
@@ -19,40 +19,25 @@ const useStyles = makeStyles({
         borderRadius: "10px",
         padding: "5px"
     },
-    container: {
+    mainContainer: {
         display: "flex",
         position: "absolute",
         width: "40%",
         marginLeft: "7%",
         height: "88%"
-    }
+    },
 })
 
 const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTicketsOnClick}) => {
     const classes = useStyles()
     
-    const [data, setData] = useState({
-        name: "",
-        description: "",
-        src: null
-    })
+    const {name, src} = item
+    const description = type === "Movies" ? item.synopsis : item.description
+    const attributes = ["1", "2", "3"]
 
-    useEffect(() => {
-        let data_name = ""
-        let data_description = ""
-        let data_src = null
-        if (item) {
-            data_name = item.name
-            data_src = item.src
-            if (type === "Movies") {
-                data_description = item.synopsis
-            }
-            else {
-                data_description = item.description
-            }
-        }
-        setData({name: data_name, description: data_description, src: data_src})
-    }, [item, type])
+    const slideShowImages = [
+        { url: src },
+    ]
 
     const renderWatchTrailerBtn = () => (
         <Button 
@@ -79,7 +64,7 @@ const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTic
     const renderAttributeList = () => (
         <div className = "attribute_list">
             <ul>
-                { ["1", "2", "3"].map((i, idx) => {
+                { attributes.map((i, idx) => {
                     return (
                         <li key = {idx}>
                             <CheckCircleOutline sx = {{color: "#ff6347"}}/>
@@ -94,21 +79,21 @@ const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTic
     const renderSectionSynopsis = () => (
         <div className = "synopsis_container">
             <h2>Synopsis</h2>
-            <p>{data.description}</p>
+            <p>{description}</p>
         </div>
     )
 
     const renderSectionTitle = () => (
         <div className = "section_title">
             <span>{title}</span>
-            <h1>{data.name}</h1>
+            <h1>{name}</h1>
         </div>
     )
 
     return (
-        <div container className = {classes.root}>
-            <SlideShow images = {[{url: data.src}]}/>
-            <div className = {classes.container}>
+        <div className = {classes.root}>
+            <SlideShow images = {slideShowImages}/>
+            <div className = {classes.mainContainer}>
                 <div className = 'body_info_container'>
                     { renderSectionTitle() }
                     { renderSectionSynopsis() }

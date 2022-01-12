@@ -49,6 +49,8 @@ class Movies extends Component {
 
         //for create filter list
         this.createFilters()
+
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
     createDataBlock = () => {
