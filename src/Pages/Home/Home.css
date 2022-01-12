@@ -191,7 +191,7 @@
 }
 
 .synopsis_container p {
-    color: #bfc8d8;
+    color: #ffffff;
     font-size: 14px;
 }
 
@@ -215,7 +215,7 @@
 .attribute_list ul li span {
     font-size: 15px;
     font-weight: 400;
-    color: #bfc8d8;
+    color: #ffffff;
     margin-left: 10px;
 }
 

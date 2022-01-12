@@ -25,7 +25,7 @@ const useStyles = makeStyles({
         width: "40%",
         marginLeft: "7%",
         height: "88%"
-    }
+    },
 })
 
 const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTicketsOnClick}) => {
