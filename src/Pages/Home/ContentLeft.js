@@ -28,15 +28,13 @@ const useStyles = makeStyles({
     },
 })
 
-const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTicketsOnClick}) => {
+const ContentLeft = ({title, item, handleWatchTrailerOnClick, handleBuyTicketsOnClick}) => {
     const classes = useStyles()
-    
-    const {name, src} = item
-    const description = type === "Movies" ? item.synopsis : item.description
+
     const attributes = ["1", "2", "3"]
 
     const slideShowImages = [
-        { url: src },
+        { url: item && item.src },
     ]
 
     const renderWatchTrailerBtn = () => (
@@ -52,7 +50,7 @@ const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTic
 
     const renderSectionButton = () => (
         <div className = 'button_block'>
-            { type === "Movies" && renderWatchTrailerBtn() }
+            { renderWatchTrailerBtn() }
             <CustomButton 
                 label = "Buy Tickets" 
                 variant = "outlined"
@@ -79,14 +77,14 @@ const ContentLeft = ({title, type, item, handleWatchTrailerOnClick, handleBuyTic
     const renderSectionSynopsis = () => (
         <div className = "synopsis_container">
             <h2>Synopsis</h2>
-            <p>{description}</p>
+            <p>{item && item.synopsis}</p>
         </div>
     )
 
     const renderSectionTitle = () => (
         <div className = "section_title">
             <span>{title}</span>
-            <h1>{name}</h1>
+            <h1>{item && item.name}</h1>
         </div>
     )
 
