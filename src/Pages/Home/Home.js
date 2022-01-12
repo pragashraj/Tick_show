@@ -92,11 +92,10 @@ class Home extends Component {
         this.setState({ [name]: value })
     }
 
-    renderContentLeft = (title, type, item) => {
+    renderContentLeft = (title, item) => {
         return (
             <ContentLeft 
                 title = {title}
-                type = {type}
                 item = {item}
                 handleWatchTrailerOnClick = {this.handleWatchTrailerOnClick}
                 handleBuyTicketsOnClick = {this.handleBuyTicketsOnClick}
@@ -188,19 +187,16 @@ class Home extends Component {
                     { this.renderContentList("Movies", "Movies", movies) }
                 </div>
                 <div className = 'content_info'>
-                    { this.renderContentLeft("Now Showing", "Movies", movies[0]) }
+                    { this.renderContentLeft("Now Showing", movies[0]) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Upcoming Movies", movies) }
                 </div>
                 <div className = 'content_info'>
-                    { this.renderContentLeft("UpComing", "Movies", movies[0]) }
+                    { this.renderContentLeft("UpComing", movies[0]) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Events", "Events", events) }
-                </div>
-                <div className = 'content_info'>
-                    { this.renderContentLeft("Events", "Events", events[0]) }
                 </div>
             </div>
         )
