@@ -23,7 +23,7 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick, handleCardO
     const HREF = {
         "Movies": "/movies",
         "Theatres": "/theatres",
-        "Events": "/"
+        "Events": "/events"
     }
 
     const renderEventsList = () => {
