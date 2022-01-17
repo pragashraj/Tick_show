@@ -26,7 +26,7 @@ const Footer = () => {
         {id : "2", href : "/movies", title: "Movies"},
         {id : "3", href : "/theatres", title: "Theatres"},
         {id : "4", href : "/contacts", title: "Contact"},
-        {id : "5", href : "/news", title: "News"},
+        {id : "5", href : "/", title: "News"},
     ]
 
     const handleSubcribeOnClick = (e) => {

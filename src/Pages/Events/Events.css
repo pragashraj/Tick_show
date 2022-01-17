@@ -1,0 +1,10 @@
+.events_root {
+    height: 50vh;
+    position: relative;
+    display: block;
+    background-image: url(../../assets/images/parallax.jpg);
+    background-repeat: no-repeat;
+    background-position: center, center;
+    padding-top: 8rem;
+    padding-bottom: 5rem;
+}

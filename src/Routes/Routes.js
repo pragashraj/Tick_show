@@ -3,6 +3,7 @@ import Movies from "../Pages/Movies/Movies"
 import Theatres from "../Pages/Theatres/Theatres"
 import SelectedMovie from "../Pages/Movies/SelectedMovie"
 import Contact from "../Pages/Contact/Contact"
+import Events from "../Pages/Events/Events"
 
 const routes = {
     data: [
@@ -34,6 +35,12 @@ const routes = {
             name: "Contact",
             path: "/contacts",
             component: <Contact/>,
+            type: "",
+        },
+        {
+            name: "Events",
+            path: "/events",
+            component: <Events/>,
             type: "",
         },
     ]
