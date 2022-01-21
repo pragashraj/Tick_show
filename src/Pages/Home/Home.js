@@ -7,6 +7,7 @@ import CustomSearch from './CustomSearch'
 import SelectorDropDown from './SelectorDropDown'
 import ContentList from '../../Components/ContentList/ContentList'
 import SlideShow from '../../Components/SlideShow/SlideShow'
+import ConfirmationDialog from '../../Components/ConfirmationDialog'
 
 //Material-UI
 import { Grid } from '@mui/material'
@@ -30,6 +31,8 @@ class Home extends Component {
         events: [],
         theatres: [],
         movieSearchValue: "",
+        selectorTitle: "",
+        openSeletor: false,
         city: "Colombo",
         date: "31/12/2021",
         experience: "2D"
@@ -39,6 +42,23 @@ class Home extends Component {
 
     carouselImages = [
         {url: slideShowImage}
+    ]
+
+    options = [
+        'None',
+        'Atria',
+        'Callisto',
+        'Dione',
+        'Ganymede',
+        'Hangouts Call',
+        'Luna',
+        'Oberon',
+        'Phobos',
+        'Pyxis',
+        'Sedna',
+        'Titania',
+        'Triton',
+        'Umbriel',
     ]
 
     componentDidMount() {
@@ -96,6 +116,18 @@ class Home extends Component {
 
     }
 
+    handleSelectorOnClick = (title) => {
+        this.setState({ selectorTitle: title, openSeletor: true })
+    }
+
+    handleSelectorCancelOnClick = () => {
+        this.setState({ selectorTitle: "", openSeletor: false })
+    }
+
+    handleSelectorOkOnClick = () => {
+        this.setState({ selectorTitle: "", openSeletor: false })
+    }
+
     handleBuyTicketsOnClick = (movieItem) => {
         this.props.navigate(`/selectedMovie`, { state: movieItem })
     }
@@ -126,16 +158,18 @@ class Home extends Component {
                 label = {label}
                 value = {value}
                 icon = {icon}
+                selectOnClick = {this.handleSelectorOnClick}
             />
         )
     }
 
     renderCustomSearch = () => {
+        const {movieSearchValue} = this.state
         return (
             <CustomSearch 
                 placeholder = "search for movies"
                 name = "movieSearchValue"
-                value = {this.state.movieSearchValue}
+                value = {movieSearchValue}
                 handleOnChange = {this.handleInputOnChange}
             />
         )
@@ -208,8 +242,8 @@ class Home extends Component {
     renderBody = () => {
         return (
             <div className = 'home_container'>
+                <SlideShow images = {this.carouselImages}/>
                 <div className = 'home_header_slide'>
-                    <SlideShow images = {this.carouselImages}/>
                     { this.renderHeaderTextContainer() }
                     { this.renderHeaderSlideFooter() }
                 </div>
@@ -221,9 +255,17 @@ class Home extends Component {
     }
 
     render() {
+        const {selectorTitle, openSeletor} = this.state
         return (
             <div className = 'home_root_container'>
                 { this.renderBody() }
+                <ConfirmationDialog
+                    open = {openSeletor}
+                    title = {selectorTitle}
+                    options = {this.options}
+                    handleOkOnClick = {this.handleSelectorOkOnClick}
+                    handleCancelOnClick = {this.handleSelectorCancelOnClick}
+                />
             </div>
         )
     }

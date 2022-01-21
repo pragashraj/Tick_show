@@ -2,7 +2,7 @@ import React from 'react'
 
 //Material-UI
 import { styled, alpha } from '@mui/material/styles'
-import InputBase from '@mui/material/InputBase'
+import { InputBase } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 
 const SearchInput = styled('div')(({ theme }) => ({
@@ -49,9 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Search = ({placeholder, name, value, handleOnChange}) => {
     return (
         <SearchInput>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
+            <SearchIconWrapper> <SearchIcon /> </SearchIconWrapper>
             <StyledInputBase 
                 placeholder = {placeholder} 
                 inputProps = {{ 'aria-label': 'search' }}

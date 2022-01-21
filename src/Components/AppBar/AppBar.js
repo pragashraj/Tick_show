@@ -90,7 +90,7 @@ const AppBar = () => {
                 <div className = 'row'>
                     <img src = {logo} alt = "Tick Show" style = {{width: "100px"}}/>
                     <Search 
-                        placeholder = "Search for movies or theatres"
+                        placeholder = "Search for movies or events"
                         name = "searchValue"
                         value = {searchValue}
                         handleOnChange = {handleInputOnChange}
