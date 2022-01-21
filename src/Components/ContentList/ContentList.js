@@ -48,7 +48,7 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick, handleCardO
             <Grid container spacing = {2}>
                 { listItems.map((item, idx) => {
                     return (
-                        <Grid item xs = {6} sm = {6} md = {2} key = {idx} 
+                        <Grid item xs = {6} sm = {6} md = {3} key = {idx} 
                             className = {classes.card} 
                             onClick = {() => handleCardOnClick(item)}
                         >

@@ -38,7 +38,7 @@ class Movies extends Component {
         {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Movies"]}
     ]
 
-    images = [
+    carouselImages = [
         {url: headerImg1},
         {url: headerImg2}
     ]
@@ -263,7 +263,7 @@ class Movies extends Component {
         return (
             <div className = 'movies_root_container'>
                 <div className = 'movies_header'>
-                    <SlideShow images = {this.images}/>
+                    <SlideShow images = {this.carouselImages}/>
                     <h1>Explore More movies</h1>
                 </div>
                 <div className = 'movie_parallax'>

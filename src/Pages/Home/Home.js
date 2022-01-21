@@ -6,7 +6,7 @@ import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomSearch from './CustomSearch'
 import SelectorDropDown from './SelectorDropDown'
 import ContentList from '../../Components/ContentList/ContentList'
-import ContentLeft from './ContentLeft'
+import SlideShow from '../../Components/SlideShow/SlideShow'
 
 //Material-UI
 import { Grid } from '@mui/material'
@@ -17,6 +17,7 @@ import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import eventSample from '../../assets/images/event_sample.jpg'
+import slideShowImage from '../../assets/CarouselImages/header_slider.jpg'
 
 function withNavigate(Component) {
     return props => <Component {...props} navigate = {useNavigate()}/>
@@ -34,8 +35,13 @@ class Home extends Component {
 
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
 
+    carouselImages = [
+        {url: slideShowImage}
+    ]
+
     componentDidMount() {
         this.createDummyData()
+        window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
     createDummyData = () => {
@@ -60,7 +66,7 @@ class Home extends Component {
             description: this.dummySynopsis
         }
 
-        const dummyMovieArr = ["1", "2", "3", "4", "5", "6"]
+        const dummyMovieArr = ["1", "2", "3", "4"]
         const dummyEventsArr = ["1", "2", "3", "4"]
         let events_Data = []
         let movies_Data = []
@@ -90,17 +96,6 @@ class Home extends Component {
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
-    }
-
-    renderContentLeft = (title, item) => {
-        return (
-            <ContentLeft 
-                title = {title}
-                item = {item}
-                handleWatchTrailerOnClick = {this.handleWatchTrailerOnClick}
-                handleBuyTicketsOnClick = {this.handleBuyTicketsOnClick}
-            />
-        )
     }
 
     renderContentList = (type, title, dataList) => {
@@ -186,14 +181,8 @@ class Home extends Component {
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Movies", movies) }
                 </div>
-                <div className = 'content_info'>
-                    { this.renderContentLeft("Now Showing", movies[0]) }
-                </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Upcoming Movies", movies) }
-                </div>
-                <div className = 'content_info'>
-                    { this.renderContentLeft("UpComing", movies[0]) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Events", "Events", events) }
@@ -206,6 +195,7 @@ class Home extends Component {
         return (
             <div className = 'home_container'>
                 <div className = 'home_header_slide'>
+                    <SlideShow images = {this.carouselImages}/>
                     { this.renderHeaderTextContainer() }
                     { this.renderHeaderSlideFooter() }
                 </div>

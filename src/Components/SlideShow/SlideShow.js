@@ -6,13 +6,13 @@ const SlideShow = ({images}) => {
     return (
         <SimpleImageSlider
             images = {images}
-            showBullets = {true}
+            showBullets = {false}
             showNavs = {true}
             loop = {true}
             autoPlay = {true}
             autoPlayDelay = {8.0}
-            width = "99%"
-            height = "75vh"
+            width = "100%"
+            height = "100%"
         />
     )
 }
