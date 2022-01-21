@@ -18,6 +18,7 @@ import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import eventSample from '../../assets/images/event_sample.jpg'
 import slideShowImage from '../../assets/CarouselImages/header_slider.jpg'
+import theatreImage from '../../assets/images/Theatres.jpg'
 
 function withNavigate(Component) {
     return props => <Component {...props} navigate = {useNavigate()}/>
@@ -27,6 +28,7 @@ class Home extends Component {
     state = {
         movies: [],
         events: [],
+        theatres: [],
         movieSearchValue: "",
         city: "Colombo",
         date: "31/12/2021",
@@ -66,15 +68,24 @@ class Home extends Component {
             description: this.dummySynopsis
         }
 
-        const dummyMovieArr = ["1", "2", "3", "4"]
-        const dummyEventsArr = ["1", "2", "3", "4"]
-        let events_Data = []
-        let movies_Data = []
+        const theatre = {
+            name: "Ja-ela Cinemax", 
+            src: theatreImage, 
+            location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
+            contact: "0117 549 650", 
+            imdb: "99%"
+        }
 
-        dummyMovieArr.forEach(() => movies_Data.push(movie))
-        dummyEventsArr.forEach(() => events_Data.push(event))
+        const dummyArr = ["1", "2", "3", "4"]
+        let events_Data = [], movies_Data = [], theatres_Data = []
 
-        this.setState({ movies: movies_Data, events: events_Data })
+        dummyArr.forEach(() => {
+            movies_Data.push(movie)
+            events_Data.push(event)
+            theatres_Data.push(theatre)
+        })
+
+        this.setState({ movies: movies_Data, events: events_Data, theatres: theatres_Data })
     }
 
     handleSearchOnClick = () => {
@@ -175,7 +186,7 @@ class Home extends Component {
     }
 
     renderBodyContents = () => {
-        const {movies, events} = this.state
+        const {movies, events, theatres} = this.state
         return (
             <div className = 'home_parallax'>
                 <div className = 'content_list'>
@@ -183,6 +194,9 @@ class Home extends Component {
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Upcoming Movies", movies) }
+                </div>
+                <div className = 'content_list'>
+                    { this.renderContentList("Theatres", "Theatres", theatres) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Events", "Events", events) }
