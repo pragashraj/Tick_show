@@ -15,7 +15,6 @@
 }
 
 .home_header_slide {
-    background-image: url(../../assets/CarouselImages/header_slider.jpg);
     height: 90vh;
     background-position: 50% 0px;
     background-attachment: fixed;
