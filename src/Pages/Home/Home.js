@@ -14,6 +14,7 @@ import { Grid } from '@mui/material'
 import EditLocation from '@mui/icons-material/EditLocation'
 import CalendarToday from '@mui/icons-material/CalendarToday'
 import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
+import DateSelector from '../../Components/DateSelector'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
@@ -33,32 +34,18 @@ class Home extends Component {
         movieSearchValue: "",
         selectorTitle: "",
         openSeletor: false,
+        cityOptions: ["Colombo", "Ja-ela", "Negombo"],
         city: "Colombo",
-        date: "31/12/2021",
-        experience: "2D"
+        date: "31/01/2022",
+        experienceOptions: ["2D", "3D"],
+        experience: "2D",
+        openDatePicker: false
     }
 
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
 
     carouselImages = [
         {url: slideShowImage}
-    ]
-
-    options = [
-        'None',
-        'Atria',
-        'Callisto',
-        'Dione',
-        'Ganymede',
-        'Hangouts Call',
-        'Luna',
-        'Oberon',
-        'Phobos',
-        'Pyxis',
-        'Sedna',
-        'Titania',
-        'Triton',
-        'Umbriel',
     ]
 
     componentDidMount() {
@@ -109,27 +96,49 @@ class Home extends Component {
     }
 
     handleSearchOnClick = () => {
+        const {movieSearchValue, city, date, experience} = this.state
 
-    }
-
-    handleWatchTrailerOnClick = () => {
-
+        if (movieSearchValue) {
+            const data = { name: movieSearchValue, city, date, experience}
+            console.log(data)
+            this.setState({
+                movieSearchValue: "",
+                city: "Colombo",
+                date: "31/01/2022",
+                experience: "2D"
+            })
+        } 
+        else {
+            console.log("Alert: fields cannot be empty")
+        }
     }
 
     handleSelectorOnClick = (title) => {
-        this.setState({ selectorTitle: title, openSeletor: true })
+        if (title === "date") {
+            this.setState({ openDatePicker: true })
+        }
+        else {
+            this.setState({ selectorTitle: title, openSeletor: true })
+        }
     }
 
     handleSelectorCancelOnClick = () => {
-        this.setState({ selectorTitle: "", openSeletor: false })
+        this.setState({ 
+            selectorTitle: "", 
+            openSeletor: false,
+            city: "Colombo",
+            date: "31/01/2022",
+            experience: "2D",
+            openDatePicker: false
+        })
     }
 
     handleSelectorOkOnClick = () => {
-        this.setState({ selectorTitle: "", openSeletor: false })
-    }
-
-    handleBuyTicketsOnClick = (movieItem) => {
-        this.props.navigate(`/selectedMovie`, { state: movieItem })
+        this.setState({ 
+            selectorTitle: "", 
+            openSeletor: false, 
+            openDatePicker: false 
+        })
     }
 
     handleCardOnClick = (item) => {
@@ -139,6 +148,24 @@ class Home extends Component {
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
+    }
+
+    handleDateOnChange = (date) => {
+        this.setState({ date: date })
+    }
+
+    getSelectorOptions = (label) => {
+        const {cityOptions, experienceOptions} = this.state
+        let options
+        switch (label) {
+            case "city": options = cityOptions
+                break
+            case "experience": options = experienceOptions
+                break
+            default: options = []
+        }
+
+        return options
     }
 
     renderContentList = (type, title, dataList) => {
@@ -187,13 +214,13 @@ class Home extends Component {
                             { this.renderCustomSearch() }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("City", city, EditLocation) }
+                            { this.renderSelector("city", city, EditLocation) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("Date", date, CalendarToday) }
+                            { this.renderSelector("date", date, CalendarToday) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("Experience", experience, AccessibilityNew) }
+                            { this.renderSelector("experience", experience, AccessibilityNew) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {1}/>
                         <Grid item xs = {6} sm = {6} md = {2}>
@@ -254,18 +281,40 @@ class Home extends Component {
         )
     }
 
-    render() {
+    renderConfirmDialog = () => {
         const {selectorTitle, openSeletor} = this.state
+        return (
+            <ConfirmationDialog
+                open = {openSeletor}
+                title = {selectorTitle}
+                options = {this.getSelectorOptions(selectorTitle)}
+                handleChange = {this.handleDateOnChange}
+                handleOkOnClick = {this.handleSelectorOkOnClick}
+                handleCancelOnClick = {this.handleSelectorCancelOnClick}
+            />
+        )
+    }
+
+    renderDateSelector = () => {
+        const {openDatePicker} = this.state
+        return (
+            <DateSelector
+                open = {openDatePicker}
+                selectedDate = {new Date()}
+                onChange = {this.handleInputOnChange}
+                handleOkOnClick = {this.handleSelectorOkOnClick}
+                handleCancelOnClick = {this.handleSelectorCancelOnClick}
+            />
+        )
+    }
+
+    render() {
+        const {openSeletor, openDatePicker} = this.state
         return (
             <div className = 'home_root_container'>
                 { this.renderBody() }
-                <ConfirmationDialog
-                    open = {openSeletor}
-                    title = {selectorTitle}
-                    options = {this.options}
-                    handleOkOnClick = {this.handleSelectorOkOnClick}
-                    handleCancelOnClick = {this.handleSelectorCancelOnClick}
-                />
+                { openSeletor && this.renderConfirmDialog() }
+                { openDatePicker && this.renderDateSelector() }
             </div>
         )
     }

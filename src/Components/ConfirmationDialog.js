@@ -60,10 +60,10 @@ const ConfirmationDialog = ({open, title, options, value, handleChange, handleOk
             open = {open}
             TransitionProps = {{ onEntering: handleEntering }}
         >
-        <DialogTitle>{`Select ${title}`}</DialogTitle>
-        { renderDialogContent() }
-        { renderDialogActions() }
-    </Dialog>
+            <DialogTitle>{`Select ${title}`}</DialogTitle>
+            { renderDialogContent() }
+            { renderDialogActions() }
+        </Dialog>
     )
 }
 
