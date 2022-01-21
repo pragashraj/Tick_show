@@ -13,14 +13,14 @@ code {
 }
 
 body::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 body::-webkit-scrollbar-track {
-  background: rgb(138, 138, 138);
+  background: rgb(21, 67, 96);
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: rgb(47, 47, 48);
+  background-color: rgb(202, 202, 207);
   border-radius: 25px;
 }

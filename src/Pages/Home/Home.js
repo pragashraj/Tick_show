@@ -7,17 +7,20 @@ import CustomSearch from './CustomSearch'
 import SelectorDropDown from './SelectorDropDown'
 import ContentList from '../../Components/ContentList/ContentList'
 import SlideShow from '../../Components/SlideShow/SlideShow'
+import ConfirmationDialog from '../../Components/ConfirmationDialog'
 
 //Material-UI
 import { Grid } from '@mui/material'
 import EditLocation from '@mui/icons-material/EditLocation'
 import CalendarToday from '@mui/icons-material/CalendarToday'
 import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
+import DateSelector from '../../Components/DateSelector'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import eventSample from '../../assets/images/event_sample.jpg'
 import slideShowImage from '../../assets/CarouselImages/header_slider.jpg'
+import theatreImage from '../../assets/images/Theatres.jpg'
 
 function withNavigate(Component) {
     return props => <Component {...props} navigate = {useNavigate()}/>
@@ -27,10 +30,16 @@ class Home extends Component {
     state = {
         movies: [],
         events: [],
+        theatres: [],
         movieSearchValue: "",
+        selectorTitle: "",
+        openSeletor: false,
+        cityOptions: ["Colombo", "Ja-ela", "Negombo"],
         city: "Colombo",
-        date: "31/12/2021",
-        experience: "2D"
+        date: "31/01/2022",
+        experienceOptions: ["2D", "3D"],
+        experience: "2D",
+        openDatePicker: false
     }
 
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
@@ -66,27 +75,70 @@ class Home extends Component {
             description: this.dummySynopsis
         }
 
-        const dummyMovieArr = ["1", "2", "3", "4"]
-        const dummyEventsArr = ["1", "2", "3", "4"]
-        let events_Data = []
-        let movies_Data = []
+        const theatre = {
+            name: "Ja-ela Cinemax", 
+            src: theatreImage, 
+            location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
+            contact: "0117 549 650", 
+            imdb: "99%"
+        }
 
-        dummyMovieArr.forEach(() => movies_Data.push(movie))
-        dummyEventsArr.forEach(() => events_Data.push(event))
+        const dummyArr = ["1", "2", "3", "4"]
+        let events_Data = [], movies_Data = [], theatres_Data = []
 
-        this.setState({ movies: movies_Data, events: events_Data })
+        dummyArr.forEach(() => {
+            movies_Data.push(movie)
+            events_Data.push(event)
+            theatres_Data.push(theatre)
+        })
+
+        this.setState({ movies: movies_Data, events: events_Data, theatres: theatres_Data })
     }
 
     handleSearchOnClick = () => {
+        const {movieSearchValue, city, date, experience} = this.state
 
+        if (movieSearchValue) {
+            const data = { name: movieSearchValue, city, date, experience}
+            console.log(data)
+            this.setState({
+                movieSearchValue: "",
+                city: "Colombo",
+                date: "31/01/2022",
+                experience: "2D"
+            })
+        } 
+        else {
+            console.log("Alert: fields cannot be empty")
+        }
     }
 
-    handleWatchTrailerOnClick = () => {
-
+    handleSelectorOnClick = (title) => {
+        if (title === "date") {
+            this.setState({ openDatePicker: true })
+        }
+        else {
+            this.setState({ selectorTitle: title, openSeletor: true })
+        }
     }
 
-    handleBuyTicketsOnClick = (movieItem) => {
-        this.props.navigate(`/selectedMovie`, { state: movieItem })
+    handleSelectorCancelOnClick = () => {
+        this.setState({ 
+            selectorTitle: "", 
+            openSeletor: false,
+            city: "Colombo",
+            date: "31/01/2022",
+            experience: "2D",
+            openDatePicker: false
+        })
+    }
+
+    handleSelectorOkOnClick = () => {
+        this.setState({ 
+            selectorTitle: "", 
+            openSeletor: false, 
+            openDatePicker: false 
+        })
     }
 
     handleCardOnClick = (item) => {
@@ -96,6 +148,24 @@ class Home extends Component {
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
+    }
+
+    handleDateOnChange = (date) => {
+        this.setState({ date: date })
+    }
+
+    getSelectorOptions = (label) => {
+        const {cityOptions, experienceOptions} = this.state
+        let options
+        switch (label) {
+            case "city": options = cityOptions
+                break
+            case "experience": options = experienceOptions
+                break
+            default: options = []
+        }
+
+        return options
     }
 
     renderContentList = (type, title, dataList) => {
@@ -115,16 +185,18 @@ class Home extends Component {
                 label = {label}
                 value = {value}
                 icon = {icon}
+                selectOnClick = {this.handleSelectorOnClick}
             />
         )
     }
 
     renderCustomSearch = () => {
+        const {movieSearchValue} = this.state
         return (
             <CustomSearch 
                 placeholder = "search for movies"
                 name = "movieSearchValue"
-                value = {this.state.movieSearchValue}
+                value = {movieSearchValue}
                 handleOnChange = {this.handleInputOnChange}
             />
         )
@@ -142,13 +214,13 @@ class Home extends Component {
                             { this.renderCustomSearch() }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("City", city, EditLocation) }
+                            { this.renderSelector("city", city, EditLocation) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("Date", date, CalendarToday) }
+                            { this.renderSelector("date", date, CalendarToday) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("Experience", experience, AccessibilityNew) }
+                            { this.renderSelector("experience", experience, AccessibilityNew) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {1}/>
                         <Grid item xs = {6} sm = {6} md = {2}>
@@ -175,7 +247,7 @@ class Home extends Component {
     }
 
     renderBodyContents = () => {
-        const {movies, events} = this.state
+        const {movies, events, theatres} = this.state
         return (
             <div className = 'home_parallax'>
                 <div className = 'content_list'>
@@ -183,6 +255,9 @@ class Home extends Component {
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Upcoming Movies", movies) }
+                </div>
+                <div className = 'content_list'>
+                    { this.renderContentList("Theatres", "Theatres", theatres) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Events", "Events", events) }
@@ -194,8 +269,8 @@ class Home extends Component {
     renderBody = () => {
         return (
             <div className = 'home_container'>
+                <SlideShow images = {this.carouselImages}/>
                 <div className = 'home_header_slide'>
-                    <SlideShow images = {this.carouselImages}/>
                     { this.renderHeaderTextContainer() }
                     { this.renderHeaderSlideFooter() }
                 </div>
@@ -206,10 +281,40 @@ class Home extends Component {
         )
     }
 
+    renderConfirmDialog = () => {
+        const {selectorTitle, openSeletor} = this.state
+        return (
+            <ConfirmationDialog
+                open = {openSeletor}
+                title = {selectorTitle}
+                options = {this.getSelectorOptions(selectorTitle)}
+                handleChange = {this.handleDateOnChange}
+                handleOkOnClick = {this.handleSelectorOkOnClick}
+                handleCancelOnClick = {this.handleSelectorCancelOnClick}
+            />
+        )
+    }
+
+    renderDateSelector = () => {
+        const {openDatePicker} = this.state
+        return (
+            <DateSelector
+                open = {openDatePicker}
+                selectedDate = {new Date()}
+                onChange = {this.handleInputOnChange}
+                handleOkOnClick = {this.handleSelectorOkOnClick}
+                handleCancelOnClick = {this.handleSelectorCancelOnClick}
+            />
+        )
+    }
+
     render() {
+        const {openSeletor, openDatePicker} = this.state
         return (
             <div className = 'home_root_container'>
                 { this.renderBody() }
+                { openSeletor && this.renderConfirmDialog() }
+                { openDatePicker && this.renderDateSelector() }
             </div>
         )
     }

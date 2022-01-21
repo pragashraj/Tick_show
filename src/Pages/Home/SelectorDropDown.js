@@ -51,7 +51,7 @@ const useStyles = makeStyles({
     }
 })
 
-const SelectorDropDown = ({label, value, icon}) => {
+const SelectorDropDown = ({label, value, icon, selectOnClick}) => {
     const classes = useStyles()
 
     const IconImage = icon
@@ -64,7 +64,7 @@ const SelectorDropDown = ({label, value, icon}) => {
             </div>
             <div className = {classes.valueRoot}>
                 <Typography className = {classes.value}>{value}</Typography>
-                <IconButton  edge = "end">
+                <IconButton  edge = "end" onClick = {() => selectOnClick(label)}>
                     <KeyboardArrowDownIcon/>
                 </IconButton>
             </div>

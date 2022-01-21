@@ -2,6 +2,7 @@ import React from 'react'
 
 import MovieCard from '../MovieCard'
 import EventCard from '../EventCard'
+import TheatreCard from '../TheatreCard'
 
 //Material-UI
 import Grid from '@mui/material/Grid'
@@ -26,12 +27,29 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick, handleCardO
         "Events": "/events"
     }
 
+    const renderTheatresList = () => {
+        return (
+            <Grid container spacing = {2}>
+                { listItems.map((item, idx) => {
+                    return (
+                        <Grid item xs = {6} sm = {6} md = {3} key = {idx} 
+                            className = {classes.card} 
+                            onClick = {() => handleCardOnClick(item)}
+                        >
+                            <TheatreCard item = {item}/>
+                        </Grid>
+                    )
+                }) }
+            </Grid>
+        )
+    }
+
     const renderEventsList = () => {
         return (
             <Grid container spacing = {2}>
                 { listItems.map((item, idx) => {
                     return (
-                        <Grid item xs = {12} sm = {6} md = {3} key = {idx} 
+                        <Grid item xs = {6} sm = {6} md = {3} key = {idx} 
                             className = {classes.card} 
                             onClick = {() => handleCardOnClick(item)}
                         >
@@ -64,6 +82,7 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick, handleCardO
         switch (type) {
             case "Movies": return renderMoviesList()
             case "Events": return renderEventsList()
+            case "Theatres": return renderTheatresList()
             default: return 
         }
     }

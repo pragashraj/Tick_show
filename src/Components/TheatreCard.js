@@ -11,7 +11,9 @@ import {
     useMediaQuery
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { AttachMoney, FmdGood, Call } from '@mui/icons-material'
+import { FmdGood, Call } from '@mui/icons-material'
+
+import starImg from '../assets/Icons/star.png'
 
 const useStyles = makeStyles({
     root: {
@@ -43,7 +45,7 @@ const useStyles = makeStyles({
         fontWeight: "bold",
         color: "silver",
         display: "flex",
-        marginLeft: props.mobile ? "0px" : "5px",
+        marginLeft: props.mobile ? "0px" : "5px"
     }),
     cardContent: {
         flex: '1 0 auto'
@@ -51,12 +53,13 @@ const useStyles = makeStyles({
     cardMedia: {
         height: "25vh"
     },
-    priceRoot: {
+    rateRoot: {
         width: "100%",
         display: "flex",
-        justifyContent: "flex-end"
+        justifyContent: "flex-end",
+        alignItems: "center"
     },
-    priceIconRoot: {
+    rateIconRoot: {
         display: "flex",
         flexDirection: "row",
         alignItems: "center",
@@ -68,25 +71,30 @@ const useStyles = makeStyles({
         marginRight: "5px",
         color: "#ABEBC6"
     },
-    priceValue: {
+    rateValue: {
         fontSize: "0.85rem",
         fontWeight: "bold",
         color: "#ABEBC6",
         marginLeft: "-8px"
     },
+    rateIcon: {
+        width: "30px",
+        height: "28px",
+        marginRight: "20px"
+    },
 })
 
-const EventCard = ({item}) => {
+const TheatreCard = ({item}) => {
     const matches = useMediaQuery('(max-width: 600px)')
     const classes = useStyles({mobile: matches})
 
-    const {name, src, location, contact} = item
+    const {name, src, location, contact, imdb} = item
 
     const renderRatings = () => (
-        <div className = {classes.priceRoot}>
-            <div className = {classes.priceIconRoot}>
-                <AttachMoney className = {classes.icon}/>
-                <span className = {classes.priceValue}>2500 onwards</span>
+        <div className = {classes.rateRoot}>
+        <img src = {starImg} alt = {name} className = {classes.rateIcon}/>
+            <div className = {classes.rateIconRoot}>
+                <span className = {classes.rateValue}>{imdb}</span>
             </div>
         </div>
     )
@@ -131,4 +139,4 @@ const EventCard = ({item}) => {
     )
 }
 
-export default EventCard
+export default TheatreCard
