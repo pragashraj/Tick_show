@@ -1,0 +1,10 @@
+.date_picker__input {
+    height: 34px;
+    outline-offset: 0px;
+    font-size: 0.8rem;
+    padding: 3px 15px;
+    border: none;
+    width: 65px;
+    background-color: #f4f5fa;
+    outline: none;
+}

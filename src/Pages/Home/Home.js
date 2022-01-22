@@ -14,7 +14,6 @@ import { Grid } from '@mui/material'
 import EditLocation from '@mui/icons-material/EditLocation'
 import CalendarToday from '@mui/icons-material/CalendarToday'
 import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
-import DateSelector from '../../Components/DateSelector'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
@@ -36,10 +35,9 @@ class Home extends Component {
         openSeletor: false,
         cityOptions: ["Colombo", "Ja-ela", "Negombo"],
         city: "Colombo",
-        date: "31/01/2022",
+        date: new Date(),
         experienceOptions: ["2D", "3D"],
         experience: "2D",
-        openDatePicker: false
     }
 
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
@@ -114,10 +112,7 @@ class Home extends Component {
     }
 
     handleSelectorOnClick = (title) => {
-        if (title === "date") {
-            this.setState({ openDatePicker: true })
-        }
-        else {
+        if (title !== "date") {
             this.setState({ selectorTitle: title, openSeletor: true })
         }
     }
@@ -295,26 +290,12 @@ class Home extends Component {
         )
     }
 
-    renderDateSelector = () => {
-        const {openDatePicker} = this.state
-        return (
-            <DateSelector
-                open = {openDatePicker}
-                selectedDate = {new Date()}
-                onChange = {this.handleInputOnChange}
-                handleOkOnClick = {this.handleSelectorOkOnClick}
-                handleCancelOnClick = {this.handleSelectorCancelOnClick}
-            />
-        )
-    }
-
     render() {
-        const {openSeletor, openDatePicker} = this.state
+        const {openSeletor} = this.state
         return (
             <div className = 'home_root_container'>
                 { this.renderBody() }
                 { openSeletor && this.renderConfirmDialog() }
-                { openDatePicker && this.renderDateSelector() }
             </div>
         )
     }

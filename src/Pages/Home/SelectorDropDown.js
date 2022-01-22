@@ -7,6 +7,8 @@ import { Typography, IconButton } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
+import DateSelector from '../../Components/DateSelector/DateSelector'
+
 const useStyles = makeStyles({
     root: {
         display: "flex",
@@ -56,18 +58,30 @@ const SelectorDropDown = ({label, value, icon, selectOnClick}) => {
 
     const IconImage = icon
 
+    const renderDateSelector = () => (
+        <div className = {classes.valueRoot}>
+            <DateSelector
+                selectedDate = {value}
+            />
+        </div>
+    )
+
+    const renderValue = () => (
+        <div className = {classes.valueRoot}>
+            <Typography className = {classes.value}>{value}</Typography>
+            <IconButton  edge = "end" onClick = {() => selectOnClick(label)}>
+                <KeyboardArrowDownIcon/>
+            </IconButton>
+        </div>
+    )
+
     return (
         <div className = {classes.root}>
             <div className = {classes.labelRoot}>
                 <IconImage className = {classes.icon}/>
                 <Typography className = {classes.label}>{label}</Typography>
             </div>
-            <div className = {classes.valueRoot}>
-                <Typography className = {classes.value}>{value}</Typography>
-                <IconButton  edge = "end" onClick = {() => selectOnClick(label)}>
-                    <KeyboardArrowDownIcon/>
-                </IconButton>
-            </div>
+            { label === "date" ? renderDateSelector() : renderValue() }
         </div>
     )
 }
