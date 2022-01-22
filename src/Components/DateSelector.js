@@ -37,7 +37,7 @@ const DateSelector = ({open, selectedDate, onChange, handleOkOnClick, handleCanc
         </DialogActions>
     )
 
-    return (
+    const renderMainContainer = () => (
         <Dialog
             sx = {{ '& .MuiDialog-paper': { width: '80%', maxHeight: 435 } }}
             maxWidth = "xs"
@@ -48,6 +48,8 @@ const DateSelector = ({open, selectedDate, onChange, handleOkOnClick, handleCanc
             { renderDialogActions() }
         </Dialog>
     )
+
+    return renderMainContainer()
 }
 
 export default DateSelector
