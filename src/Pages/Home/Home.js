@@ -8,6 +8,7 @@ import SelectorDropDown from './SelectorDropDown'
 import ContentList from '../../Components/ContentList/ContentList'
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import ConfirmationDialog from '../../Components/ConfirmationDialog'
+import DateSelector from '../../Components/DateSelector/DateSelector'
 
 //Material-UI
 import { Grid } from '@mui/material'
@@ -102,7 +103,7 @@ class Home extends Component {
             this.setState({
                 movieSearchValue: "",
                 city: "Colombo",
-                date: "31/01/2022",
+                date: new Date(),
                 experience: "2D"
             })
         } 
@@ -112,9 +113,7 @@ class Home extends Component {
     }
 
     handleSelectorOnClick = (title) => {
-        if (title !== "date") {
-            this.setState({ selectorTitle: title, openSeletor: true })
-        }
+        this.setState({ selectorTitle: title, openSeletor: true })
     }
 
     handleSelectorCancelOnClick = () => {
@@ -161,6 +160,17 @@ class Home extends Component {
         }
 
         return options
+    }
+
+    renderDatePicker = (label, value, icon) => {
+        return (
+            <DateSelector
+                label = {label}
+                value = {value}
+                icon = {icon}
+                onChange = {this.handleDateOnChange}
+            />
+        )
     }
 
     renderContentList = (type, title, dataList) => {
@@ -212,7 +222,7 @@ class Home extends Component {
                             { this.renderSelector("city", city, EditLocation) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
-                            { this.renderSelector("date", date, CalendarToday) }
+                            { this.renderDatePicker("date", date, CalendarToday) }
                         </Grid>
                         <Grid item xs = {6} sm = {6} md = {2}>
                             { this.renderSelector("experience", experience, AccessibilityNew) }
