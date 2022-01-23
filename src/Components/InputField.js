@@ -33,7 +33,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const InputField = ({name, label, value, type, readOnly, handleOnChange}) => {
     return (
-        <SearchInput>
+        <SearchInput autoComplete = 'off'>
             <StyledInputBase 
                 id = {`outlined-${label}`}
                 label = {label}
@@ -44,6 +44,7 @@ const InputField = ({name, label, value, type, readOnly, handleOnChange}) => {
                 name = {name}
                 value = {value}
                 fullWidth
+                autoComplete = 'off'
             />
         </SearchInput>
     )
