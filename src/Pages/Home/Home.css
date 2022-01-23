@@ -52,11 +52,11 @@
 }
 
 .header_mid_text_container span {
-    color: #ccc9c9;
+    color: #000000;
     font-size: 0.85rem;
     letter-spacing: 0.15rem;
     text-align: center;
-    font-weight: 600;
+    font-weight: bold;
     transform: translateZ(0px) translateY(0%);
 }
 
@@ -67,9 +67,9 @@
 
 .header_mid_text_container h2{
     font-size: 4.8rem;
-    color: #fff;
+    color: rgb(0, 0, 0);
     line-height: 1.2;
-    font-weight: 300;
+    font-weight: 600;
     opacity: 1;
     transform: translateZ(0px) translateY(0%);
     text-transform: uppercase;
@@ -229,6 +229,15 @@
 .content_img img {
     width: 100%;
     height: 100%;
+}
+
+.banner_root {
+    width: 100%;
+    height: 75vh;
+    background-image: url(../../assets/images/Banner.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 @media screen and (max-width: 800px) {
