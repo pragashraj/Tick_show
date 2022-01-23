@@ -15,7 +15,6 @@ import ContentList from '../../Components/ContentList/ContentList'
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import ConfirmationDialog from '../../Components/ConfirmationDialog'
 import DateSelector from '../../Components/DateSelector/DateSelector'
-import Banner from './Banner'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
