@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 
 import { useNavigate } from "react-router-dom"
 
+//Material-UI
+import { Grid } from '@mui/material'
+import EditLocation from '@mui/icons-material/EditLocation'
+import CalendarToday from '@mui/icons-material/CalendarToday'
+import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
+
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomSearch from './CustomSearch'
 import SelectorDropDown from './SelectorDropDown'
@@ -9,17 +15,12 @@ import ContentList from '../../Components/ContentList/ContentList'
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import ConfirmationDialog from '../../Components/ConfirmationDialog'
 import DateSelector from '../../Components/DateSelector/DateSelector'
-
-//Material-UI
-import { Grid } from '@mui/material'
-import EditLocation from '@mui/icons-material/EditLocation'
-import CalendarToday from '@mui/icons-material/CalendarToday'
-import AccessibilityNew from '@mui/icons-material/AccessibilityNew'
+import Banner from './Banner'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import eventSample from '../../assets/images/event_sample.jpg'
-import slideShowImage from '../../assets/CarouselImages/header_slider.jpg'
+import slideShowImage from '../../assets/CarouselImages/slide_show2.jpg'
 import theatreImage from '../../assets/images/Theatres.jpg'
 
 function withNavigate(Component) {
