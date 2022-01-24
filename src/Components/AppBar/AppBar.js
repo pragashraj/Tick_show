@@ -20,7 +20,7 @@ import logo from '../../assets/Icons/logo.png'
 
 import './AppBar.css'
 
-const AppBar = () => {
+const AppBar = ({handleDrawer}) => {
     const [scrolled, setScrolled] = useState(false)
     const [searchValue, setSearchValue] = useState("")
 
@@ -71,7 +71,7 @@ const AppBar = () => {
     )
 
     const renderMenuIcon = () => (
-        <IconButton size = "large" edge = "start" sx = {{ mr: 2 }}>
+        <IconButton size = "large" edge = "start" sx = {{ mr: 2 }} onClick = {handleDrawer}>
             <MenuIcon sx = {{color: "#fff"}}/>
         </IconButton>
     )

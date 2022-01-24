@@ -1,15 +1,23 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 
 import AppBar from './Components/AppBar/AppBar'
 import Footer from './Components/Footer/Footer'
 import PageNotFound from './Pages/PageNotFound/PageNotFound'
+import DrawerPanel from './Components/Drawer/DrawerPanel'
+
 import routes from './Routes/Routes'
 
 const App = () => {
+    const [openDrawer, setOpenDrawer] = useState(false)
+
+    const handleDrawer = () => {
+        setOpenDrawer(!openDrawer)
+    }
+
     return (
         <div>
-            <AppBar/>
+            <AppBar handleDrawer = {handleDrawer}/>
             <BrowserRouter>
                 <Routes>
                     { routes.data.map((route,i) => {
@@ -24,6 +32,7 @@ const App = () => {
                 </Routes>
             </BrowserRouter>
             <Footer/>
+            <DrawerPanel open = {openDrawer} handleDrawer = {handleDrawer}/>
         </div>
     )
 }
