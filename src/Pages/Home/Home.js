@@ -19,7 +19,7 @@ import DateSelector from '../../Components/DateSelector/DateSelector'
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import eventSample from '../../assets/images/event_sample.jpg'
-import slideShowImage from '../../assets/CarouselImages/slide_show2.jpg'
+import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 import theatreImage from '../../assets/images/Theatres.jpg'
 
 function withNavigate(Component) {
@@ -44,7 +44,7 @@ class Home extends Component {
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
 
     carouselImages = [
-        {url: slideShowImage}
+        {url: slideShowImage},
     ]
 
     componentDidMount() {
