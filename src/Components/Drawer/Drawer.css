@@ -1,0 +1,34 @@
+.drawer_parallax {
+    background-image: url("../../assets/images/parallax.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 100%;
+}
+
+.login_btn {
+    color: #fff;
+    border: 1.3px solid #ff6347;
+    background: transparent;
+    border-radius: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: all 400ms ease;
+    width: 100%;
+    padding: 10px;
+}
+
+.join_btn {
+    color: #fff;
+    border: 1px solid #ff6347;
+    background: #ff6347;
+    border-radius: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: all 400ms ease;
+    width: 100%;
+    padding: 10px;
+}
