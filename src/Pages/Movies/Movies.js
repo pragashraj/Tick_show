@@ -6,6 +6,7 @@ import Filter from '../../Components/Filter.js/Filter'
 import Sorter from '../../Components/Sorter'
 import MovieItem from '../../Components/MovieItem'
 import SlideShow from '../../Components/SlideShow/SlideShow'
+import Page from '../../Components/Page'
 
 //Material-UI
 import { Grid } from '@mui/material'
@@ -14,8 +15,7 @@ import './Movies.css'
 import movie_sample from '../../assets/images/movie_sample.jpg'
 import cast_sample from '../../assets/images/cast_sample.jpg'
 import crew_sample from '../../assets/images/crew_sample.jpg'
-import headerImg1 from '../../assets/CarouselImages/header_slider1.png'
-import headerImg2 from '../../assets/CarouselImages/header_slider2.jpg'
+import headerImg from '../../assets/CarouselImages/header_slider2.jpg'
 
 function withNavigate(Component) {
     return props => <Component {...props} navigate = {useNavigate()}/>
@@ -30,7 +30,9 @@ class Movies extends Component {
         languageChecked: [],
         experienceChecked: [],
         genreChecked: [],
-        dataListType: "Grid"
+        dataListType: "Grid",
+        total: 10,
+        current: 1,
     }
 
     sort_data = [
@@ -39,8 +41,7 @@ class Movies extends Component {
     ]
 
     carouselImages = [
-        {url: headerImg1},
-        {url: headerImg2}
+        {url: headerImg}
     ]
 
     componentDidMount() {
@@ -126,6 +127,10 @@ class Movies extends Component {
     handleSortOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
+    }
+
+    handlePaginationOnChange = (event, page) => {
+        this.setState({ current: page })
     }
 
     handleFilterCheckBoxToggle = (label, index) => {
@@ -236,6 +241,7 @@ class Movies extends Component {
     }
 
     renderMoviesBlockExtended = () => {
+        const {total, current} = this.state
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {4} md = {2}>
@@ -253,6 +259,9 @@ class Movies extends Component {
                         <Grid item xs = {12} sm = {12} md = {12}>
                             { this.renderMoviesBlock() }
                         </Grid>
+                        <div className = 'pagination_container'>
+                            <Page count = {total} page = {current} onChange = {this.handlePaginationOnChange}/>
+                        </div>
                     </Grid>
                 </Grid>
             </Grid>
