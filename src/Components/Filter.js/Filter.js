@@ -17,6 +17,7 @@ const Filter = ({label, list, checked, handleToggle}) => {
                     tabIndex = {-1}
                     disableRipple
                     inputProps = {{ 'aria-labelledby': labelId }}
+                    style = {{ color: "#ff6347" }}
                 />
                 <span className = 'list_item_name'>{name}</span>
             </div>
