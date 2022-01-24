@@ -8,9 +8,9 @@ import SearchIcon from '@mui/icons-material/Search'
 const SearchInput = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.white, 0.2),
+    backgroundColor: alpha(theme.palette.common.white, 0.4),
     '&:hover': {
-      backgroundColor: alpha(theme.palette.common.white, 0.35),
+      backgroundColor: alpha(theme.palette.common.white, 0.5),
     },
     marginLeft: 0,
     width: '100%',
@@ -31,7 +31,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }))
   
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
+    color: '#000',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
@@ -43,10 +43,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
                 width: '40ch',
             },
         },
+        fontWeight: "600",
     },
 }))
 
-const Search = ({placeholder, name, value, handleOnChange}) => {
+const Search = ({placeholder, name, value, handleOnChange, handleEnterOnPress}) => {
     return (
         <SearchInput>
             <SearchIconWrapper> <SearchIcon /> </SearchIconWrapper>
@@ -56,6 +57,7 @@ const Search = ({placeholder, name, value, handleOnChange}) => {
                 name = {name}
                 value = {value}
                 onChange = {handleOnChange}
+                onKeyDown = {e => e.key === 'Enter' && handleEnterOnPress()}
             />
         </SearchInput>
     )
