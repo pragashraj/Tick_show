@@ -15,7 +15,7 @@
 }
 
 .home_header_slide {
-    height: 90vh;
+    height: 95vh;
     background-position: 50% 0px;
     background-attachment: fixed;
     background-size: cover;
@@ -67,15 +67,15 @@
 
 .header_mid_text_container h2{
     font-size: 4.8rem;
-    color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
     line-height: 1.2;
-    font-weight: 600;
     opacity: 1;
     transform: translateZ(0px) translateY(0%);
     text-transform: uppercase;
     letter-spacing: 0.2rem;
     text-align: center;
     margin-top: -50px;
+    text-shadow: 2px 2px #f74e30;
 }
 
 .header_slide_footer {

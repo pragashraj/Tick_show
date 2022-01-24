@@ -56,10 +56,14 @@ const SelectorDropDown = ({label, value, icon, selectOnClick}) => {
 
     const IconImage = icon
 
+    const handleSelectOnClick = () => {
+        selectOnClick(label)
+    }
+
     const renderValue = () => (
         <div className = {classes.valueRoot}>
             <Typography className = {classes.value}>{value}</Typography>
-            <IconButton  edge = "end" onClick = {() => selectOnClick(label)}>
+            <IconButton  edge = "end" onClick = {handleSelectOnClick}>
                 <KeyboardArrowDownIcon/>
             </IconButton>
         </div>

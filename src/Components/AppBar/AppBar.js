@@ -54,6 +54,10 @@ const AppBar = () => {
         {label: "Contacts", href: "/contacts", icon: ContactsIcon},
     ]
 
+    const handleEnterOnPress = () => {
+        console.log(searchValue)
+    }
+
     const handleInputOnChange = (e) => {
         setSearchValue(e.target.value)
     }
@@ -94,6 +98,7 @@ const AppBar = () => {
                         name = "searchValue"
                         value = {searchValue}
                         handleOnChange = {handleInputOnChange}
+                        handleEnterOnPress = {handleEnterOnPress}
                     />
                 </div>
                 <div className = 'row'>

@@ -1,11 +1,12 @@
 .top_nav {
-    background: transparent !important;
     position: absolute;
     left: 0;
     right: 0;
     z-index: 3;
     align-items: center;
     padding: 0.5rem 1rem;
+    background-color: rgba(255, 255, 255, .15);  
+    backdrop-filter: blur(4px);
 }
 
 .scrolled {
@@ -13,9 +14,8 @@
     right: 0;
     left: 0;
     top: 0;
-    background: rgb(21, 67, 96) !important;
-    -webkit-box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
-    box-shadow: 0 0 10px 0 rgb(0 0 0 / 10%);
+    background: rgba(21, 67, 96, 0.6) !important;
+    backdrop-filter: blur(4px);
     padding: 0;
 }
 

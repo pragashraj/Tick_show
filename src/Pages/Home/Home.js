@@ -19,7 +19,7 @@ import DateSelector from '../../Components/DateSelector/DateSelector'
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
 import eventSample from '../../assets/images/event_sample.jpg'
-import slideShowImage from '../../assets/CarouselImages/slide_show2.jpg'
+import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 import theatreImage from '../../assets/images/Theatres.jpg'
 
 function withNavigate(Component) {
@@ -44,7 +44,7 @@ class Home extends Component {
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
 
     carouselImages = [
-        {url: slideShowImage}
+        {url: slideShowImage},
     ]
 
     componentDidMount() {
@@ -116,27 +116,29 @@ class Home extends Component {
         this.setState({ selectorTitle: title, openSeletor: true })
     }
 
-    handleSelectorCancelOnClick = () => {
-        this.setState({ 
-            selectorTitle: "", 
-            openSeletor: false,
-            city: "Colombo",
-            date: "31/01/2022",
-            experience: "2D",
-            openDatePicker: false
-        })
+    handleSelectorCancelOnClick = (title) => {
+        const {city, date, experience} = this.state
+        let citySelected = city
+        let dateSelected = date
+        let expSelected = experience
+        if (title === "city") {
+            citySelected = "Colombo"
+        }
+        else if (title === "date") {
+            dateSelected = new Date()
+        }
+        else if (title === "experience") {
+            expSelected = "2D"
+        }
+        this.setState({openSeletor: false, city: citySelected, date: dateSelected, experience: expSelected})
     }
 
     handleSelectorOkOnClick = () => {
-        this.setState({ 
-            selectorTitle: "", 
-            openSeletor: false, 
-            openDatePicker: false 
-        })
+        this.setState({ selectorTitle: "", openSeletor: false })
     }
 
-    handleCardOnClick = (item) => {
-        this.props.navigate(`/movies`, { state: item })
+    handleCardOnClick = (item, href) => {
+        this.props.navigate(href, { state: item })
     }
 
     handleInputOnChange = (e) => {
@@ -293,9 +295,9 @@ class Home extends Component {
                 open = {openSeletor}
                 title = {selectorTitle}
                 options = {this.getSelectorOptions(selectorTitle)}
-                handleChange = {this.handleDateOnChange}
+                handleChange = {this.handleInputOnChange}
                 handleOkOnClick = {this.handleSelectorOkOnClick}
-                handleCancelOnClick = {this.handleSelectorCancelOnClick}
+                cancelOnClick = {this.handleSelectorCancelOnClick}
             />
         )
     }
