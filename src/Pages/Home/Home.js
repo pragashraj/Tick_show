@@ -116,23 +116,25 @@ class Home extends Component {
         this.setState({ selectorTitle: title, openSeletor: true })
     }
 
-    handleSelectorCancelOnClick = () => {
-        this.setState({ 
-            selectorTitle: "", 
-            openSeletor: false,
-            city: "Colombo",
-            date: "31/01/2022",
-            experience: "2D",
-            openDatePicker: false
-        })
+    handleSelectorCancelOnClick = (title) => {
+        const {city, date, experience} = this.state
+        let citySelected = city
+        let dateSelected = date
+        let expSelected = experience
+        if (title === "city") {
+            citySelected = "Colombo"
+        }
+        else if (title === "date") {
+            dateSelected = new Date()
+        }
+        else if (title === "experience") {
+            expSelected = "2D"
+        }
+        this.setState({openSeletor: false, city: citySelected, date: dateSelected, experience: expSelected})
     }
 
     handleSelectorOkOnClick = () => {
-        this.setState({ 
-            selectorTitle: "", 
-            openSeletor: false, 
-            openDatePicker: false 
-        })
+        this.setState({ selectorTitle: "", openSeletor: false })
     }
 
     handleCardOnClick = (item) => {
@@ -293,9 +295,9 @@ class Home extends Component {
                 open = {openSeletor}
                 title = {selectorTitle}
                 options = {this.getSelectorOptions(selectorTitle)}
-                handleChange = {this.handleDateOnChange}
+                handleChange = {this.handleInputOnChange}
                 handleOkOnClick = {this.handleSelectorOkOnClick}
-                handleCancelOnClick = {this.handleSelectorCancelOnClick}
+                cancelOnClick = {this.handleSelectorCancelOnClick}
             />
         )
     }

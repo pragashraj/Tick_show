@@ -12,13 +12,17 @@ import {
     FormControlLabel
 } from '@mui/material'
 
-const ConfirmationDialog = ({open, title, options, value, handleChange, handleOkOnClick, handleCancelOnClick}) => {
+const ConfirmationDialog = ({open, title, options, value, handleChange, handleOkOnClick, cancelOnClick}) => {
     const radioGroupRef = React.useRef(null)
 
     const handleEntering = () => {
         if (radioGroupRef.current != null) {
             radioGroupRef.current.focus()
         }
+    }
+
+    const handleCancelOnClick = () => {
+        cancelOnClick(title.toLowerCase())
     }
 
     const renderFormControl = (option) => (
