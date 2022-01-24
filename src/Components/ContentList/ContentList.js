@@ -34,7 +34,7 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick, handleCardO
                     return (
                         <Grid item xs = {6} sm = {6} md = {3} key = {idx} 
                             className = {classes.card} 
-                            onClick = {() => handleCardOnClick(item)}
+                            onClick = {() => handleCardOnClick(item, HREF[title])}
                         >
                             <TheatreCard item = {item}/>
                         </Grid>
@@ -51,7 +51,7 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick, handleCardO
                     return (
                         <Grid item xs = {6} sm = {6} md = {3} key = {idx} 
                             className = {classes.card} 
-                            onClick = {() => handleCardOnClick(item)}
+                            onClick = {() => handleCardOnClick(item, HREF[title])}
                         >
                             <EventCard item = {item}/>
                         </Grid>
@@ -68,7 +68,7 @@ const ContentList = ({type, title, listItems, handleViewMoreOnClick, handleCardO
                     return (
                         <Grid item xs = {6} sm = {6} md = {3} key = {idx} 
                             className = {classes.card} 
-                            onClick = {() => handleCardOnClick(item)}
+                            onClick = {() => handleCardOnClick(item, HREF[title])}
                         >
                             <MovieCard item = {item}/>
                         </Grid>

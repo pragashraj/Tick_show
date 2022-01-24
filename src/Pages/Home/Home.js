@@ -137,8 +137,8 @@ class Home extends Component {
         this.setState({ selectorTitle: "", openSeletor: false })
     }
 
-    handleCardOnClick = (item) => {
-        this.props.navigate(`/movies`, { state: item })
+    handleCardOnClick = (item, href) => {
+        this.props.navigate(href, { state: item })
     }
 
     handleInputOnChange = (e) => {
