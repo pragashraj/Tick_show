@@ -22,6 +22,7 @@ const useStyles = makeStyles({
     locationValueRoot: {
         display: "flex",
         flexDirection: "row",
+        alignItems: "center"
     },
     locationValue: {
         color: "#fff",
@@ -40,20 +41,45 @@ const useStyles = makeStyles({
     timeSlot: {
         color: "#ffffff", 
         border: "1px solid #fff", 
-        width: "100%", display: "flex"
+        width: "100%", 
+        display: "flex"
+    },
+    timeSlotSelected: {
+        color: "#ffffff", 
+        border: "1px solid #fff", 
+        width: "100%", 
+        display: "flex",
+        backgroundColor: "#ff6347"
+    },
+    divider: {
+        background: "#fff", 
+        width: "1.5px", 
+        height: "30px"
+    },
+    priceValue: {
+        color: "#ABEBC6",
+        marginRight: "15px",
+        fontWeight: "bold",
+        letterSpacing: "0.05rem"
     }
 })
 
-const TheatreSelection = () => {
+const TheatreSelection = ({theatre, slotOnClick, selectedTheatre, selectedTimeSlot}) => {
     const classes = useStyles()
 
-    const timeSlots = ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"]
+    const {name, timeSlots, price} = theatre
+
+    const getSlotStyle = (slot) => {
+        if (selectedTheatre === name && selectedTimeSlot === slot)
+            return classes.timeSlotSelected
+        return classes.timeSlot
+    }
 
     const renderTimeSlots = () => (
         <ButtonGroup variant = "outlined" size = "small" className = {classes.timeSlotsRoot}>
             { timeSlots.map((item, idx) => {
                 return (
-                    <Button key = {idx} className = {classes.timeSlot}>
+                    <Button key = {idx} className = {getSlotStyle(item)} onClick = {() => slotOnClick(name, item)}>
                         {item}
                     </Button>
                 )
@@ -68,9 +94,12 @@ const TheatreSelection = () => {
                     <div className = {classes.locationRoot}>
                         <div className = {classes.locationValueRoot}>
                             <LocationOn className = {classes.locationIcon}/>
-                            <span className = {classes.locationValue}>Ja-ela Cinemax</span>
+                            <span className = {classes.locationValue}>{name}</span>
                         </div>
-                        <Divider orientation = "vertical" flexItem sx = {{background: "#fff", width: "1.5px"}}/> 
+                        <div className = {classes.locationValueRoot}>
+                            <span className = {classes.priceValue}>{`$ ${price}`}</span>
+                            <Divider orientation = "vertical" flexItem className = {classes.divider}/> 
+                        </div>
                     </div>
                 </Grid>
                 <Grid item xs = {12} sm = {3} md = {9}>

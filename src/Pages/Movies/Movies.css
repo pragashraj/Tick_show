@@ -6,7 +6,7 @@
 
 .movies_header {
     width: 100%;
-    height: 60vh;
+    height: 80vh;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -177,6 +177,10 @@
     margin-top: 45px;
 }
 
+.btn_footer_container {
+    margin-bottom: 15px;
+}
+
 .count_block {
     margin-top: 30px;
     margin-bottom: 30px;
@@ -185,6 +189,14 @@
 .pagination_container {
     margin-top: 20px;
     margin-left: 20PX;
+}
+
+.input_label {
+    color: #b3aeae;
+    margin-left: 12px;
+    letter-spacing: 0.05rem;
+    text-transform: uppercase;
+    font-size: 0.8rem;
 }
 
 @media screen and (max-width: 800px) {

@@ -27,30 +27,56 @@ class SelectedMovie extends Component {
         theatres: ["1", "2", "3"],
         fullTickets: 0,
         kidsTickets: 0,
-        totalTickets: 0
+        totalTickets: 0,
+        selectedTheatre: null,
+        selectedTimeSlot: null
     }
 
     selectedMovieItem = this.props.location.state
+
+    DummyTheatresForSelection = [
+        {name: "Ja-ela", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"], price: "450"},
+        {name: "Cinecity", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"], price: "750"},
+        {name: "CInemax", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"], price: "400"},
+    ]
 
     componentDidMount() {
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
     handleContinueOnClick = () => {
-        this.handleSeatAllocationPopup()
+        const {totalTickets, selectedTheatre, selectedTimeSlot} = this.state
+        if (totalTickets > 0 && selectedTheatre && selectedTimeSlot) {
+            this.handleSeatAllocationPopup()
+        }
+        else {
+            console.log("Please ensure the tickets & time slot")
+        }
     }
 
     handleCancelOnClick = () => {
-
+        this.setState({
+            fullTickets: 0,
+            kidsTickets: 0,
+            totalTickets: 0,
+            selectedTheatre: null,
+            selectedTimeSlot: null
+        })
     }
 
     handleWatchTrailerOnClick = (url) => {
         window.open(url, '_blank', 'noopener, noreferrer')
     }
 
+    handleSlotOnClick = (theatre, slot) => {
+        this.setState({selectedTheatre: theatre, selectedTimeSlot: slot})
+    }
+
     handleOnChange = (e) => {
         const {name, value} = e.target
-        this.setState({ [name]: value })
+        if (value >= 0) {
+            this.setState({ [name]: parseInt(value) })
+        }
     }
 
     handleSeatAllocationPopup = () => {
@@ -58,29 +84,39 @@ class SelectedMovie extends Component {
     }
 
     renderInputField = (label, name, readOnly) => {
+        const {fullTickets, kidsTickets} = this.state
         return (
-            <InputField 
-                name = {name}
-                label = {label}
-                value = {this.state[name]} 
-                type = "number" 
-                readOnly = {readOnly} 
-                handleOnChange = {this.handleOnChange}
-            />
+            <div>
+                <span className = 'input_label'>{label}</span>
+                <InputField 
+                    name = {name}
+                    label = {label}
+                    value = {name === "totalTickets" ? fullTickets + kidsTickets : this.state[name]}
+                    type = "number"
+                    readOnly = {readOnly}
+                    handleOnChange = {this.handleOnChange}
+                />
+            </div>
         )
     }
 
     renderTheatreSelection = () => {
-        const theatres = this.state.theatres
+        const {selectedTheatre, selectedTimeSlot} = this.state
+        const theatres = this.DummyTheatresForSelection
         return (
             <div className = 'buy_tickets_block'>
                 <h3 className = 'sub_header_text'>Select Theatre & Time Slot</h3>
                 <div className = 'count_block'>
                     <Grid container>
-                        { theatres.map((i, idx) =>{
+                        { theatres.map((i, idx) => {
                             return (
                                 <Grid item xs = {12} sm = {12} md = {12} key = {idx} sx = {{marginBottom: "15px"}}>
-                                    <TheatreSelection/>
+                                    <TheatreSelection 
+                                        theatre = {i} 
+                                        slotOnClick = {this.handleSlotOnClick}
+                                        selectedTheatre = {selectedTheatre}
+                                        selectedTimeSlot = {selectedTimeSlot}
+                                    />
                                 </Grid>
                             )
                         }) }
@@ -209,16 +245,16 @@ class SelectedMovie extends Component {
                 { this.renderTicketSelection() }
                 { this.renderTheatreSelection() }
                 <div className = 'buy_tickets_block'>
-                    <div className = 'btn_footer_container'></div>
-                    <Grid container spacing = {2}>
-                        <Grid item xs = {6} sm = {6} md = {6}>
-                            <SecondaryButton label = "Cancel" onClick = {this.handleCancelOnClick}/>
+                    <div className = 'btn_footer_container'>
+                        <Grid container spacing = {2}>
+                            <Grid item xs = {6} sm = {6} md = {6}>
+                                <SecondaryButton label = "Cancel" onClick = {this.handleCancelOnClick}/>
+                            </Grid>
+                            <Grid item xs = {6} sm = {6} md = {6}>
+                                <CustomButton label = "Continue" onClick = {this.handleContinueOnClick}/>
+                            </Grid>
                         </Grid>
-                        <Grid item xs = {6} sm = {6} md = {6}>
-                            <CustomButton label = "Continue" onClick = {this.handleContinueOnClick}/>
-                        </Grid>
-                    </Grid>
-                    
+                    </div>
                 </div>
             </div>
         )
