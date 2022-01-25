@@ -15,7 +15,7 @@ import './Movies.css'
 import movie_sample from '../../assets/images/movie_sample.jpg'
 import cast_sample from '../../assets/images/cast_sample.jpg'
 import crew_sample from '../../assets/images/crew_sample.jpg'
-import headerImg from '../../assets/CarouselImages/header_slider2.jpg'
+import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 
 function withNavigate(Component) {
     return props => <Component {...props} navigate = {useNavigate()}/>
@@ -41,7 +41,7 @@ class Movies extends Component {
     ]
 
     carouselImages = [
-        {url: headerImg}
+        {url: slideShowImage}
     ]
 
     componentDidMount() {

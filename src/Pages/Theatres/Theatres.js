@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid'
 
 import './Theatres.css'
 import theatreImage from '../../assets/images/Theatres.jpg'
-import headerImg1 from '../../assets/CarouselImages/header_slider2.jpg'
+import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 
 class Theatres extends Component {
     state = {
@@ -25,7 +25,7 @@ class Theatres extends Component {
     ]
 
     images = [
-        {url: headerImg1},
+        {url: slideShowImage},
     ]
 
     componentDidMount() {
