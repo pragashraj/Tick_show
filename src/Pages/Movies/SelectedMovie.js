@@ -45,7 +45,13 @@ class SelectedMovie extends Component {
     }
 
     handleContinueOnClick = () => {
-        this.handleSeatAllocationPopup()
+        const {totalTickets, selectedTheatre, selectedTimeSlot} = this.state
+        if (totalTickets > 0 && selectedTheatre && selectedTimeSlot) {
+            this.handleSeatAllocationPopup()
+        }
+        else {
+            console.log("Please ensure the tickets & time slot")
+        }
     }
 
     handleCancelOnClick = () => {
