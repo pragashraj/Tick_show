@@ -35,9 +35,9 @@ class SelectedMovie extends Component {
     selectedMovieItem = this.props.location.state
 
     DummyTheatresForSelection = [
-        {name: "Ja-ela", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"]},
-        {name: "Cinecity", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"]},
-        {name: "CInemax", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"]},
+        {name: "Ja-ela", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"], price: "450"},
+        {name: "Cinecity", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"], price: "750"},
+        {name: "CInemax", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"], price: "400"},
     ]
 
     componentDidMount() {

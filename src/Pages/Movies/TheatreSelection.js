@@ -55,13 +55,19 @@ const useStyles = makeStyles({
         background: "#fff", 
         width: "1.5px", 
         height: "30px"
+    },
+    priceValue: {
+        color: "#ABEBC6",
+        marginRight: "15px",
+        fontWeight: "bold",
+        letterSpacing: "0.05rem"
     }
 })
 
 const TheatreSelection = ({theatre, slotOnClick, selectedTheatre, selectedTimeSlot}) => {
     const classes = useStyles()
 
-    const {name, timeSlots} = theatre
+    const {name, timeSlots, price} = theatre
 
     const getSlotStyle = (slot) => {
         if (selectedTheatre === name && selectedTimeSlot === slot)
@@ -90,7 +96,10 @@ const TheatreSelection = ({theatre, slotOnClick, selectedTheatre, selectedTimeSl
                             <LocationOn className = {classes.locationIcon}/>
                             <span className = {classes.locationValue}>{name}</span>
                         </div>
-                        <Divider orientation = "vertical" flexItem className = {classes.divider}/> 
+                        <div className = {classes.locationValueRoot}>
+                            <span className = {classes.priceValue}>{`$ ${price}`}</span>
+                            <Divider orientation = "vertical" flexItem className = {classes.divider}/> 
+                        </div>
                     </div>
                 </Grid>
                 <Grid item xs = {12} sm = {3} md = {9}>
