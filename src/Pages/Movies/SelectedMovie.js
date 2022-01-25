@@ -50,7 +50,9 @@ class SelectedMovie extends Component {
 
     handleOnChange = (e) => {
         const {name, value} = e.target
-        this.setState({ [name]: value })
+        if (value >= 0) {
+            this.setState({ [name]: parseInt(value) })
+        }
     }
 
     handleSeatAllocationPopup = () => {
@@ -58,15 +60,19 @@ class SelectedMovie extends Component {
     }
 
     renderInputField = (label, name, readOnly) => {
+        const {fullTickets, kidsTickets} = this.state
         return (
-            <InputField 
-                name = {name}
-                label = {label}
-                value = {this.state[name]} 
-                type = "number" 
-                readOnly = {readOnly} 
-                handleOnChange = {this.handleOnChange}
-            />
+            <div>
+                <span className = 'input_label'>{label}</span>
+                <InputField 
+                    name = {name}
+                    label = {label}
+                    value = {name === "totalTickets" ? fullTickets + kidsTickets : this.state[name]}
+                    type = "number"
+                    readOnly = {readOnly}
+                    handleOnChange = {this.handleOnChange}
+                />
+            </div>
         )
     }
 
