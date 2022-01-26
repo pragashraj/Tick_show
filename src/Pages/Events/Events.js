@@ -10,7 +10,6 @@ import EventCard from '../../Components/EventCard'
 import Page from '../../Components/Page'
 
 import './Events.css'
-import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 import eventSample from '../../assets/images/event_sample.jpg'
 
 class Events extends Component {
@@ -26,7 +25,7 @@ class Events extends Component {
     }
 
     carouselImages = [
-        {url: slideShowImage}
+        {url: eventSample}
     ]
 
     sortData = [
@@ -215,7 +214,6 @@ class Events extends Component {
             <div className = 'events_root'>
                 <div className = 'events_header'>
                     <SlideShow images = {this.carouselImages}/>
-                    <h1>Explore more events</h1>
                 </div>
                 <div className = 'event_parallax'>
                     <div className = 'events_container'>
