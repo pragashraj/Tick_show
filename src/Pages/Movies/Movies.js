@@ -35,7 +35,7 @@ class Movies extends Component {
         current: 1,
     }
 
-    sort_data = [
+    sortData = [
         {name: "show", label: "show", menuItems: ["5", "10", "20"]},
         {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Movies"]}
     ]
@@ -210,7 +210,7 @@ class Movies extends Component {
         const values = {show, sortBy, dataListType}
         return (
             <Sorter 
-                sort_data = {this.sort_data} 
+                sortData = {this.sortData} 
                 values = {values}
                 handleChange = {this.handleSortOnChange}
                 handleListTypeIconOnClick = {this.handleListTypeIconOnClick}
@@ -273,7 +273,7 @@ class Movies extends Component {
             <div className = 'movies_root_container'>
                 <div className = 'movies_header'>
                     <SlideShow images = {this.carouselImages}/>
-                    <h1>Explore More movies</h1>
+                    <h1>Explore more movies</h1>
                 </div>
                 <div className = 'movie_parallax'>
                     <div className = 'movies_block'>

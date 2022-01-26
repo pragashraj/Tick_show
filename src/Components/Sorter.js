@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Sorter = ({sort_data, values, handleChange, handleListTypeIconOnClick}) => {
+const Sorter = ({sortData, values, handleChange, handleListTypeIconOnClick}) => {
     const classes = useStyles()
     const matches = useMediaQuery('(min-width:950px)')
 
@@ -80,7 +80,7 @@ const Sorter = ({sort_data, values, handleChange, handleListTypeIconOnClick}) =>
         <Card className = {classes.root}>
             <div className = {classes.card}>
                 <div className = { matches ? classes.content: classes.contentMobile}>
-                    { sort_data.map(item => {
+                    { sortData.map(item => {
                         const {name, label, menuItems} = item
                         return renderSelector(name, label, values[name], menuItems)
                     }) }
