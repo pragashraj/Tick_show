@@ -7,10 +7,11 @@ import { makeStyles } from '@mui/styles'
 const useStyles = makeStyles({
     ul: {
         "& .MuiPaginationItem-root": {
-            color: "#ff6347"
+            color: "#ff6347",
+            fontWeight: "bold"
         },
         "& .MuiPaginationItem-outlinedSecondary.Mui-selected": {
-            backgroundColor: "rgba(255, 255, 255, .25)", 
+            backgroundColor: "rgba(255, 255, 255, .15)", 
             backdropFilter: "blur(4px)"
         }
     }

@@ -93,3 +93,8 @@
 .events_list {
     margin-top: 8vh;
 }
+
+.pagination_container {
+    margin-top: 20px;
+    margin-left: 20PX;
+}

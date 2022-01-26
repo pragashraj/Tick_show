@@ -7,6 +7,7 @@ import SlideShow from '../../Components/SlideShow/SlideShow'
 import Filter from '../../Components/Filter.js/Filter'
 import Sorter from '../../Components/Sorter'
 import EventCard from '../../Components/EventCard'
+import Page from '../../Components/Page'
 
 import './Events.css'
 import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
@@ -20,6 +21,8 @@ class Events extends Component {
         show: 10,
         sortBy: "Upcoming Events",
         dataListType: "Grid",
+        total: 10,
+        current: 1,
     }
 
     carouselImages = [
@@ -75,6 +78,10 @@ class Events extends Component {
     handleSortOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
+    }
+
+    handlePaginationOnChange = (event, page) => {
+        this.setState({ current: page })
     }
 
     handleListTypeIconOnClick = (value) => {
@@ -176,6 +183,7 @@ class Events extends Component {
     }
 
     renderEventsBlock = () => {
+        const {total, current} = this.state
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {4} md = {2}>
@@ -193,6 +201,9 @@ class Events extends Component {
                         <Grid item xs = {12} sm = {12} md = {12}>
                             { this.renderEventsContainer() }
                         </Grid>
+                        <div className = 'pagination_container'>
+                            <Page count = {total} page = {current} onChange = {this.handlePaginationOnChange}/>
+                        </div>
                     </Grid>
                 </Grid>
             </Grid>
