@@ -273,7 +273,7 @@ class Movies extends Component {
             <div className = 'movies_root_container'>
                 <div className = 'movies_header'>
                     <SlideShow images = {this.carouselImages}/>
-                    <h1>Explore More movies</h1>
+                    <h1>Explore more movies</h1>
                 </div>
                 <div className = 'movie_parallax'>
                     <div className = 'movies_block'>
