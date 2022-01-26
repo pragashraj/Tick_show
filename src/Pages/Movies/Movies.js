@@ -35,7 +35,7 @@ class Movies extends Component {
         current: 1,
     }
 
-    sort_data = [
+    sortData = [
         {name: "show", label: "show", menuItems: ["5", "10", "20"]},
         {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Movies"]}
     ]
@@ -210,7 +210,7 @@ class Movies extends Component {
         const values = {show, sortBy, dataListType}
         return (
             <Sorter 
-                sort_data = {this.sort_data} 
+                sortData = {this.sortData} 
                 values = {values}
                 handleChange = {this.handleSortOnChange}
                 handleListTypeIconOnClick = {this.handleListTypeIconOnClick}

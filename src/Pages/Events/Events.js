@@ -5,6 +5,7 @@ import { Grid } from '@mui/material'
 
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import Filter from '../../Components/Filter.js/Filter'
+import Sorter from '../../Components/Sorter'
 
 import './Events.css'
 import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
@@ -12,11 +13,20 @@ import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 class Events extends Component {
     state = {
         filters: [],
-        categoryChecked: []
+        categoryChecked: [],
+        data: [],
+        show: 10,
+        sortBy: "Now Showing",
+        dataListType: "Grid",
     }
 
     carouselImages = [
         {url: slideShowImage}
+    ]
+
+    sortData = [
+        {name: "show", label: "show", menuItems: ["5", "10", "20"]},
+        {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Events"]}
     ]
 
     componentDidMount() {
@@ -38,7 +48,16 @@ class Events extends Component {
         this.setState({ filters: array })
     }
 
-    handleFilterClearOnPress = () => {
+    handleSortOnChange = (e) => {
+        const {name, value} = e.target
+        this.setState({ [name]: value })
+    }
+
+    handleListTypeIconOnClick = (value) => {
+        this.setState({ dataListType: value })
+    }
+
+    handleFilterClearOnClick = () => {
         this.setState({ categoryChecked: [] })
     }
 
@@ -71,6 +90,19 @@ class Events extends Component {
         return name
     }
 
+    renderSort = () => {
+        const {show, sortBy, dataListType} = this.state
+        const values = {show, sortBy, dataListType}
+        return (
+            <Sorter 
+                sortData = {this.sortData} 
+                values = {values}
+                handleChange = {this.handleSortOnChange}
+                handleListTypeIconOnClick = {this.handleListTypeIconOnClick}
+            />
+        )
+    }
+
     renderFilters = () => {
         const {filters} = this.state
         return (
@@ -99,11 +131,16 @@ class Events extends Component {
                 <Grid item xs = {12} sm = {4} md = {2}>
                     <div className = 'filter_header'>
                         <span className = 'filter_header_title'>Filter by</span>
-                        <span className = 'filter_header_clear' onClick = {this.handleFilterClearOnPress}>Clear all</span>
+                        <span className = 'filter_header_clear' onClick = {this.handleFilterClearOnClick}>Clear all</span>
                     </div>
                     { this.renderFilters() }
                 </Grid>
                 <Grid item xs = {12} sm = {8} md = {10}>
+                    <Grid container spacing = {2}>
+                        <Grid item xs = {12} sm = {12} md = {12}>
+                            { this.renderSort() }
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         )
