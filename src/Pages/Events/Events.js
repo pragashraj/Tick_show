@@ -214,6 +214,7 @@ class Events extends Component {
             <div className = 'events_root'>
                 <div className = 'events_header'>
                     <SlideShow images = {this.carouselImages}/>
+                    <h1>Explore more events</h1>
                 </div>
                 <div className = 'event_parallax'>
                     <div className = 'events_container'>
