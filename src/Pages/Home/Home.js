@@ -83,15 +83,15 @@ class Home extends Component {
         }
 
         const dummyArr = ["1", "2", "3", "4"]
-        let events_Data = [], movies_Data = [], theatres_Data = []
+        let eventsData = [], moviesData = [], theatresData = []
 
         dummyArr.forEach(() => {
-            movies_Data.push(movie)
-            events_Data.push(event)
-            theatres_Data.push(theatre)
+            moviesData.push(movie)
+            eventsData.push(event)
+            theatresData.push(theatre)
         })
 
-        this.setState({ movies: movies_Data, events: events_Data, theatres: theatres_Data })
+        this.setState({ movies: moviesData, events: eventsData, theatres: theatresData })
     }
 
     handleSearchOnClick = () => {

@@ -65,3 +65,31 @@
     cursor: pointer;
     color: rgb(145, 145, 145);
 }
+
+.events_list_header {
+    width: 100%;
+}
+
+.events_list_header h2 {
+    text-transform: uppercase;
+    color: #ffffff;
+    letter-spacing: 0.05rem;
+    font-weight: 700;
+    font-size: 25px;
+    padding-bottom: 25px;
+    position: relative;
+}
+
+.events_list_header h2::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 5px;
+    width: 100px;
+    background: #ff6347;
+    content: "";
+} 
+
+.events_list {
+    margin-top: 8vh;
+}

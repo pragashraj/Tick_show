@@ -6,9 +6,11 @@ import { Grid } from '@mui/material'
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import Filter from '../../Components/Filter.js/Filter'
 import Sorter from '../../Components/Sorter'
+import EventCard from '../../Components/EventCard'
 
 import './Events.css'
 import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
+import eventSample from '../../assets/images/event_sample.jpg'
 
 class Events extends Component {
     state = {
@@ -16,7 +18,7 @@ class Events extends Component {
         categoryChecked: [],
         data: [],
         show: 10,
-        sortBy: "Now Showing",
+        sortBy: "Upcoming Events",
         dataListType: "Grid",
     }
 
@@ -26,11 +28,33 @@ class Events extends Component {
 
     sortData = [
         {name: "show", label: "show", menuItems: ["5", "10", "20"]},
-        {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Events"]}
+        {name: "sortBy", label: "Sort by", menuItems: ["Upcoming Events", "Future Events"]}
     ]
+
+    dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
 
     componentDidMount() {
         this.createFilters()
+
+        //create dummy data
+        this.createDummyData()
+    }
+
+    createDummyData = () => {
+        const event = {
+            name: "Ar Rahman Live-in-concert", 
+            src: eventSample, 
+            location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
+            contact: "0117 549 650",
+            description: this.dummySynopsis
+        }
+
+        const dummyArr = ["1", "2", "3", "4", "5", "6"]
+        let eventsData = []
+
+        dummyArr.forEach(() => eventsData.push(event))
+
+        this.setState({ data: eventsData })
     }
 
     createFilters = () => {
@@ -90,6 +114,32 @@ class Events extends Component {
         return name
     }
 
+    renderEventCard = (item, idx) => {
+        const {dataListType} = this.state
+        let no = dataListType === "Grid" ? 4 : 12
+        return (
+            <Grid item xs = {6} sm = {no} md = {no} key = {idx}>
+                <EventCard item = {item}/>
+            </Grid>
+        )
+    }
+
+    renderEventsContainer = () => {
+        const {data, sortBy} = this.state
+        return (
+            <div className = 'events_container'>
+                <div className = 'events_list_header'>
+                    <h2>{sortBy}</h2>
+                </div>
+                <div className = 'events_list'>
+                    <Grid container spacing = {2}>
+                        { data.map((i, idx) => this.renderEventCard(i, idx)) }
+                    </Grid>
+                </div>
+            </div>
+        )
+    }
+
     renderSort = () => {
         const {show, sortBy, dataListType} = this.state
         const values = {show, sortBy, dataListType}
@@ -139,6 +189,9 @@ class Events extends Component {
                     <Grid container spacing = {2}>
                         <Grid item xs = {12} sm = {12} md = {12}>
                             { this.renderSort() }
+                        </Grid>
+                        <Grid item xs = {12} sm = {12} md = {12}>
+                            { this.renderEventsContainer() }
                         </Grid>
                     </Grid>
                 </Grid>
