@@ -35,3 +35,33 @@
     width: 100%;
     display: block;
 }
+
+.events_container {
+    display: block;
+    padding: 20px;
+}
+
+.filter_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.filter_header_title {
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05rem;
+}
+
+.filter_header_clear {
+    color: #ff6347;
+    font-weight: 600;
+    font-size: 0.7rem;
+    align-self: flex-end;
+    text-transform: uppercase;
+}
+
+.filter_header_clear:hover {
+    cursor: pointer;
+    color: rgb(145, 145, 145);
+}
