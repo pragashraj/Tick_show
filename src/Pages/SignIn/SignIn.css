@@ -19,11 +19,11 @@
 .signin_container {
     display: block;
     padding: 50px;
-    padding-top: 15vh;
+    padding-top: 20vh;
 }
 
 .signin_form {
-    padding: 15px;
+    padding: 45px;
 }
 
 .signin_form-title {
@@ -35,6 +35,11 @@
     padding-bottom: 30px;
     letter-spacing: 0.02rem;
     text-transform: uppercase;
+}
+
+.signin_form-btn {
+    margin-top: 35px;
+    padding-left: 5px;
 }
 
 .signin_form-input_wrapper {

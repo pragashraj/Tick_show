@@ -23,7 +23,7 @@ class SignIn extends Component {
 
     }
 
-    handleSubmitOnClick = () => {
+    handleLoginOnClick = () => {
         const {email, password} = this.state
         if (email && password) {
             const result = this.validateEmail(email)
@@ -86,7 +86,9 @@ class SignIn extends Component {
                 <span className = "signin_form-title">Login !</span>
                 { this.renderInputField("email", "Email", "Enter your email address") }
                 { this.renderInputField("password", "Password", "Enter your password") }
-                <CustomButton label = "Submit" onClick = {this.handleSubmitOnClick}/>
+                <div className = 'signin_form-btn'>
+                    <CustomButton label = "Login" onClick = {this.handleLoginOnClick}/>
+                </div>
             </div>
         )
     }
