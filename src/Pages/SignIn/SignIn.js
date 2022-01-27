@@ -7,37 +7,32 @@ import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 
-import './SignUp.css'
-import signup_cover from '../../assets/CarouselImages/cover.jpg'
+import './SignIn.css'
+import signin_cover from '../../assets/CarouselImages/cover.jpg'
 
-class SignUp extends Component {
+class SignIn extends Component {
     state = {
-        username: "",
         email: "",
         password: "",
-        confirmPassword: "",
         message: null,
         severity: "",
         openSnackBar: false
     }
 
-    handleSignupApi = async(data) => {
+    handleSigninApi = async(data) => {
 
     }
 
     handleSubmitOnClick = () => {
-        const {username, email, password, confirmPassword} = this.state
-        if (username && email && password && confirmPassword) {
+        const {email, password} = this.state
+        if (email && password) {
             const result = this.validateEmail(email)
             if (!result) {
                 this.setErrorSnackBar('Enter a valid email address')
             }
-            else if (password === confirmPassword) {
-                this.setErrorSnackBar('Passwords not matched')
-            }
             else {
-                const data = {username, email, password}
-                this.handleSignupApi(data)
+                const data = {email, password}
+                this.handleSigninApi(data)
             }
         }
         else {
@@ -73,8 +68,8 @@ class SignUp extends Component {
 
     renderInputField = (name, label, placeholder) => {
         return (
-            <div className = "signup_form-input_wrapper">
-                <span className = "signup_form-input_wrapper-label-input">{label}</span>
+            <div className = "signin_form-input_wrapper">
+                <span className = "signin_form-input_wrapper-label-input">{label}</span>
                 <InputField 
                     name = {name} 
                     label = {placeholder} 
@@ -87,12 +82,10 @@ class SignUp extends Component {
 
     renderForm = () => {
         return (
-            <div className = 'signup_form'>
-                <span className = "signup_form-title">Register !</span>
-                { this.renderInputField("username", "Username", "Enter your name") }
+            <div className = 'signin_form'>
+                <span className = "signin_form-title">Login !</span>
                 { this.renderInputField("email", "Email", "Enter your email address") }
-                { this.renderInputField("password", "Password", "Enter password") }
-                { this.renderInputField("confirmPassword", "Confirm Password", "Confirm your pasword") }
+                { this.renderInputField("password", "Password", "Enter your password") }
                 <CustomButton label = "Submit" onClick = {this.handleSubmitOnClick}/>
             </div>
         )
@@ -104,7 +97,7 @@ class SignUp extends Component {
                 <CssBaseline />
                 <Grid item xs = {false} sm = {4} md = {7} component = {Paper} elevation = {6}
                     sx = {{
-                        backgroundImage: `url(${signup_cover})`,
+                        backgroundImage: `url(${signin_cover})`,
                         backgroundRepeat: 'no-repeat',
                         backgroundSize: 'cover',
                         backgroundPosition: 'center'
@@ -122,9 +115,9 @@ class SignUp extends Component {
     render() {
         const {openSnackBar, severity, message} = this.state
         return (
-            <div className = 'signup_root'>
-                <div className = 'signup_parallax'>
-                    <div className = 'signup_container'>
+            <div className = 'signin_root'>
+                <div className = 'signin_parallax'>
+                    <div className = 'signin_container'>
                         { this.renderMainContainer() }
                     </div>
                 </div>
@@ -139,4 +132,4 @@ class SignUp extends Component {
     }
 }
 
-export default SignUp
+export default SignIn

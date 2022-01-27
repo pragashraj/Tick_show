@@ -5,6 +5,7 @@ import SelectedMovie from "../Pages/Movies/SelectedMovie"
 import Contact from "../Pages/Contact/Contact"
 import Events from "../Pages/Events/Events"
 import SignUp from "../Pages/SignUp/SignUp"
+import SignIn from "../Pages/SignIn/SignIn"
 
 const routes = {
     data: [
@@ -48,6 +49,12 @@ const routes = {
             name: "SignUp",
             path: "/signup",
             component: <SignUp/>,
+            type: "",
+        },
+        {
+            name: "SignIn",
+            path: "/signin",
+            component: <SignIn/>,
             type: "",
         },
     ]
