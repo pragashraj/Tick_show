@@ -27,7 +27,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
         transition: theme.transitions.create('width'),
         width: '100%',
         textTransform: "uppercase",
-        fontSize: "0.8rem"
+        fontSize: "0.7rem"
     },
 }))
 

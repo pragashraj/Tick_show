@@ -4,6 +4,7 @@ import Theatres from "../Pages/Theatres/Theatres"
 import SelectedMovie from "../Pages/Movies/SelectedMovie"
 import Contact from "../Pages/Contact/Contact"
 import Events from "../Pages/Events/Events"
+import SignUp from "../Pages/SignUp/SignUp"
 
 const routes = {
     data: [
@@ -41,6 +42,12 @@ const routes = {
             name: "Events",
             path: "/events",
             component: <Events/>,
+            type: "",
+        },
+        {
+            name: "SignUp",
+            path: "/signup",
+            component: <SignUp/>,
             type: "",
         },
     ]
