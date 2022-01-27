@@ -93,7 +93,9 @@ class SignUp extends Component {
                 { this.renderInputField("email", "Email", "Enter your email address") }
                 { this.renderInputField("password", "Password", "Enter password") }
                 { this.renderInputField("confirmPassword", "Confirm Password", "Confirm your pasword") }
-                <CustomButton label = "Sign up" onClick = {this.handleSignupOnClick}/>
+                <div className = 'signup_form-btn'>
+                    <CustomButton label = "Sign up" onClick = {this.handleSignupOnClick}/>
+                </div>
             </div>
         )
     }
