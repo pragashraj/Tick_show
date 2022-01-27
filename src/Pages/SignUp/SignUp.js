@@ -5,6 +5,7 @@ import { Grid, CssBaseline, Paper, Box } from '@mui/material'
 
 import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
+import SnackBarAlert from '../../Components/SnackBarAlert'
 
 import './SignUp.css'
 import signup_cover from '../../assets/CarouselImages/cover.jpg'
@@ -15,7 +16,9 @@ class SignUp extends Component {
         email: "",
         password: "",
         confirmPassword: "",
-        error: null
+        message: null,
+        severity: "",
+        openSnackBar: false
     }
 
     handleSignupApi = async(data) => {
@@ -27,30 +30,46 @@ class SignUp extends Component {
         if (username && email && password && confirmPassword) {
             const result = this.validateEmail(email)
             if (!result) {
-                this.setState({ error: 'Enter a valid email address' })
+                this.setErrorSnackBar('Enter a valid email address')
             }
             else if (password === confirmPassword) {
-                this.setState({ error: 'Passwords not matched' })
+                this.setErrorSnackBar('Passwords not matched')
             }
             else {
                 const data = {username, email, password}
                 this.handleSignupApi(data)
-                this.setState({ error: null })
+                this.setState({ message: null })
             }
         }
         else {
-            this.setState({ error: 'Fields cannot be empty' })
+            this.setErrorSnackBar('Fields cannot be empty' )
         }
-    }
-
-    validateEmail = (email) => {
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-        return pattern.test(email)
     }
 
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({[name]: value})
+    }
+
+    handleSnackBarClose = () => {
+        this.setSnackBar("", null, false)
+    }
+
+    setSuccessSnackBar = (message) => {
+        this.setSnackBar("success", message, true)
+    }
+
+    setErrorSnackBar = (message) => {
+        this.setSnackBar("error", message, true)
+    }
+
+    setSnackBar = (severity, message, openSnackBar) => {
+        this.setState({ severity, message, openSnackBar })
+    }
+
+    validateEmail = (email) => {
+        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return pattern.test(email)
     }
 
     renderInputField = (name, label, placeholder) => {
@@ -102,6 +121,7 @@ class SignUp extends Component {
     }
 
     render() {
+        const {openSnackBar, severity, message} = this.state
         return (
             <div className = 'signup_root'>
                 <div className = 'signup_parallax'>
@@ -109,6 +129,12 @@ class SignUp extends Component {
                         { this.renderMainContainer() }
                     </div>
                 </div>
+                <SnackBarAlert 
+                    open = {openSnackBar} 
+                    severity = {severity} 
+                    message = {message} 
+                    handleClose = {this.handleSnackBarClose}
+                />
             </div>
         )
     }
