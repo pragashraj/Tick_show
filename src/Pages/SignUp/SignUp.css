@@ -37,6 +37,11 @@
     text-transform: uppercase;
 }
 
+.signup_form-btn {
+    margin-top: 15px;
+    padding-left: 5px;
+}
+
 .signup_form-input_wrapper {
     width: 100%;
     position: relative;
