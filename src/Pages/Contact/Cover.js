@@ -1,11 +1,11 @@
 import React from 'react'
 
 //Material-UI
-import { Grid, CssBaseline, useMediaQuery } from '@mui/material'
+import { Grid, CssBaseline, useMediaQuery, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import {Email, ShareLocation, Call} from '@mui/icons-material'
 
-import contactImg from '../../assets/CarouselImages/contact_cover.jpg'
+import contactImg from '../../assets/CarouselImages/cover.jpg'
 
 const useStyles = makeStyles({
     cover: {
@@ -105,7 +105,7 @@ const Cover = () => {
     )
 
     return (
-        <Grid item xs = {false} sm = {4} md = {7} className = {classes.cover}>
+        <Grid item xs = {false} sm = {4} md = {7} className = {classes.cover} component = {Paper}>
             { matches && renderContactsInfo() }
         </Grid>
     )
