@@ -14,11 +14,38 @@ class SignUp extends Component {
         username: "",
         email: "",
         password: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        error: null
+    }
+
+    handleSignupApi = async(data) => {
+
     }
 
     handleSubmitOnClick = () => {
+        const {username, email, password, confirmPassword} = this.state
+        if (username && email && password && confirmPassword) {
+            const result = this.validateEmail(email)
+            if (!result) {
+                this.setState({ error: 'Enter a valid email address' })
+            }
+            else if (password === confirmPassword) {
+                this.setState({ error: 'Passwords not matched' })
+            }
+            else {
+                const data = {username, email, password}
+                this.handleSignupApi(data)
+                this.setState({ error: null })
+            }
+        }
+        else {
+            this.setState({ error: 'Fields cannot be empty' })
+        }
+    }
 
+    validateEmail = (email) => {
+        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        return pattern.test(email)
     }
 
     handleInputOnChange = (e) => {
