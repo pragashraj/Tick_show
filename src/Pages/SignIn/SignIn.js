@@ -7,6 +7,8 @@ import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 
+import {signIn} from '../../api/auth'
+
 import './SignIn.css'
 import signin_cover from '../../assets/CarouselImages/cover.jpg'
 
@@ -16,11 +18,21 @@ class SignIn extends Component {
         password: "",
         message: null,
         severity: "",
-        openSnackBar: false
+        openSnackBar: false,
+        loading: false
     }
 
     handleSigninApi = async(data) => {
-
+        try {
+            this.setState({ loading: true })
+            const response = await signIn(data)
+            const {email, name, token, expiration} = response
+            const loginResponse = { email, name, token, expiration }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar(e.response.data.message)
+        }
     }
 
     handleLoginOnClick = () => {
