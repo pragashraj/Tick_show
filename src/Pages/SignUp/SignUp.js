@@ -6,6 +6,7 @@ import { Grid, CssBaseline, Paper, Box } from '@mui/material'
 import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SnackBarAlert from '../../Components/SnackBarAlert'
+import Loading from '../../Components/Loading/Loading'
 
 import {signUp} from '../../api/auth'
 
@@ -135,7 +136,7 @@ class SignUp extends Component {
     }
 
     render() {
-        const {openSnackBar, severity, message} = this.state
+        const {openSnackBar, severity, message, loading} = this.state
         return (
             <div className = 'signup_root'>
                 <div className = 'signup_parallax'>
@@ -149,6 +150,7 @@ class SignUp extends Component {
                     message = {message} 
                     handleClose = {this.handleSnackBarClose}
                 />
+                <Loading open = {loading}/>
             </div>
         )
     }
