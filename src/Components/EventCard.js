@@ -1,15 +1,7 @@
 import React from 'react'
 
 //Material-UI
-import {
-    Box,
-    CardMedia,
-    CardContent,
-    Paper,
-    Typography,
-    Grid,
-    useMediaQuery
-} from '@mui/material'
+import { Box, CardMedia, CardContent, Paper, Typography, Grid, useMediaQuery } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { AttachMoney, FmdGood, Call } from '@mui/icons-material'
 
