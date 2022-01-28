@@ -28,7 +28,7 @@ class SignIn extends Component {
             const response = await signIn(data)
             const {email, name, token, expiration} = response
             const loginResponse = { email, name, token, expiration }
-            this.setState({ loading: false })
+            this.setState({ loading: false, email: "", password: "" })
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar(e.response.data.message)

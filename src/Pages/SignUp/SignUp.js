@@ -7,6 +7,8 @@ import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 
+import {signUp} from '../../api/auth'
+
 import './SignUp.css'
 import signup_cover from '../../assets/CarouselImages/cover.jpg'
 
@@ -18,11 +20,22 @@ class SignUp extends Component {
         confirmPassword: "",
         message: null,
         severity: "",
-        openSnackBar: false
+        openSnackBar: false,
+        loading: false
     }
 
     handleSignupApi = async(data) => {
-
+        try {
+            this.setState({ loading: true })
+            const response = await signUp(data)
+            if (response.success) {
+                this.setSuccessSnack(response.message)
+            }
+            this.setState({ loading: false, username: "", email: "", password: "", confirmPassword: "" })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar(e.response.data.message)
+        }
     }
 
     handleSignupOnClick = () => {
