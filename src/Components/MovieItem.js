@@ -1,12 +1,7 @@
 import React from 'react'
 
 //Material-UI
-import Divider from '@mui/material/Divider'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import Grid from '@mui/material/Grid'
-import IconButton from '@mui/material/IconButton'
-import Button from '@mui/material/Button'
+import { Divider, CardMedia, Typography, Grid, IconButton, Button} from '@mui/material'
 import { useMediaQuery } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import FavoriteIcon from '@mui/icons-material/Favorite'
@@ -113,7 +108,7 @@ const MovieItem = ({item, handleLikeOnClick, handleBuyTicketOnClick, handleWatch
     const matches = useMediaQuery('(max-width:600px)')
     const classes = useStyles({mobile: matches})
 
-    const {name, src, duration, genre, rotten, imdb, release, url =  "Https://Google.com"} = item
+    const {name, src, duration, genre, rotten, imdb, release, url =  "https://Google.com"} = item
 
     const handleButtonClick = (label) => {
         switch (label) {
@@ -123,7 +118,6 @@ const MovieItem = ({item, handleLikeOnClick, handleBuyTicketOnClick, handleWatch
                 break
             default : return
         }
-
     }
 
     const renderButton = (icon, label) => (

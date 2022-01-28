@@ -1,16 +1,7 @@
 import React from 'react'
 
 //Material-UI
-import {
-    Button,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    Dialog,
-    Radio,
-    RadioGroup,
-    FormControlLabel
-} from '@mui/material'
+import { Button, DialogTitle, DialogContent, DialogActions, Dialog, Radio, RadioGroup, FormControlLabel } from '@mui/material'
 
 const ConfirmationDialog = ({open, title, options, value, handleChange, handleOkOnClick, cancelOnClick}) => {
     const radioGroupRef = React.useRef(null)

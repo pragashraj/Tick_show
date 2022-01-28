@@ -19,7 +19,7 @@ class SignUp extends Component {
         email: "",
         password: "",
         confirmPassword: "",
-        message: null,
+        message: "",
         severity: "",
         openSnackBar: false,
         loading: false

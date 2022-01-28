@@ -92,7 +92,7 @@ const TheatreCard = ({item}) => {
 
     const renderRatings = () => (
         <div className = {classes.rateRoot}>
-        <img src = {starImg} alt = {name} className = {classes.rateIcon}/>
+            <img src = {starImg} alt = {name} className = {classes.rateIcon}/>
             <div className = {classes.rateIconRoot}>
                 <span className = {classes.rateValue}>{imdb}</span>
             </div>

@@ -17,7 +17,7 @@ class SignIn extends Component {
     state = {
         email: "",
         password: "",
-        message: null,
+        message: "",
         severity: "",
         openSnackBar: false,
         loading: false
@@ -29,7 +29,7 @@ class SignIn extends Component {
             const response = await signIn(data)
             const {email, name, token, expiration} = response
             const loginResponse = { email, name, token, expiration }
-            this.setState({ loading: false, email: "", password: "" })
+            this.setState({ loading: false, email: "", password: "", message: null })
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar(e.response.data.message)

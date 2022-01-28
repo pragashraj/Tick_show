@@ -3,15 +3,14 @@ import React from 'react'
 import PropTypes from "prop-types"
 
 //Material-UI
-import Chip from '@mui/material/Chip'
-import Link from '@mui/material/Link'
+import { Chip, Link} from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { emphasize } from '@mui/material/styles'
 
 const useStyles = makeStyles({
     link: {
         '&:hover': {
-          textDecoration: 'none'
+            textDecoration: 'none'
         },
     },
     chip: {
@@ -20,8 +19,8 @@ const useStyles = makeStyles({
         padding: "2px",
         '&:hover': {
             cursor: "pointer",
-            backgroundColor: emphasize("rgba(255, 255, 255, 0.4)", 0.06),
-        },
+            backgroundColor: emphasize("rgba(255, 255, 255, 0.4)", 0.06)
+        }
     },
 })
 
@@ -33,18 +32,14 @@ const StyledBreadcrumb = ({link}) => {
     const IconImage = icon
 
     return (
-      <Link
-          underline = "hover"
-          className = {classes.link}
-          href = {href}
-      >
-          <Chip 
+        <Link underline = "hover" className = {classes.link} href = {href}>
+            <Chip 
                 label = {label} 
                 className = {classes.chip} 
                 variant = "contained" 
                 avatar = {<IconImage style = {{ color: "white" }} />}
             />
-      </Link>
+        </Link>
     )
 }
 
