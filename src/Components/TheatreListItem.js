@@ -73,6 +73,10 @@ const useStyles = makeStyles({
     timeSlots: {
         display: "flex",
         flexDirection: "row",
+    },
+    slotBtn: {
+        color: "#ffffff", 
+        border: "1px solid #fff"
     }
 })
 
@@ -85,11 +89,7 @@ const TheatreListItem = ({item, handleLikeOnClick, handleTimeSlotOnClick}) => {
         <ButtonGroup variant = "outlined" size = "small" aria-label = "small button group">
             { timeSlots.map((i, idx) => {
                 return (
-                    <Button 
-                        sx = {{color: "#ffffff", border: "1px solid #fff"}}
-                        onClick = {handleTimeSlotOnClick}
-                        key = {idx}
-                    >
+                    <Button className = {classes.slotBtn} onClick = {handleTimeSlotOnClick} key = {idx}>
                         {i}
                     </Button>
                 )
