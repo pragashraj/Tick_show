@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import {connect} from 'react-redux'
+
 //Material-UI
 import { Grid, CssBaseline, Paper, Box } from '@mui/material'
 
@@ -9,6 +11,7 @@ import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
 
 import {signIn} from '../../api/auth'
+import { storeLoginResponse } from '../../redux/actions/authAction'
 
 import './SignIn.css'
 import signin_cover from '../../assets/CarouselImages/cover.jpg'
@@ -29,6 +32,7 @@ class SignIn extends Component {
             const response = await signIn(data)
             const {email, name, token, expiration} = response
             const loginResponse = { email, name, token, expiration }
+            this.props.storeLoginResponse(loginResponse)
             this.setState({ loading: false, email: "", password: "", message: null })
         } catch (e) {
             this.setState({ loading: false })
@@ -93,15 +97,39 @@ class SignIn extends Component {
         )
     }
 
+    renderSignUpLink = () => {
+        return (
+            <div className = "form_signup-link_root">
+                <a href = "/signup" className = "signup_link">Don't have any account ?</a>
+            </div>
+        )
+    }
+
+    renderForgotPassword = () => {
+        return (
+            <div className = "form_forgot_password_root">
+                <a href = "/forgotPassword" className = "form_forgot_password">Forgot password ?</a>
+            </div>
+        )
+    }
+
+    renderFormButton = () => {
+        return (
+            <div className = 'signin_form-btn'>
+                <CustomButton label = "Login" onClick = {this.handleLoginOnClick}/>
+            </div>
+        )
+    }
+
     renderForm = () => {
         return (
             <div className = 'signin_form'>
                 <span className = "signin_form-title">Login !</span>
                 { this.renderInputField("email", "Email", "Enter your email address") }
                 { this.renderInputField("password", "Password", "Enter your password") }
-                <div className = 'signin_form-btn'>
-                    <CustomButton label = "Login" onClick = {this.handleLoginOnClick}/>
-                </div>
+                { this.renderForgotPassword() }
+                { this.renderFormButton() }
+                { this.renderSignUpLink() }
             </div>
         )
     }
@@ -148,4 +176,10 @@ class SignIn extends Component {
     }
 }
 
-export default SignIn
+const mapDispatchToProps = dispatch => {
+    return {
+        storeLoginResponse: data => { dispatch(storeLoginResponse(data)) }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(SignIn)
