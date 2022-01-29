@@ -51,9 +51,10 @@
 
 .signin_form-input_wrapper-label-input {
     font-size: 13px;
-    color: #bdbcbc;
+    color: rgb(172, 172, 173);
     line-height: 1.5;
     margin-left: 8px;
+    letter-spacing: 0.06rem;
 }
 
 .form_forgot_password_root {

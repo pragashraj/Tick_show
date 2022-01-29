@@ -99,6 +99,22 @@ class SignUp extends Component {
         )
     }
 
+    renderSignInLink = () => {
+        return (
+            <div className = "form_signin-link_root">
+                <a href = "/signin" className = "signin_link">Already have an account ?</a>
+            </div>
+        )
+    }
+
+    renderformButton = () => {
+        return (
+            <div className = 'signup_form-btn'>
+                <CustomButton label = "Sign up" onClick = {this.handleSignupOnClick}/>
+            </div>
+        )
+    }
+
     renderForm = () => {
         return (
             <div className = 'signup_form'>
@@ -107,9 +123,8 @@ class SignUp extends Component {
                 { this.renderInputField("email", "Email", "Enter your email address") }
                 { this.renderInputField("password", "Password", "Enter password") }
                 { this.renderInputField("confirmPassword", "Confirm Password", "Confirm your pasword") }
-                <div className = 'signup_form-btn'>
-                    <CustomButton label = "Sign up" onClick = {this.handleSignupOnClick}/>
-                </div>
+                { this.renderformButton() }
+                { this.renderSignInLink() }
             </div>
         )
     }
