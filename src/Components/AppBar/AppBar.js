@@ -55,7 +55,7 @@ const AppBar = ({handleDrawer}) => {
     ]
 
     const handleEnterOnPress = () => {
-        console.log(searchValue)
+        
     }
 
     const handleInputOnChange = (e) => {
@@ -105,7 +105,7 @@ const AppBar = ({handleDrawer}) => {
                     <Breadcrumbs aria-label = "nav-links">
                         { NAV_LINKS.map((item, idx) => <StyledBreadcrumb link = {item} key = {idx}/> ) }
                     </Breadcrumbs>
-                    <a href = "/" className = "nav-link">Join Now</a>
+                    <a href = "/signup" className = "nav-link">Join Now</a>
                 </div>
             </div>
         )
