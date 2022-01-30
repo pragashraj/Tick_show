@@ -62,10 +62,10 @@ class Movies extends Component {
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
-    getMoviesApi = async(page, showing) => {
+    getMoviesApi = async(page, size) => {
         try {
             this.setState({ loading: true })
-            const response = await getMovies(page, showing)
+            const response = await getMovies(page, size)
             if (response) {
                 this.setState({ data: response.movies, total: response.total, current: response.current })
             }
@@ -90,9 +90,11 @@ class Movies extends Component {
         }
     }
 
-    sortMoviesApi = async(data) => {
+    sortMoviesApi = async(page) => {
         try {
             this.setState({ loading: true })
+            const {sortBy, show} = this.state
+            const data = {sortBy, page, size: show}
             const response = await sortMovies(data)
             if (response) {
                 this.setState({ data: response.movies, total: response.total, current: response.current })
@@ -176,10 +178,7 @@ class Movies extends Component {
 
     handleSortOnChange = (e) => {
         const {name, value} = e.target
-        this.setState({ [name]: value })
-
-        const data = {sortBy: value, page: 0, showing: this.state.show}
-        this.sortMoviesApi(data)
+        this.setState({ [name]: value }, this.sortMoviesApi(0))
     }
 
     handlePaginationOnChange = (event, page) => {
