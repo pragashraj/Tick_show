@@ -177,6 +177,8 @@ class Movies extends Component {
     handleSortOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
+
+        this.sortMoviesApi(value, 0)
     }
 
     handlePaginationOnChange = (event, page) => {
