@@ -35,7 +35,7 @@ class Movies extends Component {
         experienceChecked: [],
         genreChecked: [],
         dataListType: "Grid",
-        total: 0,
+        total: 1,
         current: 1,
         loading: false,
         message: "",
