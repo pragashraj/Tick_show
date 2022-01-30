@@ -7,6 +7,10 @@ import Sorter from '../../Components/Sorter'
 import MovieItem from '../../Components/MovieItem'
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import Page from '../../Components/Page'
+import Loading from '../../Components/Loading/Loading'
+import SnackBarAlert from '../../Components/SnackBarAlert'
+
+import {getMovies} from '../../api/movie'
 
 //Material-UI
 import { Grid } from '@mui/material'
@@ -31,8 +35,12 @@ class Movies extends Component {
         experienceChecked: [],
         genreChecked: [],
         dataListType: "Grid",
-        total: 10,
+        total: 0,
         current: 1,
+        loading: false,
+        message: "",
+        severity: "",
+        openSnackBar: false,
     }
 
     sortData = [
@@ -52,6 +60,20 @@ class Movies extends Component {
         this.createFilters()
 
         window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    getMoviesApi = async(page) => {
+        try {
+            this.setState({ loading: true })
+            const response = await getMovies(page)
+            if (response) {
+                this.setState({ data: response.movies, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar(e.response.data.message)
+        }
     }
 
     createDataBlock = () => {
@@ -156,6 +178,22 @@ class Movies extends Component {
             experienceChecked: [],
             genreChecked: [] 
         })
+    }
+
+    handleSnackBarClose = () => {
+        this.setSnackBar("", null, false)
+    }
+
+    setSuccessSnackBar = (message) => {
+        this.setSnackBar("success", message, true)
+    }
+
+    setErrorSnackBar = (message) => {
+        this.setSnackBar("error", message, true)
+    }
+
+    setSnackBar = (severity, message, openSnackBar) => {
+        this.setState({ severity, message, openSnackBar })
     }
 
     getCheckedStateAttribute = (label) => {
@@ -269,6 +307,7 @@ class Movies extends Component {
     }
 
     render() {
+        const {openSnackBar, severity, message, loading} = this.state
         return (
             <div className = 'movies_root_container'>
                 <div className = 'movies_header'>
@@ -280,6 +319,13 @@ class Movies extends Component {
                         { this.renderMoviesBlockExtended() }
                     </div>
                 </div>
+                <SnackBarAlert 
+                    open = {openSnackBar} 
+                    severity = {severity} 
+                    message = {message} 
+                    handleClose = {this.handleSnackBarClose}
+                />
+                <Loading open = {loading}/>
             </div>
         )
     }
