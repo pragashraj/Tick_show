@@ -10,7 +10,7 @@ import Page from '../../Components/Page'
 import Loading from '../../Components/Loading/Loading'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 
-import {getMovies} from '../../api/movie'
+import { getMovies, filterMovies } from '../../api/movie'
 
 //Material-UI
 import { Grid } from '@mui/material'
@@ -66,6 +66,20 @@ class Movies extends Component {
         try {
             this.setState({ loading: true })
             const response = await getMovies(page)
+            if (response) {
+                this.setState({ data: response.movies, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar(e.response.data.message)
+        }
+    }
+
+    filterMoviesApi = async(data) => {
+        try {
+            this.setState({ loading: true })
+            const response = await filterMovies(data)
             if (response) {
                 this.setState({ data: response.movies, total: response.total, current: response.current })
             }
