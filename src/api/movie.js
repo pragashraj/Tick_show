@@ -4,8 +4,8 @@ export const getEndpointWithPrefix = (endpoint) => {
     return `movies/${endpoint}`
 }
 
-export const getMovies = (page, showing) => {
-    const endpoint =  getEndpointWithPrefix(`get-movies?page=${page}&showing=${showing}`)
+export const getMovies = (page, size) => {
+    const endpoint =  getEndpointWithPrefix(`get-movies?page=${page}&size=${size}`)
     return GET(endpoint)
 }
 
