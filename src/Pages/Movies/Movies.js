@@ -29,7 +29,7 @@ class Movies extends Component {
     state = {
         filters: [],
         data: [],
-        show: 10,
+        show: 4,
         sortBy: "Now Showing",
         languageChecked: [],
         experienceChecked: [],
@@ -44,7 +44,7 @@ class Movies extends Component {
     }
 
     sortData = [
-        {name: "show", label: "show", menuItems: ["5", "10", "20"]},
+        {name: "show", label: "show", menuItems: ["4", "6", "10"]},
         {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Movies"]}
     ]
 
@@ -62,10 +62,10 @@ class Movies extends Component {
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
-    getMoviesApi = async(page) => {
+    getMoviesApi = async(page, showing) => {
         try {
             this.setState({ loading: true })
-            const response = await getMovies(page)
+            const response = await getMovies(page, showing)
             if (response) {
                 this.setState({ data: response.movies, total: response.total, current: response.current })
             }
@@ -90,10 +90,10 @@ class Movies extends Component {
         }
     }
 
-    sortMoviesApi = async(sortBy, page) => {
+    sortMoviesApi = async(data) => {
         try {
             this.setState({ loading: true })
-            const response = await sortMovies(sortBy, page)
+            const response = await sortMovies(data)
             if (response) {
                 this.setState({ data: response.movies, total: response.total, current: response.current })
             }
@@ -177,6 +177,9 @@ class Movies extends Component {
     handleSortOnChange = (e) => {
         const {name, value} = e.target
         this.setState({ [name]: value })
+
+        const data = {sortBy: value, page: 0, showing: this.state.show}
+        this.sortMoviesApi(data)
     }
 
     handlePaginationOnChange = (event, page) => {
