@@ -15,6 +15,9 @@ import ContentList from '../../Components/ContentList/ContentList'
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import ConfirmationDialog from '../../Components/ConfirmationDialog'
 import DateSelector from '../../Components/DateSelector/DateSelector'
+import Loading from '../../Components/Loading/Loading'
+
+import {getContents} from '../../api/home'
 
 import './Home.css'
 import movieCardImage1 from '../../assets/images/1.jpg'
@@ -39,6 +42,7 @@ class Home extends Component {
         date: new Date(),
         experienceOptions: ["2D", "3D"],
         experience: "2D",
+        loading: false
     }
 
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
@@ -50,6 +54,24 @@ class Home extends Component {
     componentDidMount() {
         this.createDummyData()
         window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    getContentsApi = async() => {
+        try {
+            this.setState({loading: true})
+            const response = await getContents()
+            if (response) {
+                this.setState({
+                    movies: response.movies,
+                    events: response.events,
+                    theatres: response.theatres,
+                    cityOptions: response.cities
+                })
+            }
+            this.setState({loading: false})
+        } catch (e) {
+            this.setState({loading: false})
+        }
     }
 
     createDummyData = () => {
@@ -303,11 +325,12 @@ class Home extends Component {
     }
 
     render() {
-        const {openSeletor} = this.state
+        const {openSeletor, loading} = this.state
         return (
             <div className = 'home_root_container'>
                 { this.renderBody() }
                 { openSeletor && this.renderConfirmDialog() }
+                <Loading open = {loading}/>
             </div>
         )
     }
