@@ -33,6 +33,7 @@ function withNavigate(Component) {
 class Home extends Component {
     state = {
         movies: [],
+	upcomingMovies: [],
         events: [],
         theatres: [],
         movieSearchValue: "",
@@ -66,10 +67,11 @@ class Home extends Component {
             const response = await getContents()
             if (response) {
                 this.setState({
-                    movies: response.movies,
-                    events: response.events,
-                    theatres: response.theatres,
-                    cityOptions: response.cities
+                    movies: response.moviePage.movies,
+		    upcomingMovies: response.upcomingMoviePage.movies,
+                    events: response.eventPage.events,
+                    theatres: response.theatrePage.theatres,
+                    cityOptions: response.locations
                 })
             }
             this.setState({loading: false})
