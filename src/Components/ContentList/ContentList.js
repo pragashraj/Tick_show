@@ -5,7 +5,7 @@ import EventCard from '../EventCard'
 import TheatreCard from '../TheatreCard'
 
 //Material-UI
-import Grid from '@mui/material/Grid'
+import {Grid} from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import './ContentList.css'

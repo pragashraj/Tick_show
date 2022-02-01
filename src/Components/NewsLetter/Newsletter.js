@@ -1,9 +1,7 @@
 import React from 'react'
 
 //Material-UI
-import Paper from '@mui/material/Paper'
-import InputBase from '@mui/material/InputBase'
-import Divider from '@mui/material/Divider'
+import {Paper, InputBase, Divider} from '@mui/material'
 
 import './Newsletter.css'
 

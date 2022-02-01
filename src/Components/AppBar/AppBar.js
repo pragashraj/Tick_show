@@ -4,11 +4,7 @@ import Search from '../Search'
 import StyledBreadcrumb from '../StyledBreadcrumb'
 
 //Material-UI
-import Breadcrumbs from '@mui/material/Breadcrumbs'
-import IconButton from '@mui/material/IconButton'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import Box from '@mui/material/Box'
-
+import {Breadcrumbs, IconButton, useMediaQuery, Box} from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import HomeIcon from '@mui/icons-material/Home'
