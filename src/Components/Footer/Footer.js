@@ -1,19 +1,25 @@
 import React, {useState} from 'react'
 
-import Newsletter from '../NewsLetter/Newsletter'
-
 //Material-UI
-import Grid from '@mui/material/Grid'
-import Divider from '@mui/material/Divider'
+import {Grid, Divider} from '@mui/material'
 import FacebookIcon from '@mui/icons-material/FacebookRounded'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import InstagramIcon from '@mui/icons-material/Instagram'
+
+import Newsletter from '../NewsLetter/Newsletter'
+import SnackBarAlert from '../SnackBarAlert'
+import {subscribeToNewsletter} from '../../api/home'
 
 import './Footer.css'
 import logo from '../../assets/Icons/logo.png'
 
 const Footer = () => {
     const [email, setEmail] = useState("")
+    const [snackAlert, setSnackAlert] = useState({
+        open: false,
+        severity: "",
+        message: ""
+    })
 
     const SOCIAL_LINKS = [
         {id: "1", url : "https://twitter.com", title: "Twitter"},
@@ -29,21 +35,44 @@ const Footer = () => {
         {id : "5", href : "/events", title: "Events"},
     ]
 
+    const SOCIAL_ICONS = {
+        "Facebook" : <FacebookIcon sx = {{width: "100%", height: "100%"}}/>,
+        "Twitter" : <TwitterIcon sx = {{width: "100%", height: "100%"}}/>,
+        "Instagram" : <InstagramIcon sx = {{width: "100%", height: "100%"}}/>
+    }
+
+    const subscribeToNewsletterApi = async() => {
+        try {
+            const response = await subscribeToNewsletter(email)
+            if (response.success) {
+                setEmail("")
+                setSnackAlertState(true, "success", response.message)
+            }
+        } catch (e) {
+            setSnackAlertState(true, "error", e.response.data.message)
+        }
+    }
+
     const handleSubcribeOnClick = (e) => {
         e.preventDefault()
+        if (email) {
+            subscribeToNewsletterApi()
+        }
+        else {
+            setSnackAlertState(true, "error", "Fields cannot be empty")
+        }
     }
 
     const handleInputOnChange = (e) => {
-        setEmail(e.target.vale)
+        setEmail(e.target.value)
     }
 
-    const getSocialIcon = (title) => {
-        switch(title) {
-            case "Facebook": return <FacebookIcon sx = {{width: "100%", height: "100%"}}/>
-            case "Twitter": return <TwitterIcon sx = {{width: "100%", height: "100%"}}/>
-            case "Instagram": return <InstagramIcon sx = {{width: "100%", height: "100%"}}/>
-            default : return
-        }
+    const handleSnackBarClose = () => {
+        setSnackAlertState(false, "error", "")
+    }
+
+    const setSnackAlertState = (open, severity, message) => {
+        setSnackAlert({open, severity, message})
     }
 
     const renderLinks = () => {
@@ -76,7 +105,7 @@ const Footer = () => {
                             const {id, url, title} = item
                             return (
                                 <a href = {url} target = "_blank" rel = "noreferrer noopener" key = {id}>
-                                    { getSocialIcon(title) }
+                                    { SOCIAL_ICONS[title] }
                                 </a>
                             )
                         }) }
@@ -114,7 +143,10 @@ const Footer = () => {
                     <Grid item xs = {12} sm = {6} md = {6}>
                         <div className = "newsletter_text">
                             <h3>Stay Updated</h3>
-                            <p>Your domain control panel is designed for ease-of-use and allows for all aspects of yours</p>
+                            <p>
+                                Our newsletter panel is designed for ease-of-use 
+                                and allows you to stay updated with new movies and events
+                            </p>
                         </div>
                     </Grid>
                     <Grid item xs = {12} sm = {6} md = {6}>
@@ -151,10 +183,16 @@ const Footer = () => {
                 <div className = 'footer_container'>
                     { renderFooterMainContent() }
                     { renderNewsLetter() }
-                    <Divider/>
+                    <Divider sx = {{backgroundColor: "rgba(255, 255, 255, 0.1)", marginTop: "5px"}}/>
                     { renderFooterBottom() }
                 </div>
             </div>
+            <SnackBarAlert 
+                open = {snackAlert.open} 
+                severity = {snackAlert.severity} 
+                message = {snackAlert.message} 
+                handleClose = {handleSnackBarClose}
+            />
         </div>
     )
 }

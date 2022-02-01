@@ -33,7 +33,7 @@ function withNavigate(Component) {
 class Home extends Component {
     state = {
         movies: [],
-	upcomingMovies: [],
+	    upcomingMovies: [],
         events: [],
         theatres: [],
         movieSearchValue: "",
@@ -53,7 +53,7 @@ class Home extends Component {
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
 
     carouselImages = [
-        {url: slideShowImage},
+        {url: slideShowImage}
     ]
 
     componentDidMount() {
@@ -68,7 +68,7 @@ class Home extends Component {
             if (response) {
                 this.setState({
                     movies: response.moviePage.movies,
-		    upcomingMovies: response.upcomingMoviePage.movies,
+		            upcomingMovies: response.upcomingMoviePage.movies,
                     events: response.eventPage.events,
                     theatres: response.theatrePage.theatres,
                     cityOptions: response.locations
@@ -123,15 +123,16 @@ class Home extends Component {
         }
 
         const dummyArr = ["1", "2", "3", "4"]
-        let eventsData = [], moviesData = [], theatresData = []
+        let eventsData = [], moviesData = [], theatresData = [], upcomimgData = []
 
         dummyArr.forEach(() => {
             moviesData.push(movie)
+            upcomimgData.push(movie)
             eventsData.push(event)
             theatresData.push(theatre)
         })
 
-        this.setState({ movies: moviesData, events: eventsData, theatres: theatresData })
+        this.setState({ movies: moviesData, events: eventsData, theatres: theatresData, upcomingMovies: upcomimgData })
     }
 
     handleSearchOnClick = () => {
@@ -187,10 +188,6 @@ class Home extends Component {
         this.setSnackBar("", null, false)
     }
 
-    setSuccessSnackBar = (message) => {
-        this.setSnackBar("success", message, true)
-    }
-
     setErrorSnackBar = (message) => {
         this.setSnackBar("error", message, true)
     }
@@ -201,7 +198,8 @@ class Home extends Component {
 
     getSelectorOptions = (label) => {
         const {cityOptions, experienceOptions} = this.state
-        let options
+        let options = []
+
         switch (label) {
             case "city": options = cityOptions
                 break
@@ -303,14 +301,14 @@ class Home extends Component {
     }
 
     renderBodyContents = () => {
-        const {movies, events, theatres} = this.state
+        const {movies, upcomingMovies, events, theatres} = this.state
         return (
             <div className = 'home_parallax'>
                 <div className = 'content_list'>
                     { this.renderContentList("Movies", "Movies", movies) }
                 </div>
                 <div className = 'content_list'>
-                    { this.renderContentList("Movies", "Upcoming Movies", movies) }
+                    { this.renderContentList("Movies", "Upcoming Movies", upcomingMovies) }
                 </div>
                 <div className = 'content_list'>
                     { this.renderContentList("Theatres", "Theatres", theatres) }
