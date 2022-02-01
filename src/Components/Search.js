@@ -43,7 +43,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
                 width: '40ch',
             },
         },
-        fontWeight: "600",
     },
 }))
 
