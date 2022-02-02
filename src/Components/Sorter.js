@@ -80,7 +80,7 @@ const Sorter = ({sortData, values, handleChange, handleListTypeIconOnClick}) => 
         <Card className = {classes.root}>
             <div className = {classes.card}>
                 <div className = { matches ? classes.content: classes.contentMobile}>
-                    { sortData.map(item => {
+                    { sortData && sortData.map(item => {
                         const {name, label, menuItems} = item
                         return renderSelector(name, label, values[name], menuItems)
                     }) }

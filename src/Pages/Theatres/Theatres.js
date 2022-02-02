@@ -8,7 +8,7 @@ import TheatreListItem from '../../Components/TheatreListItem'
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import Loading from '../../Components/Loading/Loading'
 
-import {getTheatres, filterTheatres} from '../../api/theatres'
+import {getTheatres, sortTheatres} from '../../api/theatres'
 
 import './Theatres.css'
 import theatreImage from '../../assets/images/Theatres.jpg'
@@ -25,7 +25,7 @@ class Theatres extends Component {
         loading: false,
     }
 
-    sort_data = [
+    sortData = [
         {name: "location", label: "Location", menuItems: ["Colombo", "Jaffna"]},
         {name: "experience", label: "Experience", menuItems: ["2D", "3D"]}
     ]
@@ -44,7 +44,7 @@ class Theatres extends Component {
             this.setState({ loading: true })
             const response = await getTheatres(page, size)
             if (response) {
-                this.setState({ theatreList: response.movies, total: response.total, current: response.current })
+                this.setState({ theatreList: response.theatres, total: response.total, current: response.current })
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -52,12 +52,12 @@ class Theatres extends Component {
         }
     }
 
-    filterTheatresApi = async(data) => {
+    sortTheatresApi = async(data) => {
         try {
             this.setState({ loading: true })
-            const response = await filterTheatres(data)
+            const response = await sortTheatres(data)
             if (response) {
-                this.setState({ theatreList: response.movies, total: response.total, current: response.current })
+                this.setState({ theatreList: response.theatres, total: response.total, current: response.current })
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -132,7 +132,7 @@ class Theatres extends Component {
         const values = {location, experience, dataListType}
         return (
             <Sorter 
-                sort_data = {this.sort_data} 
+                sortData = {this.sortData} 
                 values = {values}
                 handleChange = {this.handleSortOnChange}
                 handleListTypeIconOnClick = {this.handleListTypeIconOnClick}
