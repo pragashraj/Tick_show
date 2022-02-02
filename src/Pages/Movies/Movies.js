@@ -44,7 +44,7 @@ class Movies extends Component {
     }
 
     sortData = [
-        {name: "show", label: "show", menuItems: ["4", "6", "10"]},
+        {name: "show", label: "show", menuItems: [4, 6, 10]},
         {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Movies"]}
     ]
 

@@ -3,11 +3,10 @@ import React from 'react'
 import Selector from './Selector'
 
 //Material-UI
-import { Card, IconButton } from '@mui/material'
+import { Card, IconButton, useMediaQuery } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import GridView from '@mui/icons-material/GridView'
 import FormatListBulleted from '@mui/icons-material/FormatListBulleted'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 const useStyles = makeStyles({
     root: {

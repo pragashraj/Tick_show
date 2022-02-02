@@ -7,6 +7,7 @@ import Sorter from '../../Components/Sorter'
 import TheatreListItem from '../../Components/TheatreListItem'
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import Loading from '../../Components/Loading/Loading'
+import Page from '../../Components/Page'
 
 import {getTheatres, sortTheatres} from '../../api/theatres'
 
@@ -17,7 +18,7 @@ import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 class Theatres extends Component {
     state = {
         location: "Colombo",
-        experience: "2D",
+        show: 4,
         theatreList: [],
         total: 1,
         current: 1,
@@ -27,7 +28,7 @@ class Theatres extends Component {
 
     sortData = [
         {name: "location", label: "Location", menuItems: ["Colombo", "Jaffna"]},
-        {name: "experience", label: "Experience", menuItems: ["2D", "3D"]}
+        {name: "show", label: "show", menuItems: [4, 6, 10]}
     ]
 
     images = [
@@ -90,6 +91,10 @@ class Theatres extends Component {
         this.setState({ [name]: value })
     }
 
+    handlePaginationOnChange = (event, page) => {
+        this.setState({ current: page })
+    }
+
     handleTimeSlotOnClick = () => {
 
     }
@@ -141,6 +146,7 @@ class Theatres extends Component {
     }
 
     renderTheatresBlockExtended = () => {
+        const {total, current} = this.state
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {12} md = {12}>
@@ -149,6 +155,9 @@ class Theatres extends Component {
                 <Grid item xs = {12} sm = {12} md = {12}>
                     { this.renderTheatresList() }
                 </Grid>
+                <div className = 'pagination_container'>
+                    <Page count = {total} page = {current} onChange = {this.handlePaginationOnChange}/>
+                </div>
             </Grid>
         )
     }
