@@ -41,8 +41,9 @@ const useStyles = makeStyles({
     selectionLabel:{ 
         color: "#ffffff",
         textTransform: "uppercase",
-        fontSize: "0.8rem",
-        marginRight: "10px"
+        fontSize: "0.75rem",
+        marginRight: "10px",
+        letterSpacing: "0.1rem"
     },
     iconSelected: {
         color: "#ffffff"

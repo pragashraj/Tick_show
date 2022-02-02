@@ -17,7 +17,7 @@ import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 
 class Theatres extends Component {
     state = {
-        location: "Colombo",
+        location: "All",
         show: 4,
         theatreList: [],
         total: 1,
@@ -27,7 +27,7 @@ class Theatres extends Component {
     }
 
     sortData = [
-        {name: "location", label: "Location", menuItems: ["Colombo", "Jaffna"]},
+        {name: "location", label: "Location", menuItems: ["All", "Colombo", "Jaffna"]},
         {name: "show", label: "show", menuItems: [4, 6, 10]}
     ]
 
@@ -107,6 +107,27 @@ class Theatres extends Component {
         this.setState({ dataListType: value })
     }
 
+    renderNoDataAvailable = () => {
+        return (
+            <div className = "no_data_container">
+                <div className = "no_data">
+                    <h1>No Data Available</h1>
+                </div>
+            </div>
+        )
+    }
+
+    renderPagination = () => {
+        const {total, current} = this.state
+        return (
+            <Page 
+                count = {total} 
+                page = {current} 
+                onChange = {this.handlePaginationOnChange}
+            />
+        )
+    }
+
     renderTheatreListItem = (item, idx) => {
         const {dataListType} = this.state
         let no = dataListType === "Grid" ? 6 : 12
@@ -133,8 +154,8 @@ class Theatres extends Component {
     }
 
     renderSort = () => {
-        const {location, experience, dataListType} = this.state
-        const values = {location, experience, dataListType}
+        const {location, show, dataListType} = this.state
+        const values = {location, show, dataListType}
         return (
             <Sorter 
                 sortData = {this.sortData} 
@@ -146,17 +167,17 @@ class Theatres extends Component {
     }
 
     renderTheatresBlockExtended = () => {
-        const {total, current} = this.state
+        const {theatreList} = this.state
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {12} md = {12}>
                     { this.renderSort() }
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {12}>
-                    { this.renderTheatresList() }
+                    { theatreList.length > 0 ?  this.renderTheatresList() : this.renderNoDataAvailable() }
                 </Grid>
                 <div className = 'pagination_container'>
-                    <Page count = {total} page = {current} onChange = {this.handlePaginationOnChange}/>
+                    { theatreList.length > 0 && this.renderPagination() }
                 </div>
             </Grid>
         )
