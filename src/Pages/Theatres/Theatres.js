@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 
+//Material-UI
+import Grid from '@mui/material/Grid'
+
 import Sorter from '../../Components/Sorter'
 import TheatreListItem from '../../Components/TheatreListItem'
 import SlideShow from '../../Components/SlideShow/SlideShow'
+import Loading from '../../Components/Loading/Loading'
 
-//Material-UI
-import Grid from '@mui/material/Grid'
+import {getTheatres} from '../../api/theatres'
 
 import './Theatres.css'
 import theatreImage from '../../assets/images/Theatres.jpg'
@@ -16,7 +19,10 @@ class Theatres extends Component {
         location: "Colombo",
         experience: "2D",
         theatreList: [],
-        dataListType: "Grid"
+        total: 1,
+        current: 1,
+        dataListType: "Grid",
+        loading: false,
     }
 
     sort_data = [
@@ -31,6 +37,19 @@ class Theatres extends Component {
     componentDidMount() {
         //for creating dummy data list
         this.createDataBlock()
+    }
+
+    getTheatresApi = async(page, size) => {
+        try {
+            this.setState({ loading: true })
+            const response = await getTheatres(page, size)
+            if (response) {
+                this.setState({ theatreList: response.movies, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+        }
     }
 
     createDataBlock = () => {
@@ -122,6 +141,7 @@ class Theatres extends Component {
     }
 
     render() {
+        const {loading} = this.state
         return (
             <div className = 'theatres_root_container'>
                 <div className = 'theatres_header'>
@@ -134,6 +154,7 @@ class Theatres extends Component {
                         { this.renderTheatresBlockExtended() }
                     </div>
                 </div>
+                <Loading open = {loading}/>
             </div>
         )
     }
