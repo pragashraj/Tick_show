@@ -8,3 +8,13 @@ export const getTheatres = (page, size) => {
     const endpoint =  getEndpointWithPrefix(`get-theatres?page=${page}&size=${size}`)
     return GET(endpoint)
 }
+
+export const filterTheatres = (data) => {
+    const endpoint =  getEndpointWithPrefix('filter-theatres')
+    return POST(endpoint, data)
+}
+
+export const sortTheatres = (data) => {
+    const endpoint =  getEndpointWithPrefix(`sort-theatres`)
+    return POST(endpoint, data)
+}

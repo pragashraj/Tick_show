@@ -8,7 +8,7 @@ import TheatreListItem from '../../Components/TheatreListItem'
 import SlideShow from '../../Components/SlideShow/SlideShow'
 import Loading from '../../Components/Loading/Loading'
 
-import {getTheatres} from '../../api/theatres'
+import {getTheatres, filterTheatres} from '../../api/theatres'
 
 import './Theatres.css'
 import theatreImage from '../../assets/images/Theatres.jpg'
@@ -31,7 +31,7 @@ class Theatres extends Component {
     ]
 
     images = [
-        {url: slideShowImage},
+        {url: slideShowImage}
     ]
 
     componentDidMount() {
@@ -43,6 +43,19 @@ class Theatres extends Component {
         try {
             this.setState({ loading: true })
             const response = await getTheatres(page, size)
+            if (response) {
+                this.setState({ theatreList: response.movies, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+        }
+    }
+
+    filterTheatresApi = async(data) => {
+        try {
+            this.setState({ loading: true })
+            const response = await filterTheatres(data)
             if (response) {
                 this.setState({ theatreList: response.movies, total: response.total, current: response.current })
             }
