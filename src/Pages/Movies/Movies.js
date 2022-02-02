@@ -30,7 +30,7 @@ class Movies extends Component {
         filters: [],
         data: [],
         show: 4,
-        sortBy: "Now Showing",
+        sortBy: "All movies",
         languageChecked: [],
         experienceChecked: [],
         genreChecked: [],
@@ -44,8 +44,8 @@ class Movies extends Component {
     }
 
     sortData = [
-        {name: "show", label: "show", menuItems: ["4", "6", "10"]},
-        {name: "sortBy", label: "Sort by", menuItems: ["Now Showing", "Upcoming Movies"]}
+        {name: "show", label: "show", menuItems: [4, 6, 10]},
+        {name: "sortBy", label: "Sort by", menuItems: ["All movies", "Now Showing", "Upcoming Movies"]}
     ]
 
     carouselImages = [
@@ -160,6 +160,15 @@ class Movies extends Component {
         this.setState({ filters: array })
     }
 
+    handleSortChangeApiCall = (name) => {
+        if (name === "All movies") {
+            this.getMoviesApi(0, 4)
+        } 
+        else {
+            this.sortMoviesApi(0)
+        }
+    }
+
     handleBuyTicketOnClick = (movieItem) => {
         this.props.navigate(`/selectedMovie`, { state: movieItem })
     }
@@ -178,7 +187,7 @@ class Movies extends Component {
 
     handleSortOnChange = (e) => {
         const {name, value} = e.target
-        this.setState({ [name]: value }, this.sortMoviesApi(0))
+        this.setState({ [name]: value }, this.handleSortChangeApiCall(name))
     }
 
     handlePaginationOnChange = (event, page) => {
@@ -240,6 +249,39 @@ class Movies extends Component {
         }
 
         return name
+    }
+
+    renderSnackBar = () => {
+        const {openSnackBar, severity, message} = this.state
+        return (
+            <SnackBarAlert 
+                open = {openSnackBar} 
+                severity = {severity} 
+                message = {message} 
+                handleClose = {this.handleSnackBarClose}
+            />
+        )
+    }
+
+    renderNoDataAvailable = () => {
+        return (
+            <div className = "no_data_container">
+                <div className = "no_data">
+                    <h1>No Data Available</h1>
+                </div>
+            </div>
+        )
+    }
+
+    renderPagination = () => {
+        const {total, current} = this.state
+        return (
+            <Page 
+                count = {total} 
+                page = {current} 
+                onChange = {this.handlePaginationOnChange}
+            />
+        )
     }
 
     renderMovieCard = (item, idx) => {
@@ -309,7 +351,7 @@ class Movies extends Component {
     }
 
     renderMoviesBlockExtended = () => {
-        const {total, current} = this.state
+        const {data} = this.state
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {4} md = {2}>
@@ -325,10 +367,10 @@ class Movies extends Component {
                             { this.renderSort() }
                         </Grid>
                         <Grid item xs = {12} sm = {12} md = {12}>
-                            { this.renderMoviesBlock() }
+                            { data.length > 0 ? this.renderMoviesBlock() : this.renderNoDataAvailable()}
                         </Grid>
                         <div className = 'pagination_container'>
-                            <Page count = {total} page = {current} onChange = {this.handlePaginationOnChange}/>
+                            { data.length > 0 && this.renderPagination() }
                         </div>
                     </Grid>
                 </Grid>
@@ -337,7 +379,7 @@ class Movies extends Component {
     }
 
     render() {
-        const {openSnackBar, severity, message, loading} = this.state
+        const {loading} = this.state
         return (
             <div className = 'movies_root_container'>
                 <div className = 'movies_header'>
@@ -349,12 +391,7 @@ class Movies extends Component {
                         { this.renderMoviesBlockExtended() }
                     </div>
                 </div>
-                <SnackBarAlert 
-                    open = {openSnackBar} 
-                    severity = {severity} 
-                    message = {message} 
-                    handleClose = {this.handleSnackBarClose}
-                />
+                { this.renderSnackBar() }
                 <Loading open = {loading}/>
             </div>
         )

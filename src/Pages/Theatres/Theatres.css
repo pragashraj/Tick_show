@@ -53,6 +53,25 @@
     width: 100%;
 }
 
+.no_data_container {
+    line-height: 1.4;
+    text-align: center;
+    margin-top: 25px;
+}
+
+.no_data {
+    margin-bottom: 20px;
+}
+
+.no_data h1 {
+    font-family: montserrat,sans-serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    text-shadow: 2px 2px #f74e30;
+}
+
 @media screen and (max-width: 800px) {
     .theatres_header h1 {
         font-size: 2rem;

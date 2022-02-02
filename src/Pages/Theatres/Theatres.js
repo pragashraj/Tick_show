@@ -1,11 +1,15 @@
 import React, { Component } from 'react'
 
+//Material-UI
+import Grid from '@mui/material/Grid'
+
 import Sorter from '../../Components/Sorter'
 import TheatreListItem from '../../Components/TheatreListItem'
 import SlideShow from '../../Components/SlideShow/SlideShow'
+import Loading from '../../Components/Loading/Loading'
+import Page from '../../Components/Page'
 
-//Material-UI
-import Grid from '@mui/material/Grid'
+import {getTheatres, sortTheatres} from '../../api/theatres'
 
 import './Theatres.css'
 import theatreImage from '../../assets/images/Theatres.jpg'
@@ -13,24 +17,53 @@ import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 
 class Theatres extends Component {
     state = {
-        location: "Colombo",
-        experience: "2D",
+        location: "All",
+        show: 4,
         theatreList: [],
-        dataListType: "Grid"
+        total: 1,
+        current: 1,
+        dataListType: "Grid",
+        loading: false,
     }
 
-    sort_data = [
-        {name: "location", label: "Location", menuItems: ["Colombo", "Jaffna"]},
-        {name: "experience", label: "Experience", menuItems: ["2D", "3D"]}
+    sortData = [
+        {name: "location", label: "Location", menuItems: ["All", "Colombo", "Jaffna"]},
+        {name: "show", label: "show", menuItems: [4, 6, 10]}
     ]
 
     images = [
-        {url: slideShowImage},
+        {url: slideShowImage}
     ]
 
     componentDidMount() {
         //for creating dummy data list
         this.createDataBlock()
+    }
+
+    getTheatresApi = async(page, size) => {
+        try {
+            this.setState({ loading: true })
+            const response = await getTheatres(page, size)
+            if (response) {
+                this.setState({ theatreList: response.theatres, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+        }
+    }
+
+    sortTheatresApi = async(data) => {
+        try {
+            this.setState({ loading: true })
+            const response = await sortTheatres(data)
+            if (response) {
+                this.setState({ theatreList: response.theatres, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+        }
     }
 
     createDataBlock = () => {
@@ -58,6 +91,10 @@ class Theatres extends Component {
         this.setState({ [name]: value })
     }
 
+    handlePaginationOnChange = (event, page) => {
+        this.setState({ current: page })
+    }
+
     handleTimeSlotOnClick = () => {
 
     }
@@ -68,6 +105,27 @@ class Theatres extends Component {
 
     handleListTypeIconOnClick = (value) => {
         this.setState({ dataListType: value })
+    }
+
+    renderNoDataAvailable = () => {
+        return (
+            <div className = "no_data_container">
+                <div className = "no_data">
+                    <h1>No Data Available</h1>
+                </div>
+            </div>
+        )
+    }
+
+    renderPagination = () => {
+        const {total, current} = this.state
+        return (
+            <Page 
+                count = {total} 
+                page = {current} 
+                onChange = {this.handlePaginationOnChange}
+            />
+        )
     }
 
     renderTheatreListItem = (item, idx) => {
@@ -96,11 +154,11 @@ class Theatres extends Component {
     }
 
     renderSort = () => {
-        const {location, experience, dataListType} = this.state
-        const values = {location, experience, dataListType}
+        const {location, show, dataListType} = this.state
+        const values = {location, show, dataListType}
         return (
             <Sorter 
-                sort_data = {this.sort_data} 
+                sortData = {this.sortData} 
                 values = {values}
                 handleChange = {this.handleSortOnChange}
                 handleListTypeIconOnClick = {this.handleListTypeIconOnClick}
@@ -109,19 +167,24 @@ class Theatres extends Component {
     }
 
     renderTheatresBlockExtended = () => {
+        const {theatreList} = this.state
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {12} md = {12}>
                     { this.renderSort() }
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {12}>
-                    { this.renderTheatresList() }
+                    { theatreList.length > 0 ?  this.renderTheatresList() : this.renderNoDataAvailable() }
                 </Grid>
+                <div className = 'pagination_container'>
+                    { theatreList.length > 0 && this.renderPagination() }
+                </div>
             </Grid>
         )
     }
 
     render() {
+        const {loading} = this.state
         return (
             <div className = 'theatres_root_container'>
                 <div className = 'theatres_header'>
@@ -134,6 +197,7 @@ class Theatres extends Component {
                         { this.renderTheatresBlockExtended() }
                     </div>
                 </div>
+                <Loading open = {loading}/>
             </div>
         )
     }

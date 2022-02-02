@@ -3,11 +3,10 @@ import React from 'react'
 import Selector from './Selector'
 
 //Material-UI
-import { Card, IconButton } from '@mui/material'
+import { Card, IconButton, useMediaQuery } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import GridView from '@mui/icons-material/GridView'
 import FormatListBulleted from '@mui/icons-material/FormatListBulleted'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 const useStyles = makeStyles({
     root: {
@@ -42,8 +41,9 @@ const useStyles = makeStyles({
     selectionLabel:{ 
         color: "#ffffff",
         textTransform: "uppercase",
-        fontSize: "0.8rem",
-        marginRight: "10px"
+        fontSize: "0.75rem",
+        marginRight: "10px",
+        letterSpacing: "0.1rem"
     },
     iconSelected: {
         color: "#ffffff"
@@ -80,7 +80,7 @@ const Sorter = ({sortData, values, handleChange, handleListTypeIconOnClick}) => 
         <Card className = {classes.root}>
             <div className = {classes.card}>
                 <div className = { matches ? classes.content: classes.contentMobile}>
-                    { sortData.map(item => {
+                    { sortData && sortData.map(item => {
                         const {name, label, menuItems} = item
                         return renderSelector(name, label, values[name], menuItems)
                     }) }
