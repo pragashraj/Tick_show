@@ -1,4 +1,4 @@
-import {GET} from './core'
+import {GET, POST} from './core'
 
 export const getEndpointWithPrefix = (endpoint) => {
     return `events/${endpoint}`
@@ -7,4 +7,9 @@ export const getEndpointWithPrefix = (endpoint) => {
 export const getEvents = (page, size) => {
     const endpoint =  getEndpointWithPrefix(`get-events?page=${page}&size=${size}`)
     return GET(endpoint)
+}
+
+export const filterEvents = (data) => {
+    const endpoint =  getEndpointWithPrefix('filter-events')
+    return POST(endpoint, data)
 }
