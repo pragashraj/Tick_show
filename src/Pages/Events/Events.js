@@ -20,8 +20,8 @@ class Events extends Component {
         filters: [],
         categoryChecked: [],
         data: [],
-        show: 10,
-        sortBy: "Upcoming Events",
+        show: 6,
+        sortBy: "All",
         dataListType: "Grid",
         total: 10,
         current: 1,
@@ -33,8 +33,8 @@ class Events extends Component {
     ]
 
     sortData = [
-        {name: "show", label: "show", menuItems: ["5", "10", "20"]},
-        {name: "sortBy", label: "Sort by", menuItems: ["Upcoming Events", "Future Events"]}
+        {name: "show", label: "show", menuItems: [6, 8, 10]},
+        {name: "sortBy", label: "Sort by", menuItems: ["All", "Upcoming Events", "Future Events"]}
     ]
 
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
