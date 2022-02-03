@@ -8,6 +8,9 @@ import Filter from '../../Components/Filter.js/Filter'
 import Sorter from '../../Components/Sorter'
 import EventCard from '../../Components/EventCard'
 import Page from '../../Components/Page'
+import Loading from '../../Components/Loading/Loading'
+
+import {getEvents} from '../../api/events'
 
 import './Events.css'
 import eventSample from '../../assets/images/event_sample.jpg'
@@ -22,6 +25,7 @@ class Events extends Component {
         dataListType: "Grid",
         total: 10,
         current: 1,
+        loading: false
     }
 
     carouselImages = [
@@ -40,6 +44,19 @@ class Events extends Component {
 
         //create dummy data
         this.createDummyData()
+    }
+
+    getEventsApi = async(page, size) => {
+        try {
+            this.setState({ loading: true })
+            const response = await getEvents(page, size)
+            if (response) {
+                this.setState({ data: response.events, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+        }
     }
 
     createDummyData = () => {
@@ -210,6 +227,7 @@ class Events extends Component {
     }
 
     render() {
+        const {loading} = this.state
         return (
             <div className = 'events_root'>
                 <div className = 'events_header'>
@@ -221,6 +239,7 @@ class Events extends Component {
                         { this.renderEventsBlock() }
                     </div>
                 </div>
+                <Loading open = {loading}/>
             </div>
         )
     }
