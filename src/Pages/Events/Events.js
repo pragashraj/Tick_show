@@ -163,16 +163,6 @@ class Events extends Component {
         return name
     }
 
-    renderNoDataAvailable = () => {
-        return (
-            <div className = "no_data_container">
-                <div className = "no_data">
-                    <h1>No Data Available</h1>
-                </div>
-            </div>
-        )
-    }
-
     renderPagination = () => {
         const {total, current} = this.state
         return (
