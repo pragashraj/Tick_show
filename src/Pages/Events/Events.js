@@ -163,6 +163,27 @@ class Events extends Component {
         return name
     }
 
+    renderNoDataAvailable = () => {
+        return (
+            <div className = "no_data_container">
+                <div className = "no_data">
+                    <h1>No Data Available</h1>
+                </div>
+            </div>
+        )
+    }
+
+    renderPagination = () => {
+        const {total, current} = this.state
+        return (
+            <Page 
+                count = {total} 
+                page = {current} 
+                onChange = {this.handlePaginationOnChange}
+            />
+        )
+    }
+
     renderEventCard = (item, idx) => {
         const {dataListType} = this.state
         let no = dataListType === "Grid" ? 4 : 12
@@ -225,7 +246,7 @@ class Events extends Component {
     }
 
     renderEventsBlock = () => {
-        const {total, current} = this.state
+        const {data} = this.state
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {4} md = {2}>
@@ -244,7 +265,7 @@ class Events extends Component {
                             { this.renderEventsContainer() }
                         </Grid>
                         <div className = 'pagination_container'>
-                            <Page count = {total} page = {current} onChange = {this.handlePaginationOnChange}/>
+                            { data.length > 0 && this.renderPagination() }
                         </div>
                     </Grid>
                 </Grid>
