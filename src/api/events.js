@@ -13,3 +13,8 @@ export const filterEvents = (data) => {
     const endpoint =  getEndpointWithPrefix('filter-events')
     return POST(endpoint, data)
 }
+
+export const sortEvents = (data) => {
+    const endpoint =  getEndpointWithPrefix(`sort-events`)
+    return POST(endpoint, data)
+}

@@ -10,7 +10,7 @@ import EventCard from '../../Components/EventCard'
 import Page from '../../Components/Page'
 import Loading from '../../Components/Loading/Loading'
 
-import {getEvents, filterEvents} from '../../api/events'
+import {getEvents, filterEvents, sortEvents} from '../../api/events'
 
 import './Events.css'
 import eventSample from '../../assets/images/event_sample.jpg'
@@ -63,6 +63,19 @@ class Events extends Component {
         try {
             this.setState({ loading: true })
             const response = await filterEvents(data)
+            if (response) {
+                this.setState({ data: response.events, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+        }
+    }
+
+    sortEventsApi = async(data) => {
+        try {
+            this.setState({ loading: true })
+            const response = await sortEvents(data)
             if (response) {
                 this.setState({ data: response.events, total: response.total, current: response.current })
             }
