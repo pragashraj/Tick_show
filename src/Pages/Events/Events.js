@@ -8,6 +8,9 @@ import Filter from '../../Components/Filter.js/Filter'
 import Sorter from '../../Components/Sorter'
 import EventCard from '../../Components/EventCard'
 import Page from '../../Components/Page'
+import Loading from '../../Components/Loading/Loading'
+
+import {getEvents, filterEvents, sortEvents} from '../../api/events'
 
 import './Events.css'
 import eventSample from '../../assets/images/event_sample.jpg'
@@ -17,11 +20,12 @@ class Events extends Component {
         filters: [],
         categoryChecked: [],
         data: [],
-        show: 10,
-        sortBy: "Upcoming Events",
+        show: 6,
+        sortBy: "All",
         dataListType: "Grid",
         total: 10,
         current: 1,
+        loading: false
     }
 
     carouselImages = [
@@ -29,8 +33,8 @@ class Events extends Component {
     ]
 
     sortData = [
-        {name: "show", label: "show", menuItems: ["5", "10", "20"]},
-        {name: "sortBy", label: "Sort by", menuItems: ["Upcoming Events", "Future Events"]}
+        {name: "show", label: "show", menuItems: [6, 8, 10]},
+        {name: "sortBy", label: "Sort by", menuItems: ["All", "Upcoming Events", "Future Events"]}
     ]
 
     dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
@@ -40,6 +44,45 @@ class Events extends Component {
 
         //create dummy data
         this.createDummyData()
+    }
+
+    getEventsApi = async(page, size) => {
+        try {
+            this.setState({ loading: true })
+            const response = await getEvents(page, size)
+            if (response) {
+                this.setState({ data: response.events, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+        }
+    }
+
+    filterEventsApi = async(data) => {
+        try {
+            this.setState({ loading: true })
+            const response = await filterEvents(data)
+            if (response) {
+                this.setState({ data: response.events, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+        }
+    }
+
+    sortEventsApi = async(data) => {
+        try {
+            this.setState({ loading: true })
+            const response = await sortEvents(data)
+            if (response) {
+                this.setState({ data: response.events, total: response.total, current: response.current })
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+        }
     }
 
     createDummyData = () => {
@@ -120,6 +163,27 @@ class Events extends Component {
         return name
     }
 
+    renderNoDataAvailable = () => {
+        return (
+            <div className = "no_data_container">
+                <div className = "no_data">
+                    <h1>No Data Available</h1>
+                </div>
+            </div>
+        )
+    }
+
+    renderPagination = () => {
+        const {total, current} = this.state
+        return (
+            <Page 
+                count = {total} 
+                page = {current} 
+                onChange = {this.handlePaginationOnChange}
+            />
+        )
+    }
+
     renderEventCard = (item, idx) => {
         const {dataListType} = this.state
         let no = dataListType === "Grid" ? 4 : 12
@@ -182,7 +246,7 @@ class Events extends Component {
     }
 
     renderEventsBlock = () => {
-        const {total, current} = this.state
+        const {data} = this.state
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {12} sm = {4} md = {2}>
@@ -198,10 +262,10 @@ class Events extends Component {
                             { this.renderSort() }
                         </Grid>
                         <Grid item xs = {12} sm = {12} md = {12}>
-                            { this.renderEventsContainer() }
+                            { data.length > 0 ? this.renderEventsContainer() : this.renderNoDataAvailable() }
                         </Grid>
                         <div className = 'pagination_container'>
-                            <Page count = {total} page = {current} onChange = {this.handlePaginationOnChange}/>
+                            { data.length > 0 && this.renderPagination() }
                         </div>
                     </Grid>
                 </Grid>
@@ -210,6 +274,7 @@ class Events extends Component {
     }
 
     render() {
+        const {loading} = this.state
         return (
             <div className = 'events_root'>
                 <div className = 'events_header'>
@@ -221,6 +286,7 @@ class Events extends Component {
                         { this.renderEventsBlock() }
                     </div>
                 </div>
+                <Loading open = {loading}/>
             </div>
         )
     }
