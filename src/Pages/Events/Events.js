@@ -163,6 +163,16 @@ class Events extends Component {
         return name
     }
 
+    renderNoDataAvailable = () => {
+        return (
+            <div className = "no_data_container">
+                <div className = "no_data">
+                    <h1>No Data Available</h1>
+                </div>
+            </div>
+        )
+    }
+
     renderPagination = () => {
         const {total, current} = this.state
         return (
@@ -252,7 +262,7 @@ class Events extends Component {
                             { this.renderSort() }
                         </Grid>
                         <Grid item xs = {12} sm = {12} md = {12}>
-                            { this.renderEventsContainer() }
+                            { data.length > 0 ? this.renderEventsContainer() : this.renderNoDataAvailable() }
                         </Grid>
                         <div className = 'pagination_container'>
                             { data.length > 0 && this.renderPagination() }
