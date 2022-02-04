@@ -35,7 +35,7 @@ class Theatres extends Component {
     ]
 
     componentDidMount() {
-        this.getTheatresApi(0, this.state.show)
+        this.getTheatresApi(1, this.state.show)
     }
 
     getTheatresApi = async(page, size) => {
