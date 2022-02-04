@@ -37,13 +37,8 @@ class Events extends Component {
         {name: "sortBy", label: "Sort by", menuItems: ["All", "Upcoming Events", "Future Events"]}
     ]
 
-    dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
-
     componentDidMount() {
         this.createFilters()
-
-        //create dummy data
-        this.createDummyData()
     }
 
     getEventsApi = async(page, size) => {
@@ -83,23 +78,6 @@ class Events extends Component {
         } catch (e) {
             this.setState({ loading: false })
         }
-    }
-
-    createDummyData = () => {
-        const event = {
-            name: "Ar Rahman Live-in-concert", 
-            src: eventSample, 
-            location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
-            contact: "0117 549 650",
-            description: this.dummySynopsis
-        }
-
-        const dummyArr = ["1", "2", "3", "4", "5", "6"]
-        let eventsData = []
-
-        dummyArr.forEach(() => eventsData.push(event))
-
-        this.setState({ data: eventsData })
     }
 
     createFilters = () => {

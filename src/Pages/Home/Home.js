@@ -21,10 +21,7 @@ import SnackBarAlert from '../../Components/SnackBarAlert'
 import {getContents, searchMovie} from '../../api/home'
 
 import './Home.css'
-import movieCardImage1 from '../../assets/images/1.jpg'
-import eventSample from '../../assets/images/event_sample.jpg'
 import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
-import theatreImage from '../../assets/images/Theatres.jpg'
 
 function withNavigate(Component) {
     return props => <Component {...props} navigate = {useNavigate()}/>
@@ -50,14 +47,12 @@ class Home extends Component {
         openSnackBar: false,
     }
 
-    dummySynopsis = "Maecenas sollicitudin tincidunt maximus. Morbi tempus malesuada erat sed pellentesque. Donec pharetra mattis nulla, id laoreet neque scelerisque at. Quisque eget sem non ligula consectetur ultrices in quis augue. Donec imperd iet leo eget tortor dictum, eget varius eros sagittis. Curabitur tempor dignissim massa ut faucibus sollicitudin tinci dunt maximus. Morbi tempus malesuada erat sed pellentesque."
-
     carouselImages = [
         {url: slideShowImage}
     ]
 
     componentDidMount() {
-        this.createDummyData()
+        this.getContentsApi()
         window.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
@@ -90,49 +85,6 @@ class Home extends Component {
             this.setState({loading: false})
             this.setErrorSnackBar(e.response.data.message)
         }
-    }
-
-    createDummyData = () => {
-        const movie = { 
-            name: "Spiderman No Way home", 
-            src: movieCardImage1, 
-            genre: ["Action", "Adventure"], 
-            rotten: "94%", 
-            imdb: "99%",
-            userRate: "4.5",
-            url: "https://Google.com",
-            synopsis: this.dummySynopsis,
-            cast: [],
-            crew: [],
-        }
-
-        const event = {
-            name: "Ar Rahman Live-in-concert", 
-            src: eventSample, 
-            location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
-            contact: "0117 549 650",
-            description: this.dummySynopsis
-        }
-
-        const theatre = {
-            name: "Ja-ela Cinemax", 
-            src: theatreImage, 
-            location: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
-            contact: "0117 549 650", 
-            imdb: "99%"
-        }
-
-        const dummyArr = ["1", "2", "3", "4"]
-        let eventsData = [], moviesData = [], theatresData = [], upcomimgData = []
-
-        dummyArr.forEach(() => {
-            moviesData.push(movie)
-            upcomimgData.push(movie)
-            eventsData.push(event)
-            theatresData.push(theatre)
-        })
-
-        this.setState({ movies: moviesData, events: eventsData, theatres: theatresData, upcomingMovies: upcomimgData })
     }
 
     handleSearchOnClick = () => {

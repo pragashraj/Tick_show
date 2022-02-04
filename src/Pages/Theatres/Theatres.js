@@ -12,7 +12,6 @@ import Page from '../../Components/Page'
 import {getTheatres, sortTheatres} from '../../api/theatres'
 
 import './Theatres.css'
-import theatreImage from '../../assets/images/Theatres.jpg'
 import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 
 class Theatres extends Component {
@@ -36,8 +35,7 @@ class Theatres extends Component {
     ]
 
     componentDidMount() {
-        //for creating dummy data list
-        this.createDataBlock()
+        this.getTheatresApi(1, this.state.show)
     }
 
     getTheatresApi = async(page, size) => {
@@ -64,26 +62,6 @@ class Theatres extends Component {
         } catch (e) {
             this.setState({ loading: false })
         }
-    }
-
-    createDataBlock = () => {
-        const theatre = {
-            name: "Ja-ela Cinemax", 
-            src: theatreImage, 
-            address: "Negombo-Colombo Main Rd, Ja-Ela 11350", 
-            contact: "0117 549 650", 
-            imdb: "99%",
-            timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"] 
-        }
-
-        const dummyArr = ["1", "2", "3", "4"]
-        let data = []
-
-        dummyArr.forEach(e => {
-            data.push(theatre)
-        })
-
-        this.setState({ theatreList: data })
     }
 
     handleSortOnChange = (e) => {

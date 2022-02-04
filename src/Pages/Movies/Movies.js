@@ -16,9 +16,6 @@ import { getMovies, filterMovies, sortMovies } from '../../api/movie'
 import { Grid } from '@mui/material'
 
 import './Movies.css'
-import movie_sample from '../../assets/images/movie_sample.jpg'
-import cast_sample from '../../assets/images/cast_sample.jpg'
-import crew_sample from '../../assets/images/crew_sample.jpg'
 import slideShowImage from '../../assets/CarouselImages/slide_show.jpg'
 
 function withNavigate(Component) {
@@ -53,8 +50,7 @@ class Movies extends Component {
     ]
 
     componentDidMount() {
-        //for creating dummy data list
-        this.createDataBlock()
+        this.getMoviesApi(1, this.state.show)
 
         //for create filter list
         this.createFilters()
@@ -104,43 +100,6 @@ class Movies extends Component {
             this.setState({ loading: false })
             this.setErrorSnackBar(e.response.data.message)
         }
-    }
-
-    createDataBlock = () => {
-        const cast_crew_dum = ["1", "2", "3", "4", "5", "6"]
-        let cast = []
-        let crew = []
-
-        const castObj = { name: "Tom Holland", character: "Peter Parker", src: cast_sample }
-        const crewObj = { name: "John Watts", profession: "Director", src: crew_sample }
-
-        cast_crew_dum.forEach(e => {
-            cast.push(castObj)
-            crew.push(crewObj)
-        })
-
-        const movie = {
-            name: "Spiderman No Way home", 
-            src: movie_sample, 
-            duration: "2hrs 30mins", 
-            genre: ["Action", "Adventure"], 
-            release: "December 17 2021", 
-            rotten: "94%", 
-            imdb: "99%",
-            userRate: "4.5",
-            url: "https://Google.com",
-            gallery: [movie_sample, movie_sample, movie_sample, movie_sample],
-            synopsis: "",
-            cast,
-            crew,
-        }
-
-        const dummyArr = ["1", "2", "3", "4"]
-        let data = []
-
-        dummyArr.forEach(e => data.push(movie))
-
-        this.setState({ data })
     }
 
     createFilters = () => {
