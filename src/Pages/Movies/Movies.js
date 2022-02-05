@@ -50,9 +50,8 @@ class Movies extends Component {
     ]
 
     componentDidMount() {
-        this.getMoviesApi(1, this.state.show)
+        this.getMoviesApi(0, 4)
 
-        //for create filter list
         this.createFilters()
 
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -63,7 +62,7 @@ class Movies extends Component {
             this.setState({ loading: true })
             const response = await getMovies(page, size)
             if (response) {
-                this.setState({ data: response.movies, total: response.total, current: response.current })
+                this.storeResponseToState(response)
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -77,7 +76,7 @@ class Movies extends Component {
             this.setState({ loading: true })
             const response = await filterMovies(data)
             if (response) {
-                this.setState({ data: response.movies, total: response.total, current: response.current })
+                this.storeResponseToState(response)
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -93,7 +92,7 @@ class Movies extends Component {
             const data = {sortBy, page, size: show}
             const response = await sortMovies(data)
             if (response) {
-                this.setState({ data: response.movies, total: response.total, current: response.current })
+                this.storeResponseToState(response)
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -192,6 +191,14 @@ class Movies extends Component {
 
     setSnackBar = (severity, message, openSnackBar) => {
         this.setState({ severity, message, openSnackBar })
+    }
+
+    storeResponseToState = (response) => {
+        this.setState({ 
+            data: response.movies, 
+            total: response.total, 
+            current: response.current 
+        })
     }
 
     getCheckedStateAttribute = (label) => {

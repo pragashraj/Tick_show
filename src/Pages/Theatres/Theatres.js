@@ -35,7 +35,7 @@ class Theatres extends Component {
     ]
 
     componentDidMount() {
-        this.getTheatresApi(1, this.state.show)
+        this.getTheatresApi(0, 4)
     }
 
     getTheatresApi = async(page, size) => {
@@ -43,7 +43,7 @@ class Theatres extends Component {
             this.setState({ loading: true })
             const response = await getTheatres(page, size)
             if (response) {
-                this.setState({ theatreList: response.theatres, total: response.total, current: response.current })
+                this.storeResponseToState(response)
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -56,7 +56,7 @@ class Theatres extends Component {
             this.setState({ loading: true })
             const response = await sortTheatres(data)
             if (response) {
-                this.setState({ theatreList: response.theatres, total: response.total, current: response.current })
+                this.storeResponseToState(response)
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -83,6 +83,14 @@ class Theatres extends Component {
 
     handleListTypeIconOnClick = (value) => {
         this.setState({ dataListType: value })
+    }
+
+    storeResponseToState = (response) => {
+        this.setState({ 
+            theatreList: response.theatres, 
+            total: response.total, 
+            current: response.current 
+        })
     }
 
     renderNoDataAvailable = () => {
