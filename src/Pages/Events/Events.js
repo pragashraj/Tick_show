@@ -39,6 +39,7 @@ class Events extends Component {
 
     componentDidMount() {
         this.createFilters()
+        this.getEventsApi(0, 6)
     }
 
     getEventsApi = async(page, size) => {
@@ -46,7 +47,7 @@ class Events extends Component {
             this.setState({ loading: true })
             const response = await getEvents(page, size)
             if (response) {
-                this.setState({ data: response.events, total: response.total, current: response.current })
+                this.storeResponseToState(response)
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -59,7 +60,7 @@ class Events extends Component {
             this.setState({ loading: true })
             const response = await filterEvents(data)
             if (response) {
-                this.setState({ data: response.events, total: response.total, current: response.current })
+                this.storeResponseToState(response)
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -72,7 +73,7 @@ class Events extends Component {
             this.setState({ loading: true })
             const response = await sortEvents(data)
             if (response) {
-                this.setState({ data: response.events, total: response.total, current: response.current })
+                this.storeResponseToState(response)
             }
             this.setState({ loading: false })
         } catch (e) {
@@ -139,6 +140,14 @@ class Events extends Component {
         }
 
         return name
+    }
+
+    storeResponseToState = (response) => {
+        this.setState({ 
+            data: response.events, 
+            total: response.total, 
+            current: response.current 
+        })
     }
 
     renderNoDataAvailable = () => {
