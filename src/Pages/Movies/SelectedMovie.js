@@ -11,6 +11,7 @@ import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import TheatreSeatSelection from '../../Components/TheatreSeatSelection'
 import Loading from '../../Components/Loading/Loading'
+import SnackBarAlert from '../../Components/SnackBarAlert'
 
 //Material-UI
 import { Grid, Card, CardMedia, Divider, IconButton } from '@mui/material'
@@ -32,6 +33,9 @@ class SelectedMovie extends Component {
         selectedTheatre: null,
         selectedTimeSlot: null,
         loading: false,
+        message: "",
+        severity: "",
+        openSnackBar: false
     }
 
     selectedMovieItem = this.props.location.state
@@ -83,6 +87,34 @@ class SelectedMovie extends Component {
 
     handleSeatAllocationPopup = () => {
         this.setState({ openSeatAllocation: !this.state.openSeatAllocation })
+    }
+
+    handleSnackBarClose = () => {
+        this.setSnackBar("", null, false)
+    }
+
+    setSuccessSnackBar = (message) => {
+        this.setSnackBar("success", message, true)
+    }
+
+    setErrorSnackBar = (message) => {
+        this.setSnackBar("error", message, true)
+    }
+
+    setSnackBar = (severity, message, openSnackBar) => {
+        this.setState({ severity, message, openSnackBar })
+    }
+
+    renderSnackBar = () => {
+        const {openSnackBar, severity, message} = this.state
+        return (
+            <SnackBarAlert 
+                open = {openSnackBar} 
+                severity = {severity} 
+                message = {message} 
+                handleClose = {this.handleSnackBarClose}
+            />
+        )
     }
 
     renderInputField = (label, name, readOnly) => {
@@ -322,6 +354,7 @@ class SelectedMovie extends Component {
                 </div>
                 <TheatreSeatSelection open = {openSeatAllocation} handleClose = {this.handleSeatAllocationPopup}/>
                 <Loading open = {loading}/>
+                { this.renderSnackBar() }
             </div>
         )
     }
