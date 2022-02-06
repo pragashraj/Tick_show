@@ -1,12 +1,22 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 //Material-UI
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Typography} from '@mui/material'
+import { 
+    Button, 
+    Dialog, 
+    DialogTitle, 
+    DialogContent, 
+    DialogActions, 
+    IconButton, 
+    Typography, 
+    Grid,
+    Checkbox
+} from '@mui/material'
 import { styled } from '@mui/material/styles'
 import { makeStyles } from '@mui/styles'
 import CloseIcon from '@mui/icons-material/Close'
-
-import seatImg from '../assets/images/seat.png'
+import CheckBoxOutlineBlankRounded from '@mui/icons-material/CheckBoxOutlineBlank'
+import SquareRounded from '@mui/icons-material/SquareRounded'
 
 const useStyles = makeStyles({
     screen: {
@@ -22,8 +32,15 @@ const useStyles = makeStyles({
         letterSpacing: "0.05rem",
         marginBottom: "25px"
     },
-    fakeSeat: {
-        width: "100%",
+    row: {
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center"
+    },
+    rowName: {
+        color: "grey",
+        marginRight: "5px",
+        fontSize: "0.6rem"
     }
 })
 
@@ -38,6 +55,66 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 
 const TheatreSeatSelection = ({open, handleClose}) => {
     const classes = useStyles()
+    const [seatsLeft, setSeatsLeft] = useState([])
+    const [seatsRight, setSeatsRight] = useState([])
+
+    useEffect(() => {
+        createSeats()
+    }, [])
+
+    const createSeats = () => {
+        const rowLeft = ["A", "B", "C", "D", "E"]
+        const rowRight = ["F", "G", "H", "I", "J"]
+        const arr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+
+        let seatsLeft = []
+        let seatsRight = []
+
+        rowLeft.forEach(e => {
+            let row = {name: e, child: arr}
+            seatsLeft.push(row)
+        })
+
+        rowRight.forEach(e => {
+            let row = {name: e, child: arr}
+            seatsRight.push(row)
+        })
+
+        setSeatsLeft(seatsLeft)
+        setSeatsRight(seatsRight)
+    }
+
+    const handleChange = (event, i, name) => {
+        console.log(event.target.checked, name, i)
+    }
+
+    const renderCheckBox = (i, name, idx) => (
+        <Checkbox
+            icon = {<CheckBoxOutlineBlankRounded />}
+            checkedIcon = {<SquareRounded />}
+            sx = {{marginInline: "-8px"}}
+            onChange = {(e) => handleChange(e, i, name)}
+            key = {idx}
+        />
+    )
+
+    const renderRow = (name, child) => (
+        <div className = {classes.row} key = {name}>
+            <span className = {classes.rowName}>{name}</span>
+            { child.map((i, idx) => renderCheckBox(i, name, idx)) }
+        </div>
+    )
+
+    const renderSeats = () => (
+        <Grid container spacing = {2}>
+            <Grid item xs = {6} sm = {6} md = {6}>
+                { seatsLeft.map(i => renderRow(i.name, i.child)) }
+            </Grid>
+            <Grid item xs = {6} sm = {6} md = {6}>
+                { seatsRight.map(i => renderRow(i.name, i.child)) }
+            </Grid>
+        </Grid>
+    )
 
     const renderTitleBlock = () => (
         <DialogTitle sx = {{ m: 0, p: 2, color: "#fff" }}>
@@ -56,7 +133,7 @@ const TheatreSeatSelection = ({open, handleClose}) => {
     )
 
     return (
-        <BootstrapDialog open = {open}>
+        <BootstrapDialog open = {open} fullWidth>
             <div style = {{backgroundColor: "#17202A"}}>
                 { renderTitleBlock() }
                 <DialogContent dividers>
@@ -64,7 +141,7 @@ const TheatreSeatSelection = ({open, handleClose}) => {
                         Screen
                     </Typography>
                     <Typography gutterBottom>
-                        <img src = {seatImg} alt = "fake_seat" className = {classes.fakeSeat}/>
+                        { renderSeats() }
                     </Typography>
                 </DialogContent>
                 <DialogActions>

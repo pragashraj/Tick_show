@@ -10,12 +10,15 @@ import TheatreSelection from './TheatreSelection'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import TheatreSeatSelection from '../../Components/TheatreSeatSelection'
+import Loading from '../../Components/Loading/Loading'
+import SnackBarAlert from '../../Components/SnackBarAlert'
 
 //Material-UI
 import { Grid, Card, CardMedia, Divider, IconButton } from '@mui/material'
 import {ArrowBackIos, ArrowForwardIos} from '@mui/icons-material'
 
 import './Movies.css'
+import event_sample from '../../assets/images/event_sample.jpg'
 
 function withLocation(Component) {
     return props => <Component {...props} location = {useLocation()}/>
@@ -29,10 +32,33 @@ class SelectedMovie extends Component {
         kidsTickets: 0,
         totalTickets: 0,
         selectedTheatre: null,
-        selectedTimeSlot: null
+        selectedTimeSlot: null,
+        loading: false,
+        message: "",
+        severity: "",
+        openSnackBar: false
     }
 
-    selectedMovieItem = this.props.location.state
+    //Dummy movie item
+    movie = {
+        name: "Spiderman No Way home", 
+        src: event_sample, 
+        duration: "2hrs 30mins", 
+        genre: ["Action", "Adventure"], 
+        release: "December 17 2021", 
+        rotten: "94%", 
+        imdb: "99%",
+        userRate: "4.5",
+        url: "https://Google.com",
+        gallery: [event_sample, event_sample, event_sample, event_sample],
+        synopsis: "",
+        cast: [],
+        crew: [],
+    }
+
+    //selectedMovieItem = this.props.location.state
+
+    selectedMovieItem = this.movie
 
     DummyTheatresForSelection = [
         {name: "Ja-ela", timeSlots: ["5:00 am", "8:00 am", "11:00 am", "4:00 pm", "7:00 pm", "10:00 pm"], price: "450"},
@@ -50,7 +76,7 @@ class SelectedMovie extends Component {
             this.handleSeatAllocationPopup()
         }
         else {
-            console.log("Please ensure the tickets & time slot")
+            this.setErrorSnackBar("Please ensure the tickets & time slot")
         }
     }
 
@@ -81,6 +107,34 @@ class SelectedMovie extends Component {
 
     handleSeatAllocationPopup = () => {
         this.setState({ openSeatAllocation: !this.state.openSeatAllocation })
+    }
+
+    handleSnackBarClose = () => {
+        this.setSnackBar("", null, false)
+    }
+
+    setSuccessSnackBar = (message) => {
+        this.setSnackBar("success", message, true)
+    }
+
+    setErrorSnackBar = (message) => {
+        this.setSnackBar("error", message, true)
+    }
+
+    setSnackBar = (severity, message, openSnackBar) => {
+        this.setState({ severity, message, openSnackBar })
+    }
+
+    renderSnackBar = () => {
+        const {openSnackBar, severity, message} = this.state
+        return (
+            <SnackBarAlert 
+                open = {openSnackBar} 
+                severity = {severity} 
+                message = {message} 
+                handleClose = {this.handleSnackBarClose}
+            />
+        )
     }
 
     renderInputField = (label, name, readOnly) => {
@@ -157,7 +211,11 @@ class SelectedMovie extends Component {
                     height: "17px", 
                 }}
             >
-            { type === "prev" ? <ArrowBackIos sx = {{width: "15px", height: "15px"}}/> : <ArrowForwardIos sx = {{width: "15px"}}/> }
+            { type === "prev" ? 
+                <ArrowBackIos sx = {{width: "15px", height: "15px"}}/> 
+                :  
+                <ArrowForwardIos sx = {{width: "15px"}}/> 
+            }
             </IconButton>
         )
     }
@@ -175,14 +233,15 @@ class SelectedMovie extends Component {
     }
 
     renderCrew = () => {
-        const crew = this.selectedMovieItem.crew
+        const item = this.selectedMovieItem
+        const crew = item && item.crew
         return (
             <div className = 'summary_block'>
                 { this.renderCast_CrewHeader("Crew") }
                 <Divider sx = {{background: "rgba(0, 0, 0, 0.1)", marginBottom: "10px"}}/>
                 <div className = 'summary_block_list'>
                     <Grid container>
-                        { crew.map((item, idx) => {
+                        { crew && crew.map((item, idx) => {
                             const {src, name, profession} = item
                             return (
                                 <Grid item xs = {4} sm = {3} md = {2} key = {idx}>
@@ -197,14 +256,15 @@ class SelectedMovie extends Component {
     }
 
     renderCast = () => {
-        const cast = this.selectedMovieItem.cast
+        const item = this.selectedMovieItem
+        const cast = item && item.cast
         return (
             <div className = 'summary_block'>
                 { this.renderCast_CrewHeader("Cast") }
                 <Divider sx = {{background: "rgba(0, 0, 0, 0.1)", marginBottom: "10px"}}/>
                 <div className = 'summary_block_list'>
                     <Grid container>
-                        { cast.map((item, idx) => {
+                        { cast && cast.map((item, idx) => {
                             const {src, name, character} = item
                             return (
                                 <Grid item xs = {4} sm = {3} md = {2} key = {idx}>
@@ -273,14 +333,15 @@ class SelectedMovie extends Component {
     }
 
     renderPhotoGallery = () => {
-        const gallery = this.selectedMovieItem.gallery
+        const item = this.selectedMovieItem
+        const gallery = item && item.gallery
         return (
             <div className = 'photo_gallery_container'>
                 <h2 className = 'header_text'>Photos</h2>
                 <Divider sx = {{background: "#fff"}}/>
                 <div className = 'gallery_block'>
                     <Grid container spacing = {2}>
-                        { gallery.map((i, idx) => {
+                        { gallery && gallery.map((i, idx) => {
                             return (
                                 <Grid item xs = {6} sm = {4} md = {3} key = {idx}>
                                     <Card>
@@ -306,7 +367,7 @@ class SelectedMovie extends Component {
     }
 
     render() {
-        const {openSeatAllocation} = this.state
+        const {openSeatAllocation, loading} = this.state
         return (
             <div className = 'selected_movie_root'>
                 <SelectedMovieHeader
@@ -319,6 +380,8 @@ class SelectedMovie extends Component {
                     </div>
                 </div>
                 <TheatreSeatSelection open = {openSeatAllocation} handleClose = {this.handleSeatAllocationPopup}/>
+                <Loading open = {loading}/>
+                { this.renderSnackBar() }
             </div>
         )
     }
