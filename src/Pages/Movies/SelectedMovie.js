@@ -10,6 +10,7 @@ import TheatreSelection from './TheatreSelection'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import TheatreSeatSelection from '../../Components/TheatreSeatSelection'
+import Loading from '../../Components/Loading/Loading'
 
 //Material-UI
 import { Grid, Card, CardMedia, Divider, IconButton } from '@mui/material'
@@ -29,7 +30,8 @@ class SelectedMovie extends Component {
         kidsTickets: 0,
         totalTickets: 0,
         selectedTheatre: null,
-        selectedTimeSlot: null
+        selectedTimeSlot: null,
+        loading: false,
     }
 
     selectedMovieItem = this.props.location.state
@@ -306,7 +308,7 @@ class SelectedMovie extends Component {
     }
 
     render() {
-        const {openSeatAllocation} = this.state
+        const {openSeatAllocation, loading} = this.state
         return (
             <div className = 'selected_movie_root'>
                 <SelectedMovieHeader
@@ -319,6 +321,7 @@ class SelectedMovie extends Component {
                     </div>
                 </div>
                 <TheatreSeatSelection open = {openSeatAllocation} handleClose = {this.handleSeatAllocationPopup}/>
+                <Loading open = {loading}/>
             </div>
         )
     }
