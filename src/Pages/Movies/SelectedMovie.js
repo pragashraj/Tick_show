@@ -26,7 +26,7 @@ function withLocation(Component) {
 
 class SelectedMovie extends Component {
     state = {
-        openSeatAllocation: true,
+        openSeatAllocation: false,
         theatres: ["1", "2", "3"],
         fullTickets: 0,
         kidsTickets: 0,
