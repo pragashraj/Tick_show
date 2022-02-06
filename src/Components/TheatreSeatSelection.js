@@ -84,18 +84,24 @@ const TheatreSeatSelection = ({open, handleClose}) => {
         setSeatsRight(seatsRight)
     }
 
-    const renderCheckBox = () => (
+    const handleChange = (event, i, name) => {
+        console.log(event.target.checked, name, i)
+    }
+
+    const renderCheckBox = (i, name, idx) => (
         <Checkbox
             icon = {<CheckBoxOutlineBlankRounded />}
             checkedIcon = {<SquareRounded />}
             sx = {{marginInline: "-8px"}}
+            onChange = {(e) => handleChange(e, i, name)}
+            key = {idx}
         />
     )
 
     const renderRow = (name, child) => (
-        <div className = {classes.row}>
+        <div className = {classes.row} key = {name}>
             <span className = {classes.rowName}>{name}</span>
-            { child.map(i => renderCheckBox()) }
+            { child.map((i, idx) => renderCheckBox(i, name, idx)) }
         </div>
     )
 
