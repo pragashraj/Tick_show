@@ -38,6 +38,7 @@ class Movies extends Component {
         message: "",
         severity: "",
         openSnackBar: false,
+        seatsChecked: []
     }
 
     sortData = [
