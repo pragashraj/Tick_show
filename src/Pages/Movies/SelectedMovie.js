@@ -13,6 +13,8 @@ import TheatreSeatSelection from '../../Components/TheatreSeatSelection'
 import Loading from '../../Components/Loading/Loading'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 
+import {bookMyTickets} from '../../api/movie'
+
 //Material-UI
 import { Grid, Card, CardMedia, Divider, IconButton } from '@mui/material'
 import {ArrowBackIos, ArrowForwardIos} from '@mui/icons-material'
@@ -69,6 +71,18 @@ class SelectedMovie extends Component {
 
     componentDidMount() {
         window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+
+    bookMyTicketsApi = async(data) => {
+        try {
+            this.setState({ loading: true })
+            const response = await bookMyTickets(data)
+            console.log(response)
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar(e.response.data.message)
+        }
     }
 
     handleContinueOnClick = () => {
