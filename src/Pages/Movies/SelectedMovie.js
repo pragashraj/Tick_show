@@ -107,25 +107,7 @@ class SelectedMovie extends Component {
     }
 
     handleSeatonChange = (event, no, name) => {
-        const checked = this.state.selectedSeats
 
-        let exist = false
-
-        checked.forEach(e => {
-            if (e.row === name) {
-                exist = true
-                return
-            }
-            else {
-                exist = false
-            }
-        })
-
-        if (!exist) {
-            let selected = {row: name, seatNo: [no]}
-        }
-
-        console.log(event.target.checked, name, no)
     }
 
     handleSeatAllocationPopup = () => {
