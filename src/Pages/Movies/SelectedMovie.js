@@ -26,7 +26,7 @@ function withLocation(Component) {
 
 class SelectedMovie extends Component {
     state = {
-        openSeatAllocation: false,
+        openSeatAllocation: true,
         theatres: ["1", "2", "3"],
         fullTickets: 0,
         kidsTickets: 0,
@@ -36,7 +36,8 @@ class SelectedMovie extends Component {
         loading: false,
         message: "",
         severity: "",
-        openSnackBar: false
+        openSnackBar: false,
+        selectedSeats: []
     }
 
     //Dummy movie item
@@ -105,6 +106,28 @@ class SelectedMovie extends Component {
         }
     }
 
+    handleSeatonChange = (event, no, name) => {
+        const checked = this.state.selectedSeats
+
+        let exist = false
+
+        checked.forEach(e => {
+            if (e.row === name) {
+                exist = true
+                return
+            }
+            else {
+                exist = false
+            }
+        })
+
+        if (!exist) {
+            let selected = {row: name, seatNo: [no]}
+        }
+
+        console.log(event.target.checked, name, no)
+    }
+
     handleSeatAllocationPopup = () => {
         this.setState({ openSeatAllocation: !this.state.openSeatAllocation })
     }
@@ -151,6 +174,17 @@ class SelectedMovie extends Component {
                     handleOnChange = {this.handleOnChange}
                 />
             </div>
+        )
+    }
+
+    renderTheatreSeatSelection = () => {
+        const {openSeatAllocation} = this.state
+        return (
+            <TheatreSeatSelection
+                open = {openSeatAllocation}
+                handleClose = {this.handleSeatAllocationPopup}
+                handleChange = {this.handleSeatonChange}
+            />
         )
     }
 
@@ -367,7 +401,7 @@ class SelectedMovie extends Component {
     }
 
     render() {
-        const {openSeatAllocation, loading} = this.state
+        const {loading} = this.state
         return (
             <div className = 'selected_movie_root'>
                 <SelectedMovieHeader
@@ -379,9 +413,9 @@ class SelectedMovie extends Component {
                         { this.renderMainContainer() }
                     </div>
                 </div>
-                <TheatreSeatSelection open = {openSeatAllocation} handleClose = {this.handleSeatAllocationPopup}/>
                 <Loading open = {loading}/>
                 { this.renderSnackBar() }
+                { this.renderTheatreSeatSelection() }
             </div>
         )
     }

@@ -53,7 +53,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     },
 }))
 
-const TheatreSeatSelection = ({open, handleClose}) => {
+const TheatreSeatSelection = ({open, handleClose, handleChange}) => {
     const classes = useStyles()
     const [seatsLeft, setSeatsLeft] = useState([])
     const [seatsRight, setSeatsRight] = useState([])
@@ -65,7 +65,7 @@ const TheatreSeatSelection = ({open, handleClose}) => {
     const createSeats = () => {
         const rowLeft = ["A", "B", "C", "D", "E"]
         const rowRight = ["F", "G", "H", "I", "J"]
-        const arr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
+        const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         let seatsLeft = []
         let seatsRight = []
@@ -84,16 +84,12 @@ const TheatreSeatSelection = ({open, handleClose}) => {
         setSeatsRight(seatsRight)
     }
 
-    const handleChange = (event, i, name) => {
-        console.log(event.target.checked, name, i)
-    }
-
-    const renderCheckBox = (i, name, idx) => (
+    const renderCheckBox = (no, name, idx) => (
         <Checkbox
             icon = {<CheckBoxOutlineBlankRounded />}
             checkedIcon = {<SquareRounded />}
             sx = {{marginInline: "-8px"}}
-            onChange = {(e) => handleChange(e, i, name)}
+            onChange = {(e) => handleChange(e, no, name)}
             key = {idx}
         />
     )
