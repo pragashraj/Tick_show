@@ -36,7 +36,8 @@ class SelectedMovie extends Component {
         loading: false,
         message: "",
         severity: "",
-        openSnackBar: false
+        openSnackBar: false,
+        selectedSeats: []
     }
 
     //Dummy movie item
@@ -105,6 +106,10 @@ class SelectedMovie extends Component {
         }
     }
 
+    handleSeatonChange = (event, no, name) => {
+
+    }
+
     handleSeatAllocationPopup = () => {
         this.setState({ openSeatAllocation: !this.state.openSeatAllocation })
     }
@@ -151,6 +156,17 @@ class SelectedMovie extends Component {
                     handleOnChange = {this.handleOnChange}
                 />
             </div>
+        )
+    }
+
+    renderTheatreSeatSelection = () => {
+        const {openSeatAllocation} = this.state
+        return (
+            <TheatreSeatSelection
+                open = {openSeatAllocation}
+                handleClose = {this.handleSeatAllocationPopup}
+                handleChange = {this.handleSeatonChange}
+            />
         )
     }
 
@@ -367,7 +383,7 @@ class SelectedMovie extends Component {
     }
 
     render() {
-        const {openSeatAllocation, loading} = this.state
+        const {loading} = this.state
         return (
             <div className = 'selected_movie_root'>
                 <SelectedMovieHeader
@@ -379,9 +395,9 @@ class SelectedMovie extends Component {
                         { this.renderMainContainer() }
                     </div>
                 </div>
-                <TheatreSeatSelection open = {openSeatAllocation} handleClose = {this.handleSeatAllocationPopup}/>
                 <Loading open = {loading}/>
                 { this.renderSnackBar() }
+                { this.renderTheatreSeatSelection() }
             </div>
         )
     }
