@@ -23,3 +23,8 @@ export const searchMovies = (name, page) => {
     const endpoint =  getEndpointWithPrefix(`search-movie?name=${name}&page=${page}`)
     return GET(endpoint)
 }
+
+export const bookMyTickets = (data) => {
+    const endpoint =  getEndpointWithPrefix('book-tickets')
+    return POST(endpoint, data)
+}
