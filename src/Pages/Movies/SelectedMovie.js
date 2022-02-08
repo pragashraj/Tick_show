@@ -77,7 +77,9 @@ class SelectedMovie extends Component {
         try {
             this.setState({ loading: true })
             const response = await bookMyTickets(data)
-            console.log(response)
+            if (response) {
+                this.setSuccessSnackBar(response.message)
+            }
             this.setState({ loading: false })
         } catch (e) {
             this.setState({ loading: false })
