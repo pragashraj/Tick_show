@@ -33,18 +33,18 @@ class Home extends Component {
 	    upcomingMovies: [],
         events: [],
         theatres: [],
+        cityOptions: [],
+        experienceOptions: ["2D", "3D"],
         movieSearchValue: "",
         selectorTitle: "",
-        openSelector: false,
-        cityOptions: ["Colombo", "Ja-ela", "Negombo"],
         city: "Colombo",
         date: new Date(),
-        experienceOptions: ["2D", "3D"],
         experience: "2D",
-        loading: false,
         message: "",
         severity: "",
         openSnackBar: false,
+        openSelector: false,
+        loading: false
     }
 
     carouselImages = [
