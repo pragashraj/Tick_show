@@ -32,7 +32,7 @@ class Contact extends Component {
             if (response) {
                 this.setSuccessSnackBar(response.message)
             }
-            this.setState({ loading: false })
+            this.setState({ loading: false, name: "", email: "", subject: "", message: "" })
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar(e.response.data.message)
@@ -40,7 +40,15 @@ class Contact extends Component {
     }
 
     handleSubmitOnClick = () => {
+        const {name, email, subject, message} = this.state
 
+        if (name && email && subject && message) {
+            const data = {name, email, subject, message}
+            this.sendMessageApi(data)
+        }
+        else {
+            this.setErrorSnackBar("Fields cannot be empty")
+        }
     }
 
     handleInputOnChange = (e) => {
