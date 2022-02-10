@@ -7,6 +7,7 @@ import Cover from './Cover'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import InputField from '../../Components/InputField'
 import Loading from '../../Components/Loading/Loading'
+import SnackBarAlert from '../../Components/SnackBarAlert'
 
 import {sendMessage} from '../../api/contact'
 
@@ -18,7 +19,10 @@ class Contact extends Component {
         email: "",
         subject: "",
         message: "",
-        loading: false
+        loading: false,
+        snackMessage: "",
+        severity: "",
+        openSnackBar: false,
     }
 
     sendMessageApi = async(data) => {
@@ -26,12 +30,12 @@ class Contact extends Component {
             this.setState({ loading: true })
             const response = await sendMessage(data)
             if (response) {
-                console.log(response.message)
+                this.setSuccessSnackBar(response.message)
             }
             this.setState({ loading: false })
         } catch (e) {
             this.setState({ loading: false })
-            console.log(e.response.data.message)
+            this.setErrorSnackBar(e.response.data.message)
         }
     }
 
@@ -42,6 +46,34 @@ class Contact extends Component {
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({[name]: value})
+    }
+
+    handleSnackBarClose = () => {
+        this.setSnackBar("", null, false)
+    }
+
+    setSuccessSnackBar = (message) => {
+        this.setSnackBar("success", message, true)
+    }
+
+    setErrorSnackBar = (message) => {
+        this.setSnackBar("error", message, true)
+    }
+
+    setSnackBar = (severity, snackMessage, openSnackBar) => {
+        this.setState({ severity, snackMessage, openSnackBar })
+    }
+
+    renderSnackBar = () => {
+        const {openSnackBar, severity, snackMessage} = this.state
+        return (
+            <SnackBarAlert 
+                open = {openSnackBar} 
+                severity = {severity} 
+                message = {snackMessage} 
+                handleClose = {this.handleSnackBarClose}
+            />
+        )
     }
 
     renderInputField = (name, label, placeholder) => {
@@ -94,6 +126,7 @@ class Contact extends Component {
                         { this.renderMainContainer() }
                     </div>
                 </div>
+                { this.renderSnackBar() }
                 <Loading open = {loading}/>
             </div>
         )
