@@ -7,6 +7,8 @@ import Cover from './Cover'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import InputField from '../../Components/InputField'
 
+import {sendMessage} from '../../api/contact'
+
 import './Contact.css'
 
 class Contact extends Component {
@@ -15,6 +17,17 @@ class Contact extends Component {
         email: "",
         subject: "",
         message: ""
+    }
+
+    sendMessageApi = async(data) => {
+        try {
+            const response = await sendMessage(data)
+            if (response) {
+                console.log(response.message)
+            }
+        } catch (e) {
+            console.log(e.response.data.message)
+        }
     }
 
     handleSubmitOnClick = () => {

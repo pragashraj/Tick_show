@@ -1,4 +1,4 @@
-import {GET, POST, MULTIPART} from './core'
+import {GET, POST} from './core'
 
 export const getEndpointWithPrefix = (endpoint) => {
     return `movies/${endpoint}`
