@@ -6,6 +6,10 @@ import { Grid, CssBaseline, Paper, Box } from '@mui/material'
 import Cover from './Cover'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import InputField from '../../Components/InputField'
+import Loading from '../../Components/Loading/Loading'
+import SnackBarAlert from '../../Components/SnackBarAlert'
+
+import {sendMessage} from '../../api/contact'
 
 import './Contact.css'
 
@@ -14,16 +18,70 @@ class Contact extends Component {
         name: "",
         email: "",
         subject: "",
-        message: ""
+        message: "",
+        loading: false,
+        snackMessage: "",
+        severity: "",
+        openSnackBar: false,
+    }
+
+    sendMessageApi = async(data) => {
+        try {
+            this.setState({ loading: true })
+            const response = await sendMessage(data)
+            if (response) {
+                this.setSuccessSnackBar(response.message)
+            }
+            this.setState({ loading: false, name: "", email: "", subject: "", message: "" })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar(e.response.data.message)
+        }
     }
 
     handleSubmitOnClick = () => {
+        const {name, email, subject, message} = this.state
 
+        if (name && email && subject && message) {
+            const data = {name, email, subject, message}
+            this.sendMessageApi(data)
+        }
+        else {
+            this.setErrorSnackBar("Fields cannot be empty")
+        }
     }
 
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({[name]: value})
+    }
+
+    handleSnackBarClose = () => {
+        this.setSnackBar("", null, false)
+    }
+
+    setSuccessSnackBar = (message) => {
+        this.setSnackBar("success", message, true)
+    }
+
+    setErrorSnackBar = (message) => {
+        this.setSnackBar("error", message, true)
+    }
+
+    setSnackBar = (severity, snackMessage, openSnackBar) => {
+        this.setState({ severity, snackMessage, openSnackBar })
+    }
+
+    renderSnackBar = () => {
+        const {openSnackBar, severity, snackMessage} = this.state
+        return (
+            <SnackBarAlert 
+                open = {openSnackBar} 
+                severity = {severity} 
+                message = {snackMessage} 
+                handleClose = {this.handleSnackBarClose}
+            />
+        )
     }
 
     renderInputField = (name, label, placeholder) => {
@@ -68,6 +126,7 @@ class Contact extends Component {
     }
 
     render() {
+        const {loading} = this.state
         return (
             <div className = 'contacts_root'>
                 <div className = 'contacts_parallax'>
@@ -75,6 +134,8 @@ class Contact extends Component {
                         { this.renderMainContainer() }
                     </div>
                 </div>
+                { this.renderSnackBar() }
+                <Loading open = {loading}/>
             </div>
         )
     }
