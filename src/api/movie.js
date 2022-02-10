@@ -28,8 +28,3 @@ export const bookMyTickets = (data) => {
     const endpoint =  getEndpointWithPrefix('book-tickets')
     return POST(endpoint, data)
 }
-
-export const createNewMovies = (formData, token) => {
-    const endpoint =  getEndpointWithPrefix('create-new-movie')
-    return MULTIPART(endpoint, formData, token)
-}
