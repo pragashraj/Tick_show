@@ -6,6 +6,7 @@ import { Grid, CssBaseline, Paper, Box } from '@mui/material'
 import Cover from './Cover'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import InputField from '../../Components/InputField'
+import Loading from '../../Components/Loading/Loading'
 
 import {sendMessage} from '../../api/contact'
 
@@ -16,16 +17,20 @@ class Contact extends Component {
         name: "",
         email: "",
         subject: "",
-        message: ""
+        message: "",
+        loading: false
     }
 
     sendMessageApi = async(data) => {
         try {
+            this.setState({ loading: true })
             const response = await sendMessage(data)
             if (response) {
                 console.log(response.message)
             }
+            this.setState({ loading: false })
         } catch (e) {
+            this.setState({ loading: false })
             console.log(e.response.data.message)
         }
     }
@@ -81,6 +86,7 @@ class Contact extends Component {
     }
 
     render() {
+        const {loading} = this.state
         return (
             <div className = 'contacts_root'>
                 <div className = 'contacts_parallax'>
@@ -88,6 +94,7 @@ class Contact extends Component {
                         { this.renderMainContainer() }
                     </div>
                 </div>
+                <Loading open = {loading}/>
             </div>
         )
     }
