@@ -16,10 +16,20 @@ export const GET = async(endpoint, authorization = null) => {
     return response.data
 }
 
+export const MULTIPART = async(endpoint, formData = null, authorization = null) => {
+    const instance = getBaseInstance()
+      
+    if (authorization) {
+        instance.defaults.headers.common['Authorization'] = `Bearer ${authorization}`
+    }
+        
+    const response = await instance.post(endpoint, formData)
+    
+    return response.data
+}
+
 const createInstance = (authorization, contentType) => {
-    const instance = axios.create({
-        baseURL: "http://localhost:9000/api/"
-    })
+    const instance = getBaseInstance()
       
     if (authorization) {
         instance.defaults.headers.common['Authorization'] = `Bearer ${authorization}`
@@ -28,4 +38,8 @@ const createInstance = (authorization, contentType) => {
     instance.defaults.headers.post['Content-Type'] = contentType
 
     return instance
+}
+
+const getBaseInstance = () => {
+    return axios.create({ baseURL: "http://localhost:9000/api/"})
 }

@@ -1,4 +1,4 @@
-import {GET, POST} from './core'
+import {GET, POST, MULTIPART} from './core'
 
 export const getEndpointWithPrefix = (endpoint) => {
     return `movies/${endpoint}`
@@ -27,4 +27,9 @@ export const searchMovies = (name, page) => {
 export const bookMyTickets = (data) => {
     const endpoint =  getEndpointWithPrefix('book-tickets')
     return POST(endpoint, data)
+}
+
+export const createNewMovies = (formData, token) => {
+    const endpoint =  getEndpointWithPrefix('create-new-movie')
+    return MULTIPART(endpoint, formData, token)
 }
