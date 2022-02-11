@@ -102,7 +102,7 @@ class Contact extends Component {
         return (
             <div className = 'contact_form'>
                 <span className = "contact_form-title">Say Hello !</span>
-                { this.renderInputField("name", "Your Name", "Enter your name") }
+                { this.renderInputField("name", "Name", "Enter your name") }
                 { this.renderInputField("email", "Email", "Enter your email address") }
                 { this.renderInputField("subject", "Subject", "Enter subject") }
                 { this.renderInputField("message", "Message", "Enter message") }

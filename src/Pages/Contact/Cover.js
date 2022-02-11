@@ -5,7 +5,7 @@ import { Grid, CssBaseline, useMediaQuery, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import {Email, ShareLocation, Call} from '@mui/icons-material'
 
-import contactImg from '../../assets/CarouselImages/cover.jpg'
+import contactImg from '../../assets/images/cover.jpg'
 
 const useStyles = makeStyles({
     cover: {

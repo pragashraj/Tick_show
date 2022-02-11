@@ -11,7 +11,7 @@ import Loading from '../../Components/Loading/Loading'
 import {signUp} from '../../api/auth'
 
 import './SignUp.css'
-import signup_cover from '../../assets/CarouselImages/cover.jpg'
+import signup_cover from '../../assets/images/cover.jpg'
 
 class SignUp extends Component {
     state = {

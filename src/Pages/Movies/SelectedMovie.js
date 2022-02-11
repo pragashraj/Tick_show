@@ -20,7 +20,7 @@ import { Grid, Card, CardMedia, Divider, IconButton } from '@mui/material'
 import {ArrowBackIos, ArrowForwardIos} from '@mui/icons-material'
 
 import './Movies.css'
-import event_sample from '../../assets/images/event_sample.jpg'
+import event_sample from '../../assets/images/event.jpg'
 
 function withLocation(Component) {
     return props => <Component {...props} location = {useLocation()}/>
