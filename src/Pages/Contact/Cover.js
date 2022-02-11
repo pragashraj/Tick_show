@@ -5,7 +5,7 @@ import { Grid, CssBaseline, useMediaQuery, Paper } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import {Email, ShareLocation, Call} from '@mui/icons-material'
 
-import contactImg from '../../assets/CarouselImages/cover.jpg'
+import contactImg from '../../assets/images/contact.jpg'
 
 const useStyles = makeStyles({
     cover: {
@@ -13,7 +13,8 @@ const useStyles = makeStyles({
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        zIndex: "0"
+        zIndex: "0",
+        opacity: "0.7"
     },
     contacts: {
         display: "flex",
@@ -29,12 +30,12 @@ const useStyles = makeStyles({
         marginTop: "15vh"
     },
     contacthead: {
-        color: "#fff",
+        color: "#000",
         textTransform: "uppercase",
         letterSpacing: "0.05rem"
     },
     shortDesc: {
-        color: "silver"
+        color: "#000"
     },
     infoRoot: {
         marginTop: "8vh",
@@ -57,17 +58,17 @@ const useStyles = makeStyles({
         borderRadius: "50%",
         transform: "all 0.2s ease",
         padding: "5px",
-        border: "1px solid silver",
+        border: "1px solid rgba(0, 0, 0, 0.7)",
         alignItems: "center",
         justifyContent: "center",
     },
     icon: {
-        color: "#fff", 
+        color: "#000", 
         width: "35px", 
         height: "35px"
     },
     value: {
-        color: "silver", 
+        color: "000", 
     }
 })
 
