@@ -14,7 +14,7 @@ import {signIn} from '../../api/auth'
 import { storeLoginResponse } from '../../redux/actions/authAction'
 
 import './SignIn.css'
-import signin_cover from '../../assets/CarouselImages/cover.jpg'
+import signin_cover from '../../assets/images/cover.jpg'
 
 class SignIn extends Component {
     state = {

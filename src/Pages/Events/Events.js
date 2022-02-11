@@ -13,7 +13,7 @@ import Loading from '../../Components/Loading/Loading'
 import {getEvents, filterEvents, sortEvents} from '../../api/events'
 
 import './Events.css'
-import eventSample from '../../assets/images/event_sample.jpg'
+import eventSample from '../../assets/images/event.jpg'
 
 class Events extends Component {
     state = {
