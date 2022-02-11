@@ -10,30 +10,31 @@ import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
 
-import {signIn} from '../../api/auth'
+import {adminLogin} from '../../api/auth'
 import { storeLoginResponse } from '../../redux/actions/authAction'
 
 import './SignIn.css'
 import signin_cover from '../../assets/images/cover.jpg'
 
-class SignIn extends Component {
+class LoginAsAdmin extends Component {
     state = {
         email: "",
         password: "",
+        id: "",
         message: "",
         severity: "",
         openSnackBar: false,
         loading: false
     }
 
-    handleSigninApi = async(data) => {
+    handleAdminLoginApi = async(data) => {
         try {
             this.setState({ loading: true })
-            const response = await signIn(data)
+            const response = await adminLogin(data)
             const {email, name, token, expiration} = response
             const loginResponse = { email, name, token, expiration }
             this.props.storeLoginResponse(loginResponse)
-            this.setState({ loading: false, email: "", password: "", message: null })
+            this.setState({ loading: false, email: "", password: "", message: null, id: "" })
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar(e.response.data.message)
@@ -41,8 +42,8 @@ class SignIn extends Component {
     }
 
     handleLoginOnClick = () => {
-        const {email, password} = this.state
-        if (email && password) {
+        const {email, password, id} = this.state
+        if (email && password && id) {
             const result = this.validateEmail(email)
             if (!result) {
                 this.setErrorSnackBar('Enter a valid email address')
@@ -97,14 +98,6 @@ class SignIn extends Component {
         )
     }
 
-    renderSignUpLink = () => {
-        return (
-            <div className = "form_signup-link_root">
-                <a href = "/signup" className = "signup_link">Don't have any account ?</a>
-            </div>
-        )
-    }
-
     renderForgotPassword = () => {
         return (
             <div className = "form_forgot_password_root">
@@ -124,15 +117,12 @@ class SignIn extends Component {
     renderForm = () => {
         return (
             <div className = 'signin_form'>
-                <div className = 'login_as_admin_root'>
-                    <a className = 'login_as_admin' href = "/loginasadmin">Login as admin</a>
-                </div>
-                <span className = "signin_form-title">Login !</span>
+                <span className = "signin_form-title">Login as admin</span>
+                { this.renderInputField("id", "Admin ID", "Enter your admin ID") }
                 { this.renderInputField("email", "Email", "Enter your email address") }
                 { this.renderInputField("password", "Password", "Enter your password") }
                 { this.renderForgotPassword() }
                 { this.renderFormButton() }
-                { this.renderSignUpLink() }
             </div>
         )
     }
@@ -185,4 +175,4 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(SignIn)
+export default connect(null, mapDispatchToProps)(LoginAsAdmin)
