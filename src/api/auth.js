@@ -13,3 +13,8 @@ export const signIn = (data) => {
     const endpoint =  getEndpointWithPrefix('sign-in')
     return POST(endpoint, data)
 }
+
+export const adminLogin = (data) => {
+    const endpoint =  getEndpointWithPrefix('admin-sign-in')
+    return POST(endpoint, data)
+}

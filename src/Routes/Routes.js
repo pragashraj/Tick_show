@@ -6,6 +6,7 @@ import Contact from "../Pages/Contact/Contact"
 import Events from "../Pages/Events/Events"
 import SignUp from "../Pages/SignUp/SignUp"
 import SignIn from "../Pages/SignIn/SignIn"
+import LoginAsAdmin from '../Pages/SignIn/LoginAsAdmin'
 
 const routes = {
     data: [
@@ -55,6 +56,12 @@ const routes = {
             name: "SignIn",
             path: "/signin",
             component: <SignIn/>,
+            type: "",
+        },
+        {
+            name: "LoginAsAdmin",
+            path: "/loginasadmin",
+            component: <LoginAsAdmin/>,
             type: "",
         },
     ]
