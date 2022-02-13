@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 
-
 //Material-UI
 import {Grid} from '@mui/material'
+
+import SideBar from './SideBar'
 
 import './AdminPanel.css'
 
@@ -10,7 +11,9 @@ class AdminPanel extends Component {
 
     renderSideBar = () => {
         return (
-            <div className = 'panel-side-bar'></div>
+            <div className = 'panel-side-bar'>
+                <SideBar/>
+            </div>
         )
     }
 
