@@ -1,4 +1,4 @@
-import {MULTIPART} from './core'
+import {MULTIPART, POST, GET} from './core'
 
 export const getEndpointWithPrefix = (endpoint) => {
     return `admin/${endpoint}`
@@ -17,4 +17,19 @@ export const createNewTheatre = (formData, token) => {
 export const createNewEvent = (formData, token) => {
     const endpoint =  getEndpointWithPrefix('create-new-event')
     return MULTIPART(endpoint, formData, token)
+}
+
+export const responseToUserMessage = (data, token) => {
+    const endpoint =  getEndpointWithPrefix('response-to-user-message')
+    return POST(endpoint, data, token)
+}
+
+export const getMessages = (page, token) => {
+    const endpoint =  getEndpointWithPrefix(`get-messages/${page}`)
+    return GET(endpoint, token)
+}
+
+export const getMessagesByReplied = (isReplied, page, token) => {
+    const endpoint =  getEndpointWithPrefix(`get-messages-by-isReplied?isReplied=${isReplied}&page=${page}`)
+    return GET(endpoint, token)
 }
