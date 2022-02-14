@@ -8,11 +8,18 @@ import SideBar from './SideBar'
 import './AdminPanel.css'
 
 class AdminPanel extends Component {
+    state = {
+        tabValue: 0
+    }
+
+    handleTabOnClick = (event, newValue) => {
+        this.setState({ tabValue: newValue })
+    }
 
     renderSideBar = () => {
         return (
             <div className = 'panel-side-bar'>
-                <SideBar/>
+                <SideBar value = {this.state.tabValue} handleTabOnClick = {this.handleTabOnClick}/>
             </div>
         )
     }

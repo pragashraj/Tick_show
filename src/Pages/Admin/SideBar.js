@@ -6,23 +6,18 @@ import { makeStyles } from '@mui/styles'
 
 const useStyles = makeStyles({
     tab: {
-        color: "rgba(255, 255, 255, 0.7)"
+        color: "rgba(255, 255, 255, 0.7)",
     }
 })
 
-const SideBar = () => {
+const SideBar = ({value, handleTabOnClick}) => {
     const classes = useStyles()
-    const [value, setValue] = React.useState(0)
-
-    const handleChange = (event, newValue) => {
-      setValue(newValue)
-    }
 
     const tabs = ["Movies", "Events", "Theatres", "Messages"]
 
     const renderTab = (i) => {
         return (
-            <Tab label = {i} className={classes.tab}/>
+            <Tab label = {i} className = {classes.tab}/>
         )
     }
 
@@ -32,7 +27,7 @@ const SideBar = () => {
                 orientation = "vertical"
                 variant = "scrollable"
                 value = {value}
-                onChange = {handleChange}
+                onChange = {handleTabOnClick}
                 sx = {{ borderRight: 1, borderColor: 'divider' }}
             >
                 { tabs.map(i => renderTab(i)) }
