@@ -7,6 +7,7 @@ import Events from "../Pages/Events/Events"
 import SignUp from "../Pages/SignUp/SignUp"
 import SignIn from "../Pages/SignIn/SignIn"
 import LoginAsAdmin from '../Pages/SignIn/LoginAsAdmin'
+import AdminPanel from '../Pages/Admin/AdminPanel'
 
 const routes = {
     data: [
@@ -62,6 +63,12 @@ const routes = {
             name: "LoginAsAdmin",
             path: "/loginasadmin",
             component: <LoginAsAdmin/>,
+            type: "",
+        },
+        {
+            name: "AdminPanel",
+            path: "/admin-panel",
+            component: <AdminPanel/>,
             type: "",
         },
     ]
