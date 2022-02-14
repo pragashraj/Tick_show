@@ -1,8 +1,38 @@
 import React from 'react'
 
-const SideBar = () => {
+//Material-UI
+import {Tabs, Tab} from '@mui/material'
+import { makeStyles } from '@mui/styles'
+
+const useStyles = makeStyles({
+    tab: {
+        color: "rgba(255, 255, 255, 0.7)",
+    }
+})
+
+const SideBar = ({value, handleTabOnClick}) => {
+    const classes = useStyles()
+
+    const tabs = ["Movies", "Events", "Theatres", "Messages"]
+
+    const renderTab = (i) => {
+        return (
+            <Tab label = {i} className = {classes.tab}/>
+        )
+    }
+
     return (
-        <div>SideBar</div>
+        <div className = 'sidebar-root'>
+            <Tabs
+                orientation = "vertical"
+                variant = "scrollable"
+                value = {value}
+                onChange = {handleTabOnClick}
+                sx = {{ borderRight: 1, borderColor: 'divider' }}
+            >
+                { tabs.map(i => renderTab(i)) }
+            </Tabs>
+        </div>
     )
 }
 

@@ -4,6 +4,27 @@
     height: 100%;
 }
 
+.parallax {
+    position: relative;
+    z-index: 0;
+    background-image: url("../../assets/images/parallax.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 100%;
+    display: block;
+}
+
+.panel-top-padding {
+    height: 100px;
+    width: 100%;
+}
+
 .panel-main-container {
-    padding: 10px;
+    height: 80vh;
+}
+
+.sidebar-root {
+    margin-top: 15vh;
 }
