@@ -1,4 +1,4 @@
-import {POST, GET} from './core'
+import {POST} from './core'
 
 export const getEndpointWithPrefix = (endpoint) => {
     return `contact/${endpoint}`
