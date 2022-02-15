@@ -9,17 +9,27 @@ import './AdminPanel.css'
 
 class AdminPanel extends Component {
     state = {
-        tabValue: 0
+        mainTab: "Movies"
     }
 
-    handleTabOnClick = (event, newValue) => {
-        this.setState({ tabValue: newValue })
+    handleButtonOnClick = (label) => {
+        this.setState({ mainTab: label })
+    }
+
+    handleTabOnClick = () => {
+        
     }
 
     renderSideBar = () => {
+        const {mainTab} = this.state
+        const values = {mainTab}
         return (
             <div className = 'panel-side-bar'>
-                <SideBar value = {this.state.tabValue} handleTabOnClick = {this.handleTabOnClick}/>
+                <SideBar 
+                    values = {values} 
+                    handleTabOnClick = {this.handleTabOnClick}
+                    handleButtonOnClick = {this.handleButtonOnClick}
+                />
             </div>
         )
     }

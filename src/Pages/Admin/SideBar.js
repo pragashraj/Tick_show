@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 })
 
-const SideBar = () => {
+const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
     const classes = useStyles()
 
     const TABS = [
@@ -34,27 +34,37 @@ const SideBar = () => {
         "Messages": <Forum className = {classes.icon}/>,
     }
 
-    const handleClick = () => {
+    const {mainTab} = values
 
+    const renderCollapse = (label) => {
+        return (
+            <Collapse in = {mainTab === label} timeout = "auto" unmountOnExit>
+                <List component = "div" disablePadding>
+                    <ListItemButton sx = {{ pl: 4 }}>
+                        <ListItemIcon> <StarBorder/> </ListItemIcon>
+                        <ListItemText primary = "Starred"/>
+                    </ListItemButton>
+                </List>
+            </Collapse>
+        )
+    }
+
+    const renderListItemButton = (label) => {
+        return (
+            <ListItemButton onClick = {() => handleButtonOnClick(label)}>
+                <ListItemIcon> {ICON[label]} </ListItemIcon>
+                <ListItemText primary = {label} style = {{color: "#fff"}}/>
+                <ExpandMore className = {classes.icon}/>
+            </ListItemButton>
+        )
     }
 
     const renderListItem = (item) => {
         const {label} = item
         return (
             <Paper className = {classes.transparency} elevation = {5} sx = {{padding: "10px"}}>
-                <ListItemButton onClick = {handleClick}>
-                    <ListItemIcon> {ICON[label]} </ListItemIcon>
-                    <ListItemText primary = {label} style = {{color: "#fff"}}/>
-                    <ExpandMore className = {classes.icon}/>
-                </ListItemButton>
-                <Collapse in = {false} timeout = "auto" unmountOnExit>
-                    <List component = "div" disablePadding>
-                        <ListItemButton sx = {{ pl: 4 }}>
-                            <ListItemIcon> <StarBorder/> </ListItemIcon>
-                            <ListItemText primary = "Starred"/>
-                        </ListItemButton>
-                    </List>
-                </Collapse>
+                { renderListItemButton(label) }
+                { renderCollapse(label) }
             </Paper>
         )
     }
