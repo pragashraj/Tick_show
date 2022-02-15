@@ -15,6 +15,9 @@ const useStyles = makeStyles({
     selectedTab: {
         color: "rgb(255, 89, 89)",
     },
+    secondaryIcon: {
+        color: "rgba(255, 255, 255, 0.4)"
+    }
 })
 
 const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
@@ -39,7 +42,7 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
     const renderChildTabs = (tab) => {
         return (
             <ListItemButton sx = {{ pl: 4 }} onClick = {() => handleTabOnClick(tab)}>
-                <ListItemIcon> <StarBorder/> </ListItemIcon>
+                <ListItemIcon> <StarBorder className = {classes.secondaryIcon}/> </ListItemIcon>
                 <ListItemText primary = {tab} className = {childTab === tab ? classes.selectedTab : classes.icon}/>
             </ListItemButton>
         )
