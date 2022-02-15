@@ -1,19 +1,9 @@
 import React from 'react'
 
 //Material-UI
-import {Paper} from '@mui/material'
+import {Paper, List, ListItemButton, ListItemIcon, ListItemText, Collapse} from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import List from '@mui/material/List'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import Collapse from '@mui/material/Collapse'
-import ExpandMore from '@mui/icons-material/ExpandMore'
-import StarBorder from '@mui/icons-material/StarBorder'
-import Theaters from '@mui/icons-material/Theaters'
-import TheaterComedy from '@mui/icons-material/TheaterComedy'
-import EmojiEvents from '@mui/icons-material/EmojiEvents'
-import Forum from '@mui/icons-material/Forum'
+import {ExpandMore, StarBorder, Theaters, TheaterComedy, EmojiEvents, Forum} from '@mui/icons-material'
 
 const useStyles = makeStyles({
     tab: {
