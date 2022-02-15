@@ -9,20 +9,21 @@ import './AdminPanel.css'
 
 class AdminPanel extends Component {
     state = {
-        mainTab: "Movies"
+        mainTab: "Movies",
+        childTab: "New Movie"
     }
 
     handleButtonOnClick = (label) => {
         this.setState({ mainTab: label })
     }
 
-    handleTabOnClick = () => {
-        
+    handleTabOnClick = (tab) => {
+        this.setState({ childTab: tab })
     }
 
     renderSideBar = () => {
-        const {mainTab} = this.state
-        const values = {mainTab}
+        const {mainTab, childTab} = this.state
+        const values = {mainTab, childTab}
         return (
             <div className = 'panel-side-bar'>
                 <SideBar 

@@ -6,14 +6,14 @@ import { makeStyles } from '@mui/styles'
 import {ExpandMore, StarBorder, Theaters, TheaterComedy, EmojiEvents, Forum} from '@mui/icons-material'
 
 const useStyles = makeStyles({
-    tab: {
-        color: "rgba(255, 255, 255, 0.7)",
-    },
     transparency: {
         background : "transparent"
     },
     icon: {
         color: "rgba(255, 255, 255, 0.7)",
+    },
+    selectedTab: {
+        color: "rgb(255, 89, 89)",
     },
 })
 
@@ -21,10 +21,10 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
     const classes = useStyles()
 
     const TABS = [
-        {label: "Movies"},
-        {label: "Events"},
-        {label: "Theatres"},
-        {label: "Messages"},
+        {label: "Movies", child: ["New Movie", "Update / Delete"]},
+        {label: "Events", child: ["New Event", "Update / Delete"]},
+        {label: "Theatres", child: ["New Theatre", "Update / Delete"]},
+        {label: "Messages", child: ["Reply", "Update / Delete"]}
     ]
 
     const ICON = {
@@ -34,16 +34,22 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
         "Messages": <Forum className = {classes.icon}/>,
     }
 
-    const {mainTab} = values
+    const {mainTab, childTab} = values
 
-    const renderCollapse = (label) => {
+    const renderChildTabs = (tab) => {
+        return (
+            <ListItemButton sx = {{ pl: 4 }} onClick = {() => handleTabOnClick(tab)}>
+                <ListItemIcon> <StarBorder/> </ListItemIcon>
+                <ListItemText primary = {tab} className = {childTab === tab ? classes.selectedTab : classes.icon}/>
+            </ListItemButton>
+        )
+    }
+
+    const renderCollapse = (label, child) => {
         return (
             <Collapse in = {mainTab === label} timeout = "auto" unmountOnExit>
                 <List component = "div" disablePadding>
-                    <ListItemButton sx = {{ pl: 4 }}>
-                        <ListItemIcon> <StarBorder/> </ListItemIcon>
-                        <ListItemText primary = "Starred"/>
-                    </ListItemButton>
+                    { child.map(i => renderChildTabs(i)) }
                 </List>
             </Collapse>
         )
@@ -60,11 +66,11 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
     }
 
     const renderListItem = (item) => {
-        const {label} = item
+        const {label, child} = item
         return (
             <Paper className = {classes.transparency} elevation = {5} sx = {{padding: "10px"}}>
                 { renderListItemButton(label) }
-                { renderCollapse(label) }
+                { renderCollapse(label, child) }
             </Paper>
         )
     }
