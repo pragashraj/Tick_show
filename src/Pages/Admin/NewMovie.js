@@ -39,6 +39,21 @@ const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRem
         )
     }
 
+    const renderInputRoot = () => {
+        return (
+            <Grid container>
+                { INPUTS.map((item, idx) => {
+                    const {name, label, placeholder} = item
+                    return (
+                        <Grid item xs = {12} sm = {12} md = {4} key = {idx}>
+                            { renderInputField(name, label, placeholder) }
+                        </Grid>
+                    )
+                }) }
+            </Grid>
+        )
+    }
+
     const renderInputFile = () => {
         return (
             <Grid item xs = {12} sm = {12} md = {12}>
@@ -58,16 +73,7 @@ const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRem
                 { renderInputFile() }
             </Grid>
             <div className = 'input_root'>
-                <Grid container>
-                    { INPUTS.map((item, idx) => {
-                        const {name, label, placeholder} = item
-                        return (
-                            <Grid item xs = {12} sm = {12} md = {4} key = {idx}>
-                                { renderInputField(name, label, placeholder) }
-                            </Grid>
-                        )
-                    }) }
-                </Grid>
+                { renderInputRoot() }
             </div>
         </div>
     )
