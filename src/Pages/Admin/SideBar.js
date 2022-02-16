@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         color: "rgba(255, 255, 255, 0.7)",
     },
     selectedTab: {
-        color: "rgb(255, 89, 89)",
+        color: "rgb(20, 247, 247)",
     },
     secondaryIcon: {
         color: "rgba(255, 255, 255, 0.4)"
@@ -41,7 +41,7 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
 
     const renderChildTabs = (tab) => {
         return (
-            <ListItemButton sx = {{ pl: 4 }} onClick = {() => handleTabOnClick(tab)}>
+            <ListItemButton sx = {{ pl: 4 }} onClick = {() => handleTabOnClick(tab)} key = {tab}>
                 <ListItemIcon> <StarBorder className = {classes.secondaryIcon}/> </ListItemIcon>
                 <ListItemText primary = {tab} className = {childTab === tab ? classes.selectedTab : classes.icon}/>
             </ListItemButton>
@@ -71,7 +71,7 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
     const renderListItem = (item) => {
         const {label, child} = item
         return (
-            <Paper className = {classes.transparency} elevation = {5} sx = {{padding: "10px"}}>
+            <Paper className = {classes.transparency} elevation = {5} sx = {{padding: "10px"}} key = {label}>
                 { renderListItemButton(label) }
                 { renderCollapse(label, child) }
             </Paper>

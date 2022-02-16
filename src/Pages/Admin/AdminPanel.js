@@ -4,13 +4,27 @@ import React, { Component } from 'react'
 import {Grid} from '@mui/material'
 
 import SideBar from './SideBar'
+import NewMovie from './NewMovie'
 
 import './AdminPanel.css'
 
 class AdminPanel extends Component {
     state = {
         mainTab: "Movies",
-        childTab: "New Movie"
+        childTab: "New Movie",
+        movieFile: null,
+        movieFileOnLoad: null,
+        movieName: "",
+        movieDuration: "",
+        movieGenre: "",
+        movieRelease: "",
+        movieSynopsis: "",
+        movieUrl: "",
+        movieImdb: "",
+        movieRotten: "",
+        movieLanguage: "",
+        movieExperience: "",
+        movieShowType: ""
     }
 
     handleButtonOnClick = (label) => {
@@ -19,6 +33,67 @@ class AdminPanel extends Component {
 
     handleTabOnClick = (tab) => {
         this.setState({ childTab: tab })
+    }
+
+    handlFileRemoveOnClick = (onLoadState, fileState) => {
+        this.setState({ [onLoadState] : null, [fileState]: null })
+    }
+
+    handleFileOnChange = (onLoadState, fileState, file) => {
+        let reader = new FileReader()
+        reader.onloadend = () => {
+            this.setState({ [onLoadState] : reader.result })
+        }
+        reader.readAsDataURL(file)
+        this.setState({ [fileState]: file })
+    }
+
+    handleInputOnChange = (e) => {
+        const {name, value} = e.target
+        this.setState({[name]: value})
+    }
+
+    getContent = () => {
+        const {childTab, mainTab} = this.state
+        let title = ""
+        let child = null
+
+        switch (childTab) {
+            case "New Movie" : 
+                title = "Create a new movie"
+                child = this.renderNewMovie()
+                break
+            case "New Event" : title = "Create a new event"
+                break
+            case "New Theatre" : title = "Create a new theatre"
+                break
+            case "Reply" : title = "Response to user's message"
+                break
+            default: title = `Update or Delete - ${mainTab}`
+        }
+
+        return {title, child}
+    }
+
+    renderNewMovie = () => {
+        const {movieName} = this.state
+        const values = {movieName}
+        return <NewMovie 
+            values = {values} 
+            handleInputOnChange = {this.handleInputOnChange}
+            handleFileOnChange = {this.handleFileOnChange}
+            handlFileRemoveOnClick = {this.handlFileRemoveOnClick}
+        />
+    }
+
+    renderContents = () => {
+        const {title, child} = this.getContent()
+        return (
+            <div className = 'panel-contents-root'>
+                <h2>{title}</h2>
+                <div className = 'panel-content-container'>{child}</div>
+            </div>
+        )
     }
 
     renderSideBar = () => {
@@ -42,7 +117,9 @@ class AdminPanel extends Component {
                     <Grid item xs = {12} sm = {2} md = {3}>
                         { this.renderSideBar() }
                     </Grid>
-                    <Grid item xs = {12} sm = {10} md = {9}></Grid>
+                    <Grid item xs = {12} sm = {10} md = {9}>
+                        { this.renderContents() }
+                    </Grid>
                 </Grid>
             </div>
         )
