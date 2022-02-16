@@ -40,3 +40,26 @@
     font-size: 1.1rem;
     text-shadow: 1.5px 1.5px #f74e30;
 }
+
+.panel-content-container {
+    padding: 15px;
+}
+
+.input_wrapper {
+    width: 100%;
+    position: relative;
+    padding-bottom: 13px;
+    margin-bottom: 25px;
+}
+
+.input_wrapper-label {
+    font-size: 13px;
+    color: rgb(172, 172, 173);
+    line-height: 1.5;
+    margin-left: 8px;
+    letter-spacing: 0.06rem;
+}
+
+.new-movie-root {
+    display: block;
+}

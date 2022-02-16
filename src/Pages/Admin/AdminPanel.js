@@ -4,13 +4,17 @@ import React, { Component } from 'react'
 import {Grid} from '@mui/material'
 
 import SideBar from './SideBar'
+import NewMovie from './NewMovie'
 
 import './AdminPanel.css'
 
 class AdminPanel extends Component {
     state = {
         mainTab: "Movies",
-        childTab: "New Movie"
+        childTab: "New Movie",
+        movieName: "",
+        movieFile: null,
+        movieFileOnLoad: null,
     }
 
     handleButtonOnClick = (label) => {
@@ -21,12 +25,33 @@ class AdminPanel extends Component {
         this.setState({ childTab: tab })
     }
 
-    getContentTitle = () => {
+    handlFileRemoveOnClick = (onLoadState, fileState) => {
+        this.setState({ [onLoadState] : null, [fileState]: null })
+    }
+
+    handleFileOnChange = (onLoadState, fileState, file) => {
+        let reader = new FileReader()
+        reader.onloadend = () => {
+            this.setState({ [onLoadState] : reader.result })
+        }
+        reader.readAsDataURL(file)
+        this.setState({ [fileState]: file })
+    }
+
+    handleInputOnChange = (e) => {
+        const {name, value} = e.target
+        this.setState({[name]: value})
+    }
+
+    getContent = () => {
         const {childTab, mainTab} = this.state
         let title = ""
+        let child = null
 
         switch (childTab) {
-            case "New Movie" : title = "Create a new movie"
+            case "New Movie" : 
+                title = "Create a new movie"
+                child = this.renderNewMovie()
                 break
             case "New Event" : title = "Create a new event"
                 break
@@ -37,13 +62,26 @@ class AdminPanel extends Component {
             default: title = `Update or Delete - ${mainTab}`
         }
 
-        return title
+        return {title, child}
+    }
+
+    renderNewMovie = () => {
+        const {movieName} = this.state
+        const values = {movieName}
+        return <NewMovie 
+            values = {values} 
+            handleInputOnChange = {this.handleInputOnChange}
+            handleFileOnChange = {this.handleFileOnChange}
+            handlFileRemoveOnClick = {this.handlFileRemoveOnClick}
+        />
     }
 
     renderContents = () => {
+        const {title, child} = this.getContent()
         return (
             <div className = 'panel-contents-root'>
-                <h2>{ this.getContentTitle() }</h2>
+                <h2>{title}</h2>
+                <div className = 'panel-content-container'>{child}</div>
             </div>
         )
     }
