@@ -12,9 +12,19 @@ class AdminPanel extends Component {
     state = {
         mainTab: "Movies",
         childTab: "New Movie",
-        movieName: "",
         movieFile: null,
         movieFileOnLoad: null,
+        movieName: "",
+        movieDuration: "",
+        movieGenre: "",
+        movieRelease: "",
+        movieSynopsis: "",
+        movieUrl: "",
+        movieImdb: "",
+        movieRotten: "",
+        movieLanguage: "",
+        movieExperience: "",
+        movieShowType: ""
     }
 
     handleButtonOnClick = (label) => {

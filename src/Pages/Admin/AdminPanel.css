@@ -22,7 +22,7 @@
 }
 
 .panel-main-container {
-    height: 80vh;
+    height: 100%;
 }
 
 .sidebar-root {
@@ -62,4 +62,8 @@
 
 .new-movie-root {
     display: block;
+}
+
+.input_root {
+    margin-top: 15px;
 }
