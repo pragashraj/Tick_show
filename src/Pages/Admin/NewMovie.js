@@ -7,11 +7,20 @@ import InputField from '../../Components/InputField'
 import InputFile from '../../Components/InputFile/InputFile'
 import DropDown from '../../Components/DropDown'
 import MultilineInput from '../../Components/MultilineInput'
+import CustomButton from '../../Components/CustomCssButton/CustomButton'
+import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 
 import './AdminPanel.css'
 import file from '../../assets/Icons/file.png'
 
-const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRemoveOnClick}) => {
+const NewMovie = ({
+    values, 
+    handleInputOnChange, 
+    handleFileOnChange, 
+    handlFileRemoveOnClick, 
+    handleMovieSubmitOnClick,
+    handleMovieCancelOnClick
+}) => {
 
     const renderMultiline = (name, label, placeholder) => {
         return (
@@ -52,6 +61,19 @@ const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRem
                     value = {values && values[name]}
                 />
             </div>
+        )
+    }
+
+    const renderBtnFooter = () => {
+        return (
+            <Grid container spacing = {2}>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    <SecondaryButton label = "Cancel" onClick = {handleMovieCancelOnClick}/>
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    <CustomButton label = "Create" onClick = {handleMovieSubmitOnClick}/>
+                </Grid>
+            </Grid>
         )
     }
 
@@ -115,6 +137,9 @@ const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRem
             </Grid>
             <div className = 'input_root'>
                 { renderInputRoot() }
+            </div>
+            <div className = 'form-btn-footer'>
+                { renderBtnFooter() }
             </div>
         </div>
     )

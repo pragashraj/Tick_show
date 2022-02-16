@@ -12,6 +12,8 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    letter-spacing: 0.1rem;
+    font-weight: 600;
 }
 
 .custom_button_outlined {
@@ -28,6 +30,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    letter-spacing: 0.1rem;
 }
 
 .custom_button_contained:hover {
@@ -46,7 +49,7 @@
     display: flex;
     color: #ffffff;
     border: 1px solid #868584;
-    padding: 15px;
+    padding: 10px;
     background: transparent;
     border-radius: 10px;
     transition: .4s all ease;
@@ -56,4 +59,5 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    letter-spacing: 0.1rem;
 }

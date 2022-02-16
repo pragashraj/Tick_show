@@ -31,6 +31,14 @@ class AdminPanel extends Component {
         languageOptions: ["English"]
     }
 
+    handleMovieSubmitOnClick = () => {
+
+    }
+
+    handleMovieCancelOnClick = () => {
+        
+    }
+
     handleButtonOnClick = (label) => {
         this.setState({ mainTab: label })
     }
@@ -85,6 +93,8 @@ class AdminPanel extends Component {
             handleInputOnChange = {this.handleInputOnChange}
             handleFileOnChange = {this.handleFileOnChange}
             handlFileRemoveOnClick = {this.handlFileRemoveOnClick}
+            handleMovieSubmitOnClick = {this.handleMovieSubmitOnClick}
+            handleMovieCancelOnClick = {this.handleMovieCancelOnClick}
         />
     }
 
