@@ -45,7 +45,8 @@ const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRem
                 <InputFile 
                     handleFileOnChange = {handleFileOnChange} 
                     fileImage = {file}
-                    fileRemoveOnClick = {handlFileRemoveOnClick}                            
+                    fileRemoveOnClick = {handlFileRemoveOnClick}
+                    description = "Select a suitable cover image for the movie"                           
                 />
             </Grid>
         )

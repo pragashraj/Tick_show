@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react'
 
 import './InputFile.css'
 
-const InputFile = ({fileImage, handleFileOnChange, fileRemoveOnClick}) => {
+const InputFile = ({fileImage, description, handleFileOnChange, fileRemoveOnClick}) => {
     const inputFile = useRef(null)
     const [fileName, setFileName] = useState(null)
 
@@ -31,7 +31,7 @@ const InputFile = ({fileImage, handleFileOnChange, fileRemoveOnClick}) => {
             </div>
             <div className = "input_file_text-con">
                 <h6>Select or Drop files</h6>
-                <span>selected file -: {fileName ? fileName : "none"}</span>
+                { fileName ? <span>selected file - {fileName}</span> : <span>{description}</span> }
                 { fileName && <button onClick = {removeFile}>Remove</button> }
             </div>
         </div>
