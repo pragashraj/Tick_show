@@ -6,18 +6,26 @@ import {Grid} from '@mui/material'
 import InputField from '../../Components/InputField'
 import InputFile from '../../Components/InputFile/InputFile'
 import DropDown from '../../Components/DropDown'
+import MultilineInput from '../../Components/MultilineInput'
 
 import './AdminPanel.css'
 import file from '../../assets/Icons/file.png'
 
 const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRemoveOnClick}) => {
 
-    const INPUTS = [
-        {name: "movieSynopsis", label: "Synopsis", placeholder: "Enter movie synopsis"},
-        {name: "movieUrl", label: "Trailer url", placeholder: "Enter movie trailer url"},
-        {name: "movieImdb", label: "Imdb", placeholder: "Enter movie imdb rate"},
-        {name: "movieRotten", label: "Rotten", placeholder: "Enter movie rotten rate"},
-    ]
+    const renderMultiline = (name, label, placeholder) => {
+        return (
+            <div className = "input_wrapper">
+                <span className = "input_wrapper-label">{label}</span>
+                <MultilineInput 
+                    name = {name} 
+                    label = {placeholder} 
+                    handleOnChange = {handleInputOnChange}
+                    value = {values && values[name]}
+                />
+            </div>
+        )
+    }
 
     const renderDropDown = (name, label, options) => {
         return (
@@ -70,6 +78,18 @@ const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRem
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
                     { renderDropDown("movieShowType", "Show Type", values["showTypeOptions"]) }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {12}>
+                    { renderMultiline("movieSynopsis", "Synopsis", "Enter movie synopsis") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    { renderInputField("movieUrl", "Trailer url", "Enter movie trailer url") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    { renderInputField("movieImdb", "Imdb", "Enter movie imdb rate") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    { renderInputField("movieRotten", "Rotten", "Enter movie rotten rate") }
                 </Grid>
             </Grid>
         )
