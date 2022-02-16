@@ -13,7 +13,7 @@ const useStyles = makeStyles({
         color: "rgba(255, 255, 255, 0.7)",
     },
     selectedTab: {
-        color: "rgb(255, 89, 89)",
+        color: "rgb(20, 247, 247)",
     },
     secondaryIcon: {
         color: "rgba(255, 255, 255, 0.4)"
