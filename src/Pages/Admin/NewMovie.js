@@ -5,25 +5,50 @@ import {Grid} from '@mui/material'
 
 import InputField from '../../Components/InputField'
 import InputFile from '../../Components/InputFile/InputFile'
+import DropDown from '../../Components/DropDown'
+import MultilineInput from '../../Components/MultilineInput'
+import CustomButton from '../../Components/CustomCssButton/CustomButton'
+import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 
 import './AdminPanel.css'
 import file from '../../assets/Icons/file.png'
 
-const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRemoveOnClick}) => {
+const NewMovie = ({
+    values, 
+    handleInputOnChange, 
+    handleFileOnChange, 
+    handlFileRemoveOnClick, 
+    handleMovieSubmitOnClick,
+    handleMovieCancelOnClick
+}) => {
 
-    const INPUTS = [
-        {name: "movieName", label: "Name", placeholder: "Enter movie name"},
-        {name: "movieDuration", label: "Duration", placeholder: "Enter movie duration"},
-        {name: "movieGenre", label: "Genre", placeholder: "Enter movie genre"},
-        {name: "movieRelease", label: "Release", placeholder: "Enter movie release date"},
-        {name: "movieSynopsis", label: "Synopsis", placeholder: "Enter movie synopsis"},
-        {name: "movieUrl", label: "Trailer url", placeholder: "Enter movie trailer url"},
-        {name: "movieImdb", label: "Imdb", placeholder: "Enter movie imdb rate"},
-        {name: "movieRotten", label: "Rotten", placeholder: "Enter movie rotten rate"},
-        {name: "movieLanguage", label: "Language", placeholder: "Enter movie language"},
-        {name: "movieExperience", label: "Experience", placeholder: "Enter movie experience"},
-        {name: "movieShowType", label: "Show Type", placeholder: "Enter movie show type"},
-    ]
+    const renderMultiline = (name, label, placeholder) => {
+        return (
+            <div className = "input_wrapper">
+                <span className = "input_wrapper-label">{label}</span>
+                <MultilineInput 
+                    name = {name} 
+                    label = {placeholder} 
+                    handleOnChange = {handleInputOnChange}
+                    value = {values && values[name]}
+                />
+            </div>
+        )
+    }
+
+    const renderDropDown = (name, label, options) => {
+        return (
+            <div className = "input_wrapper">
+                <span className = "input_wrapper-label">{label}</span>
+                <DropDown 
+                    name = {name} 
+                    options = {options}
+                    handleOnChange = {handleInputOnChange}
+                    value = {values && values[name]}
+                />
+            </div>
+        )
+    }
 
     const renderInputField = (name, label, placeholder) => {
         return (
@@ -39,17 +64,55 @@ const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRem
         )
     }
 
+    const renderBtnFooter = () => {
+        return (
+            <Grid container spacing = {2}>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    <SecondaryButton label = "Cancel" onClick = {handleMovieCancelOnClick}/>
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    <CustomButton label = "Create" onClick = {handleMovieSubmitOnClick}/>
+                </Grid>
+            </Grid>
+        )
+    }
+
     const renderInputRoot = () => {
         return (
             <Grid container>
-                { INPUTS.map((item, idx) => {
-                    const {name, label, placeholder} = item
-                    return (
-                        <Grid item xs = {12} sm = {12} md = {4} key = {idx}>
-                            { renderInputField(name, label, placeholder) }
-                        </Grid>
-                    )
-                }) }
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    { renderInputField("movieName", "Name", "Enter movie name") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    { renderInputField("movieDuration", "Duration", "Enter movie duration") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    { renderInputField("movieRelease", "Release", "Enter movie release date") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    { renderDropDown("movieGenre", "Genre", values["genreOptions"]) }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    { renderDropDown("movieLanguage", "Language", values["languageOptions"]) }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    { renderDropDown("movieExperience", "Experience", values["experienceOptions"]) }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    { renderDropDown("movieShowType", "Show Type", values["showTypeOptions"]) }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {12}>
+                    { renderMultiline("movieSynopsis", "Synopsis", "Enter movie synopsis") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    { renderInputField("movieUrl", "Trailer url", "Enter movie trailer url") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    { renderInputField("movieImdb", "Imdb", "Enter movie imdb rate") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    { renderInputField("movieRotten", "Rotten", "Enter movie rotten rate") }
+                </Grid>
             </Grid>
         )
     }
@@ -74,6 +137,9 @@ const NewMovie = ({values, handleInputOnChange, handleFileOnChange, handlFileRem
             </Grid>
             <div className = 'input_root'>
                 { renderInputRoot() }
+            </div>
+            <div className = 'form-btn-footer'>
+                { renderBtnFooter() }
             </div>
         </div>
     )

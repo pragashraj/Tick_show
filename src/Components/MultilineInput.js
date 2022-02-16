@@ -31,7 +31,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }))
 
-const InputField = ({name, label, value, type, readOnly, handleOnChange}) => {
+const MultilineInput = ({name, label, value, type, readOnly, handleOnChange}) => {
     return (
         <SearchInput autoComplete = 'off'>
             <StyledInputBase 
@@ -45,9 +45,11 @@ const InputField = ({name, label, value, type, readOnly, handleOnChange}) => {
                 value = {value}
                 fullWidth
                 autoComplete = 'off'
+                multiline
+                rows = {4}
             />
         </SearchInput>
     )
 }
 
-export default InputField
+export default MultilineInput
