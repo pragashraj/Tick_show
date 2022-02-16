@@ -1,7 +1,7 @@
 import React from 'react'
 
 //Material-UI
-import { InputBase } from '@mui/material'
+import { Select, MenuItem } from '@mui/material'
 import { styled, alpha } from '@mui/material/styles'
 
 const SearchInput = styled('div')(({ theme }) => ({
@@ -19,7 +19,7 @@ const SearchInput = styled('div')(({ theme }) => ({
     },
 }))
   
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledSelectBase = styled(Select)(({ theme }) => ({
     color: '#fff',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1.5, 1.5, 1.5, 0),
@@ -31,23 +31,21 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }))
 
-const InputField = ({name, label, value, type, readOnly, handleOnChange}) => {
+const DropDown = ({name, options, value, readOnly, handleOnChange}) => {
     return (
         <SearchInput autoComplete = 'off'>
-            <StyledInputBase 
-                id = {`outlined-${label}`}
-                label = {label}
-                type = {type}
-                placeholder = {label}
+            <StyledSelectBase 
+                id = {`outlined-${name}`}
                 readOnly = {readOnly}
                 onChange = {handleOnChange}
                 name = {name}
                 value = {value}
                 fullWidth
-                autoComplete = 'off'
-            />
+            >
+            { options.map(i => <MenuItem value = {i} key = {i} sx = {{fontSize: "0.8rem"}}>{i}</MenuItem>) }
+            </StyledSelectBase>
         </SearchInput>
     )
 }
 
-export default InputField
+export default DropDown

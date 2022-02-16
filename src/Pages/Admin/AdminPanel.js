@@ -16,15 +16,19 @@ class AdminPanel extends Component {
         movieFileOnLoad: null,
         movieName: "",
         movieDuration: "",
-        movieGenre: "",
+        movieGenre: "Action",
         movieRelease: "",
         movieSynopsis: "",
         movieUrl: "",
         movieImdb: "",
         movieRotten: "",
-        movieLanguage: "",
-        movieExperience: "",
-        movieShowType: ""
+        movieLanguage: "English",
+        movieExperience: "2D",
+        movieShowType: "Now Showing",
+        genreOptions: ["Action"],
+        experienceOptions: ["2D", "3D"],
+        showTypeOptions: ["Now Showing"],
+        languageOptions: ["English"]
     }
 
     handleButtonOnClick = (label) => {
@@ -76,10 +80,8 @@ class AdminPanel extends Component {
     }
 
     renderNewMovie = () => {
-        const {movieName} = this.state
-        const values = {movieName}
         return <NewMovie 
-            values = {values} 
+            values = {this.state} 
             handleInputOnChange = {this.handleInputOnChange}
             handleFileOnChange = {this.handleFileOnChange}
             handlFileRemoveOnClick = {this.handlFileRemoveOnClick}
