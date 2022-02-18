@@ -88,8 +88,8 @@ class AdminPanel extends Component {
     }
 
     renderNewMovie = () => {
-        return <NewMovie 
-            values = {this.state} 
+        return <NewMovie
+            values = {this.state}
             handleInputOnChange = {this.handleInputOnChange}
             handleFileOnChange = {this.handleFileOnChange}
             handlFileRemoveOnClick = {this.handlFileRemoveOnClick}
@@ -113,8 +113,8 @@ class AdminPanel extends Component {
         const values = {mainTab, childTab}
         return (
             <div className = 'panel-side-bar'>
-                <SideBar 
-                    values = {values} 
+                <SideBar
+                    values = {values}
                     handleTabOnClick = {this.handleTabOnClick}
                     handleButtonOnClick = {this.handleButtonOnClick}
                 />
