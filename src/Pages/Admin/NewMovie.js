@@ -14,10 +14,10 @@ import './AdminPanel.css'
 import file from '../../assets/Icons/file.png'
 
 const NewMovie = ({
-    values, 
-    handleInputOnChange, 
-    handleFileOnChange, 
-    handlFileRemoveOnClick, 
+    values,
+    handleInputOnChange,
+    handleFileOnChange,
+    handlFileRemoveOnClick,
     handleMovieSubmitOnClick,
     handleMovieCancelOnClick
 }) => {
