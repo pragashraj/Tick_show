@@ -120,11 +120,11 @@ const NewMovie = ({
     const renderInputFile = () => {
         return (
             <Grid item xs = {12} sm = {12} md = {12}>
-                <InputFile 
-                    handleFileOnChange = {handleFileOnChange} 
+                <InputFile
+                    handleFileOnChange = {handleFileOnChange}
                     fileImage = {file}
                     fileRemoveOnClick = {handlFileRemoveOnClick}
-                    description = "Select a suitable cover image for the movie"                           
+                    description = "Select a suitable cover image for the movie"                          
                 />
             </Grid>
         )
