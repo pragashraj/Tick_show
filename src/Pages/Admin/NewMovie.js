@@ -26,9 +26,9 @@ const NewMovie = ({
         return (
             <div className = "input_wrapper">
                 <span className = "input_wrapper-label">{label}</span>
-                <MultilineInput 
-                    name = {name} 
-                    label = {placeholder} 
+                <MultilineInput
+                    name = {name}
+                    label = {placeholder}
                     handleOnChange = {handleInputOnChange}
                     value = {values && values[name]}
                 />
@@ -40,8 +40,8 @@ const NewMovie = ({
         return (
             <div className = "input_wrapper">
                 <span className = "input_wrapper-label">{label}</span>
-                <DropDown 
-                    name = {name} 
+                <DropDown
+                    name = {name}
                     options = {options}
                     handleOnChange = {handleInputOnChange}
                     value = {values && values[name]}
@@ -54,9 +54,9 @@ const NewMovie = ({
         return (
             <div className = "input_wrapper">
                 <span className = "input_wrapper-label">{label}</span>
-                <InputField 
-                    name = {name} 
-                    label = {placeholder} 
+                <InputField
+                    name = {name}
+                    label = {placeholder}
                     handleOnChange = {handleInputOnChange}
                     value = {values && values[name]}
                 />
