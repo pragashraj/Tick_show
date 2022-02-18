@@ -14,10 +14,10 @@ import './AdminPanel.css'
 import file from '../../assets/Icons/file.png'
 
 const NewMovie = ({
-    values, 
-    handleInputOnChange, 
-    handleFileOnChange, 
-    handlFileRemoveOnClick, 
+    values,
+    handleInputOnChange,
+    handleFileOnChange,
+    handlFileRemoveOnClick,
     handleMovieSubmitOnClick,
     handleMovieCancelOnClick
 }) => {
@@ -26,9 +26,9 @@ const NewMovie = ({
         return (
             <div className = "input_wrapper">
                 <span className = "input_wrapper-label">{label}</span>
-                <MultilineInput 
-                    name = {name} 
-                    label = {placeholder} 
+                <MultilineInput
+                    name = {name}
+                    label = {placeholder}
                     handleOnChange = {handleInputOnChange}
                     value = {values && values[name]}
                 />
@@ -40,8 +40,8 @@ const NewMovie = ({
         return (
             <div className = "input_wrapper">
                 <span className = "input_wrapper-label">{label}</span>
-                <DropDown 
-                    name = {name} 
+                <DropDown
+                    name = {name}
                     options = {options}
                     handleOnChange = {handleInputOnChange}
                     value = {values && values[name]}
@@ -54,9 +54,9 @@ const NewMovie = ({
         return (
             <div className = "input_wrapper">
                 <span className = "input_wrapper-label">{label}</span>
-                <InputField 
-                    name = {name} 
-                    label = {placeholder} 
+                <InputField
+                    name = {name}
+                    label = {placeholder}
                     handleOnChange = {handleInputOnChange}
                     value = {values && values[name]}
                 />
@@ -120,11 +120,11 @@ const NewMovie = ({
     const renderInputFile = () => {
         return (
             <Grid item xs = {12} sm = {12} md = {12}>
-                <InputFile 
-                    handleFileOnChange = {handleFileOnChange} 
+                <InputFile
+                    handleFileOnChange = {handleFileOnChange}
                     fileImage = {file}
                     fileRemoveOnClick = {handlFileRemoveOnClick}
-                    description = "Select a suitable cover image for the movie"                           
+                    description = "Select a suitable cover image for the movie"                          
                 />
             </Grid>
         )
