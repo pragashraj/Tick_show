@@ -13,19 +13,6 @@ class AdminPanel extends Component {
     state = {
         mainTab: "Movies",
         childTab: "New Movie",
-        movieFile: null,
-        movieFileOnLoad: null,
-        movieName: "",
-        movieDuration: "",
-        movieGenre: "Action",
-        movieRelease: "",
-        movieSynopsis: "",
-        movieUrl: "",
-        movieImdb: "",
-        movieRotten: "",
-        movieLanguage: "English",
-        movieExperience: "2D",
-        movieShowType: "Now Showing",
         genreOptions: ["Action"],
         experienceOptions: ["2D", "3D"],
         showTypeOptions: ["Now Showing"],
@@ -34,38 +21,12 @@ class AdminPanel extends Component {
         eventShowTypeOptions: []
     }
 
-    handleMovieSubmitOnClick = () => {
-
-    }
-
-    handleMovieCancelOnClick = () => {
-        
-    }
-
     handleButtonOnClick = (label) => {
         this.setState({ mainTab: label })
     }
 
     handleTabOnClick = (tab) => {
         this.setState({ childTab: tab })
-    }
-
-    handlFileRemoveOnClick = (onLoadState, fileState) => {
-        this.setState({ [onLoadState] : null, [fileState]: null })
-    }
-
-    handleFileOnChange = (onLoadState, fileState, file) => {
-        let reader = new FileReader()
-        reader.onloadend = () => {
-            this.setState({ [onLoadState] : reader.result })
-        }
-        reader.readAsDataURL(file)
-        this.setState({ [fileState]: file })
-    }
-
-    handleInputOnChange = (e) => {
-        const {name, value} = e.target
-        this.setState({[name]: value})
     }
 
     getContent = () => {
@@ -91,20 +52,13 @@ class AdminPanel extends Component {
 
     renderNewMovie = () => {
         return <NewMovie
-            values = {this.state}
-            handleInputOnChange = {this.handleInputOnChange}
-            handleFileOnChange = {this.handleFileOnChange}
-            handlFileRemoveOnClick = {this.handlFileRemoveOnClick}
-            handleMovieSubmitOnClick = {this.handleMovieSubmitOnClick}
-            handleMovieCancelOnClick = {this.handleMovieCancelOnClick}
+            options = {this.state}
         />
     }
 
     renderNewEvent = () => {
-        const {eventCategoryOptions, eventShowTypeOptions} = this.state
-        const options = {eventCategoryOptions, eventShowTypeOptions}
         return <NewEvent
-            options = {options}
+            options = {this.state}
         />
     }
 
