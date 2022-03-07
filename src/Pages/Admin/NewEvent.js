@@ -18,6 +18,7 @@ class NewEvent extends Component {
         name: "",
         address: "",
         contact: "",
+        location: "",
         price: "",
         category: "",
         showType: "",
@@ -118,6 +119,9 @@ class NewEvent extends Component {
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
                     { this.renderInputField("contact", "Contact", "Enter event contact no") }
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    { this.renderInputField("location", "Location", "Enter event location") }
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
                     { this.renderInputField("price", "Price", "Enter event ticket price") }
