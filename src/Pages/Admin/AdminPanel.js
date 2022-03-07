@@ -5,6 +5,7 @@ import {Grid} from '@mui/material'
 
 import SideBar from './SideBar'
 import NewMovie from './NewMovie'
+import NewEvent from './NewEvent'
 
 import './AdminPanel.css'
 
@@ -28,7 +29,9 @@ class AdminPanel extends Component {
         genreOptions: ["Action"],
         experienceOptions: ["2D", "3D"],
         showTypeOptions: ["Now Showing"],
-        languageOptions: ["English"]
+        languageOptions: ["English"],
+        eventCategoryOptions: [],
+        eventShowTypeOptions: []
     }
 
     handleMovieSubmitOnClick = () => {
@@ -67,15 +70,14 @@ class AdminPanel extends Component {
 
     getContent = () => {
         const {childTab, mainTab} = this.state
-        let title = ""
-        let child = null
+        let title = "", child = null
 
         switch (childTab) {
-            case "New Movie" : 
-                title = "Create a new movie"
+            case "New Movie" : title = "Create a new movie"
                 child = this.renderNewMovie()
                 break
             case "New Event" : title = "Create a new event"
+                child = this.renderNewEvent()
                 break
             case "New Theatre" : title = "Create a new theatre"
                 break
@@ -95,6 +97,14 @@ class AdminPanel extends Component {
             handlFileRemoveOnClick = {this.handlFileRemoveOnClick}
             handleMovieSubmitOnClick = {this.handleMovieSubmitOnClick}
             handleMovieCancelOnClick = {this.handleMovieCancelOnClick}
+        />
+    }
+
+    renderNewEvent = () => {
+        const {eventCategoryOptions, eventShowTypeOptions} = this.state
+        const options = {eventCategoryOptions, eventShowTypeOptions}
+        return <NewEvent
+            options = {options}
         />
     }
 
