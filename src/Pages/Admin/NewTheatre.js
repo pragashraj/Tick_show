@@ -5,24 +5,20 @@ import {Grid} from '@mui/material'
 
 import InputField from '../../Components/InputField'
 import InputFile from '../../Components/InputFile/InputFile'
-import DropDown from '../../Components/DropDown'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 
 import './AdminPanel.css'
 import file from '../../assets/Icons/file.png'
 
-class NewEvent extends Component {
+class NewTheatre extends Component {
     state = {
+        file: null,
+        fileOnLoad: null,
         name: "",
         address: "",
         contact: "",
         location: "",
-        price: "",
-        category: "",
-        showType: "",
-        file: null,
-        fileOnLoad: null,
     }
 
     handleSubmitOnClick = () => {
@@ -49,20 +45,6 @@ class NewEvent extends Component {
 
     handlFileRemoveOnClick = () => {
         this.setState({ fileOnLoad : null, file: null })
-    }
-
-    renderDropDown = (name, label, options) => {
-        return (
-            <div className = "input_wrapper">
-                <span className = "input_wrapper-label">{label}</span>
-                <DropDown
-                    name = {name}
-                    options = {options}
-                    handleOnChange = {this.handleInputOnChange}
-                    value = {this.state[name]}
-                />
-            </div>
-        )
     }
 
     renderInputField = (name, label, placeholder) => {
@@ -93,29 +75,19 @@ class NewEvent extends Component {
     }
 
     renderInputRoot = () => {
-        const options = this.props.options
         return (
             <Grid container>
-                <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("name", "Name", "Enter event name") }
-                </Grid>
-                <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("address", "Address", "Enter event address") }
-                </Grid>
-                <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("contact", "Contact", "Enter event contact no") }
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    { this.renderInputField("name", "Name", "Enter theatre name") }
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderInputField("location", "Location", "Enter event location") }
+                    { this.renderInputField("address", "Address", "Enter theatre address") }
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderInputField("price", "Price", "Enter event ticket price") }
+                    { this.renderInputField("contact", "Contact", "Enter theatre contact no") }
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("category", "Category", options["eventCategoryOptions"]) }
-                </Grid>
-                <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("showType", "Show Type", options["eventShowTypeOptions"]) }
+                    { this.renderInputField("location", "Location", "Enter theatre location") }
                 </Grid>
             </Grid>
         )
@@ -128,7 +100,7 @@ class NewEvent extends Component {
                     handleFileOnChange = {this.handleFileOnChange}
                     fileImage = {file}
                     fileRemoveOnClick = {this.handlFileRemoveOnClick}
-                    description = "Select a suitable cover image for the event"                         
+                    description = "Select a suitable cover image for the theatre"                          
                 />
             </Grid>
         )
@@ -151,4 +123,4 @@ class NewEvent extends Component {
     }
 }
 
-export default NewEvent
+export default NewTheatre
