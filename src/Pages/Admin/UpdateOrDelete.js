@@ -5,6 +5,7 @@ import {Grid} from '@mui/material'
 
 import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
+import CustomTable from '../../Components/Table/CustomTable'
 
 class UpdateOrDelete extends Component {
     state = {
@@ -33,6 +34,10 @@ class UpdateOrDelete extends Component {
         )
     }
 
+    renderTableContent = () => {
+        return <CustomTable/>
+    }
+
     renderSearch = () => {
         return (
             <Grid container spacing = {2}>
@@ -50,6 +55,7 @@ class UpdateOrDelete extends Component {
         return (
             <div className = 'new-movie-root'>
                 { this.renderSearch() }
+                { this.renderTableContent() }
             </div>
         )
     }
