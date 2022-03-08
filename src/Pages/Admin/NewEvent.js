@@ -6,7 +6,6 @@ import {Grid} from '@mui/material'
 import InputField from '../../Components/InputField'
 import InputFile from '../../Components/InputFile/InputFile'
 import DropDown from '../../Components/DropDown'
-import MultilineInput from '../../Components/MultilineInput'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 
@@ -50,20 +49,6 @@ class NewEvent extends Component {
 
     handlFileRemoveOnClick = () => {
         this.setState({ fileOnLoad : null, file: null })
-    }
-
-    renderMultiline = (name, label, placeholder) => {
-        return (
-            <div className = "input_wrapper">
-                <span className = "input_wrapper-label">{label}</span>
-                <MultilineInput
-                    name = {name}
-                    label = {placeholder}
-                    handleOnChange = {this.handleInputOnChange}
-                    value = {this.state[name]}
-                />
-            </div>
-        )
     }
 
     renderDropDown = (name, label, options) => {
