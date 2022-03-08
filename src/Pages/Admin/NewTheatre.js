@@ -5,8 +5,6 @@ import {Grid} from '@mui/material'
 
 import InputField from '../../Components/InputField'
 import InputFile from '../../Components/InputFile/InputFile'
-import DropDown from '../../Components/DropDown'
-import MultilineInput from '../../Components/MultilineInput'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 
@@ -79,13 +77,13 @@ class NewTheatre extends Component {
     renderInputRoot = () => {
         return (
             <Grid container>
-                <Grid item xs = {12} sm = {12} md = {4}>
+                <Grid item xs = {12} sm = {12} md = {6}>
                     { this.renderInputField("name", "Name", "Enter theatre name") }
                 </Grid>
-                <Grid item xs = {12} sm = {12} md = {4}>
+                <Grid item xs = {12} sm = {12} md = {6}>
                     { this.renderInputField("address", "Address", "Enter theatre address") }
                 </Grid>
-                <Grid item xs = {12} sm = {12} md = {4}>
+                <Grid item xs = {12} sm = {12} md = {6}>
                     { this.renderInputField("contact", "Contact", "Enter theatre contact no") }
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>

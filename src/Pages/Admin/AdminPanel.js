@@ -6,6 +6,7 @@ import {Grid} from '@mui/material'
 import SideBar from './SideBar'
 import NewMovie from './NewMovie'
 import NewEvent from './NewEvent'
+import NewTheatre from './NewTheatre'
 
 import './AdminPanel.css'
 
@@ -41,6 +42,7 @@ class AdminPanel extends Component {
                 child = this.renderNewEvent()
                 break
             case "New Theatre" : title = "Create a new theatre"
+                child = this.renderNewTheatre()
                 break
             case "Reply" : title = "Response to user's message"
                 break
@@ -60,6 +62,10 @@ class AdminPanel extends Component {
         return <NewEvent
             options = {this.state}
         />
+    }
+
+    renderNewTheatre = () => {
+        return <NewTheatre/>
     }
 
     renderContents = () => {
