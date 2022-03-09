@@ -9,6 +9,7 @@ import NewEvent from './NewEvent'
 import NewTheatre from './NewTheatre'
 import UpdateOrDelete from './UpdateOrDelete'
 import SnackBarAlert from '../../Components/SnackBarAlert'
+import Loading from '../../Components/Loading/Loading'
 
 import './AdminPanel.css'
 
@@ -25,6 +26,7 @@ class AdminPanel extends Component {
         message: "",
         severity: "",
         openSnackBar: false,
+        loading: false
     }
 
     handleButtonOnClick = (label) => {
@@ -142,6 +144,7 @@ class AdminPanel extends Component {
     }
 
     render() {
+        const {loading} = this.state
         return (
             <div className = 'admin-panel-root'>
                 <div className = 'parallax'>
@@ -149,6 +152,7 @@ class AdminPanel extends Component {
                     { this.renderMainContainer() }
                 </div>
                 { this.renderSnackBar() }
+                <Loading open = {loading}/>
             </div>
         )
     }
