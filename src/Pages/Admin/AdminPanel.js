@@ -8,6 +8,9 @@ import NewMovie from './NewMovie'
 import NewEvent from './NewEvent'
 import NewTheatre from './NewTheatre'
 import UpdateOrDelete from './UpdateOrDelete'
+import SnackBarAlert from '../../Components/SnackBarAlert'
+import Loading from '../../Components/Loading/Loading'
+import {createNewMovie} from '../../api/admin'
 
 import './AdminPanel.css'
 
@@ -20,7 +23,37 @@ class AdminPanel extends Component {
         showTypeOptions: ["Now Showing"],
         languageOptions: ["English"],
         eventCategoryOptions: [],
-        eventShowTypeOptions: []
+        eventShowTypeOptions: [],
+        message: "",
+        severity: "",
+        openSnackBar: false,
+        loading: false
+    }
+
+    createNewMovieApi = async(data, file) => {
+        try {
+            this.setState({loading: true})
+            const formData = this.createFormData(data, file)
+            const response = await createNewMovie(formData)
+            if (response.success) {
+                this.setState({ loading: false })
+                this.setSuccessSnackBar(response.message)
+            }
+            return response.success
+        } catch (e) {
+            this.setState({ loading: false })
+            return false
+        }
+    }
+
+    createFormData = (data, file) => {
+        let formData = new FormData()
+        let json = JSON.stringify(data)
+        let blob = new Blob([json], { type: 'application/json' })
+        formData.append("file", file)
+        formData.append("request", blob)
+
+        return formData
     }
 
     handleButtonOnClick = (label) => {
@@ -29,6 +62,22 @@ class AdminPanel extends Component {
 
     handleTabOnClick = (tab) => {
         this.setState({ childTab: tab })
+    }
+
+    handleSnackBarClose = () => {
+        this.setSnackBar("", null, false)
+    }
+
+    setSuccessSnackBar = (message) => {
+        this.setSnackBar("success", message, true)
+    }
+
+    setErrorSnackBar = (message) => {
+        this.setSnackBar("error", message, true)
+    }
+
+    setSnackBar = (severity, message, openSnackBar) => {
+        this.setState({ severity, message, openSnackBar })
     }
 
     getContent = () => {
@@ -54,9 +103,23 @@ class AdminPanel extends Component {
         return {title, child}
     }
 
+    renderSnackBar = () => {
+        const {openSnackBar, severity, message} = this.state
+        return (
+            <SnackBarAlert 
+                open = {openSnackBar} 
+                severity = {severity} 
+                message = {message} 
+                handleClose = {this.handleSnackBarClose}
+            />
+        )
+    }
+
     renderNewMovie = () => {
         return <NewMovie
             options = {this.state}
+            setErrorSnackBar = {this.setErrorSnackBar}
+            createNewMovieApi = {this.createNewMovieApi}
         />
     }
 
@@ -114,12 +177,15 @@ class AdminPanel extends Component {
     }
 
     render() {
+        const {loading} = this.state
         return (
             <div className = 'admin-panel-root'>
                 <div className = 'parallax'>
                     <div className = 'panel-top-padding'/>
                     { this.renderMainContainer() }
                 </div>
+                { this.renderSnackBar() }
+                <Loading open = {loading}/>
             </div>
         )
     }

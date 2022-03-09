@@ -31,11 +31,41 @@ class NewMovie extends Component {
     }
 
     handleSubmitOnClick = () => {
+        const {file, name, duration, genre, release, synopsis, url, imdb, rotten, language, experience, showType} = this.state
 
+        if (file && name && duration && release && synopsis && url && imdb && rotten) 
+        {
+            const data = {
+                name, duration, genre, release, synopsis, url, imdb, rotten, language, experience, showType
+            }
+
+            const success = this.props.createNewMovieApi(data, file)
+
+            if (success) {
+                this.handleCancelOnClick()
+            }
+        }
+        else {
+            this.props.setErrorSnackBar("Fields cannot be empty")
+        }
     }
 
     handleCancelOnClick = () => {
-        
+        this.setState({
+            file: null,
+            fileOnLoad: null,
+            name: "",
+            duration: "",
+            genre: "Action",
+            release: "",
+            synopsis: "",
+            url: "",
+            imdb: "",
+            rotten: "",
+            language: "English",
+            experience: "2D",
+            showType: "Now Showing"
+        })
     }
 
     handleInputOnChange = (e) => {
