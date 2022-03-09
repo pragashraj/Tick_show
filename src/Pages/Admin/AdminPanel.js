@@ -7,6 +7,7 @@ import SideBar from './SideBar'
 import NewMovie from './NewMovie'
 import NewEvent from './NewEvent'
 import NewTheatre from './NewTheatre'
+import UpdateOrDelete from './UpdateOrDelete'
 
 import './AdminPanel.css'
 
@@ -47,6 +48,7 @@ class AdminPanel extends Component {
             case "Reply" : title = "Response to user's message"
                 break
             default: title = `Update or Delete - ${mainTab}`
+                child = this.renderUpdateOrDelete()
         }
 
         return {title, child}
@@ -66,6 +68,10 @@ class AdminPanel extends Component {
 
     renderNewTheatre = () => {
         return <NewTheatre/>
+    }
+
+    renderUpdateOrDelete = () => {
+        return <UpdateOrDelete/>
     }
 
     renderContents = () => {
