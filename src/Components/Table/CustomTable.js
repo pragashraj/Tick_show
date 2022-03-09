@@ -1,33 +1,42 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 //Material-UI
-import {TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Checkbox, FormControlLabel} from '@mui/material'
+import {
+    TableContainer, 
+    Paper, 
+    Table, 
+    TableHead, 
+    TableRow, 
+    TableCell, 
+    TableBody, 
+    Checkbox, 
+    FormControlLabel
+} from '@mui/material'
 
-const CustomTable = () => {
-    const [selected, setSelected] = React.useState([])
+const CustomTable = ({tableHeaders, tableData}) => {
+    const [selected, setSelected] = useState([])
 
     const isSelected = (name) => selected.indexOf(name) !== -1
 
-    const tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
-    const tableData = [
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]}
-    ]
-
-    const handleClick = (event, name) => {
+    const handleClick = (e, name) => {
         const selectedIndex = selected.indexOf(name)
         let newSelected = []
     
-        if (selectedIndex === -1) {
+        if (selectedIndex === -1) 
+        {
             newSelected = newSelected.concat(selected, name)
-        } else if (selectedIndex === 0) {
+        } 
+        else if (selectedIndex === 0) 
+        {
             newSelected = newSelected.concat(selected.slice(1))
-        } else if (selectedIndex === selected.length - 1) {
+        } 
+        else if (selectedIndex === selected.length - 1) 
+        {
             newSelected = newSelected.concat(selected.slice(0, -1))
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            )
+        } 
+        else if (selectedIndex > 0) 
+        {
+            newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1))
         }
     
         setSelected(newSelected)

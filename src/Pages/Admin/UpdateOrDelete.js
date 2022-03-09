@@ -12,6 +12,11 @@ class UpdateOrDelete extends Component {
         searchValue: ""
     }
 
+    tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
+    tableData = [
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]}
+    ]
+
     handleSearchOnClick = () => {
         
     }
@@ -35,7 +40,10 @@ class UpdateOrDelete extends Component {
     }
 
     renderTableContent = () => {
-        return <CustomTable/>
+        return <CustomTable
+            tableHeaders = {this.tableHeaders}
+            tableData = {this.tableData}
+        />
     }
 
     renderSearch = () => {
