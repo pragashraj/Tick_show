@@ -1,12 +1,15 @@
 import React from 'react'
 
 //Material-UI
-import {TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Checkbox} from '@mui/material'
+import {TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody, Checkbox, FormControlLabel} from '@mui/material'
 
 const CustomTable = () => {
     const [selected, setSelected] = React.useState([])
 
     const isSelected = (name) => selected.indexOf(name) !== -1
+
+    const tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
+    const tableData = ["1", "2", "3"]
 
     const handleClick = (event, name) => {
         const selectedIndex = selected.indexOf(name)
@@ -40,9 +43,8 @@ const CustomTable = () => {
                 key = {idx}
                 selected = {isItemSelected}
             >
-                <TableCell padding = "checkbox" sx = {{display: "flex", alignItems: "center"}}>
-                    <Checkbox color = "primary" checked = {isItemSelected}/>
-                    name
+                <TableCell padding = "checkbox">
+                    <FormControlLabel control = {<Checkbox color='primary' checked = {isItemSelected}/>} label="Label"/>
                 </TableCell>
                 <TableCell align = "right">calories</TableCell>
                 <TableCell align = "right">fat</TableCell>
@@ -55,9 +57,7 @@ const CustomTable = () => {
     const renderTableBody = () => {
         return (
             <TableBody>
-                { ["1", "2"].map((row, index) => {
-                    return renderTableRow(row, index)
-                }) }
+                { tableData.map((row, index) => renderTableRow(row, index)) }
             </TableBody>
         )
     }
@@ -66,18 +66,22 @@ const CustomTable = () => {
         return (
             <TableHead>
                 <TableRow>
-                    <TableCell>Dessert</TableCell>
-                    <TableCell align = "right">Calories</TableCell>
-                    <TableCell align = "right">Fat&nbsp;(g)</TableCell>
-                    <TableCell align = "right">Carbs&nbsp;(g)</TableCell>
-                    <TableCell align = "right">Protein&nbsp;(g)</TableCell>
+                    { tableHeaders.map((head, idx) => {
+                        return <TableCell 
+                            align = {idx === 0 ? "left" : "right"}
+                            sx = {{color: "#fff", fontWeight: "bold"}}
+                            key = {idx}
+                        >
+                        {head}
+                        </TableCell>
+                    }) }
                 </TableRow>
             </TableHead>
         )
     }
 
     return (
-        <TableContainer component = {Paper}>
+        <TableContainer component = {Paper} sx = {{background: "transparent"}}>
             <Table sx = {{ minWidth: 700 }} aria-label = "customized table">
                 { renderTableHead() }
                 { renderTableBody() }
