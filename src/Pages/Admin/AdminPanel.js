@@ -8,6 +8,7 @@ import NewMovie from './NewMovie'
 import NewEvent from './NewEvent'
 import NewTheatre from './NewTheatre'
 import UpdateOrDelete from './UpdateOrDelete'
+import SnackBarAlert from '../../Components/SnackBarAlert'
 
 import './AdminPanel.css'
 
@@ -20,7 +21,10 @@ class AdminPanel extends Component {
         showTypeOptions: ["Now Showing"],
         languageOptions: ["English"],
         eventCategoryOptions: [],
-        eventShowTypeOptions: []
+        eventShowTypeOptions: [],
+        message: "",
+        severity: "",
+        openSnackBar: false,
     }
 
     handleButtonOnClick = (label) => {
@@ -29,6 +33,18 @@ class AdminPanel extends Component {
 
     handleTabOnClick = (tab) => {
         this.setState({ childTab: tab })
+    }
+
+    handleSnackBarClose = () => {
+        this.setSnackBar("", null, false)
+    }
+
+    setErrorSnackBar = (message) => {
+        this.setSnackBar("error", message, true)
+    }
+
+    setSnackBar = (severity, message, openSnackBar) => {
+        this.setState({ severity, message, openSnackBar })
     }
 
     getContent = () => {
@@ -52,6 +68,18 @@ class AdminPanel extends Component {
         }
 
         return {title, child}
+    }
+
+    renderSnackBar = () => {
+        const {openSnackBar, severity, message} = this.state
+        return (
+            <SnackBarAlert 
+                open = {openSnackBar} 
+                severity = {severity} 
+                message = {message} 
+                handleClose = {this.handleSnackBarClose}
+            />
+        )
     }
 
     renderNewMovie = () => {
@@ -120,6 +148,7 @@ class AdminPanel extends Component {
                     <div className = 'panel-top-padding'/>
                     { this.renderMainContainer() }
                 </div>
+                { this.renderSnackBar() }
             </div>
         )
     }
