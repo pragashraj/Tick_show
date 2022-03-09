@@ -9,7 +9,9 @@ const CustomTable = () => {
     const isSelected = (name) => selected.indexOf(name) !== -1
 
     const tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
-    const tableData = ["1", "2", "3"]
+    const tableData = [
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]}
+    ]
 
     const handleClick = (event, name) => {
         const selectedIndex = selected.indexOf(name)
@@ -29,27 +31,37 @@ const CustomTable = () => {
         }
     
         setSelected(newSelected)
-      }
+    }
+
+    const renderCheckBox = (isItemSelected, label) => (
+        <FormControlLabel 
+            control = {<Checkbox color = 'primary' checked = {isItemSelected}/>} 
+            label = {label}
+            sx = {{color: "rgba(255, 255, 255, 0.7)"}}
+        />
+    )
+
+    const renderRowData = (val, idx) => (
+        <TableCell align = "right" key = {idx} sx = {{color: "rgba(255, 255, 255, 0.7)"}}>
+            {val}
+        </TableCell>
+    )
 
     const renderTableRow = (row, idx) => {
-        const isItemSelected = isSelected(row)
+        const {label, rowValues} = row
+        const isItemSelected = isSelected(label)
         return (
             <TableRow
                 hover
-                onClick = {(event) => handleClick(event, row)}
+                onClick = {(e) => handleClick(e, label)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
                 key = {idx}
                 selected = {isItemSelected}
             >
-                <TableCell padding = "checkbox">
-                    <FormControlLabel control = {<Checkbox color='primary' checked = {isItemSelected}/>} label="Label"/>
-                </TableCell>
-                <TableCell align = "right">calories</TableCell>
-                <TableCell align = "right">fat</TableCell>
-                <TableCell align = "right">carbs</TableCell>
-                <TableCell align = "right">protein</TableCell>
+                <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, label) }</TableCell>
+                { rowValues.map((val, idx) => renderRowData(val, idx)) }
             </TableRow>
         )
     }
@@ -57,7 +69,7 @@ const CustomTable = () => {
     const renderTableBody = () => {
         return (
             <TableBody>
-                { tableData.map((row, index) => renderTableRow(row, index)) }
+                { tableData.map((row, idx) => renderTableRow(row, idx)) }
             </TableBody>
         )
     }
