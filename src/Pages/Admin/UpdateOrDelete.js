@@ -16,7 +16,13 @@ class UpdateOrDelete extends Component {
     }
 
     tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
-    tableData = [ {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]} ]
+    tableData = [ 
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+    ]
 
     handleEditOnClick = () => {
 
