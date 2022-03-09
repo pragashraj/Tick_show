@@ -6,6 +6,9 @@ import {Grid} from '@mui/material'
 import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
+import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
+
+import './AdminPanel.css'
 
 class UpdateOrDelete extends Component {
     state = {
@@ -13,12 +16,26 @@ class UpdateOrDelete extends Component {
     }
 
     tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
-    tableData = [
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]}
-    ]
+    tableData = [ {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]} ]
+
+    handleEditOnClick = () => {
+
+    }
+
+    handleUpdateOnClick = () => {
+
+    }
+
+    handleDeleteOnClick = () => {
+
+    }
 
     handleSearchOnClick = () => {
         
+    }
+
+    handleCancelOnClick = () => {
+
     }
 
     handleInputOnChange = (e) => {
@@ -26,7 +43,7 @@ class UpdateOrDelete extends Component {
         this.setState({[name]: value})
     }
 
-    renderInputField = (name, label, placeholder) => {
+    renderInputField = (name, placeholder) => {
         return (
             <div className = "input_wrapper">
                 <InputField
@@ -39,18 +56,41 @@ class UpdateOrDelete extends Component {
         )
     }
 
+    renderBtnFooter = () => {
+        return (
+            <Grid container spacing = {2}>
+                <Grid item xs = {12} sm = {12} md = {3}>
+                    <SecondaryButton label = "Cancel" onClick = {this.handleCancelOnClick}/>
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {3}>
+                    <CustomButton label = "Edit" disabled = {true} onClick = {this.handleEditOnClick}/>
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {3}>
+                    <CustomButton label = "Update" onClick = {this.handleUpdateOnClick}/>
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {3}>
+                    <CustomButton label = "Delete" onClick = {this.handleDeleteOnClick}/>
+                </Grid>
+            </Grid>
+        )
+    }
+
     renderTableContent = () => {
-        return <CustomTable
-            tableHeaders = {this.tableHeaders}
-            tableData = {this.tableData}
-        />
+        return (
+            <div className = 'table_root'>
+                <CustomTable
+                    tableHeaders = {this.tableHeaders}
+                    tableData = {this.tableData}
+                />
+            </div>
+        )
     }
 
     renderSearch = () => {
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {6} sm = {6} md = {9}>
-                    { this.renderInputField("searchValue", "Movie name", "Enter movie name") }
+                    { this.renderInputField("searchValue", "Enter movie name") }
                 </Grid>
                 <Grid item xs = {6} sm = {6} md = {3}>
                     <CustomButton label = "Search" onClick = {this.handleSearchOnClick}/>
@@ -64,6 +104,7 @@ class UpdateOrDelete extends Component {
             <div className = 'new-movie-root'>
                 { this.renderSearch() }
                 { this.renderTableContent() }
+                { this.renderBtnFooter() }
             </div>
         )
     }

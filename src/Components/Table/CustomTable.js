@@ -56,6 +56,12 @@ const CustomTable = ({tableHeaders, tableData}) => {
         </TableCell>
     )
 
+    const renderTableHeadCell = (head, idx) => (
+        <TableCell align = {idx === 0 ? "left" : "right"} sx = {{color: "#fff", fontWeight: "bold"}} key = {idx}>
+            {head}
+        </TableCell>
+    )
+
     const renderTableRow = (row, idx) => {
         const {label, rowValues} = row
         const isItemSelected = isSelected(label)
@@ -85,17 +91,9 @@ const CustomTable = ({tableHeaders, tableData}) => {
 
     const renderTableHead = () => {
         return (
-            <TableHead>
+            <TableHead sx = {{backgroundColor: "rgba(0, 0, 0, 0.6)"}}>
                 <TableRow>
-                    { tableHeaders.map((head, idx) => {
-                        return <TableCell 
-                            align = {idx === 0 ? "left" : "right"}
-                            sx = {{color: "#fff", fontWeight: "bold"}}
-                            key = {idx}
-                        >
-                        {head}
-                        </TableCell>
-                    }) }
+                    { tableHeaders.map((head, idx) => renderTableHeadCell(head, idx)) }
                 </TableRow>
             </TableHead>
         )
