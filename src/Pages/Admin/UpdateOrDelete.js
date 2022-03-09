@@ -69,7 +69,7 @@ class UpdateOrDelete extends Component {
                     <SecondaryButton label = "Cancel" onClick = {this.handleCancelOnClick}/>
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {3}>
-                    <CustomButton label = "Edit" disabled = {true} onClick = {this.handleEditOnClick}/>
+                    <CustomButton label = "Edit" onClick = {this.handleEditOnClick}/>
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {3}>
                     <CustomButton label = "Update" onClick = {this.handleUpdateOnClick}/>
@@ -99,7 +99,7 @@ class UpdateOrDelete extends Component {
                     { this.renderInputField("searchValue", "Enter movie name") }
                 </Grid>
                 <Grid item xs = {6} sm = {6} md = {3}>
-                    <CustomButton label = "Search" onClick = {this.handleSearchOnClick}/>
+                    <SecondaryButton label = "Search" onClick = {this.handleSearchOnClick}/>
                 </Grid>
             </Grid>
         )
