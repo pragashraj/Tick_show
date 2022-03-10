@@ -18,15 +18,36 @@ class NewTheatre extends Component {
         name: "",
         address: "",
         contact: "",
-        location: "",
+        location: ""
     }
 
     handleSubmitOnClick = () => {
+        const {file, name, address, contact, location} = this.state
 
+        if (file && name && address && contact && location) 
+        {
+            const data = { name, address, contact, location }
+
+            const success = this.props.createNewTheatreApi(data, file)
+
+            if (success) {
+                this.handleCancelOnClick()
+            }
+        }
+        else {
+            this.props.setErrorSnackBar("Fields cannot be empty")
+        }
     }
 
     handleCancelOnClick = () => {
-        
+        this.setState({
+            file: null,
+            fileOnLoad: null,
+            name: "",
+            address: "",
+            contact: "",
+            location: ""
+        })
     }
 
     handleInputOnChange = (e) => {
