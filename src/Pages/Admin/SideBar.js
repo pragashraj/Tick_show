@@ -20,15 +20,8 @@ const useStyles = makeStyles({
     }
 })
 
-const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
+const SideBar = ({tabs, values, handleTabOnClick, handleButtonOnClick}) => {
     const classes = useStyles()
-
-    const TABS = [
-        {label: "Movies", child: ["New Movie", "Update / Delete"]},
-        {label: "Events", child: ["New Event", "Update / Delete"]},
-        {label: "Theatres", child: ["New Theatre", "Update / Delete"]},
-        {label: "Messages", child: ["Reply", "Update / Delete"]}
-    ]
 
     const ICON = {
         "Movies": <TheaterComedy className = {classes.icon}/>,
@@ -81,7 +74,7 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
     return (
         <div className = 'sidebar-root'>
             <List sx = {{background: "transparent"}}>
-                { TABS.map(i => renderListItem(i)) }
+                { tabs.map(i => renderListItem(i)) }
             </List>
         </div>
     )

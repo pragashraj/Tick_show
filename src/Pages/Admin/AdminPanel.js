@@ -37,6 +37,21 @@ class AdminPanel extends Component {
         loading: false
     }
 
+    tabs = [
+        {label: "Movies", child: ["New Movie", "Update / Delete"]},
+        {label: "Events", child: ["New Event", "Update / Delete"]},
+        {label: "Theatres", child: ["New Theatre", "Update / Delete"]},
+        {label: "Messages", child: ["Reply", "Update / Delete"]}
+    ]
+
+    titles = {
+        "New Movie": "Create a new movie",
+        "New Event": "Create a new event",
+        "New Theatre": "Create a new theatre",
+        "Reply": "Response to user's message",
+        "Update / Delete": 'Update or Delete'
+    }
+
     tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
     tableData = [ 
         {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
@@ -156,26 +171,22 @@ class AdminPanel extends Component {
     }
 
     getContent = () => {
-        const {childTab, mainTab} = this.state
-        let title = "", child = null
+        const {childTab} = this.state
+        let child = null
 
         switch (childTab) {
-            case "New Movie" : title = "Create a new movie"
-                child = this.renderNewMovie()
+            case "New Movie" : child = this.renderNewMovie()
                 break
-            case "New Event" : title = "Create a new event"
-                child = this.renderNewEvent()
+            case "New Event" : child = this.renderNewEvent()
                 break
-            case "New Theatre" : title = "Create a new theatre"
-                child = this.renderNewTheatre()
+            case "New Theatre" : child = this.renderNewTheatre()
                 break
-            case "Reply" : title = "Response to user's message"
+            case "Reply" : child = null
                 break
-            default: title = `Update or Delete - ${mainTab}`
-                child = this.renderUpdateOrDelete()
+            default: child = this.renderUpdateOrDelete()
         }
 
-        return {title, child}
+        return child
     }
 
     renderSnackBar = () => {
@@ -223,10 +234,12 @@ class AdminPanel extends Component {
     }
 
     renderContents = () => {
-        const {title, child} = this.getContent()
+        const {childTab, mainTab} = this.state
+        const title = this.titles[childTab]
+        const child = this.getContent()
         return (
             <div className = 'panel-contents-root'>
-                <h2>{title}</h2>
+                <h2>{childTab === "Update / Delete" ? `${title} - ${mainTab}` : title}</h2>
                 <div className = 'panel-content-container'>{child}</div>
             </div>
         )
@@ -238,6 +251,7 @@ class AdminPanel extends Component {
         return (
             <div className = 'panel-side-bar'>
                 <SideBar
+                    tabs = {this.tabs}
                     values = {values}
                     handleTabOnClick = {this.handleTabOnClick}
                     handleButtonOnClick = {this.handleButtonOnClick}
