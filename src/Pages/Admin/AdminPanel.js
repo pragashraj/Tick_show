@@ -10,7 +10,14 @@ import NewTheatre from './NewTheatre'
 import UpdateOrDelete from './UpdateOrDelete'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
-import {createNewMovie, createNewEvent, createNewTheatre} from '../../api/admin'
+import {
+    createNewMovie, 
+    createNewEvent, 
+    createNewTheatre,
+    searchMovie,
+    searchEvent,
+    searchTheatre
+} from '../../api/admin'
 
 import './AdminPanel.css'
 
@@ -30,15 +37,48 @@ class AdminPanel extends Component {
         loading: false
     }
 
+    tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
+    tableData = [ 
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+    ]
+
+    searchApi = async(searchValue) => {
+        try {
+            this.setState({loading: true})
+            let response = null
+            const {mainTab} = this.state
+            if (mainTab === "Movies") {
+                response = await searchMovie(searchValue)
+            }
+            else if (mainTab === "Events") {
+                response = await searchEvent(searchValue)
+            }
+            else if (mainTab === "Theatres") {
+                response = await searchTheatre(searchValue)
+            }
+            if (response) {
+                
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+        }
+    }
+
     createNewMovieApi = async(data, file) => {
         try {
             this.setState({loading: true})
             const formData = this.createFormData(data, file)
             const response = await createNewMovie(formData)
             if(response) {
-                this.setState({ loading: false })
                 this.setSuccessSnackBar(response.message)
             }
+            this.setState({ loading: false })
             return true
         } catch (e) {
             this.setState({ loading: false })
@@ -53,9 +93,9 @@ class AdminPanel extends Component {
             const formData = this.createFormData(data, file)
             const response = await createNewEvent(formData)
             if(response) {
-                this.setState({ loading: false })
                 this.setSuccessSnackBar(response.message)
             }
+            this.setState({ loading: false })
             return true
         } catch (e) {
             this.setState({ loading: false })
@@ -70,9 +110,9 @@ class AdminPanel extends Component {
             const formData = this.createFormData(data, file)
             const response = await createNewTheatre(formData)
             if(response) {
-                this.setState({ loading: false })
                 this.setSuccessSnackBar(response.message)
             }
+            this.setState({ loading: false })
             return true
         } catch (e) {
             this.setState({ loading: false })
@@ -174,7 +214,12 @@ class AdminPanel extends Component {
     }
 
     renderUpdateOrDelete = () => {
-        return <UpdateOrDelete/>
+        return <UpdateOrDelete
+            setErrorSnackBar = {this.setErrorSnackBar}
+            searchApi = {this.searchApi}
+            tableHeaders = {this.tableHeaders}
+            tableData = {this.tableData}
+        />
     }
 
     renderContents = () => {
