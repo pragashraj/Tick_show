@@ -26,11 +26,37 @@ class NewEvent extends Component {
     }
 
     handleSubmitOnClick = () => {
+        const {file, name, address, contact, location, price, category, showType} = this.state
 
+        if (file && name && address && contact && location && price && category) 
+        {
+            const data = {
+                name, address, contact, location, price, category, showType
+            }
+
+            const success = this.props.createNewEventApi(data, file)
+
+            if (success) {
+                this.handleCancelOnClick()
+            }
+        }
+        else {
+            this.props.setErrorSnackBar("Fields cannot be empty")
+        }
     }
 
     handleCancelOnClick = () => {
-        
+        this.setState({
+            name: "",
+            address: "",
+            contact: "",
+            location: "",
+            price: "",
+            category: "",
+            showType: "",
+            file: null,
+            fileOnLoad: null
+        })
     }
 
     handleInputOnChange = (e) => {

@@ -10,7 +10,7 @@ import NewTheatre from './NewTheatre'
 import UpdateOrDelete from './UpdateOrDelete'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
-import {createNewMovie} from '../../api/admin'
+import {createNewMovie, createNewEvent, createNewTheatre} from '../../api/admin'
 
 import './AdminPanel.css'
 
@@ -35,13 +35,48 @@ class AdminPanel extends Component {
             this.setState({loading: true})
             const formData = this.createFormData(data, file)
             const response = await createNewMovie(formData)
-            if (response.success) {
+            if(response) {
                 this.setState({ loading: false })
                 this.setSuccessSnackBar(response.message)
             }
-            return response.success
+            return true
         } catch (e) {
             this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+            return false
+        }
+    }
+
+    createNewEventApi = async(data, file) => {
+        try {
+            this.setState({loading: true})
+            const formData = this.createFormData(data, file)
+            const response = await createNewEvent(formData)
+            if(response) {
+                this.setState({ loading: false })
+                this.setSuccessSnackBar(response.message)
+            }
+            return true
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+            return false
+        }
+    }
+
+    createNewTheatreApi = async(data, file) => {
+        try {
+            this.setState({loading: true})
+            const formData = this.createFormData(data, file)
+            const response = await createNewTheatre(formData)
+            if(response) {
+                this.setState({ loading: false })
+                this.setSuccessSnackBar(response.message)
+            }
+            return true
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
             return false
         }
     }
@@ -126,11 +161,16 @@ class AdminPanel extends Component {
     renderNewEvent = () => {
         return <NewEvent
             options = {this.state}
+            setErrorSnackBar = {this.setErrorSnackBar}
+            createNewEventApi = {this.createNewEventApi}
         />
     }
 
     renderNewTheatre = () => {
-        return <NewTheatre/>
+        return <NewTheatre
+            setErrorSnackBar = {this.setErrorSnackBar}
+            createNewEventApi = {this.createNewTheatreApi}
+        />
     }
 
     renderUpdateOrDelete = () => {
