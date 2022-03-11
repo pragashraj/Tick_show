@@ -214,10 +214,10 @@ class AdminPanel extends Component {
 
     renderUpdateOrDelete = () => {
         return <UpdateOrDelete
-            setErrorSnackBar = {this.setErrorSnackBar}
             searchApi = {this.searchApi}
             tableHeaders = {this.tableHeaders}
             tableData = {this.tableData}
+            setErrorSnackBar = {this.setErrorSnackBar}
         />
     }
 

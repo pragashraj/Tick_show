@@ -13,19 +13,41 @@ import './AdminPanel.css'
 class UpdateOrDelete extends Component {
     state = {
         searchValue: "",
+        selectedIndexes: [],
         selectedRows: []
     }
 
     handleEditOnClick = () => {
-
+        const {selectedRows} = this.state
+        if (selectedRows.length === 1) {
+            this.props.editItemApi()
+        }
+        else if (selectedRows.length > 1) {
+            this.props.setErrorSnackBar("Please select only one item to edit")
+        }
+        else {
+            this.props.setErrorSnackBar("Please select any item first!")
+        }
     }
 
     handleUpdateOnClick = () => {
-
+        const {selectedRows} = this.state
+        if (selectedRows.length > 0) {
+            this.props.updateItemApi()
+        }
+        else {
+            this.props.setErrorSnackBar("Please select atleast one item first!")
+        }
     }
 
     handleDeleteOnClick = () => {
-
+        const {selectedRows} = this.state
+        if (selectedRows.length > 0) {
+            this.props.deleteItemApi()
+        }
+        else {
+            this.props.setErrorSnackBar("Please select atleast one item first!")
+        }
     }
 
     handleSearchOnClick = () => {
@@ -39,12 +61,11 @@ class UpdateOrDelete extends Component {
     }
 
     handleCancelOnClick = () => {
-
+        this.setState({selectedRows: [], selectedIndexes: []})
     }
 
-    handleRowDataOnClick = (selectedRows) => {
-        this.setState({selectedRows})
-        console.log(selectedRows)
+    handleRowDataOnClick = (selectedRows, selectedIndexes) => {
+        this.setState({selectedRows, selectedIndexes})
     }
 
     handleInputOnChange = (e) => {
@@ -90,6 +111,7 @@ class UpdateOrDelete extends Component {
                 <CustomTable
                     tableHeaders = {this.props.tableHeaders}
                     tableData = {this.props.tableData}
+                    selectedIndexes = {this.state.selectedIndexes}
                     handleRowDataOnClick = {this.handleRowDataOnClick}
                 />
             </div>
