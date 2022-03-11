@@ -13,7 +13,7 @@ import {
     FormControlLabel
 } from '@mui/material'
 
-const CustomTable = ({tableHeaders, tableData}) => {
+const CustomTable = ({tableHeaders, tableData, handleRowDataOnClick}) => {
     const [selected, setSelected] = useState([])
 
     const isSelected = (name) => selected.indexOf(name) !== -1
@@ -40,6 +40,17 @@ const CustomTable = ({tableHeaders, tableData}) => {
         }
     
         setSelected(newSelected)
+
+        let selectedRows = []
+        newSelected.forEach(element => {
+            tableData.forEach(data => {
+                if (data.label === element) {
+                    selectedRows.push(data)
+                }
+            })
+        })
+
+        handleRowDataOnClick(selectedRows)
     }
 
     const renderCheckBox = (isItemSelected, label) => (

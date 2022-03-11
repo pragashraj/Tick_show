@@ -12,7 +12,8 @@ import './AdminPanel.css'
 
 class UpdateOrDelete extends Component {
     state = {
-        searchValue: ""
+        searchValue: "",
+        selectedRows: []
     }
 
     handleEditOnClick = () => {
@@ -39,6 +40,11 @@ class UpdateOrDelete extends Component {
 
     handleCancelOnClick = () => {
 
+    }
+
+    handleRowDataOnClick = (selectedRows) => {
+        this.setState({selectedRows})
+        console.log(selectedRows)
     }
 
     handleInputOnChange = (e) => {
@@ -84,6 +90,7 @@ class UpdateOrDelete extends Component {
                 <CustomTable
                     tableHeaders = {this.props.tableHeaders}
                     tableData = {this.props.tableData}
+                    handleRowDataOnClick = {this.handleRowDataOnClick}
                 />
             </div>
         )
@@ -93,7 +100,7 @@ class UpdateOrDelete extends Component {
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {6} sm = {6} md = {9}>
-                    { this.renderInputField("searchValue", "Enter movie name") }
+                    { this.renderInputField("searchValue", "Enter name") }
                 </Grid>
                 <Grid item xs = {6} sm = {6} md = {3}>
                     <SecondaryButton label = "Search" onClick = {this.handleSearchOnClick}/>

@@ -42,11 +42,11 @@ class AdminPanel extends Component {
 
     tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
     tableData = [ 
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name1", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name2", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name3", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name4", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name5", rowValues: ["col1", "col2", "col3", "col4"]},
     ]
 
     searchApi = async(searchValue) => {
