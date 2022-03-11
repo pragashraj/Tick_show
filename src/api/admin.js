@@ -33,3 +33,18 @@ export const getMessagesByReplied = (isReplied, page, token) => {
     const endpoint =  getEndpointWithPrefix(`get-messages-by-isReplied?isReplied=${isReplied}&page=${page}`)
     return GET(endpoint, token)
 }
+
+export const searchMovie = (value, token) => {
+    const endpoint =  getEndpointWithPrefix(`search-movie/${value}`)
+    return GET(endpoint, token)
+}
+
+export const searchEvent = (value, token) => {
+    const endpoint =  getEndpointWithPrefix(`search-event/${value}`)
+    return GET(endpoint, token)
+}
+
+export const searchTheatre = (value, token) => {
+    const endpoint =  getEndpointWithPrefix(`search-theatre/${value}`)
+    return GET(endpoint, token)
+}

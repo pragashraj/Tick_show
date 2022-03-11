@@ -10,7 +10,15 @@ import NewTheatre from './NewTheatre'
 import UpdateOrDelete from './UpdateOrDelete'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
-import {createNewMovie, createNewEvent, createNewTheatre} from '../../api/admin'
+import {
+    createNewMovie, 
+    createNewEvent, 
+    createNewTheatre,
+    searchMovie,
+    searchEvent,
+    searchTheatre
+} from '../../api/admin'
+import Panel from './Panel.json'
 
 import './AdminPanel.css'
 
@@ -18,6 +26,8 @@ class AdminPanel extends Component {
     state = {
         mainTab: "Movies",
         childTab: "New Movie",
+        title: "Create a new movie",
+        selectedMain: "Movies",
         genreOptions: ["Action"],
         experienceOptions: ["2D", "3D"],
         showTypeOptions: ["Now Showing"],
@@ -30,15 +40,48 @@ class AdminPanel extends Component {
         loading: false
     }
 
+    tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
+    tableData = [ 
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+    ]
+
+    searchApi = async(searchValue) => {
+        try {
+            this.setState({loading: true})
+            let response = null
+            const {mainTab} = this.state
+            if (mainTab === "Movies") {
+                response = await searchMovie(searchValue)
+            }
+            else if (mainTab === "Events") {
+                response = await searchEvent(searchValue)
+            }
+            else if (mainTab === "Theatres") {
+                response = await searchTheatre(searchValue)
+            }
+            if (response) {
+                
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+        }
+    }
+
     createNewMovieApi = async(data, file) => {
         try {
             this.setState({loading: true})
             const formData = this.createFormData(data, file)
             const response = await createNewMovie(formData)
             if(response) {
-                this.setState({ loading: false })
                 this.setSuccessSnackBar(response.message)
             }
+            this.setState({ loading: false })
             return true
         } catch (e) {
             this.setState({ loading: false })
@@ -53,9 +96,9 @@ class AdminPanel extends Component {
             const formData = this.createFormData(data, file)
             const response = await createNewEvent(formData)
             if(response) {
-                this.setState({ loading: false })
                 this.setSuccessSnackBar(response.message)
             }
+            this.setState({ loading: false })
             return true
         } catch (e) {
             this.setState({ loading: false })
@@ -70,9 +113,9 @@ class AdminPanel extends Component {
             const formData = this.createFormData(data, file)
             const response = await createNewTheatre(formData)
             if(response) {
-                this.setState({ loading: false })
                 this.setSuccessSnackBar(response.message)
             }
+            this.setState({ loading: false })
             return true
         } catch (e) {
             this.setState({ loading: false })
@@ -95,8 +138,8 @@ class AdminPanel extends Component {
         this.setState({ mainTab: label })
     }
 
-    handleTabOnClick = (tab) => {
-        this.setState({ childTab: tab })
+    handleTabOnClick = (mainTab, tab, title) => {
+        this.setState({ selectedMain: mainTab, childTab: tab, title })
     }
 
     handleSnackBarClose = () => {
@@ -116,26 +159,22 @@ class AdminPanel extends Component {
     }
 
     getContent = () => {
-        const {childTab, mainTab} = this.state
-        let title = "", child = null
+        const {childTab} = this.state
+        let child = null
 
         switch (childTab) {
-            case "New Movie" : title = "Create a new movie"
-                child = this.renderNewMovie()
+            case "New Movie" : child = this.renderNewMovie()
                 break
-            case "New Event" : title = "Create a new event"
-                child = this.renderNewEvent()
+            case "New Event" : child = this.renderNewEvent()
                 break
-            case "New Theatre" : title = "Create a new theatre"
-                child = this.renderNewTheatre()
+            case "New Theatre" : child = this.renderNewTheatre()
                 break
-            case "Reply" : title = "Response to user's message"
+            case "Reply" : child = null
                 break
-            default: title = `Update or Delete - ${mainTab}`
-                child = this.renderUpdateOrDelete()
+            default: child = this.renderUpdateOrDelete()
         }
 
-        return {title, child}
+        return child
     }
 
     renderSnackBar = () => {
@@ -174,11 +213,17 @@ class AdminPanel extends Component {
     }
 
     renderUpdateOrDelete = () => {
-        return <UpdateOrDelete/>
+        return <UpdateOrDelete
+            setErrorSnackBar = {this.setErrorSnackBar}
+            searchApi = {this.searchApi}
+            tableHeaders = {this.tableHeaders}
+            tableData = {this.tableData}
+        />
     }
 
     renderContents = () => {
-        const {title, child} = this.getContent()
+        const {title} = this.state
+        const child = this.getContent()
         return (
             <div className = 'panel-contents-root'>
                 <h2>{title}</h2>
@@ -188,11 +233,12 @@ class AdminPanel extends Component {
     }
 
     renderSideBar = () => {
-        const {mainTab, childTab} = this.state
-        const values = {mainTab, childTab}
+        const {mainTab, childTab, selectedMain} = this.state
+        const values = {mainTab, childTab, selectedMain}
         return (
             <div className = 'panel-side-bar'>
                 <SideBar
+                    tabs = {Panel.sideBarTabs}
                     values = {values}
                     handleTabOnClick = {this.handleTabOnClick}
                     handleButtonOnClick = {this.handleButtonOnClick}

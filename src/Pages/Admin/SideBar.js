@@ -20,15 +20,8 @@ const useStyles = makeStyles({
     }
 })
 
-const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
+const SideBar = ({tabs, values, handleTabOnClick, handleButtonOnClick}) => {
     const classes = useStyles()
-
-    const TABS = [
-        {label: "Movies", child: ["New Movie", "Update / Delete"]},
-        {label: "Events", child: ["New Event", "Update / Delete"]},
-        {label: "Theatres", child: ["New Theatre", "Update / Delete"]},
-        {label: "Messages", child: ["Reply", "Update / Delete"]}
-    ]
 
     const ICON = {
         "Movies": <TheaterComedy className = {classes.icon}/>,
@@ -37,13 +30,17 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
         "Messages": <Forum className = {classes.icon}/>,
     }
 
-    const {mainTab, childTab} = values
+    const {mainTab, childTab, selectedMain} = values
 
-    const renderChildTabs = (tab) => {
+    const renderChildTabs = (mTab, child) => {
+        const {tab, title} = child
         return (
-            <ListItemButton sx = {{ pl: 4 }} onClick = {() => handleTabOnClick(tab)} key = {tab}>
+            <ListItemButton sx = {{ pl: 4 }} onClick = {() => handleTabOnClick(mTab, tab, title)} key = {tab}>
                 <ListItemIcon> <StarBorder className = {classes.secondaryIcon}/> </ListItemIcon>
-                <ListItemText primary = {tab} className = {childTab === tab ? classes.selectedTab : classes.icon}/>
+                <ListItemText 
+                    primary = {tab} 
+                    className = {selectedMain === mTab && childTab === tab ? classes.selectedTab : classes.icon}
+                />
             </ListItemButton>
         )
     }
@@ -52,7 +49,7 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
         return (
             <Collapse in = {mainTab === label} timeout = "auto" unmountOnExit>
                 <List component = "div" disablePadding>
-                    { child.map(i => renderChildTabs(i)) }
+                    { child.map(child => renderChildTabs(label, child)) }
                 </List>
             </Collapse>
         )
@@ -81,7 +78,7 @@ const SideBar = ({values, handleTabOnClick, handleButtonOnClick}) => {
     return (
         <div className = 'sidebar-root'>
             <List sx = {{background: "transparent"}}>
-                { TABS.map(i => renderListItem(i)) }
+                { tabs.map(i => renderListItem(i)) }
             </List>
         </div>
     )

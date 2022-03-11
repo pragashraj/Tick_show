@@ -15,15 +15,6 @@ class UpdateOrDelete extends Component {
         searchValue: ""
     }
 
-    tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
-    tableData = [ 
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-    ]
-
     handleEditOnClick = () => {
 
     }
@@ -37,7 +28,13 @@ class UpdateOrDelete extends Component {
     }
 
     handleSearchOnClick = () => {
-        
+        const {searchValue} = this.state
+        if (searchValue) {
+            this.props.searchApi(searchValue)
+        }
+        else {
+            this.props.setErrorSnackBar("Fields cannot be empty")
+        }
     }
 
     handleCancelOnClick = () => {
@@ -85,8 +82,8 @@ class UpdateOrDelete extends Component {
         return (
             <div className = 'table_root'>
                 <CustomTable
-                    tableHeaders = {this.tableHeaders}
-                    tableData = {this.tableData}
+                    tableHeaders = {this.props.tableHeaders}
+                    tableData = {this.props.tableData}
                 />
             </div>
         )
