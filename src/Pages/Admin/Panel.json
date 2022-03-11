@@ -1,0 +1,32 @@
+{
+    "sideBarTabs": [
+        {
+            "label": "Movies", 
+            "child": [
+                {"tab" : "New Movie", "title": "Create a new movie"},
+                {"tab" : "Update / Delete", "title": "Update or Delete - Movies"}
+            ]
+        },
+        {
+            "label": "Events", 
+            "child": [
+                {"tab" : "New Event", "title": "Create a new event"},
+                {"tab" : "Update / Delete", "title": "Update or Delete - Events"}
+            ]
+        },
+        {
+            "label": "Theatres", 
+            "child": [
+                {"tab" : "New Theatre", "title": "Create a new theatre"},
+                {"tab" : "Update / Delete", "title": "Update or Delete - Theatres"}
+            ]
+        },
+        {
+            "label": "Messages", 
+            "child": [
+                {"tab" : "Reply", "title": "Response to user's message"},
+                {"tab" : "Update / Delete", "title": "Update or Delete - Messages"}
+            ]
+        }
+    ]
+}

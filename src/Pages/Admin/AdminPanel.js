@@ -18,6 +18,7 @@ import {
     searchEvent,
     searchTheatre
 } from '../../api/admin'
+import Panel from './Panel.json'
 
 import './AdminPanel.css'
 
@@ -25,6 +26,8 @@ class AdminPanel extends Component {
     state = {
         mainTab: "Movies",
         childTab: "New Movie",
+        title: "Create a new movie",
+        selectedMain: "Movies",
         genreOptions: ["Action"],
         experienceOptions: ["2D", "3D"],
         showTypeOptions: ["Now Showing"],
@@ -35,21 +38,6 @@ class AdminPanel extends Component {
         severity: "",
         openSnackBar: false,
         loading: false
-    }
-
-    tabs = [
-        {label: "Movies", child: ["New Movie", "Update / Delete"]},
-        {label: "Events", child: ["New Event", "Update / Delete"]},
-        {label: "Theatres", child: ["New Theatre", "Update / Delete"]},
-        {label: "Messages", child: ["Reply", "Update / Delete"]}
-    ]
-
-    titles = {
-        "New Movie": "Create a new movie",
-        "New Event": "Create a new event",
-        "New Theatre": "Create a new theatre",
-        "Reply": "Response to user's message",
-        "Update / Delete": 'Update or Delete'
     }
 
     tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
@@ -150,8 +138,8 @@ class AdminPanel extends Component {
         this.setState({ mainTab: label })
     }
 
-    handleTabOnClick = (tab) => {
-        this.setState({ childTab: tab })
+    handleTabOnClick = (mainTab, tab, title) => {
+        this.setState({ selectedMain: mainTab, childTab: tab, title })
     }
 
     handleSnackBarClose = () => {
@@ -234,24 +222,23 @@ class AdminPanel extends Component {
     }
 
     renderContents = () => {
-        const {childTab, mainTab} = this.state
-        const title = this.titles[childTab]
+        const {title} = this.state
         const child = this.getContent()
         return (
             <div className = 'panel-contents-root'>
-                <h2>{childTab === "Update / Delete" ? `${title} - ${mainTab}` : title}</h2>
+                <h2>{title}</h2>
                 <div className = 'panel-content-container'>{child}</div>
             </div>
         )
     }
 
     renderSideBar = () => {
-        const {mainTab, childTab} = this.state
-        const values = {mainTab, childTab}
+        const {mainTab, childTab, selectedMain} = this.state
+        const values = {mainTab, childTab, selectedMain}
         return (
             <div className = 'panel-side-bar'>
                 <SideBar
-                    tabs = {this.tabs}
+                    tabs = {Panel.sideBarTabs}
                     values = {values}
                     handleTabOnClick = {this.handleTabOnClick}
                     handleButtonOnClick = {this.handleButtonOnClick}
