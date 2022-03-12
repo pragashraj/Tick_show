@@ -62,15 +62,16 @@ class AdminPanel extends Component {
         try {
             this.setState({loading: true})
             let response = null
+            let token = null
             const {selectedMain} = this.state
             if (selectedMain === "Movies") {
-                response = await searchMovie(searchValue)
+                response = await searchMovie(searchValue, token)
             }
             else if (selectedMain === "Events") {
-                response = await searchEvent(searchValue)
+                response = await searchEvent(searchValue, token)
             }
             else if (selectedMain === "Theatres") {
-                response = await searchTheatre(searchValue)
+                response = await searchTheatre(searchValue, token)
             }
             if (response) {
                 
@@ -82,19 +83,20 @@ class AdminPanel extends Component {
         }
     }
 
-    editItemApi = async() => {
+    editItemApi = async(data) => {
         try {
             this.setState({loading: true})
             let response = null
+            let token = null
             const {selectedMain} = this.state
             if (selectedMain === "Movies") {
-                response = await editMovieItem()
+                response = await editMovieItem(data, token)
             }
             else if (selectedMain === "Events") {
-                response = await editEventItem()
+                response = await editEventItem(data, token)
             }
             else if (selectedMain === "Theatres") {
-                response = await editTheatreItem()
+                response = await editTheatreItem(data, token)
             }
             if (response) {
                 
@@ -106,19 +108,20 @@ class AdminPanel extends Component {
         }
     }
 
-    updateItemApi = async() => {
+    updateItemApi = async(data) => {
         try {
             this.setState({loading: true})
             let response = null
+            let token = null
             const {selectedMain} = this.state
             if (selectedMain === "Movies") {
-                response = await updateMovieItem()
+                response = await updateMovieItem(data, token)
             }
             else if (selectedMain === "Events") {
-                response = await updateEventItem()
+                response = await updateEventItem(data, token)
             }
             else if (selectedMain === "Theatres") {
-                response = await updateTheatretItem()
+                response = await updateTheatretItem(data, token)
             }
             if (response) {
                 
@@ -130,19 +133,20 @@ class AdminPanel extends Component {
         }
     }
 
-    deleteItemApi = async() => {
+    deleteItemApi = async(data) => {
         try {
             this.setState({loading: true})
             let response = null
+            let token = null
             const {selectedMain} = this.state
             if (selectedMain === "Movies") {
-                response = await deleteMovieItem()
+                response = await deleteMovieItem(data, token)
             }
             else if (selectedMain === "Events") {
-                response = await deleteEventItem()
+                response = await deleteEventItem(data, token)
             }
             else if (selectedMain === "Theatres") {
-                response = await deleteTheatretItem()
+                response = await deleteTheatretItem(data, token)
             }
             if (response) {
                 
@@ -213,6 +217,18 @@ class AdminPanel extends Component {
         formData.append("request", blob)
 
         return formData
+    }
+
+    handleEditOnClick = () => { 
+
+    }
+
+    handleUpdateOnClick = () => {
+
+    }
+
+    handleDeleteOnClick = () => { 
+
     }
 
     handleButtonOnClick = (label) => {
@@ -298,9 +314,9 @@ class AdminPanel extends Component {
             tableHeaders = {this.tableHeaders}
             tableData = {this.tableData}
             searchApi = {this.searchApi}
-            editItemApi = {this.editItemApi}
-            updateItemApi = {this.updateItemApi}
-            deleteItemApi = {this.deleteItemApi}
+            handleEditOnClick = {this.handleEditOnClick}
+            handleUpdateOnClick = {this.handleUpdateOnClick}
+            handleDeleteOnClick = {this.handleDeleteOnClick}
             setErrorSnackBar = {this.setErrorSnackBar}
         />
     }

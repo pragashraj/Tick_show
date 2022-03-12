@@ -20,7 +20,7 @@ class UpdateOrDelete extends Component {
     handleEditOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length === 1) {
-            this.props.editItemApi()
+            this.props.handleEditOnClick()
         }
         else if (selectedRows.length > 1) {
             this.props.setErrorSnackBar("Please select only one item to edit")
@@ -33,7 +33,7 @@ class UpdateOrDelete extends Component {
     handleUpdateOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length > 0) {
-            this.props.updateItemApi()
+            this.props.handleUpdateOnClick()
         }
         else {
             this.props.setErrorSnackBar("Please select atleast one item first!")
@@ -43,7 +43,7 @@ class UpdateOrDelete extends Component {
     handleDeleteOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length > 0) {
-            this.props.deleteItemApi()
+            this.props.handleDeleteOnClick()
         }
         else {
             this.props.setErrorSnackBar("Please select atleast one item first!")
