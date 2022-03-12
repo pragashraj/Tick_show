@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 //Material-UI
 import {
@@ -13,8 +13,8 @@ import {
     FormControlLabel
 } from '@mui/material'
 
-const CustomTable = ({tableHeaders, tableData}) => {
-    const [selected, setSelected] = useState([])
+const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnClick}) => {
+    const selected = selectedIndexes
 
     const isSelected = (name) => selected.indexOf(name) !== -1
 
@@ -38,8 +38,17 @@ const CustomTable = ({tableHeaders, tableData}) => {
         {
             newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1))
         }
-    
-        setSelected(newSelected)
+
+        let selectedRows = []
+        newSelected.forEach(element => {
+            tableData.forEach(data => {
+                if (data.label === element) {
+                    selectedRows.push(data)
+                }
+            })
+        })
+
+        handleRowDataOnClick(selectedRows, newSelected)
     }
 
     const renderCheckBox = (isItemSelected, label) => (

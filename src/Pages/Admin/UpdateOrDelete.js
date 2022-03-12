@@ -12,19 +12,42 @@ import './AdminPanel.css'
 
 class UpdateOrDelete extends Component {
     state = {
-        searchValue: ""
+        searchValue: "",
+        selectedIndexes: [],
+        selectedRows: []
     }
 
     handleEditOnClick = () => {
-
+        const {selectedRows} = this.state
+        if (selectedRows.length === 1) {
+            this.props.handleEditOnClick()
+        }
+        else if (selectedRows.length > 1) {
+            this.props.setErrorSnackBar("Please select only one item to edit")
+        }
+        else {
+            this.props.setErrorSnackBar("Please select any item first!")
+        }
     }
 
     handleUpdateOnClick = () => {
-
+        const {selectedRows} = this.state
+        if (selectedRows.length > 0) {
+            this.props.handleUpdateOnClick()
+        }
+        else {
+            this.props.setErrorSnackBar("Please select atleast one item first!")
+        }
     }
 
     handleDeleteOnClick = () => {
-
+        const {selectedRows} = this.state
+        if (selectedRows.length > 0) {
+            this.props.handleDeleteOnClick()
+        }
+        else {
+            this.props.setErrorSnackBar("Please select atleast one item first!")
+        }
     }
 
     handleSearchOnClick = () => {
@@ -38,7 +61,11 @@ class UpdateOrDelete extends Component {
     }
 
     handleCancelOnClick = () => {
+        this.setState({selectedRows: [], selectedIndexes: []})
+    }
 
+    handleRowDataOnClick = (selectedRows, selectedIndexes) => {
+        this.setState({selectedRows, selectedIndexes})
     }
 
     handleInputOnChange = (e) => {
@@ -84,6 +111,8 @@ class UpdateOrDelete extends Component {
                 <CustomTable
                     tableHeaders = {this.props.tableHeaders}
                     tableData = {this.props.tableData}
+                    selectedIndexes = {this.state.selectedIndexes}
+                    handleRowDataOnClick = {this.handleRowDataOnClick}
                 />
             </div>
         )
@@ -93,7 +122,7 @@ class UpdateOrDelete extends Component {
         return (
             <Grid container spacing = {2}>
                 <Grid item xs = {6} sm = {6} md = {9}>
-                    { this.renderInputField("searchValue", "Enter movie name") }
+                    { this.renderInputField("searchValue", "Enter name") }
                 </Grid>
                 <Grid item xs = {6} sm = {6} md = {3}>
                     <SecondaryButton label = "Search" onClick = {this.handleSearchOnClick}/>

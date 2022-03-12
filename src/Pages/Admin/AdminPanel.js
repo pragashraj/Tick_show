@@ -16,7 +16,16 @@ import {
     createNewTheatre,
     searchMovie,
     searchEvent,
-    searchTheatre
+    searchTheatre,
+    editMovieItem,
+    updateMovieItem,
+    deleteMovieItem,
+    editEventItem,
+    updateEventItem,
+    deleteEventItem,
+    editTheatreItem,
+    updateTheatretItem,
+    deleteTheatretItem
 } from '../../api/admin'
 import Panel from './Panel.json'
 
@@ -42,26 +51,102 @@ class AdminPanel extends Component {
 
     tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
     tableData = [ 
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name1", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name2", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name3", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name4", rowValues: ["col1", "col2", "col3", "col4"]},
+        {label: "Name5", rowValues: ["col1", "col2", "col3", "col4"]},
     ]
 
     searchApi = async(searchValue) => {
         try {
             this.setState({loading: true})
             let response = null
-            const {mainTab} = this.state
-            if (mainTab === "Movies") {
-                response = await searchMovie(searchValue)
+            let token = null
+            const {selectedMain} = this.state
+            if (selectedMain === "Movies") {
+                response = await searchMovie(searchValue, token)
             }
-            else if (mainTab === "Events") {
-                response = await searchEvent(searchValue)
+            else if (selectedMain === "Events") {
+                response = await searchEvent(searchValue, token)
             }
-            else if (mainTab === "Theatres") {
-                response = await searchTheatre(searchValue)
+            else if (selectedMain === "Theatres") {
+                response = await searchTheatre(searchValue, token)
+            }
+            if (response) {
+                
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+        }
+    }
+
+    editItemApi = async(data) => {
+        try {
+            this.setState({loading: true})
+            let response = null
+            let token = null
+            const {selectedMain} = this.state
+            if (selectedMain === "Movies") {
+                response = await editMovieItem(data, token)
+            }
+            else if (selectedMain === "Events") {
+                response = await editEventItem(data, token)
+            }
+            else if (selectedMain === "Theatres") {
+                response = await editTheatreItem(data, token)
+            }
+            if (response) {
+                
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+        }
+    }
+
+    updateItemApi = async(data) => {
+        try {
+            this.setState({loading: true})
+            let response = null
+            let token = null
+            const {selectedMain} = this.state
+            if (selectedMain === "Movies") {
+                response = await updateMovieItem(data, token)
+            }
+            else if (selectedMain === "Events") {
+                response = await updateEventItem(data, token)
+            }
+            else if (selectedMain === "Theatres") {
+                response = await updateTheatretItem(data, token)
+            }
+            if (response) {
+                
+            }
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+        }
+    }
+
+    deleteItemApi = async(data) => {
+        try {
+            this.setState({loading: true})
+            let response = null
+            let token = null
+            const {selectedMain} = this.state
+            if (selectedMain === "Movies") {
+                response = await deleteMovieItem(data, token)
+            }
+            else if (selectedMain === "Events") {
+                response = await deleteEventItem(data, token)
+            }
+            else if (selectedMain === "Theatres") {
+                response = await deleteTheatretItem(data, token)
             }
             if (response) {
                 
@@ -132,6 +217,18 @@ class AdminPanel extends Component {
         formData.append("request", blob)
 
         return formData
+    }
+
+    handleEditOnClick = () => { 
+
+    }
+
+    handleUpdateOnClick = () => {
+
+    }
+
+    handleDeleteOnClick = () => { 
+
     }
 
     handleButtonOnClick = (label) => {
@@ -214,10 +311,13 @@ class AdminPanel extends Component {
 
     renderUpdateOrDelete = () => {
         return <UpdateOrDelete
-            setErrorSnackBar = {this.setErrorSnackBar}
-            searchApi = {this.searchApi}
             tableHeaders = {this.tableHeaders}
             tableData = {this.tableData}
+            searchApi = {this.searchApi}
+            handleEditOnClick = {this.handleEditOnClick}
+            handleUpdateOnClick = {this.handleUpdateOnClick}
+            handleDeleteOnClick = {this.handleDeleteOnClick}
+            setErrorSnackBar = {this.setErrorSnackBar}
         />
     }
 
