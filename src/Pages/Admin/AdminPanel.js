@@ -73,6 +73,36 @@ class AdminPanel extends Component {
         }
     }
 
+    editItemApi = async() => {
+        try {
+            this.setState({loading: true})
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+        }
+    }
+
+    updateItemApi = async() => {
+        try {
+            this.setState({loading: true})
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+        }
+    }
+
+    deleteItemApi = async() => {
+        try {
+            this.setState({loading: true})
+            this.setState({ loading: false })
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+        }
+    }
+
     createNewMovieApi = async(data, file) => {
         try {
             this.setState({loading: true})
@@ -214,9 +244,12 @@ class AdminPanel extends Component {
 
     renderUpdateOrDelete = () => {
         return <UpdateOrDelete
-            searchApi = {this.searchApi}
             tableHeaders = {this.tableHeaders}
             tableData = {this.tableData}
+            searchApi = {this.searchApi}
+            editItemApi = {this.editItemApi}
+            updateItemApi = {this.updateItemApi}
+            deleteItemApi = {this.deleteItemApi}
             setErrorSnackBar = {this.setErrorSnackBar}
         />
     }
