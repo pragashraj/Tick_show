@@ -16,7 +16,16 @@ import {
     createNewTheatre,
     searchMovie,
     searchEvent,
-    searchTheatre
+    searchTheatre,
+    editMovieItem,
+    updateMovieItem,
+    deleteMovieItem,
+    editEventItem,
+    updateEventItem,
+    deleteEventItem,
+    editTheatreItem,
+    updateTheatretItem,
+    deleteTheatretItem
 } from '../../api/admin'
 import Panel from './Panel.json'
 
@@ -53,14 +62,14 @@ class AdminPanel extends Component {
         try {
             this.setState({loading: true})
             let response = null
-            const {mainTab} = this.state
-            if (mainTab === "Movies") {
+            const {selectedMain} = this.state
+            if (selectedMain === "Movies") {
                 response = await searchMovie(searchValue)
             }
-            else if (mainTab === "Events") {
+            else if (selectedMain === "Events") {
                 response = await searchEvent(searchValue)
             }
-            else if (mainTab === "Theatres") {
+            else if (selectedMain === "Theatres") {
                 response = await searchTheatre(searchValue)
             }
             if (response) {
@@ -76,6 +85,20 @@ class AdminPanel extends Component {
     editItemApi = async() => {
         try {
             this.setState({loading: true})
+            let response = null
+            const {selectedMain} = this.state
+            if (selectedMain === "Movies") {
+                response = await editMovieItem()
+            }
+            else if (selectedMain === "Events") {
+                response = await editEventItem()
+            }
+            else if (selectedMain === "Theatres") {
+                response = await editTheatreItem()
+            }
+            if (response) {
+                
+            }
             this.setState({ loading: false })
         } catch (e) {
             this.setState({ loading: false })
@@ -86,6 +109,20 @@ class AdminPanel extends Component {
     updateItemApi = async() => {
         try {
             this.setState({loading: true})
+            let response = null
+            const {selectedMain} = this.state
+            if (selectedMain === "Movies") {
+                response = await updateMovieItem()
+            }
+            else if (selectedMain === "Events") {
+                response = await updateEventItem()
+            }
+            else if (selectedMain === "Theatres") {
+                response = await updateTheatretItem()
+            }
+            if (response) {
+                
+            }
             this.setState({ loading: false })
         } catch (e) {
             this.setState({ loading: false })
@@ -96,6 +133,20 @@ class AdminPanel extends Component {
     deleteItemApi = async() => {
         try {
             this.setState({loading: true})
+            let response = null
+            const {selectedMain} = this.state
+            if (selectedMain === "Movies") {
+                response = await deleteMovieItem()
+            }
+            else if (selectedMain === "Events") {
+                response = await deleteEventItem()
+            }
+            else if (selectedMain === "Theatres") {
+                response = await deleteTheatretItem()
+            }
+            if (response) {
+                
+            }
             this.setState({ loading: false })
         } catch (e) {
             this.setState({ loading: false })
