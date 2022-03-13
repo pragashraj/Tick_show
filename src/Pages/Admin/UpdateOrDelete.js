@@ -17,23 +17,13 @@ class UpdateOrDelete extends Component {
         selectedRows: []
     }
 
-    handleEditOnClick = () => {
-        const {selectedRows} = this.state
-        if (selectedRows.length === 1) {
-            this.props.handleEditOnClick()
-        }
-        else if (selectedRows.length > 1) {
-            this.props.setErrorSnackBar("Please select only one item to edit")
-        }
-        else {
-            this.props.setErrorSnackBar("Please select any item first!")
-        }
-    }
-
     handleUpdateOnClick = () => {
         const {selectedRows} = this.state
-        if (selectedRows.length > 0) {
+        if (selectedRows.length === 1) {
             this.props.handleUpdateOnClick()
+        }
+        else if (selectedRows.length > 1) {
+            this.props.setErrorSnackBar("Please select only one item to update")
         }
         else {
             this.props.setErrorSnackBar("Please select atleast one item first!")
@@ -89,11 +79,12 @@ class UpdateOrDelete extends Component {
     renderBtnFooter = () => {
         return (
             <Grid container spacing = {2}>
-                <Grid item xs = {12} sm = {12} md = {3}>
-                    <SecondaryButton label = "Cancel" onClick = {this.handleCancelOnClick}/>
-                </Grid>
-                <Grid item xs = {12} sm = {12} md = {3}>
-                    <CustomButton label = "Edit" onClick = {this.handleEditOnClick}/>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    <Grid container>
+                        <Grid item xs = {12} sm = {12} md = {6}>
+                            <SecondaryButton label = "Cancel" onClick = {this.handleCancelOnClick}/>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {3}>
                     <CustomButton label = "Update" onClick = {this.handleUpdateOnClick}/>

@@ -10,6 +10,7 @@ import NewTheatre from './NewTheatre'
 import UpdateOrDelete from './UpdateOrDelete'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
+import Alert from '../../Components/Alert'
 import {
     createNewMovie, 
     createNewEvent, 
@@ -17,13 +18,10 @@ import {
     searchMovie,
     searchEvent,
     searchTheatre,
-    editMovieItem,
     updateMovieItem,
     deleteMovieItem,
-    editEventItem,
     updateEventItem,
     deleteEventItem,
-    editTheatreItem,
     updateTheatretItem,
     deleteTheatretItem
 } from '../../api/admin'
@@ -46,7 +44,8 @@ class AdminPanel extends Component {
         message: "",
         severity: "",
         openSnackBar: false,
-        loading: false
+        loading: false,
+        openDeleteAlertPopup: false
     }
 
     tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
@@ -72,31 +71,6 @@ class AdminPanel extends Component {
             }
             else if (selectedMain === "Theatres") {
                 response = await searchTheatre(searchValue, token)
-            }
-            if (response) {
-                
-            }
-            this.setState({ loading: false })
-        } catch (e) {
-            this.setState({ loading: false })
-            this.setErrorSnackBar("server error, please try again")
-        }
-    }
-
-    editItemApi = async(data) => {
-        try {
-            this.setState({loading: true})
-            let response = null
-            let token = null
-            const {selectedMain} = this.state
-            if (selectedMain === "Movies") {
-                response = await editMovieItem(data, token)
-            }
-            else if (selectedMain === "Events") {
-                response = await editEventItem(data, token)
-            }
-            else if (selectedMain === "Theatres") {
-                response = await editTheatreItem(data, token)
             }
             if (response) {
                 
@@ -219,7 +193,7 @@ class AdminPanel extends Component {
         return formData
     }
 
-    handleEditOnClick = () => { 
+    handleDelete = () => {
 
     }
 
@@ -228,7 +202,7 @@ class AdminPanel extends Component {
     }
 
     handleDeleteOnClick = () => { 
-
+        this.setState({openDeleteAlertPopup: !this.state.openDeleteAlertPopup})
     }
 
     handleButtonOnClick = (label) => {
@@ -274,6 +248,14 @@ class AdminPanel extends Component {
         return child
     }
 
+    renderDeleteAlert = (open) => {
+        return <Alert 
+            open = {open} 
+            handleClose = {this.handleDeleteOnClick}
+            handleDelete = {this.handleDelete}
+        />
+    }
+
     renderSnackBar = () => {
         const {openSnackBar, severity, message} = this.state
         return (
@@ -314,7 +296,6 @@ class AdminPanel extends Component {
             tableHeaders = {this.tableHeaders}
             tableData = {this.tableData}
             searchApi = {this.searchApi}
-            handleEditOnClick = {this.handleEditOnClick}
             handleUpdateOnClick = {this.handleUpdateOnClick}
             handleDeleteOnClick = {this.handleDeleteOnClick}
             setErrorSnackBar = {this.setErrorSnackBar}
@@ -363,7 +344,7 @@ class AdminPanel extends Component {
     }
 
     render() {
-        const {loading} = this.state
+        const {loading, openDeleteAlertPopup} = this.state
         return (
             <div className = 'admin-panel-root'>
                 <div className = 'parallax'>
@@ -371,6 +352,7 @@ class AdminPanel extends Component {
                     { this.renderMainContainer() }
                 </div>
                 { this.renderSnackBar() }
+                { this.renderDeleteAlert(openDeleteAlertPopup) }
                 <Loading open = {loading}/>
             </div>
         )
