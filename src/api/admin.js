@@ -49,11 +49,6 @@ export const searchTheatre = (value, token) => {
     return GET(endpoint, token)
 }
 
-export const editMovieItem = (data, token) => {
-    const endpoint =  getEndpointWithPrefix('edit-movie')
-    return POST(endpoint, data, token)
-}
-
 export const updateMovieItem = (data, token) => {
     const endpoint =  getEndpointWithPrefix('update-movie')
     return POST(endpoint, data, token)
@@ -64,11 +59,6 @@ export const deleteMovieItem = (data, token) => {
     return POST(endpoint, data, token)
 }
 
-export const editEventItem = (data, token) => {
-    const endpoint =  getEndpointWithPrefix('edit-event')
-    return POST(endpoint, data, token)
-}
-
 export const updateEventItem = (data, token) => {
     const endpoint =  getEndpointWithPrefix('update-event')
     return POST(endpoint, data, token)
@@ -76,11 +66,6 @@ export const updateEventItem = (data, token) => {
 
 export const deleteEventItem = (data, token) => {
     const endpoint =  getEndpointWithPrefix('delete-event')
-    return POST(endpoint, data, token)
-}
-
-export const editTheatreItem = (data, token) => {
-    const endpoint =  getEndpointWithPrefix('edit-theatre')
     return POST(endpoint, data, token)
 }
 

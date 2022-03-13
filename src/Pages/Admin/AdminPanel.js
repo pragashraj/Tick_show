@@ -18,13 +18,10 @@ import {
     searchMovie,
     searchEvent,
     searchTheatre,
-    editMovieItem,
     updateMovieItem,
     deleteMovieItem,
-    editEventItem,
     updateEventItem,
     deleteEventItem,
-    editTheatreItem,
     updateTheatretItem,
     deleteTheatretItem
 } from '../../api/admin'
@@ -74,31 +71,6 @@ class AdminPanel extends Component {
             }
             else if (selectedMain === "Theatres") {
                 response = await searchTheatre(searchValue, token)
-            }
-            if (response) {
-                
-            }
-            this.setState({ loading: false })
-        } catch (e) {
-            this.setState({ loading: false })
-            this.setErrorSnackBar("server error, please try again")
-        }
-    }
-
-    editItemApi = async(data) => {
-        try {
-            this.setState({loading: true})
-            let response = null
-            let token = null
-            const {selectedMain} = this.state
-            if (selectedMain === "Movies") {
-                response = await editMovieItem(data, token)
-            }
-            else if (selectedMain === "Events") {
-                response = await editEventItem(data, token)
-            }
-            else if (selectedMain === "Theatres") {
-                response = await editTheatreItem(data, token)
             }
             if (response) {
                 
@@ -225,10 +197,6 @@ class AdminPanel extends Component {
 
     }
 
-    handleEditOnClick = () => { 
-
-    }
-
     handleUpdateOnClick = () => {
 
     }
@@ -328,7 +296,6 @@ class AdminPanel extends Component {
             tableHeaders = {this.tableHeaders}
             tableData = {this.tableData}
             searchApi = {this.searchApi}
-            handleEditOnClick = {this.handleEditOnClick}
             handleUpdateOnClick = {this.handleUpdateOnClick}
             handleDeleteOnClick = {this.handleDeleteOnClick}
             setErrorSnackBar = {this.setErrorSnackBar}
