@@ -14,7 +14,22 @@ class UpdateOrDelete extends Component {
     state = {
         searchValue: "",
         selectedIndexes: [],
-        selectedRows: []
+        selectedRows: [],
+        tableHeaders: [],
+        tableData: []
+    }
+
+    componentDidMount() {
+        const tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
+        const tableData = [ 
+            {label: "Name1", rowValues: ["col1", "col2", "col3", "col4"]},
+            {label: "Name2", rowValues: ["col1", "col2", "col3", "col4"]},
+            {label: "Name3", rowValues: ["col1", "col2", "col3", "col4"]},
+            {label: "Name4", rowValues: ["col1", "col2", "col3", "col4"]},
+            {label: "Name5", rowValues: ["col1", "col2", "col3", "col4"]},
+        ]
+
+        this.setState({tableHeaders, tableData})
     }
 
     handleUpdateOnClick = () => {
@@ -97,11 +112,12 @@ class UpdateOrDelete extends Component {
     }
 
     renderTableContent = () => {
+        const {tableHeaders, tableData} = this.state
         return (
             <div className = 'table_root'>
                 <CustomTable
-                    tableHeaders = {this.props.tableHeaders}
-                    tableData = {this.props.tableData}
+                    tableHeaders = {tableHeaders}
+                    tableData = {tableData}
                     selectedIndexes = {this.state.selectedIndexes}
                     handleRowDataOnClick = {this.handleRowDataOnClick}
                 />
