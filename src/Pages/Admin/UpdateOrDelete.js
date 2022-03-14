@@ -7,6 +7,7 @@ import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
+import UpdatePopup from './UpdatePopup'
 
 import './AdminPanel.css'
 
@@ -16,7 +17,9 @@ class UpdateOrDelete extends Component {
         selectedIndexes: [],
         selectedRows: [],
         tableHeaders: [],
-        tableData: []
+        tableData: [],
+        openUpdatePopup: false,
+        fields: ["1", "2", "3", "4"]
     }
 
     componentDidMount() {
@@ -32,10 +35,14 @@ class UpdateOrDelete extends Component {
         this.setState({tableHeaders, tableData})
     }
 
+    handleUpdatePopupState = () => {
+        this.setState({openUpdatePopup: !this.state.openUpdatePopup})
+    }
+
     handleUpdateOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length === 1) {
-            this.props.handleUpdateOnClick()
+            this.handleUpdatePopupState()
         }
         else if (selectedRows.length > 1) {
             this.props.setErrorSnackBar("Please select only one item to update")
@@ -139,11 +146,19 @@ class UpdateOrDelete extends Component {
     }
 
     render() {
+        const {openUpdatePopup} = this.state
         return (
             <div className = 'new-movie-root'>
                 { this.renderSearch() }
                 { this.renderTableContent() }
                 { this.renderBtnFooter() }
+                <UpdatePopup
+                    open = {openUpdatePopup}
+                    values = {this.state}
+                    handleCancel = {this.handleUpdatePopupState}
+                    handleUpdate = {this.handleUpdate}
+                    handleInputOnChange = {this.handleInputOnChange}
+                />
             </div>
         )
     }

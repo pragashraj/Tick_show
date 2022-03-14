@@ -29,7 +29,6 @@ const useStyles = makeStyles({
 
 const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnChange}) => {
     const classes = useStyles()
-
     
     const renderInputField = (name, label, placeholder) => {
         return (
@@ -39,7 +38,7 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
                     name = {name}
                     label = {placeholder}
                     handleOnChange = {handleInputOnChange}
-                    value = {""}
+                    value = {values[name]}
                 />
             </div>
         )
@@ -59,7 +58,7 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
             <div className = {classes.paper}>
                 <h2 id = "transition-modal-title">Update!</h2>
                 <div className = {classes.form}>
-                    { ["1", "2", "3", "4"].map((i, idx) => {
+                    { values.fields.map((i, idx) => {
                         return <div key = {idx}> {renderInputField("", `label-${i}`, `placeholder-${i}`)}</div>
                     }) }
                 </div>

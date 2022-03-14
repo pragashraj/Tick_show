@@ -11,7 +11,6 @@ import UpdateOrDelete from './UpdateOrDelete'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
 import Alert from '../../Components/Alert'
-import UpdatePopup from './UpdatePopup'
 import {
     createNewMovie, 
     createNewEvent, 
@@ -194,10 +193,6 @@ class AdminPanel extends Component {
 
     }
 
-    handleUpdateCancelOnClick = () => {
-        this.setState({openUpdatePopup: false})
-    }
-
     handleUpdateOnClick = () => {
         this.setState({openUpdatePopup: !this.state.openUpdatePopup})
     }
@@ -249,14 +244,6 @@ class AdminPanel extends Component {
         return child
     }
 
-    renderUpdatePopup = (open) => {
-        return <UpdatePopup
-            open = {open}
-            handleCancel = {this.handleUpdateCancelOnClick}
-            handleUpdate = {this.handleUpdate}
-        />
-    }
-
     renderDeleteAlert = (open) => {
         return <Alert 
             open = {open} 
@@ -306,6 +293,7 @@ class AdminPanel extends Component {
             handleUpdateOnClick = {this.handleUpdateOnClick}
             handleDeleteOnClick = {this.handleDeleteOnClick}
             setErrorSnackBar = {this.setErrorSnackBar}
+            openUpdatePopup = {this.state.openUpdatePopup}
         />
     }
 
@@ -351,7 +339,7 @@ class AdminPanel extends Component {
     }
 
     render() {
-        const {loading, openDeleteAlertPopup, openUpdatePopup} = this.state
+        const {loading, openDeleteAlertPopup} = this.state
         return (
             <div className = 'admin-panel-root'>
                 <div className = 'parallax'>
@@ -360,7 +348,6 @@ class AdminPanel extends Component {
                 </div>
                 { this.renderSnackBar() }
                 { this.renderDeleteAlert(openDeleteAlertPopup) }
-                { this.renderUpdatePopup(openUpdatePopup) }
                 <Loading open = {loading}/>
             </div>
         )
