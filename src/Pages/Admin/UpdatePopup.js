@@ -59,7 +59,7 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
                 <h2 id = "transition-modal-title">Update!</h2>
                 <div className = {classes.form}>
                     { values.fields.map((i, idx) => {
-                        return <div key = {idx}> {renderInputField("", `label-${i}`, `placeholder-${i}`)}</div>
+                        return <div key = {idx}>{renderInputField("", i, `Enter ${i}`)}</div>
                     }) }
                 </div>
                 { renderBtnFooter() }

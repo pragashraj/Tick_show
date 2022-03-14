@@ -19,12 +19,12 @@ class UpdateOrDelete extends Component {
         tableHeaders: [],
         tableData: [],
         openUpdatePopup: false,
-        fields: ["1", "2", "3", "4"]
+        fields: []
     }
 
     componentDidMount() {
-        const tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
-        const tableData = [ 
+        const t_Headers = ["Dessert", "Calories", "Fat", "carbs", "protein"]
+        const t_Data = [ 
             {label: "Name1", rowValues: ["col1", "col2", "col3", "col4"]},
             {label: "Name2", rowValues: ["col1", "col2", "col3", "col4"]},
             {label: "Name3", rowValues: ["col1", "col2", "col3", "col4"]},
@@ -32,7 +32,9 @@ class UpdateOrDelete extends Component {
             {label: "Name5", rowValues: ["col1", "col2", "col3", "col4"]},
         ]
 
-        this.setState({tableHeaders, tableData})
+        const fields = t_Headers.slice(1, t_Headers.length)
+
+        this.setState({tableHeaders: t_Headers, tableData: t_Data, fields})
     }
 
     handleUpdatePopupState = () => {
