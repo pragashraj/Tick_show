@@ -15,7 +15,7 @@ const useStyles = makeStyles({
         justifyContent: 'center',
     },
     paper: {
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
+        backgroundColor: "rgba(0, 0, 0, 0.9)",
         border: '2px solid #000',
         boxShadow: 5,
         padding: "15px",
@@ -29,8 +29,10 @@ const useStyles = makeStyles({
 
 const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnChange}) => {
     const classes = useStyles()
+
+    const {fields, selectedRow} = values
     
-    const renderInputField = (name, label, placeholder) => {
+    const renderInputField = (name, label, value, placeholder) => {
         return (
             <div className = "input_wrapper">
                 <span className = "input_wrapper-label">{label}</span>
@@ -38,7 +40,7 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
                     name = {name}
                     label = {placeholder}
                     handleOnChange = {handleInputOnChange}
-                    value = {values[name]}
+                    value = {value}
                 />
             </div>
         )
@@ -56,10 +58,12 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
     const renderMainContainer = () => {
         return (
             <div className = {classes.paper}>
-                <h2 id = "transition-modal-title">Update!</h2>
+                <h2 id = "transition-modal-title">Update! - {selectedRow.label}</h2>
                 <div className = {classes.form}>
-                    { values.fields.map((i, idx) => {
-                        return <div key = {idx}>{renderInputField("", i, `Enter ${i}`)}</div>
+                    { fields.map((i, idx) => {
+                        return <div key = {idx}>
+                            {renderInputField("", i, selectedRow.rowValues[idx], `Enter ${i}`)}
+                        </div>
                     }) }
                 </div>
                 { renderBtnFooter() }

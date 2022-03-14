@@ -46,7 +46,7 @@ class AdminPanel extends Component {
         openSnackBar: false,
         loading: false,
         openDeleteAlertPopup: false,
-        openUpdatePopup: false
+        selectedRowsToDelete: []
     }
 
     searchApi = async(searchValue) => {
@@ -190,15 +190,19 @@ class AdminPanel extends Component {
     }
 
     handleDelete = () => {
+        const {selectedRowsToDelete} = this.state
 
+        if (selectedRowsToDelete.length > 0) {
+            this.deleteItemApi(selectedRowsToDelete)
+        }
     }
 
-    handleUpdateOnClick = () => {
-        this.setState({openUpdatePopup: !this.state.openUpdatePopup})
-    }
-
-    handleDeleteOnClick = () => { 
-        this.setState({openDeleteAlertPopup: !this.state.openDeleteAlertPopup})
+    handleDeleteOnClick = (selectedRows) => {
+        const {openDeleteAlertPopup} = this.state
+        this.setState({
+            openDeleteAlertPopup: !openDeleteAlertPopup,
+            selectedRowsToDelete: openDeleteAlertPopup ? [] : selectedRows
+        })
     }
 
     handleButtonOnClick = (label) => {
@@ -246,7 +250,7 @@ class AdminPanel extends Component {
 
     renderDeleteAlert = (open) => {
         return <Alert 
-            open = {open} 
+            open = {open}
             handleClose = {this.handleDeleteOnClick}
             handleDelete = {this.handleDelete}
         />
@@ -290,7 +294,6 @@ class AdminPanel extends Component {
     renderUpdateOrDelete = () => {
         return <UpdateOrDelete
             searchApi = {this.searchApi}
-            handleUpdateOnClick = {this.handleUpdateOnClick}
             handleDeleteOnClick = {this.handleDeleteOnClick}
             setErrorSnackBar = {this.setErrorSnackBar}
             openUpdatePopup = {this.state.openUpdatePopup}
