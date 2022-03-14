@@ -45,17 +45,9 @@ class AdminPanel extends Component {
         severity: "",
         openSnackBar: false,
         loading: false,
-        openDeleteAlertPopup: false
+        openDeleteAlertPopup: false,
+        openUpdatePopup: false
     }
-
-    tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
-    tableData = [ 
-        {label: "Name1", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name2", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name3", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name4", rowValues: ["col1", "col2", "col3", "col4"]},
-        {label: "Name5", rowValues: ["col1", "col2", "col3", "col4"]},
-    ]
 
     searchApi = async(searchValue) => {
         try {
@@ -193,12 +185,16 @@ class AdminPanel extends Component {
         return formData
     }
 
+    handleUpdate = () => {
+
+    }
+
     handleDelete = () => {
 
     }
 
     handleUpdateOnClick = () => {
-
+        this.setState({openUpdatePopup: !this.state.openUpdatePopup})
     }
 
     handleDeleteOnClick = () => { 
@@ -293,12 +289,11 @@ class AdminPanel extends Component {
 
     renderUpdateOrDelete = () => {
         return <UpdateOrDelete
-            tableHeaders = {this.tableHeaders}
-            tableData = {this.tableData}
             searchApi = {this.searchApi}
             handleUpdateOnClick = {this.handleUpdateOnClick}
             handleDeleteOnClick = {this.handleDeleteOnClick}
             setErrorSnackBar = {this.setErrorSnackBar}
+            openUpdatePopup = {this.state.openUpdatePopup}
         />
     }
 

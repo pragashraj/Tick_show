@@ -7,6 +7,7 @@ import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
+import UpdatePopup from './UpdatePopup'
 
 import './AdminPanel.css'
 
@@ -14,13 +15,36 @@ class UpdateOrDelete extends Component {
     state = {
         searchValue: "",
         selectedIndexes: [],
-        selectedRows: []
+        selectedRows: [],
+        tableHeaders: [],
+        tableData: [],
+        openUpdatePopup: false,
+        fields: []
+    }
+
+    componentDidMount() {
+        const t_Headers = ["Dessert", "Calories", "Fat", "carbs", "protein"]
+        const t_Data = [ 
+            {label: "Name1", rowValues: ["col1", "col2", "col3", "col4"]},
+            {label: "Name2", rowValues: ["col1", "col2", "col3", "col4"]},
+            {label: "Name3", rowValues: ["col1", "col2", "col3", "col4"]},
+            {label: "Name4", rowValues: ["col1", "col2", "col3", "col4"]},
+            {label: "Name5", rowValues: ["col1", "col2", "col3", "col4"]},
+        ]
+
+        const fields = t_Headers.slice(1, t_Headers.length)
+
+        this.setState({tableHeaders: t_Headers, tableData: t_Data, fields})
+    }
+
+    handleUpdatePopupState = () => {
+        this.setState({openUpdatePopup: !this.state.openUpdatePopup})
     }
 
     handleUpdateOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length === 1) {
-            this.props.handleUpdateOnClick()
+            this.handleUpdatePopupState()
         }
         else if (selectedRows.length > 1) {
             this.props.setErrorSnackBar("Please select only one item to update")
@@ -97,11 +121,12 @@ class UpdateOrDelete extends Component {
     }
 
     renderTableContent = () => {
+        const {tableHeaders, tableData} = this.state
         return (
             <div className = 'table_root'>
                 <CustomTable
-                    tableHeaders = {this.props.tableHeaders}
-                    tableData = {this.props.tableData}
+                    tableHeaders = {tableHeaders}
+                    tableData = {tableData}
                     selectedIndexes = {this.state.selectedIndexes}
                     handleRowDataOnClick = {this.handleRowDataOnClick}
                 />
@@ -123,11 +148,19 @@ class UpdateOrDelete extends Component {
     }
 
     render() {
+        const {openUpdatePopup} = this.state
         return (
             <div className = 'new-movie-root'>
                 { this.renderSearch() }
                 { this.renderTableContent() }
                 { this.renderBtnFooter() }
+                <UpdatePopup
+                    open = {openUpdatePopup}
+                    values = {this.state}
+                    handleCancel = {this.handleUpdatePopupState}
+                    handleUpdate = {this.handleUpdate}
+                    handleInputOnChange = {this.handleInputOnChange}
+                />
             </div>
         )
     }

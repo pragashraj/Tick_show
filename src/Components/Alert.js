@@ -24,6 +24,7 @@ const useStyles = makeStyles({
 
 const Alert = ({open, handleClose, handleDelete}) => {
     const classes = useStyles()
+    
     return (
         <Modal
             aria-labelledby = "transition-modal-title"
