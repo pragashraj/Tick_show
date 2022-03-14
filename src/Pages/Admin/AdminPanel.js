@@ -45,7 +45,8 @@ class AdminPanel extends Component {
         severity: "",
         openSnackBar: false,
         loading: false,
-        openDeleteAlertPopup: false
+        openDeleteAlertPopup: false,
+        openUpdatePopup: false
     }
 
     tableHeaders = ["Dessert", "Calories", "Fat", "carbs", "protein"]
@@ -198,7 +199,7 @@ class AdminPanel extends Component {
     }
 
     handleUpdateOnClick = () => {
-
+        this.setState({openUpdatePopup: !this.state.openUpdatePopup})
     }
 
     handleDeleteOnClick = () => { 
