@@ -57,7 +57,7 @@ class UpdateOrDelete extends Component {
     handleDeleteOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length > 0) {
-            this.props.handleDeleteOnClick()
+            this.props.handleDeleteOnClick(selectedRows)
         }
         else {
             this.props.setErrorSnackBar("Please select atleast one item first!")
@@ -98,6 +98,17 @@ class UpdateOrDelete extends Component {
                 />
             </div>
         )
+    }
+
+    renderUpdatePopup = () => {
+        const {openUpdatePopup} = this.state
+        return <UpdatePopup
+            open = {openUpdatePopup}
+            values = {this.state}
+            handleCancel = {this.handleUpdatePopupState}
+            handleUpdate = {this.handleUpdate}
+            handleInputOnChange = {this.handleInputOnChange}
+        />
     }
 
     renderBtnFooter = () => {
@@ -148,19 +159,12 @@ class UpdateOrDelete extends Component {
     }
 
     render() {
-        const {openUpdatePopup} = this.state
         return (
             <div className = 'new-movie-root'>
                 { this.renderSearch() }
                 { this.renderTableContent() }
                 { this.renderBtnFooter() }
-                <UpdatePopup
-                    open = {openUpdatePopup}
-                    values = {this.state}
-                    handleCancel = {this.handleUpdatePopupState}
-                    handleUpdate = {this.handleUpdate}
-                    handleInputOnChange = {this.handleInputOnChange}
-                />
+                { this.renderUpdatePopup() }
             </div>
         )
     }
