@@ -34,47 +34,17 @@ export const getMessagesByReplied = (isReplied, page, token) => {
     return GET(endpoint, token)
 }
 
-export const searchMovie = (value, token) => {
-    const endpoint =  getEndpointWithPrefix(`search-movie/${value}`)
+export const searchApi = (end, value, token) => {
+    const endpoint =  getEndpointWithPrefix(`search-${end}/${value}`)
     return GET(endpoint, token)
 }
 
-export const searchEvent = (value, token) => {
-    const endpoint =  getEndpointWithPrefix(`search-event/${value}`)
-    return GET(endpoint, token)
-}
-
-export const searchTheatre = (value, token) => {
-    const endpoint =  getEndpointWithPrefix(`search-theatre/${value}`)
-    return GET(endpoint, token)
-}
-
-export const updateMovieItem = (data, token) => {
-    const endpoint =  getEndpointWithPrefix('update-movie')
+export const updateApi = (end, data, token) => {
+    const endpoint =  getEndpointWithPrefix(`update-${end}`)
     return POST(endpoint, data, token)
 }
 
-export const deleteMovieItem = (data, token) => {
-    const endpoint =  getEndpointWithPrefix('delete-movie')
-    return POST(endpoint, data, token)
-}
-
-export const updateEventItem = (data, token) => {
-    const endpoint =  getEndpointWithPrefix('update-event')
-    return POST(endpoint, data, token)
-}
-
-export const deleteEventItem = (data, token) => {
-    const endpoint =  getEndpointWithPrefix('delete-event')
-    return POST(endpoint, data, token)
-}
-
-export const updateTheatretItem = (data, token) => {
-    const endpoint =  getEndpointWithPrefix('update-theatre')
-    return POST(endpoint, data, token)
-}
-
-export const deleteTheatretItem = (data, token) => {
-    const endpoint =  getEndpointWithPrefix('delete-theatre')
+export const deleteApi = (end, data, token) => {
+    const endpoint =  getEndpointWithPrefix(`delete-${end}`)
     return POST(endpoint, data, token)
 }

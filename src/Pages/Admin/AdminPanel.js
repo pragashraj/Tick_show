@@ -16,15 +16,9 @@ import {
     createNewMovie, 
     createNewEvent, 
     createNewTheatre,
-    searchMovie,
-    searchEvent,
-    searchTheatre,
-    updateMovieItem,
-    deleteMovieItem,
-    updateEventItem,
-    deleteEventItem,
-    updateTheatretItem,
-    deleteTheatretItem
+    searchApi,
+    updateApi,
+    deleteApi
 } from '../../api/admin'
 import Panel from './Panel.json'
 
@@ -50,21 +44,12 @@ class AdminPanel extends Component {
         selectedRowsToDelete: []
     }
 
-    searchApi = async(searchValue) => {
+    handleSearchApi = async(searchValue) => {
         try {
             this.setState({loading: true})
-            let response = null
             let token = null
-            const {selectedMain} = this.state
-            if (selectedMain === "Movies") {
-                response = await searchMovie(searchValue, token)
-            }
-            else if (selectedMain === "Events") {
-                response = await searchEvent(searchValue, token)
-            }
-            else if (selectedMain === "Theatres") {
-                response = await searchTheatre(searchValue, token)
-            }
+            const endPoint = this.getEndPointForUpdateDelete()
+            const response = await searchApi(endPoint, searchValue, token)
             if (response) {
                 
             }
@@ -75,21 +60,12 @@ class AdminPanel extends Component {
         }
     }
 
-    updateItemApi = async(data) => {
+    handleUpdateItemApi = async(data) => {
         try {
             this.setState({loading: true})
-            let response = null
             let token = null
-            const {selectedMain} = this.state
-            if (selectedMain === "Movies") {
-                response = await updateMovieItem(data, token)
-            }
-            else if (selectedMain === "Events") {
-                response = await updateEventItem(data, token)
-            }
-            else if (selectedMain === "Theatres") {
-                response = await updateTheatretItem(data, token)
-            }
+            const endPoint = this.getEndPointForUpdateDelete()
+            const response = await updateApi(endPoint, data, token)
             if (response) {
                 
             }
@@ -100,21 +76,12 @@ class AdminPanel extends Component {
         }
     }
 
-    deleteItemApi = async(data) => {
+    handleDeleteItemApi = async(data) => {
         try {
             this.setState({loading: true})
-            let response = null
             let token = null
-            const {selectedMain} = this.state
-            if (selectedMain === "Movies") {
-                response = await deleteMovieItem(data, token)
-            }
-            else if (selectedMain === "Events") {
-                response = await deleteEventItem(data, token)
-            }
-            else if (selectedMain === "Theatres") {
-                response = await deleteTheatretItem(data, token)
-            }
+            const endPoint = this.getEndPointForUpdateDelete()
+            const response = await deleteApi(endPoint, data, token)
             if (response) {
                 
             }
@@ -194,7 +161,7 @@ class AdminPanel extends Component {
         const {selectedRowsToDelete} = this.state
 
         if (selectedRowsToDelete.length > 0) {
-            this.deleteItemApi(selectedRowsToDelete)
+            this.handleDeleteItemApi(selectedRowsToDelete)
         }
     }
 
@@ -228,6 +195,23 @@ class AdminPanel extends Component {
 
     setSnackBar = (severity, message, openSnackBar) => {
         this.setState({ severity, message, openSnackBar })
+    }
+
+    getEndPointForUpdateDelete = () => {
+        const {selectedMain} = this.state
+        let endPoint = ""
+
+        switch (selectedMain) {
+            case "Movies": endPoint = "movie"
+                break
+            case "Events": endPoint = "event"
+                break
+            case "Theatres": endPoint = "theatre"
+                break
+            default: endPoint = ""
+        }
+        
+        return endPoint
     }
 
     getContent = () => {
@@ -295,13 +279,13 @@ class AdminPanel extends Component {
     renderNewTheatre = () => {
         return <NewTheatre
             setErrorSnackBar = {this.setErrorSnackBar}
-            createNewEventApi = {this.createNewTheatreApi}
+            createNewTheatreApi = {this.createNewTheatreApi}
         />
     }
 
     renderUpdateOrDelete = () => {
         return <UpdateOrDelete
-            searchApi = {this.searchApi}
+            searchApi = {this.handleSearchApi}
             handleDeleteOnClick = {this.handleDeleteOnClick}
             setErrorSnackBar = {this.setErrorSnackBar}
             openUpdatePopup = {this.state.openUpdatePopup}

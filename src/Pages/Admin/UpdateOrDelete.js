@@ -169,7 +169,7 @@ class UpdateOrDelete extends Component {
     }
 
     render() {
-        const {tableData} = this.state
+        const {tableData, openUpdatePopup} = this.state
         return (
             <div className = 'new-movie-root'>
                 {
@@ -180,8 +180,9 @@ class UpdateOrDelete extends Component {
                         { this.renderBtnFooter() }
                     </div>
                     :
-                    this.renderUpdatePopup() 
+                    this.renderNoDataAvailable() 
                 }
+                { openUpdatePopup && this.renderUpdatePopup() }
             </div>
         )
     }
