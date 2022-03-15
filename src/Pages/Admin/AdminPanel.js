@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import {connect} from 'react-redux'
+
 //Material-UI
 import {Grid} from '@mui/material'
 
@@ -11,14 +13,15 @@ import UpdateOrDelete from './UpdateOrDelete'
 import Reply from './Reply'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
-import Alert from '../../Components/Alert'
 import {
     createNewMovie, 
     createNewEvent, 
     createNewTheatre,
     searchApi,
     updateApi,
-    deleteApi
+    deleteApi,
+    responseToUserMessage,
+    deleteUserMessages
 } from '../../api/admin'
 import Panel from './Panel.json'
 
@@ -40,63 +43,88 @@ class AdminPanel extends Component {
         severity: "",
         openSnackBar: false,
         loading: false,
-        openDeleteAlertPopup: false,
         selectedRowsToDelete: []
     }
 
     handleSearchApi = async(searchValue) => {
         try {
             this.setState({loading: true})
-            let token = null
+            let token = this.props.authResponse.token
             const endPoint = this.getEndPointForUpdateDelete()
             const response = await searchApi(endPoint, searchValue, token)
-            if (response) {
-                
-            }
             this.setState({ loading: false })
+            return {success: true, response}
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
         }
     }
 
     handleUpdateItemApi = async(data) => {
         try {
             this.setState({loading: true})
-            let token = null
+            let token = this.props.authResponse.token
             const endPoint = this.getEndPointForUpdateDelete()
             const response = await updateApi(endPoint, data, token)
-            if (response) {
-                
-            }
             this.setState({ loading: false })
+            return {success: true, response}
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
         }
     }
 
     handleDeleteItemApi = async(data) => {
         try {
             this.setState({loading: true})
-            let token = null
+            let token = this.props.authResponse.token
             const endPoint = this.getEndPointForUpdateDelete()
             const response = await deleteApi(endPoint, data, token)
-            if (response) {
-                
-            }
             this.setState({ loading: false })
+            return {success: true, response}
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
+        }
+    }
+
+    handleReplyApi = async(data) => {
+        try {
+            this.setState({loading: true})
+            let token = this.props.authResponse.token
+            const response = await responseToUserMessage(data, token)
+            this.setState({ loading: false })
+            return {success: true, response}
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
+        }
+    }
+
+    handleDeleteMessageApi = async(data) => {
+        try {
+            this.setState({loading: true})
+            let token = this.props.authResponse.token
+            const response = await deleteUserMessages(data, token)
+            this.setState({ loading: false })
+            return {success: true, response}
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
         }
     }
 
     createNewMovieApi = async(data, file) => {
         try {
             this.setState({loading: true})
+            let token = this.props.authResponse.token
             const formData = this.createFormData(data, file)
-            const response = await createNewMovie(formData)
+            const response = await createNewMovie(formData, token)
             if(response) {
                 this.setSuccessSnackBar(response.message)
             }
@@ -112,8 +140,9 @@ class AdminPanel extends Component {
     createNewEventApi = async(data, file) => {
         try {
             this.setState({loading: true})
+            let token = this.props.authResponse.token
             const formData = this.createFormData(data, file)
-            const response = await createNewEvent(formData)
+            const response = await createNewEvent(formData, token)
             if(response) {
                 this.setSuccessSnackBar(response.message)
             }
@@ -129,8 +158,9 @@ class AdminPanel extends Component {
     createNewTheatreApi = async(data, file) => {
         try {
             this.setState({loading: true})
+            let token = this.props.authResponse.token
             const formData = this.createFormData(data, file)
-            const response = await createNewTheatre(formData)
+            const response = await createNewTheatre(formData, token)
             if(response) {
                 this.setSuccessSnackBar(response.message)
             }
@@ -153,26 +183,6 @@ class AdminPanel extends Component {
         return formData
     }
 
-    handleUpdate = () => {
-
-    }
-
-    handleDelete = () => {
-        const {selectedRowsToDelete} = this.state
-
-        if (selectedRowsToDelete.length > 0) {
-            this.handleDeleteItemApi(selectedRowsToDelete)
-        }
-    }
-
-    handleDeleteOnClick = (selectedRows) => {
-        const {openDeleteAlertPopup} = this.state
-        this.setState({
-            openDeleteAlertPopup: !openDeleteAlertPopup,
-            selectedRowsToDelete: openDeleteAlertPopup ? [] : selectedRows
-        })
-    }
-
     handleButtonOnClick = (label) => {
         this.setState({ mainTab: label })
     }
@@ -182,7 +192,7 @@ class AdminPanel extends Component {
     }
 
     handleSnackBarClose = () => {
-        this.setSnackBar("", null, false)
+        this.setSnackBar(this.state.severity, null, false)
     }
 
     setSuccessSnackBar = (message) => {
@@ -233,14 +243,6 @@ class AdminPanel extends Component {
         return child
     }
 
-    renderDeleteAlert = (open) => {
-        return <Alert 
-            open = {open}
-            handleClose = {this.handleDeleteOnClick}
-            handleDelete = {this.handleDelete}
-        />
-    }
-
     renderSnackBar = () => {
         const {openSnackBar, severity, message} = this.state
         return (
@@ -255,7 +257,8 @@ class AdminPanel extends Component {
 
     renderReply = () => {
         return <Reply
-            handleDeleteOnClick = {this.handleDeleteOnClick}
+            handleReply = {this.handleReplyApi}
+            handleDelete = {this.handleDeleteMessageApi}
             setErrorSnackBar = {this.setErrorSnackBar}
         />
     }
@@ -285,10 +288,10 @@ class AdminPanel extends Component {
 
     renderUpdateOrDelete = () => {
         return <UpdateOrDelete
-            searchApi = {this.handleSearchApi}
-            handleDeleteOnClick = {this.handleDeleteOnClick}
+            handleSearch = {this.handleSearchApi}
+            handleDelete = {this.handleDeleteItemApi}
+            handleUpdate = {this.handleUpdateItemApi}
             setErrorSnackBar = {this.setErrorSnackBar}
-            openUpdatePopup = {this.state.openUpdatePopup}
         />
     }
 
@@ -334,7 +337,7 @@ class AdminPanel extends Component {
     }
 
     render() {
-        const {loading, openDeleteAlertPopup} = this.state
+        const {loading} = this.state
         return (
             <div className = 'admin-panel-root'>
                 <div className = 'parallax'>
@@ -342,11 +345,14 @@ class AdminPanel extends Component {
                     { this.renderMainContainer() }
                 </div>
                 { this.renderSnackBar() }
-                { this.renderDeleteAlert(openDeleteAlertPopup) }
                 <Loading open = {loading}/>
             </div>
         )
     }
 }
 
-export default AdminPanel
+const mapStateToProps = state => ({
+    authResponse: state.auth.authResponse
+})
+
+export default connect(mapStateToProps)(AdminPanel)

@@ -48,3 +48,8 @@ export const deleteApi = (end, data, token) => {
     const endpoint =  getEndpointWithPrefix(`delete-${end}`)
     return POST(endpoint, data, token)
 }
+
+export const deleteUserMessages = (data, token) => {
+    const endpoint =  getEndpointWithPrefix(`delete-user-messages`)
+    return POST(endpoint, data, token)
+}

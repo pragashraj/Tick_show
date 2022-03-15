@@ -7,6 +7,7 @@ import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
+import Alert from '../../Components/Alert'
 
 import './AdminPanel.css'
 
@@ -17,7 +18,8 @@ class Reply extends Component {
         tableHeaders: [],
         tableData: [],
         openReplyPopup: false,
-        reply: ""
+        reply: "",
+        openDeleteAlertPopup: false,
     }
 
     componentDidMount() {
@@ -34,11 +36,20 @@ class Reply extends Component {
     }
 
     handleReply = () => {
-
+        this.props.handleReply().then(res => {
+            if (res.success) {
+                this.handleReplyPopupState()
+            }
+        })
     }
 
-    handleReplyPopupState = () => {
-        this.setState({openReplyPopup: !this.state.openReplyPopup})
+    handleDelete = () => {
+        const {selectedRows} = this.state
+        this.props.handleDelete(selectedRows).then(res => {
+            if (res.success) {
+                this.handleDeletePopupState()
+            }
+        })
     }
 
     handleReplyOnClick = () => {
@@ -57,7 +68,7 @@ class Reply extends Component {
     handleDeleteOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length > 0) {
-            this.props.handleDeleteOnClick(selectedRows)
+            this.handleDeletePopupState()
         }
         else {
             this.props.setErrorSnackBar("Please select atleast one item first!")
@@ -76,22 +87,40 @@ class Reply extends Component {
         this.setState({selectedRows, selectedIndexes})
     }
 
+    handleDeletePopupState = () => {
+        this.setState({openDeleteAlertPopup: !this.state.openDeleteAlertPopup})
+    }
+
+    handleReplyPopupState = () => {
+        this.setState({openReplyPopup: !this.state.openReplyPopup})
+    }
+
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({[name]: value})
     }
 
-    renderReplyPopup = (open) => {
+    renderDeleteAlert = () => {
+        const {openDeleteAlertPopup} = this.state
+        return <Alert 
+            open = {openDeleteAlertPopup}
+            handleClose = {this.handleDeleteOnClick}
+            handleDelete = {this.handleDelete}
+        />
+    }
+
+    renderReplyPopup = () => {
+        const {openReplyPopup} = this.state
         return (
             <Modal
-                open = {open}
+                open = {openReplyPopup}
                 onClose = {this.handleModalCancelOnClick}
                 closeAfterTransition
                 BackdropComponent = {Backdrop}
                 BackdropProps = {{ timeout: 500 }}
                 sx = {{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
             >
-                <Fade in = {open}>
+                <Fade in = {openReplyPopup}>
                     <div className = 'modal_paper'>
                         <h2 id = "transition-modal-title">Reply</h2>
                         <div className = 'modal_form'>
@@ -165,7 +194,7 @@ class Reply extends Component {
     }
 
     render() {
-        const {tableData, openReplyPopup} = this.state
+        const {tableData, openReplyPopup, openDeleteAlertPopup} = this.state
         return (
             <div className = 'new-movie-root'>
                 {
@@ -177,7 +206,8 @@ class Reply extends Component {
                     :
                     this.renderNoDataAvailable()
                 }
-                { this.renderReplyPopup(openReplyPopup) }
+                { openReplyPopup && this.renderReplyPopup() }
+                { openDeleteAlertPopup && this.renderDeleteAlert() }
             </div>
         )
     }
