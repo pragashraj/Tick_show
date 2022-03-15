@@ -71,6 +71,16 @@ class Reply extends Component {
         this.setState({[name]: value})
     }
 
+    renderNoDataAvailable = () => {
+        return (
+            <div className = "no_data_container">
+                <div className = "no_data">
+                    <h1>No Data Available</h1>
+                </div>
+            </div>
+        )
+    }
+
     renderBtnFooter = () => {
         return (
             <Grid container spacing = {2}>
@@ -106,10 +116,18 @@ class Reply extends Component {
     }
 
     render() {
+        const {tableData} = this.state
         return (
             <div className = 'new-movie-root'>
-                { this.renderTableContent() }
-                { this.renderBtnFooter() }
+                {
+                    tableData.length > 0 ? 
+                    <div>
+                        { this.renderTableContent() }
+                        { this.renderBtnFooter() }
+                    </div>
+                    :
+                    this.renderNoDataAvailable()
+                }
             </div>
         )
     }
