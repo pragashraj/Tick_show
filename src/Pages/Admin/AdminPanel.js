@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import {connect} from 'react-redux'
+
 //Material-UI
 import {Grid} from '@mui/material'
 
@@ -47,7 +49,7 @@ class AdminPanel extends Component {
     handleSearchApi = async(searchValue) => {
         try {
             this.setState({loading: true})
-            let token = null
+            let token = this.props.authResponse.token
             const endPoint = this.getEndPointForUpdateDelete()
             const response = await searchApi(endPoint, searchValue, token)
             this.setState({ loading: false })
@@ -62,7 +64,7 @@ class AdminPanel extends Component {
     handleUpdateItemApi = async(data) => {
         try {
             this.setState({loading: true})
-            let token = null
+            let token = this.props.authResponse.token
             const endPoint = this.getEndPointForUpdateDelete()
             const response = await updateApi(endPoint, data, token)
             this.setState({ loading: false })
@@ -77,7 +79,7 @@ class AdminPanel extends Component {
     handleDeleteItemApi = async(data) => {
         try {
             this.setState({loading: true})
-            let token = null
+            let token = this.props.authResponse.token
             const endPoint = this.getEndPointForUpdateDelete()
             const response = await deleteApi(endPoint, data, token)
             this.setState({ loading: false })
@@ -92,7 +94,7 @@ class AdminPanel extends Component {
     handleReplyApi = async(data) => {
         try {
             this.setState({loading: true})
-            let token = null
+            let token = this.props.authResponse.token
             const response = await responseToUserMessage(data, token)
             this.setState({ loading: false })
             return {success: true, response}
@@ -106,7 +108,7 @@ class AdminPanel extends Component {
     handleDeleteMessageApi = async(data) => {
         try {
             this.setState({loading: true})
-            let token = null
+            let token = this.props.authResponse.token
             const response = await deleteUserMessages(data, token)
             this.setState({ loading: false })
             return {success: true, response}
@@ -120,8 +122,9 @@ class AdminPanel extends Component {
     createNewMovieApi = async(data, file) => {
         try {
             this.setState({loading: true})
+            let token = this.props.authResponse.token
             const formData = this.createFormData(data, file)
-            const response = await createNewMovie(formData)
+            const response = await createNewMovie(formData, token)
             if(response) {
                 this.setSuccessSnackBar(response.message)
             }
@@ -137,8 +140,9 @@ class AdminPanel extends Component {
     createNewEventApi = async(data, file) => {
         try {
             this.setState({loading: true})
+            let token = this.props.authResponse.token
             const formData = this.createFormData(data, file)
-            const response = await createNewEvent(formData)
+            const response = await createNewEvent(formData, token)
             if(response) {
                 this.setSuccessSnackBar(response.message)
             }
@@ -154,8 +158,9 @@ class AdminPanel extends Component {
     createNewTheatreApi = async(data, file) => {
         try {
             this.setState({loading: true})
+            let token = this.props.authResponse.token
             const formData = this.createFormData(data, file)
-            const response = await createNewTheatre(formData)
+            const response = await createNewTheatre(formData, token)
             if(response) {
                 this.setSuccessSnackBar(response.message)
             }
@@ -346,4 +351,8 @@ class AdminPanel extends Component {
     }
 }
 
-export default AdminPanel
+const mapStateToProps = state => ({
+    authResponse: state.auth.authResponse
+})
+
+export default connect(mapStateToProps)(AdminPanel)
