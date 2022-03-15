@@ -270,7 +270,10 @@ class AdminPanel extends Component {
     }
 
     renderReply = () => {
-        return <Reply/>
+        return <Reply
+            handleDeleteOnClick = {this.handleDeleteOnClick}
+            setErrorSnackBar = {this.setErrorSnackBar}
+        />
     }
 
     renderNewMovie = () => {
