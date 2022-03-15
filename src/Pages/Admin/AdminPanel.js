@@ -11,7 +11,6 @@ import UpdateOrDelete from './UpdateOrDelete'
 import Reply from './Reply'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
-import Alert from '../../Components/Alert'
 import {
     createNewMovie, 
     createNewEvent, 
@@ -158,12 +157,8 @@ class AdminPanel extends Component {
         }
     }
 
-    handleDeleteOnClick = (selectedRows) => {
-        const {openDeleteAlertPopup} = this.state
-        this.setState({
-            openDeleteAlertPopup: !openDeleteAlertPopup,
-            selectedRowsToDelete: openDeleteAlertPopup ? [] : selectedRows
-        })
+    handleDeleteOnClick = () => {
+        
     }
 
     handleButtonOnClick = (label) => {
@@ -226,14 +221,6 @@ class AdminPanel extends Component {
         return child
     }
 
-    renderDeleteAlert = (open) => {
-        return <Alert 
-            open = {open}
-            handleClose = {this.handleDeleteOnClick}
-            handleDelete = {this.handleDelete}
-        />
-    }
-
     renderSnackBar = () => {
         const {openSnackBar, severity, message} = this.state
         return (
@@ -278,11 +265,10 @@ class AdminPanel extends Component {
 
     renderUpdateOrDelete = () => {
         return <UpdateOrDelete
-            searchApi = {this.handleSearchApi}
-            handleDeleteOnClick = {this.handleDeleteOnClick}
-            setErrorSnackBar = {this.setErrorSnackBar}
-            openUpdatePopup = {this.state.openUpdatePopup}
+            handleSearch = {this.handleSearchApi}
+            handleDelete = {this.handleDeleteItemApi}
             handleUpdate = {this.handleUpdateItemApi}
+            setErrorSnackBar = {this.setErrorSnackBar}
         />
     }
 
@@ -328,7 +314,7 @@ class AdminPanel extends Component {
     }
 
     render() {
-        const {loading, openDeleteAlertPopup} = this.state
+        const {loading} = this.state
         return (
             <div className = 'admin-panel-root'>
                 <div className = 'parallax'>
@@ -336,7 +322,6 @@ class AdminPanel extends Component {
                     { this.renderMainContainer() }
                 </div>
                 { this.renderSnackBar() }
-                { this.renderDeleteAlert(openDeleteAlertPopup) }
                 <Loading open = {loading}/>
             </div>
         )

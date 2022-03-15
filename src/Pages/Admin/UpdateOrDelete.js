@@ -8,6 +8,7 @@ import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import UpdatePopup from './UpdatePopup'
+import Alert from '../../Components/Alert'
 
 import './AdminPanel.css'
 
@@ -19,7 +20,8 @@ class UpdateOrDelete extends Component {
         tableHeaders: [],
         tableData: [],
         openUpdatePopup: false,
-        fields: []
+        fields: [],
+        openDeleteAlertPopup: false,
     }
 
     componentDidMount() {
@@ -39,7 +41,16 @@ class UpdateOrDelete extends Component {
     handleUpdate = () => {
         this.props.handleUpdate().then(res => {
             if (res.success) {
-                
+                this.setState({openUpdatePopup: false})
+            }
+        })
+    }
+
+    handleDelete = () => {
+        const {selectedRows} = this.state
+        this.props.handleDelete(selectedRows).then(res => {
+            if (res.success) {
+                this.setState({openDeleteAlertPopup: false})
             }
         })
     }
@@ -60,7 +71,7 @@ class UpdateOrDelete extends Component {
     handleDeleteOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length > 0) {
-            this.props.handleDeleteOnClick(selectedRows)
+            this.handleDeletePopupState()
         }
         else {
             this.props.setErrorSnackBar("Please select atleast one item first!")
@@ -70,7 +81,7 @@ class UpdateOrDelete extends Component {
     handleSearchOnClick = () => {
         const {searchValue} = this.state
         if (searchValue) {
-            this.props.searchApi(searchValue).then(res => {
+            this.props.handleSearch(searchValue).then(res => {
                 if (res.success) {
                     this.setState({searchValue: ""})
                 }
@@ -91,6 +102,10 @@ class UpdateOrDelete extends Component {
 
     handleUpdatePopupState = () => {
         this.setState({openUpdatePopup: !this.state.openUpdatePopup})
+    }
+
+    handleDeletePopupState = () => {
+        this.setState({openDeleteAlertPopup: !this.state.openDeleteAlertPopup})
     }
 
     handleInputOnChange = (e) => {
@@ -119,6 +134,15 @@ class UpdateOrDelete extends Component {
                 />
             </div>
         )
+    }
+
+    renderDeleteAlert = () => {
+        const {openDeleteAlertPopup} = this.state
+        return <Alert 
+            open = {openDeleteAlertPopup}
+            handleClose = {this.handleDeleteOnClick}
+            handleDelete = {this.handleDelete}
+        />
     }
 
     renderUpdatePopup = () => {
@@ -181,7 +205,7 @@ class UpdateOrDelete extends Component {
     }
 
     render() {
-        const {tableData, openUpdatePopup} = this.state
+        const {tableData, openUpdatePopup, openDeleteAlertPopup} = this.state
         return (
             <div className = 'new-movie-root'>
                 {
@@ -195,6 +219,7 @@ class UpdateOrDelete extends Component {
                     this.renderNoDataAvailable() 
                 }
                 { openUpdatePopup && this.renderUpdatePopup() }
+                { openDeleteAlertPopup && this.renderDeleteAlert() }
             </div>
         )
     }
