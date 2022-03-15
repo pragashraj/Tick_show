@@ -50,13 +50,12 @@ class AdminPanel extends Component {
             let token = null
             const endPoint = this.getEndPointForUpdateDelete()
             const response = await searchApi(endPoint, searchValue, token)
-            if (response) {
-                
-            }
             this.setState({ loading: false })
+            return {success: true, response}
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
         }
     }
 
@@ -66,13 +65,12 @@ class AdminPanel extends Component {
             let token = null
             const endPoint = this.getEndPointForUpdateDelete()
             const response = await updateApi(endPoint, data, token)
-            if (response) {
-                
-            }
             this.setState({ loading: false })
+            return {success: true, response}
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
         }
     }
 
@@ -82,13 +80,12 @@ class AdminPanel extends Component {
             let token = null
             const endPoint = this.getEndPointForUpdateDelete()
             const response = await deleteApi(endPoint, data, token)
-            if (response) {
-                
-            }
             this.setState({ loading: false })
+            return {success: true, response}
         } catch (e) {
             this.setState({ loading: false })
             this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
         }
     }
 
@@ -153,10 +150,6 @@ class AdminPanel extends Component {
         return formData
     }
 
-    handleUpdate = () => {
-
-    }
-
     handleDelete = () => {
         const {selectedRowsToDelete} = this.state
 
@@ -182,7 +175,7 @@ class AdminPanel extends Component {
     }
 
     handleSnackBarClose = () => {
-        this.setSnackBar("", null, false)
+        this.setSnackBar(this.state.severity, null, false)
     }
 
     setSuccessSnackBar = (message) => {
@@ -289,6 +282,7 @@ class AdminPanel extends Component {
             handleDeleteOnClick = {this.handleDeleteOnClick}
             setErrorSnackBar = {this.setErrorSnackBar}
             openUpdatePopup = {this.state.openUpdatePopup}
+            handleUpdate = {this.handleUpdateItemApi}
         />
     }
 

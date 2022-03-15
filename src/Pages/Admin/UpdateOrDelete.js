@@ -36,8 +36,12 @@ class UpdateOrDelete extends Component {
         this.setState({tableHeaders: t_Headers, tableData: t_Data, fields})
     }
 
-    handleUpdatePopupState = () => {
-        this.setState({openUpdatePopup: !this.state.openUpdatePopup})
+    handleUpdate = () => {
+        this.props.handleUpdate().then(res => {
+            if (res.success) {
+                
+            }
+        })
     }
 
     handleUpdateOnClick = () => {
@@ -66,7 +70,11 @@ class UpdateOrDelete extends Component {
     handleSearchOnClick = () => {
         const {searchValue} = this.state
         if (searchValue) {
-            this.props.searchApi(searchValue)
+            this.props.searchApi(searchValue).then(res => {
+                if (res.success) {
+                    this.setState({searchValue: ""})
+                }
+            })
         }
         else {
             this.props.setErrorSnackBar("Fields cannot be empty")
@@ -79,6 +87,10 @@ class UpdateOrDelete extends Component {
 
     handleRowDataOnClick = (selectedRows, selectedIndexes) => {
         this.setState({selectedRows, selectedIndexes})
+    }
+
+    handleUpdatePopupState = () => {
+        this.setState({openUpdatePopup: !this.state.openUpdatePopup})
     }
 
     handleInputOnChange = (e) => {
