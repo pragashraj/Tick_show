@@ -76,3 +76,16 @@
     margin-top: 5px;
     margin-bottom: 45px;
 }
+
+.modal_paper {
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 2px solid #000;
+    box-shadow: 5;
+    padding: 15px;
+    color: white;
+    min-width: 50%;
+}
+
+.modal_form {
+    padding: 15px;
+}

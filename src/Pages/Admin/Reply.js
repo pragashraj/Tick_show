@@ -1,29 +1,27 @@
 import React, { Component } from 'react'
 
 //Material-UI
-import {Grid} from '@mui/material'
+import {Grid, Modal, Backdrop, Fade, DialogActions} from '@mui/material'
 
 import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
-import UpdatePopup from './UpdatePopup'
 
 import './AdminPanel.css'
 
-class UpdateOrDelete extends Component {
+class Reply extends Component {
     state = {
-        searchValue: "",
         selectedIndexes: [],
         selectedRows: [],
         tableHeaders: [],
         tableData: [],
-        openUpdatePopup: false,
-        fields: []
+        openReplyPopup: false,
+        reply: ""
     }
 
     componentDidMount() {
-        const t_Headers = ["Dessert", "Calories", "Fat", "carbs", "protein"]
+        const t_Headers = ["Message", "Name", "Email", "Subject", "DateTime"]
         const t_Data = [ 
             {label: "Name1", rowValues: ["col1", "col2", "col3", "col4"]},
             {label: "Name2", rowValues: ["col5", "col6", "col7", "col8"]},
@@ -31,19 +29,22 @@ class UpdateOrDelete extends Component {
             {label: "Name4", rowValues: ["col13", "col14", "col15", "col16"]},
             {label: "Name5", rowValues: ["col17", "col18", "col19", "col20"]}
         ]
-        const fields = t_Headers.slice(1, t_Headers.length)
 
-        this.setState({tableHeaders: t_Headers, tableData: t_Data, fields})
+        this.setState({tableHeaders: t_Headers, tableData: t_Data})
     }
 
-    handleUpdatePopupState = () => {
-        this.setState({openUpdatePopup: !this.state.openUpdatePopup})
+    handleReply = () => {
+
     }
 
-    handleUpdateOnClick = () => {
+    handleReplyPopupState = () => {
+        this.setState({openReplyPopup: !this.state.openReplyPopup})
+    }
+
+    handleReplyOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length === 1) {
-            this.handleUpdatePopupState()
+            this.handleReplyPopupState()
         }
         else if (selectedRows.length > 1) {
             this.props.setErrorSnackBar("Please select only one item to update")
@@ -63,14 +64,8 @@ class UpdateOrDelete extends Component {
         }
     }
 
-    handleSearchOnClick = () => {
-        const {searchValue} = this.state
-        if (searchValue) {
-            this.props.searchApi(searchValue)
-        }
-        else {
-            this.props.setErrorSnackBar("Fields cannot be empty")
-        }
+    handleModalCancelOnClick = () => {
+        this.setState({ openReplyPopup: false })
     }
 
     handleCancelOnClick = () => {
@@ -86,13 +81,29 @@ class UpdateOrDelete extends Component {
         this.setState({[name]: value})
     }
 
-    renderNoDataAvailable = () => {
+    renderReplyPopup = (open) => {
         return (
-            <div className = "no_data_container">
-                <div className = "no_data">
-                    <h1>No Data Available</h1>
-                </div>
-            </div>
+            <Modal
+                open = {open}
+                onClose = {this.handleModalCancelOnClick}
+                closeAfterTransition
+                BackdropComponent = {Backdrop}
+                BackdropProps = {{ timeout: 500 }}
+                sx = {{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+            >
+                <Fade in = {open}>
+                    <div className = 'modal_paper'>
+                        <h2 id = "transition-modal-title">Reply</h2>
+                        <div className = 'modal_form'>
+                            { this.renderInputField("reply", "Enter reply to user") }
+                        </div>
+                        <DialogActions>
+                            <SecondaryButton label = "Cancel" onClick = {this.handleModalCancelOnClick}/>
+                            <CustomButton label = "Confirm & Reply" onClick = {this.handleReply}/>
+                        </DialogActions>
+                    </div>
+                </Fade>
+            </Modal>
         )
     }
 
@@ -109,16 +120,14 @@ class UpdateOrDelete extends Component {
         )
     }
 
-    renderUpdatePopup = () => {
-        const {openUpdatePopup, fields, selectedRows} = this.state
-        const values = {fields, selectedRow: selectedRows[0]}
-        return <UpdatePopup
-            open = {openUpdatePopup}
-            values = {values}
-            handleCancel = {this.handleUpdatePopupState}
-            handleUpdate = {this.handleUpdate}
-            handleInputOnChange = {this.handleInputOnChange}
-        />
+    renderNoDataAvailable = () => {
+        return (
+            <div className = "no_data_container">
+                <div className = "no_data">
+                    <h1>No Data Available</h1>
+                </div>
+            </div>
+        )
     }
 
     renderBtnFooter = () => {
@@ -132,7 +141,7 @@ class UpdateOrDelete extends Component {
                     </Grid>
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {3}>
-                    <CustomButton label = "Update" onClick = {this.handleUpdateOnClick}/>
+                    <CustomButton label = "Reply" onClick = {this.handleReplyOnClick}/>
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {3}>
                     <CustomButton label = "Delete" onClick = {this.handleDeleteOnClick}/>
@@ -155,36 +164,23 @@ class UpdateOrDelete extends Component {
         )
     }
 
-    renderSearch = () => {
-        return (
-            <Grid container spacing = {2}>
-                <Grid item xs = {6} sm = {6} md = {9}>
-                    { this.renderInputField("searchValue", "Enter name") }
-                </Grid>
-                <Grid item xs = {6} sm = {6} md = {3}>
-                    <SecondaryButton label = "Search" onClick = {this.handleSearchOnClick}/>
-                </Grid>
-            </Grid>
-        )
-    }
-
     render() {
-        const {tableData} = this.state
+        const {tableData, openReplyPopup} = this.state
         return (
             <div className = 'new-movie-root'>
                 {
                     tableData.length > 0 ? 
                     <div>
-                        { this.renderSearch() }
                         { this.renderTableContent() }
                         { this.renderBtnFooter() }
                     </div>
                     :
-                    this.renderUpdatePopup() 
+                    this.renderNoDataAvailable()
                 }
+                { this.renderReplyPopup(openReplyPopup) }
             </div>
         )
     }
 }
 
-export default UpdateOrDelete
+export default Reply
