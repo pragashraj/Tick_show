@@ -17,7 +17,9 @@ import {
     createNewTheatre,
     searchApi,
     updateApi,
-    deleteApi
+    deleteApi,
+    responseToUserMessage,
+    deleteUserMessages
 } from '../../api/admin'
 import Panel from './Panel.json'
 
@@ -88,6 +90,34 @@ class AdminPanel extends Component {
         }
     }
 
+    handleReplyApi = async(data) => {
+        try {
+            this.setState({loading: true})
+            let token = null
+            const response = await responseToUserMessage(data, token)
+            this.setState({ loading: false })
+            return {success: true, response}
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
+        }
+    }
+
+    handleDeleteMessageApi = async(data) => {
+        try {
+            this.setState({loading: true})
+            let token = null
+            const response = await deleteUserMessages(data, token)
+            this.setState({ loading: false })
+            return {success: true, response}
+        } catch (e) {
+            this.setState({ loading: false })
+            this.setErrorSnackBar("server error, please try again")
+            return {success: false, response: null}
+        }
+    }
+
     createNewMovieApi = async(data, file) => {
         try {
             this.setState({loading: true})
@@ -147,18 +177,6 @@ class AdminPanel extends Component {
         formData.append("request", blob)
 
         return formData
-    }
-
-    handleDelete = () => {
-        const {selectedRowsToDelete} = this.state
-
-        if (selectedRowsToDelete.length > 0) {
-            this.handleDeleteItemApi(selectedRowsToDelete)
-        }
-    }
-
-    handleDeleteOnClick = () => {
-        
     }
 
     handleButtonOnClick = (label) => {
@@ -235,7 +253,8 @@ class AdminPanel extends Component {
 
     renderReply = () => {
         return <Reply
-            handleDeleteOnClick = {this.handleDeleteOnClick}
+            handleReply = {this.handleReplyApi}
+            handleDelete = {this.handleDeleteMessageApi}
             setErrorSnackBar = {this.setErrorSnackBar}
         />
     }
