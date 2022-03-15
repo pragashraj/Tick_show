@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 
 //Material-UI
-import {Grid} from '@mui/material'
+import {Grid, Modal, Backdrop, Fade, DialogActions} from '@mui/material'
 
+import InputField from '../../Components/InputField'
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
@@ -15,7 +16,8 @@ class Reply extends Component {
         selectedRows: [],
         tableHeaders: [],
         tableData: [],
-        openReplyPopup: false
+        openReplyPopup: false,
+        reply: ""
     }
 
     componentDidMount() {
@@ -29,6 +31,10 @@ class Reply extends Component {
         ]
 
         this.setState({tableHeaders: t_Headers, tableData: t_Data})
+    }
+
+    handleReply = () => {
+
     }
 
     handleReplyPopupState = () => {
@@ -58,6 +64,10 @@ class Reply extends Component {
         }
     }
 
+    handleModalCancelOnClick = () => {
+        this.setState({ openReplyPopup: false })
+    }
+
     handleCancelOnClick = () => {
         this.setState({selectedRows: [], selectedIndexes: []})
     }
@@ -69,6 +79,45 @@ class Reply extends Component {
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({[name]: value})
+    }
+
+    renderReplyPopup = (open) => {
+        return (
+            <Modal
+                open = {open}
+                onClose = {this.handleModalCancelOnClick}
+                closeAfterTransition
+                BackdropComponent = {Backdrop}
+                BackdropProps = {{ timeout: 500 }}
+                sx = {{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+            >
+                <Fade in = {open}>
+                    <div className = 'modal_paper'>
+                        <h2 id = "transition-modal-title">Reply</h2>
+                        <div className = 'modal_form'>
+                            { this.renderInputField("reply", "Enter reply to user") }
+                        </div>
+                        <DialogActions>
+                            <SecondaryButton label = "Cancel" onClick = {this.handleModalCancelOnClick}/>
+                            <CustomButton label = "Confirm & Reply" onClick = {this.handleReply}/>
+                        </DialogActions>
+                    </div>
+                </Fade>
+            </Modal>
+        )
+    }
+
+    renderInputField = (name, placeholder) => {
+        return (
+            <div className = "input_wrapper">
+                <InputField
+                    name = {name}
+                    label = {placeholder}
+                    handleOnChange = {this.handleInputOnChange}
+                    value = {this.state[name]}
+                />
+            </div>
+        )
     }
 
     renderNoDataAvailable = () => {
@@ -116,7 +165,7 @@ class Reply extends Component {
     }
 
     render() {
-        const {tableData} = this.state
+        const {tableData, openReplyPopup} = this.state
         return (
             <div className = 'new-movie-root'>
                 {
@@ -128,6 +177,7 @@ class Reply extends Component {
                     :
                     this.renderNoDataAvailable()
                 }
+                { this.renderReplyPopup(openReplyPopup) }
             </div>
         )
     }

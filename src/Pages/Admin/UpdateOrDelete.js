@@ -86,6 +86,16 @@ class UpdateOrDelete extends Component {
         this.setState({[name]: value})
     }
 
+    renderNoDataAvailable = () => {
+        return (
+            <div className = "no_data_container">
+                <div className = "no_data">
+                    <h1>No Data Available</h1>
+                </div>
+            </div>
+        )
+    }
+
     renderInputField = (name, placeholder) => {
         return (
             <div className = "input_wrapper">
@@ -132,13 +142,13 @@ class UpdateOrDelete extends Component {
     }
 
     renderTableContent = () => {
-        const {tableHeaders, tableData} = this.state
+        const {tableHeaders, tableData, selectedIndexes} = this.state
         return (
             <div className = 'table_root'>
                 <CustomTable
                     tableHeaders = {tableHeaders}
                     tableData = {tableData}
-                    selectedIndexes = {this.state.selectedIndexes}
+                    selectedIndexes = {selectedIndexes}
                     handleRowDataOnClick = {this.handleRowDataOnClick}
                 />
             </div>
@@ -159,12 +169,19 @@ class UpdateOrDelete extends Component {
     }
 
     render() {
+        const {tableData} = this.state
         return (
             <div className = 'new-movie-root'>
-                { this.renderSearch() }
-                { this.renderTableContent() }
-                { this.renderBtnFooter() }
-                { this.renderUpdatePopup() }
+                {
+                    tableData.length > 0 ? 
+                    <div>
+                        { this.renderSearch() }
+                        { this.renderTableContent() }
+                        { this.renderBtnFooter() }
+                    </div>
+                    :
+                    this.renderUpdatePopup() 
+                }
             </div>
         )
     }
