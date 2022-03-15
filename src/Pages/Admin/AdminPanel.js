@@ -41,7 +41,6 @@ class AdminPanel extends Component {
         severity: "",
         openSnackBar: false,
         loading: false,
-        openDeleteAlertPopup: false,
         selectedRowsToDelete: []
     }
 

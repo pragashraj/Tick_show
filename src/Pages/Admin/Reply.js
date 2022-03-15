@@ -36,11 +36,20 @@ class Reply extends Component {
     }
 
     handleReply = () => {
-
+        this.props.handleReply().then(res => {
+            if (res.success) {
+                this.handleReplyPopupState()
+            }
+        })
     }
 
     handleDelete = () => {
-
+        const {selectedRows} = this.state
+        this.props.handleDelete(selectedRows).then(res => {
+            if (res.success) {
+                this.handleDeletePopupState()
+            }
+        })
     }
 
     handleReplyOnClick = () => {

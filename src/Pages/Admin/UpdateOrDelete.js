@@ -41,7 +41,7 @@ class UpdateOrDelete extends Component {
     handleUpdate = () => {
         this.props.handleUpdate().then(res => {
             if (res.success) {
-                this.setState({openUpdatePopup: false})
+                this.handleUpdatePopupState()
             }
         })
     }
@@ -50,7 +50,7 @@ class UpdateOrDelete extends Component {
         const {selectedRows} = this.state
         this.props.handleDelete(selectedRows).then(res => {
             if (res.success) {
-                this.setState({openDeleteAlertPopup: false})
+                this.handleDeletePopupState()
             }
         })
     }
