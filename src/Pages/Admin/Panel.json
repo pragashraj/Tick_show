@@ -24,8 +24,7 @@
         {
             "label": "Messages", 
             "child": [
-                {"tab" : "Reply", "title": "Response to user's message"},
-                {"tab" : "Update / Delete", "title": "Update or Delete - Messages"}
+                {"tab" : "Reply", "title": "Response to user's message"}
             ]
         }
     ]

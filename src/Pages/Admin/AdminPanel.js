@@ -8,6 +8,7 @@ import NewMovie from './NewMovie'
 import NewEvent from './NewEvent'
 import NewTheatre from './NewTheatre'
 import UpdateOrDelete from './UpdateOrDelete'
+import Reply from './Reply'
 import SnackBarAlert from '../../Components/SnackBarAlert'
 import Loading from '../../Components/Loading/Loading'
 import Alert from '../../Components/Alert'
@@ -240,7 +241,7 @@ class AdminPanel extends Component {
                 break
             case "New Theatre" : child = this.renderNewTheatre()
                 break
-            case "Reply" : child = null
+            case "Reply" : child = this.renderReply()
                 break
             default: child = this.renderUpdateOrDelete()
         }
@@ -266,6 +267,10 @@ class AdminPanel extends Component {
                 handleClose = {this.handleSnackBarClose}
             />
         )
+    }
+
+    renderReply = () => {
+        return <Reply/>
     }
 
     renderNewMovie = () => {
