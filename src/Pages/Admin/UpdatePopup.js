@@ -58,7 +58,7 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
     const renderMainContainer = () => {
         return (
             <div className = {classes.paper}>
-                <h2 id = "transition-modal-title">Update! - {selectedRow.label}</h2>
+                <h2 id = "transition-modal-title">Update! - {selectedRow && selectedRow.label}</h2>
                 <div className = {classes.form}>
                     { fields.map((i, idx) => {
                         return <div key = {idx}>
