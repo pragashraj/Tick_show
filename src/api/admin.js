@@ -34,8 +34,8 @@ export const getMessagesByReplied = (isReplied, page, token) => {
     return GET(endpoint, token)
 }
 
-export const searchApi = (end, value, token) => {
-    const endpoint =  getEndpointWithPrefix(`search-${end}/${value}`)
+export const searchApi = (end, value, page, token) => {
+    const endpoint =  getEndpointWithPrefix(`search-${end}?name=${value}&page=${page}`)
     return GET(endpoint, token)
 }
 

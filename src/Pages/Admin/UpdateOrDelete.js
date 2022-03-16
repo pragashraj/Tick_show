@@ -9,6 +9,7 @@ import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import UpdatePopup from './UpdatePopup'
 import Alert from '../../Components/Alert'
+import {getEvents} from '../../api/events'
 
 import './AdminPanel.css'
 
@@ -24,6 +25,10 @@ class UpdateOrDelete extends Component {
         openDeleteAlertPopup: false,
     }
 
+    TABLE_HEADERS = {
+        "Events": ["Name", "Address", "Contact", "Price", "Location"]
+    }
+
     componentDidMount() {
         const t_Headers = ["Dessert", "Calories", "Fat", "carbs", "protein"]
         const t_Data = [ 
@@ -36,6 +41,35 @@ class UpdateOrDelete extends Component {
         const fields = t_Headers.slice(1, t_Headers.length)
 
         this.setState({tableHeaders: t_Headers, tableData: t_Data, fields})
+    }
+
+    getData = () => {
+        const tab = this.props.selectedTab
+
+        switch(tab) {
+            case "Events": this.getEventsApi()
+                break
+            default: return
+        }
+    }
+
+    getEventsApi = async(page) => {
+        try {
+            this.props.setLoading(true)
+            const response = await getEvents(page, 10)
+            if (response) {
+                this.loadData(response)
+            }
+            this.props.setLoading(false)
+        } catch (e) {
+            this.props.setLoading(false)
+            this.props.setErrorSnackBar("server error, please try again")
+        }
+    }
+
+    loadData = (data) => {
+        const tab = this.props.selectedTab
+        this.setState({ tableHeaders: this.TABLE_HEADERS[tab] })
     }
 
     handleUpdate = () => {
