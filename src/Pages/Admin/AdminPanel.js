@@ -42,8 +42,7 @@ class AdminPanel extends Component {
         message: "",
         severity: "",
         openSnackBar: false,
-        loading: false,
-        selectedRowsToDelete: []
+        loading: false
     }
 
     handleSearchApi = async(searchValue) => {
@@ -195,6 +194,10 @@ class AdminPanel extends Component {
         this.setSnackBar(this.state.severity, null, false)
     }
 
+    setLoading = (active) => {
+        this.setState({ loading: active })
+    }
+
     setSuccessSnackBar = (message) => {
         this.setSnackBar("success", message, true)
     }
@@ -287,11 +290,14 @@ class AdminPanel extends Component {
     }
 
     renderUpdateOrDelete = () => {
+        const {selectedMain} = this.state
         return <UpdateOrDelete
+            selectedTab = {selectedMain}
             handleSearch = {this.handleSearchApi}
             handleDelete = {this.handleDeleteItemApi}
             handleUpdate = {this.handleUpdateItemApi}
             setErrorSnackBar = {this.setErrorSnackBar}
+            setLoading = {this.setLoading}
         />
     }
 
