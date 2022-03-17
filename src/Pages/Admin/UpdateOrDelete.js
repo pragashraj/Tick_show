@@ -11,6 +11,7 @@ import UpdatePopup from './UpdatePopup'
 import Alert from '../../Components/Alert'
 import {getEvents} from '../../api/events'
 import {getTheatres} from '../../api/theatres'
+import {getMovies} from '../../api/movie'
 
 import './AdminPanel.css'
 
@@ -26,6 +27,7 @@ class UpdateOrDelete extends Component {
     }
 
     TABLE_HEADERS = {
+        "Movies": ["Name", "Duration", "ReleaseDate", "Experience", "Genre(s)"],
         "Events": ["Name", "Address", "Contact", "Price", "Location"],
         "Theatres": ["Name", "Address", "Contact", "Rate", "Location"]
     }
@@ -34,6 +36,8 @@ class UpdateOrDelete extends Component {
         const tab = this.props.selectedTab
 
         switch(tab) {
+            case "Movies": this.getMoviesApi()
+                break
             case "Events": this.getEventsApi()
                 break
             case "Theatres": this.getTheatresApi()
@@ -60,6 +64,20 @@ class UpdateOrDelete extends Component {
         try {
             this.props.setLoading(true)
             const response = await getTheatres(page, 10)
+            if (response) {
+                this.loadData(response)
+            }
+            this.props.setLoading(false)
+        } catch (e) {
+            this.props.setLoading(false)
+            this.props.setErrorSnackBar("server error, please try again")
+        }
+    }
+
+    getMoviesApi = async(page) => {
+        try {
+            this.props.setLoading(true)
+            const response = await getMovies(page, 10)
             if (response) {
                 this.loadData(response)
             }
