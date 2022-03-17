@@ -267,14 +267,14 @@ class UpdateOrDelete extends Component {
         return (
             <div className = 'new-movie-root'>
                 {
-                    tableData.length > 0 ? 
+                    tableData.length > 0 ?
                     <div>
                         { this.renderSearch() }
                         { this.renderTableContent() }
                         { this.renderBtnFooter() }
                     </div>
                     :
-                    this.renderNoDataAvailable() 
+                    this.renderNoDataAvailable()
                 }
                 { openUpdatePopup && this.renderUpdatePopup() }
                 { openDeleteAlertPopup && this.renderDeleteAlert() }
