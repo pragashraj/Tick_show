@@ -260,9 +260,11 @@ class AdminPanel extends Component {
 
     renderReply = () => {
         return <Reply
+            token = {this.props.authResponse.token}
             handleReply = {this.handleReplyApi}
             handleDelete = {this.handleDeleteMessageApi}
             setErrorSnackBar = {this.setErrorSnackBar}
+            setLoading = {this.setLoading}
         />
     }
 

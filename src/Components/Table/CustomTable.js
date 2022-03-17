@@ -71,6 +71,26 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
         </TableCell>
     )
 
+    const renderMessagesTableRow = (row) => {
+        const {id, name, email, subject, message, dateTime} = row
+        const isItemSelected = isSelected(message)
+        return (
+            <TableRow hover key = {id}
+                onClick = {(e) => handleClick(message)}
+                role = "checkbox"
+                aria-checked = {isItemSelected}
+                tabIndex = {-1}
+                selected = {isItemSelected}
+            >
+                <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, message) }</TableCell>
+                { renderRowData(email) }
+                { renderRowData(name) }
+                { renderRowData(subject) }
+                { renderRowData(dateTime) }
+            </TableRow>
+        )
+    }
+
     const renderTheatreTableRow = (row) => {
         const {id, name, address, contact, rate, location} = row
         const isItemSelected = isSelected(name)
@@ -117,6 +137,7 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
         switch(tab) {
             case "Events": return tableData.map((data) => renderEventTableRow(data))
             case "Theatres": return tableData.map((data) => renderTheatreTableRow(data))
+            case "Messages": return tableData.map((data) => renderMessagesTableRow(data))
             default: return
         }
     }
