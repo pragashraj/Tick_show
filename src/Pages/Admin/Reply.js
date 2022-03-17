@@ -8,6 +8,7 @@ import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import Alert from '../../Components/Alert'
+import {getMessages} from '../../api/admin'
 
 import './AdminPanel.css'
 
@@ -18,21 +19,30 @@ class Reply extends Component {
         tableHeaders: [],
         tableData: [],
         openReplyPopup: false,
-        reply: "",
         openDeleteAlertPopup: false,
+        reply: ""
     }
 
     componentDidMount() {
         const t_Headers = ["Message", "Name", "Email", "Subject", "DateTime"]
-        const t_Data = [ 
-            {label: "Name1", rowValues: ["col1", "col2", "col3", "col4"]},
-            {label: "Name2", rowValues: ["col5", "col6", "col7", "col8"]},
-            {label: "Name3", rowValues: ["col9", "col0", "col11", "col12"]},
-            {label: "Name4", rowValues: ["col13", "col14", "col15", "col16"]},
-            {label: "Name5", rowValues: ["col17", "col18", "col19", "col20"]}
-        ]
+        
+        this.getMessagesApi(0)
 
-        this.setState({tableHeaders: t_Headers, tableData: t_Data})
+        this.setState({tableHeaders: t_Headers})
+    }
+
+    getMessagesApi = async(page) => {
+        try {
+            this.props.setLoading(true)
+            const response = await getMessages(page, this.props.token)
+            if (response) { 
+                this.setState({ tableData: response })
+            }
+            this.props.setLoading(false)
+        } catch (e) {
+            this.props.setLoading(false)
+            this.props.setErrorSnackBar("server error, please try again")
+        }
     }
 
     handleReply = () => {
@@ -184,6 +194,7 @@ class Reply extends Component {
         return (
             <div className = 'table_root'>
                 <CustomTable
+                    tab = "Messages"
                     tableHeaders = {tableHeaders}
                     tableData = {tableData}
                     selectedIndexes = {selectedIndexes}
