@@ -184,6 +184,7 @@ class Reply extends Component {
         return (
             <div className = 'table_root'>
                 <CustomTable
+                    tab = "Message"
                     tableHeaders = {tableHeaders}
                     tableData = {tableData}
                     selectedIndexes = {selectedIndexes}

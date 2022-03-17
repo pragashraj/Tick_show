@@ -21,7 +21,6 @@ class UpdateOrDelete extends Component {
         tableHeaders: [],
         tableData: [],
         openUpdatePopup: false,
-        fields: [],
         openDeleteAlertPopup: false,
     }
 
@@ -30,20 +29,6 @@ class UpdateOrDelete extends Component {
     }
 
     componentDidMount() {
-        const t_Headers = ["Dessert", "Calories", "Fat", "carbs", "protein"]
-        const t_Data = [ 
-            {label: "Name1", rowValues: ["col1", "col2", "col3", "col4"]},
-            {label: "Name2", rowValues: ["col5", "col6", "col7", "col8"]},
-            {label: "Name3", rowValues: ["col9", "col0", "col11", "col12"]},
-            {label: "Name4", rowValues: ["col13", "col14", "col15", "col16"]},
-            {label: "Name5", rowValues: ["col17", "col18", "col19", "col20"]}
-        ]
-        const fields = t_Headers.slice(1, t_Headers.length)
-
-        this.setState({tableHeaders: t_Headers, tableData: t_Data, fields})
-    }
-
-    getData = () => {
         const tab = this.props.selectedTab
 
         switch(tab) {
@@ -69,7 +54,9 @@ class UpdateOrDelete extends Component {
 
     loadData = (data) => {
         const tab = this.props.selectedTab
-        this.setState({ tableHeaders: this.TABLE_HEADERS[tab] })
+        const t_Headers = this.TABLE_HEADERS[tab]
+
+        this.setState({ tableHeaders: t_Headers, tableData: data })
     }
 
     handleUpdate = () => {
@@ -180,8 +167,8 @@ class UpdateOrDelete extends Component {
     }
 
     renderUpdatePopup = () => {
-        const {openUpdatePopup, fields, selectedRows} = this.state
-        const values = {fields, selectedRow: selectedRows[0]}
+        const {openUpdatePopup, tableHeaders, selectedRows} = this.state
+        const values = {fields: tableHeaders, selectedRow: selectedRows[0]}
         return <UpdatePopup
             open = {openUpdatePopup}
             values = {values}
@@ -216,6 +203,7 @@ class UpdateOrDelete extends Component {
         return (
             <div className = 'table_root'>
                 <CustomTable
+                    tab = {this.props.selectedTab}
                     tableHeaders = {tableHeaders}
                     tableData = {tableData}
                     selectedIndexes = {selectedIndexes}

@@ -59,8 +59,8 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
         />
     )
 
-    const renderRowData = (val, idx) => (
-        <TableCell align = "right" key = {idx} sx = {{color: "rgba(255, 255, 255, 0.7)"}}>
+    const renderRowData = (val) => (
+        <TableCell align = "right" sx = {{color: "rgba(255, 255, 255, 0.7)"}}>
             {val}
         </TableCell>
     )
@@ -71,31 +71,35 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
         </TableCell>
     )
 
-    const renderTableRow = (row, idx) => {
-        const {label, rowValues} = row
-        const isItemSelected = isSelected(label)
+    const renderTableRow = (row) => {
+        const {id, name, address, contact, price, location} = row
+        const isItemSelected = isSelected(name)
         return (
             <TableRow
                 hover
-                onClick = {(e) => handleClick(e, label)}
+                onClick = {(e) => handleClick(e, name)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
-                key = {idx}
+                key = {id}
                 selected = {isItemSelected}
             >
-                <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, label) }</TableCell>
-                { rowValues.map((val, idx) => renderRowData(val, idx)) }
+                <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, name) }</TableCell>
+                { renderRowData(address) }
+                { renderRowData(contact) }
+                { renderRowData(price) }
+                { renderRowData(location) }
             </TableRow>
         )
     }
+    
+    const renderData = () => {
+        const tab = this.props.tab
 
-    const renderTableBody = () => {
-        return (
-            <TableBody>
-                { tableData.map((row, idx) => renderTableRow(row, idx)) }
-            </TableBody>
-        )
+        switch(tab) {
+            case "Events": return tableData.map((data) => renderTableRow(data))
+            default: return
+        }
     }
 
     const renderTableHead = () => {
@@ -112,7 +116,9 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
         <TableContainer component = {Paper} sx = {{background: "transparent"}}>
             <Table sx = {{ minWidth: 700 }} aria-label = "customized table">
                 { renderTableHead() }
-                { renderTableBody() }
+                <TableBody>
+                    { renderData() }
+                </TableBody>
             </Table>
         </TableContainer>
     )
