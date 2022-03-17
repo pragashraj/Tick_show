@@ -18,7 +18,7 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
 
     const isSelected = (name) => selected.indexOf(name) !== -1
 
-    const handleClick = (e, name) => {
+    const handleClick = (name) => {
         const selectedIndex = selected.indexOf(name)
         let newSelected = []
     
@@ -71,24 +71,42 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
         </TableCell>
     )
 
-    const renderTableRow = (row) => {
-        const {id, name, address, contact, price, location} = row
+    const renderTheatreTableRow = (row) => {
+        const {id, name, address, contact, rate, location} = row
         const isItemSelected = isSelected(name)
         return (
-            <TableRow
-                hover
-                onClick = {(e) => handleClick(e, name)}
+            <TableRow hover key = {id}
+                onClick = {(e) => handleClick(name)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
-                key = {id}
+                selected = {isItemSelected}
+            >
+                <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, name) }</TableCell>
+                { renderRowData(address) }
+                { renderRowData(contact) }
+                { renderRowData(rate.imdb) }
+                { renderRowData(location.location) }
+            </TableRow>
+        )
+    }
+
+    const renderEventTableRow = (row) => {
+        const {id, name, address, contact, price, location} = row
+        const isItemSelected = isSelected(name)
+        return (
+            <TableRow hover key = {id}
+                onClick = {(e) => handleClick(name)}
+                role = "checkbox"
+                aria-checked = {isItemSelected}
+                tabIndex = {-1}
                 selected = {isItemSelected}
             >
                 <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, name) }</TableCell>
                 { renderRowData(address) }
                 { renderRowData(contact) }
                 { renderRowData(price) }
-                { renderRowData(location) }
+                { renderRowData(location.location) }
             </TableRow>
         )
     }
@@ -97,7 +115,8 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
         const tab = this.props.tab
 
         switch(tab) {
-            case "Events": return tableData.map((data) => renderTableRow(data))
+            case "Events": return tableData.map((data) => renderEventTableRow(data))
+            case "Theatres": return tableData.map((data) => renderTheatreTableRow(data))
             default: return
         }
     }

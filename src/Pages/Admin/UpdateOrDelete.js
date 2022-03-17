@@ -10,6 +10,7 @@ import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import UpdatePopup from './UpdatePopup'
 import Alert from '../../Components/Alert'
 import {getEvents} from '../../api/events'
+import {getTheatres} from '../../api/theatres'
 
 import './AdminPanel.css'
 
@@ -25,7 +26,8 @@ class UpdateOrDelete extends Component {
     }
 
     TABLE_HEADERS = {
-        "Events": ["Name", "Address", "Contact", "Price", "Location"]
+        "Events": ["Name", "Address", "Contact", "Price", "Location"],
+        "Theatres": ["Name", "Address", "Contact", "Rate", "Location"]
     }
 
     componentDidMount() {
@@ -33,6 +35,8 @@ class UpdateOrDelete extends Component {
 
         switch(tab) {
             case "Events": this.getEventsApi()
+                break
+            case "Theatres": this.getTheatresApi()
                 break
             default: return
         }
@@ -42,6 +46,20 @@ class UpdateOrDelete extends Component {
         try {
             this.props.setLoading(true)
             const response = await getEvents(page, 10)
+            if (response) {
+                this.loadData(response)
+            }
+            this.props.setLoading(false)
+        } catch (e) {
+            this.props.setLoading(false)
+            this.props.setErrorSnackBar("server error, please try again")
+        }
+    }
+
+    getTheatresApi = async(page) => {
+        try {
+            this.props.setLoading(true)
+            const response = await getTheatres(page, 10)
             if (response) {
                 this.loadData(response)
             }
