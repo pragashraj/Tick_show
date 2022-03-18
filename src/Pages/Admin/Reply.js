@@ -25,10 +25,10 @@ class Reply extends Component {
 
     componentDidMount() {
         const t_Headers = ["Message", "Name", "Email", "Subject", "DateTime"]
-        
-        this.getMessagesApi(0)
 
         this.setState({tableHeaders: t_Headers})
+        
+        this.getMessagesApi(0)
     }
 
     getMessagesApi = async(page) => {
@@ -46,7 +46,10 @@ class Reply extends Component {
     }
 
     handleReply = () => {
-        this.props.handleReply().then(res => {
+        const {selectedRows, reply} = this.state
+        const selectedRow = selectedRows[0]
+        const data = {message: selectedRow.message, email: selectedRow.email, reply}
+        this.props.handleReply(data).then(res => {
             if (res.success) {
                 this.handleReplyPopupState()
             }
@@ -68,7 +71,7 @@ class Reply extends Component {
             this.handleReplyPopupState()
         }
         else if (selectedRows.length > 1) {
-            this.props.setErrorSnackBar("Please select only one item to update")
+            this.props.setErrorSnackBar("Please select only one item to reply")
         }
         else {
             this.props.setErrorSnackBar("Please select atleast one item first!")
