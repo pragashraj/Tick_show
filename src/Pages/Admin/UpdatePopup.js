@@ -27,12 +27,10 @@ const useStyles = makeStyles({
     }
 })
 
-const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnChange}) => {
+const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInputOnChange}) => {
     const classes = useStyles()
-
-    const {fields, selectedRow} = values
     
-    const renderInputField = (name, label, value, placeholder) => {
+    const renderInputField = (name, label, placeholder) => {
         return (
             <div className = "input_wrapper">
                 <span className = "input_wrapper-label">{label}</span>
@@ -40,10 +38,32 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
                     name = {name}
                     label = {placeholder}
                     handleOnChange = {handleInputOnChange}
-                    value = {value}
+                    value = {values[name]}
                 />
             </div>
         )
+    }
+
+    const renderEventFields = () => {
+        return (
+            <div>
+                { renderInputField("name", "Name", "Enter event name") }
+                { renderInputField("address", "Address", "Enter event address") }
+                { renderInputField("contact", "Contact", "Enter contact no") }
+                { renderInputField("price", "Price", "Enter event price") }
+                { renderInputField("location", "Location", "Enter event location") }
+            </div>
+        )
+    }
+
+    const renderFields = () => {
+        switch(tab) {
+            case "Events": return renderEventFields()
+            case "Theatres": return
+            case "Messages": return
+            case "Movies": return
+            default: return
+        }
     }
 
     const renderBtnFooter = () => {
@@ -56,16 +76,12 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
     }
 
     const renderMainContainer = () => {
+        const {selectedRows} = values
+        const selectedRow = selectedRows.length > 0 ? selectedRows[0]: null
         return (
             <div className = {classes.paper}>
                 <h2 id = "transition-modal-title">Update! - {selectedRow && selectedRow.name}</h2>
-                <div className = {classes.form}>
-                    { fields.map((i, idx) => {
-                        return <div key = {idx}>
-                            {renderInputField("", i, selectedRow.rowValues[idx], `Enter ${i}`)}
-                        </div>
-                    }) }
-                </div>
+                <div className = {classes.form}>{ renderFields() }</div>
                 { renderBtnFooter() }
             </div>
         )

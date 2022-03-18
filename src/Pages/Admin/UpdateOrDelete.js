@@ -256,11 +256,11 @@ class UpdateOrDelete extends Component {
     }
 
     renderUpdatePopup = () => {
-        const {openUpdatePopup, tableHeaders, selectedRows} = this.state
-        const values = {fields: tableHeaders, selectedRow: selectedRows.length > 0 ? selectedRows[0]: null}
+        const {openUpdatePopup} = this.state
         return <UpdatePopup
             open = {openUpdatePopup}
-            values = {values}
+            values = {this.state}
+            tab = {this.props.selectedTab}
             handleCancel = {this.handleUpdatePopupState}
             handleUpdate = {this.handleUpdate}
             handleInputOnChange = {this.handleInputOnChange}

@@ -16,15 +16,15 @@ import {
 const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDataOnClick}) => {
     const selected = selectedIndexes
 
-    const isSelected = (name) => selected.indexOf(name) !== -1
+    const isSelected = (id) => selected.indexOf(id) !== -1
 
-    const handleClick = (name) => {
-        const selectedIndex = selected.indexOf(name)
+    const handleClick = (id) => {
+        const selectedIndex = selected.indexOf(id)
         let newSelected = []
     
         if (selectedIndex === -1) 
         {
-            newSelected = newSelected.concat(selected, name)
+            newSelected = newSelected.concat(selected, id)
         } 
         else if (selectedIndex === 0) 
         {
@@ -42,7 +42,7 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
         let selectedRows = []
         newSelected.forEach(element => {
             tableData.forEach(data => {
-                if (data.name === element) {
+                if (data.id === element) {
                     selectedRows.push(data)
                 }
             })
@@ -73,18 +73,18 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
 
     const renderMoviesTableRow = (row) => {
         const {id, name, duration, releaseDate, experience, genres} = row
-        const isItemSelected = isSelected(name)
+        const isItemSelected = isSelected(id)
         let genre = ""
         genres.forEach(e => { genre += `${e} `})
         return (
             <TableRow hover key = {id}
-                onClick = {(e) => handleClick(name)}
+                onClick = {(e) => handleClick(id)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
                 selected = {isItemSelected}
             >
-                <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, name) }</TableCell>
+                <TableCell>{ renderCheckBox(isItemSelected, name) }</TableCell>
                 { renderRowData(duration) }
                 { renderRowData(releaseDate) }
                 { renderRowData(experience) }
@@ -95,16 +95,16 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
 
     const renderMessagesTableRow = (row) => {
         const {id, name, email, subject, message, dateTime} = row
-        const isItemSelected = isSelected(message)
+        const isItemSelected = isSelected(id)
         return (
             <TableRow hover key = {id}
-                onClick = {(e) => handleClick(message)}
+                onClick = {(e) => handleClick(id)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
                 selected = {isItemSelected}
             >
-                <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, message) }</TableCell>
+                <TableCell>{ renderCheckBox(isItemSelected, message) }</TableCell>
                 { renderRowData(email) }
                 { renderRowData(name) }
                 { renderRowData(subject) }
@@ -115,16 +115,16 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
 
     const renderTheatreTableRow = (row) => {
         const {id, name, address, contact, rate, location} = row
-        const isItemSelected = isSelected(name)
+        const isItemSelected = isSelected(id)
         return (
             <TableRow hover key = {id}
-                onClick = {(e) => handleClick(name)}
+                onClick = {(e) => handleClick(id)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
                 selected = {isItemSelected}
             >
-                <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, name) }</TableCell>
+                <TableCell>{ renderCheckBox(isItemSelected, name) }</TableCell>
                 { renderRowData(address) }
                 { renderRowData(contact) }
                 { renderRowData(rate.imdb) }
@@ -135,10 +135,10 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
 
     const renderEventTableRow = (row) => {
         const {id, name, address, contact, price, location} = row
-        const isItemSelected = isSelected(name)
+        const isItemSelected = isSelected(id)
         return (
             <TableRow hover key = {id}
-                onClick = {(e) => handleClick(name)}
+                onClick = {(e) => handleClick(id)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
