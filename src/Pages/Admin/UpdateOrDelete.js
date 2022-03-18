@@ -9,6 +9,7 @@ import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import UpdatePopup from './UpdatePopup'
 import Alert from '../../Components/Alert'
+import Page from '../../Components/Page'
 import {getEvents} from '../../api/events'
 import {getTheatres} from '../../api/theatres'
 import {getMovies} from '../../api/movie'
@@ -22,6 +23,8 @@ class UpdateOrDelete extends Component {
         selectedRows: [],
         tableHeaders: [],
         tableData: [],
+        total: 0,
+        current: 0,
         openUpdatePopup: false,
         openDeleteAlertPopup: false,
     }
@@ -88,11 +91,23 @@ class UpdateOrDelete extends Component {
         }
     }
 
-    loadData = (data) => {
+    loadData = (response) => {
         const tab = this.props.selectedTab
         const t_Headers = this.TABLE_HEADERS[tab]
+        const {total, current} = response
+        let t_Data = null
+        
+        switch(tab) {
+            case "Movies": t_Data = response.movies
+                break
+            case "Events": t_Data = response.events
+                break
+            case "Theatres": t_Data = response.theatres
+                break
+            default: t_Data = null
+        }
 
-        this.setState({ tableHeaders: t_Headers, tableData: data })
+        this.setState({ tableHeaders: t_Headers, tableData: t_Data, total, current })
     }
 
     handleUpdate = () => {
@@ -168,6 +183,21 @@ class UpdateOrDelete extends Component {
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({[name]: value})
+    }
+
+    handlePaginationOnChange = (event, page) => {
+        this.setState({ current: page })
+    }
+
+    renderPagination = () => {
+        const {total, current} = this.state
+        return (
+            <Page 
+                count = {total} 
+                page = {current} 
+                onChange = {this.handlePaginationOnChange}
+            />
+        )
     }
 
     renderNoDataAvailable = () => {
@@ -271,6 +301,7 @@ class UpdateOrDelete extends Component {
                     <div>
                         { this.renderSearch() }
                         { this.renderTableContent() }
+                        { this.renderPagination() }
                         { this.renderBtnFooter() }
                     </div>
                     :

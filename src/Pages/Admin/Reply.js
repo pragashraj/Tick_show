@@ -243,8 +243,8 @@ class Reply extends Component {
                     tableData.length > 0 ? 
                     <div>
                         { this.renderTableContent() }
-                        { this.renderBtnFooter() }
                         { this.renderPagination() }
+                        { this.renderBtnFooter() }
                     </div>
                     :
                     this.renderNoDataAvailable()
