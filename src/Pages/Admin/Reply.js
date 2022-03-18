@@ -49,7 +49,7 @@ class Reply extends Component {
         const {selectedRows, reply} = this.state
         const selectedRow = selectedRows[0]
         const data = {message: selectedRow.message, email: selectedRow.email, reply}
-        
+
         this.props.handleReply(data).then(res => {
             if (res.success) {
                 this.handleReplyPopupState()
@@ -60,9 +60,11 @@ class Reply extends Component {
 
     handleDelete = () => {
         const {selectedRows} = this.state
+
         this.props.handleDelete(selectedRows).then(res => {
             if (res.success) {
                 this.handleDeletePopupState()
+                this.setState({ tableData: res.response })
             }
         })
     }
