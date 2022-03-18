@@ -49,9 +49,11 @@ class Reply extends Component {
         const {selectedRows, reply} = this.state
         const selectedRow = selectedRows[0]
         const data = {message: selectedRow.message, email: selectedRow.email, reply}
+        
         this.props.handleReply(data).then(res => {
             if (res.success) {
                 this.handleReplyPopupState()
+                this.props.setSuccessSnackBar(res.response.message)
             }
         })
     }
@@ -68,7 +70,11 @@ class Reply extends Component {
     handleReplyOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length === 1) {
-            this.handleReplyPopupState()
+            if (selectedRows[0].isReplied) {
+                this.props.setErrorSnackBar("Response has been already sent to this message!")
+            }
+            else
+                this.handleReplyPopupState()
         }
         else if (selectedRows.length > 1) {
             this.props.setErrorSnackBar("Please select only one item to reply")

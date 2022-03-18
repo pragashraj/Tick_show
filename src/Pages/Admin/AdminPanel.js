@@ -265,6 +265,7 @@ class AdminPanel extends Component {
             handleDelete = {this.handleDeleteMessageApi}
             setErrorSnackBar = {this.setErrorSnackBar}
             setLoading = {this.setLoading}
+            setSuccessSnackBar = {this.setSuccessSnackBar}
         />
     }
 
