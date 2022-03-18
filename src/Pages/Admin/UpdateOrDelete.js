@@ -27,11 +27,16 @@ class UpdateOrDelete extends Component {
         current: 0,
         openUpdatePopup: false,
         openDeleteAlertPopup: false,
-        name: "",
-        address: "",
-        contact: "",
-        price: "",
-        location: ""
+        EventName: "",
+        EventAddress: "",
+        EventContact: "",
+        EventPrice: "",
+        EventLocation: "",
+        theatreName: "",
+        theatreAddress: "",
+        theatreContact: "",
+        theatreRate: "",
+        theatreLocation: "",
     }
 
     TABLE_HEADERS = {

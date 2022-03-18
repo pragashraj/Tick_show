@@ -44,14 +44,26 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
         )
     }
 
+    const renderTheatreFields = () => {
+        return (
+            <div>
+                { renderInputField("theatreName", "Name", "Enter theatre name") }
+                { renderInputField("theatreAddress", "Address", "Enter theatre address") }
+                { renderInputField("theatreContact", "Contact", "Enter theatre contact no") }
+                { renderInputField("theatreRate", "Rate", "Enter theatre rate") }
+                { renderInputField("theatreLocation", "Location", "Enter theatre location") }
+            </div>
+        )
+    }
+
     const renderEventFields = () => {
         return (
             <div>
-                { renderInputField("name", "Name", "Enter event name") }
-                { renderInputField("address", "Address", "Enter event address") }
-                { renderInputField("contact", "Contact", "Enter contact no") }
-                { renderInputField("price", "Price", "Enter event price") }
-                { renderInputField("location", "Location", "Enter event location") }
+                { renderInputField("EventName", "Name", "Enter event name") }
+                { renderInputField("EventAddress", "Address", "Enter event address") }
+                { renderInputField("EventContact", "Contact", "Enter contact no") }
+                { renderInputField("EventPrice", "Price", "Enter event price") }
+                { renderInputField("EventLocation", "Location", "Enter event location") }
             </div>
         )
     }
@@ -59,8 +71,7 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
     const renderFields = () => {
         switch(tab) {
             case "Events": return renderEventFields()
-            case "Theatres": return
-            case "Messages": return
+            case "Theatres": return renderTheatreFields()
             case "Movies": return
             default: return
         }
