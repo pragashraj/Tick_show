@@ -70,6 +70,7 @@ class Reply extends Component {
                 this.handleDeletePopupState()
                 const {contats, total, current} = res.response
                 this.setState({ tableData: contats, total, current })
+                this.props.setSuccessSnackBar("Message(s) deleted successfully")
             }
         })
     }

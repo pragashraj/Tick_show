@@ -302,6 +302,7 @@ class AdminPanel extends Component {
             handleUpdate = {this.handleUpdateItemApi}
             setErrorSnackBar = {this.setErrorSnackBar}
             setLoading = {this.setLoading}
+            setSuccessSnackBar = {this.setSuccessSnackBar}
         />
     }
 

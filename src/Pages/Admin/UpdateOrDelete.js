@@ -39,11 +39,11 @@ class UpdateOrDelete extends Component {
         const tab = this.props.selectedTab
 
         switch(tab) {
-            case "Movies": this.getMoviesApi()
+            case "Movies": this.getMoviesApi(0)
                 break
-            case "Events": this.getEventsApi()
+            case "Events": this.getEventsApi(0)
                 break
-            case "Theatres": this.getTheatresApi()
+            case "Theatres": this.getTheatresApi(0)
                 break
             default: return
         }
@@ -96,7 +96,7 @@ class UpdateOrDelete extends Component {
         const t_Headers = this.TABLE_HEADERS[tab]
         const {total, current} = response
         let t_Data = null
-        
+
         switch(tab) {
             case "Movies": t_Data = response.movies
                 break
@@ -114,6 +114,7 @@ class UpdateOrDelete extends Component {
         this.props.handleUpdate().then(res => {
             if (res.success) {
                 this.handleUpdatePopupState()
+                this.props.setSuccessSnackBar("Item(s) updated successfully")
             }
         })
     }
@@ -123,6 +124,8 @@ class UpdateOrDelete extends Component {
         this.props.handleDelete(selectedRows).then(res => {
             if (res.success) {
                 this.handleDeletePopupState()
+                this.loadData(res.response)
+                this.props.setSuccessSnackBar("Item(s) deleted successfully")
             }
         })
     }
