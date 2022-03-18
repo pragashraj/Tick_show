@@ -8,6 +8,7 @@ import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import Alert from '../../Components/Alert'
+import Page from '../../Components/Page'
 import {getMessages} from '../../api/admin'
 
 import './AdminPanel.css'
@@ -18,6 +19,8 @@ class Reply extends Component {
         selectedRows: [],
         tableHeaders: [],
         tableData: [],
+        total: 0,
+        current: 0,
         openReplyPopup: false,
         openDeleteAlertPopup: false,
         reply: ""
@@ -35,8 +38,9 @@ class Reply extends Component {
         try {
             this.props.setLoading(true)
             const response = await getMessages(page, this.props.token)
-            if (response) { 
-                this.setState({ tableData: response })
+            if (response) {
+                const {contats, total, current} = response
+                this.setState({ tableData: contats, total, current })
             }
             this.props.setLoading(false)
         } catch (e) {
@@ -64,7 +68,8 @@ class Reply extends Component {
         this.props.handleDelete(selectedRows).then(res => {
             if (res.success) {
                 this.handleDeletePopupState()
-                this.setState({ tableData: res.response })
+                const {contats, total, current} = res.response
+                this.setState({ tableData: contats, total, current })
             }
         })
     }
@@ -119,6 +124,21 @@ class Reply extends Component {
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({[name]: value})
+    }
+
+    handlePaginationOnChange = (event, page) => {
+        this.setState({ current: page })
+    }
+
+    renderPagination = () => {
+        const {total, current} = this.state
+        return (
+            <Page 
+                count = {total} 
+                page = {current} 
+                onChange = {this.handlePaginationOnChange}
+            />
+        )
     }
 
     renderDeleteAlert = () => {
@@ -224,6 +244,7 @@ class Reply extends Component {
                     <div>
                         { this.renderTableContent() }
                         { this.renderBtnFooter() }
+                        { this.renderPagination() }
                     </div>
                     :
                     this.renderNoDataAvailable()
