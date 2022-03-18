@@ -37,6 +37,11 @@ class UpdateOrDelete extends Component {
         theatreContact: "",
         theatreRate: "",
         theatreLocation: "",
+        movieName: "",
+        movieDuration: "",
+        movieReleaseDate: "",
+        movieExperience: "",
+        movieGenre: ""
     }
 
     TABLE_HEADERS = {

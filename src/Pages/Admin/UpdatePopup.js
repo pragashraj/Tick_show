@@ -44,6 +44,18 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
         )
     }
 
+    const renderMovieFields = () => {
+        return (
+            <div>
+                { renderInputField("movieName", "Name", "Enter theatre name") }
+                { renderInputField("movieDuration", "Duration", "Enter theatre address") }
+                { renderInputField("movieReleaseDate", "ReleaseDate", "Enter theatre contact no") }
+                { renderInputField("movieExperience", "Experience", "Enter theatre rate") }
+                { renderInputField("movieGenre", "Genre(s)", "Enter theatre location") }
+            </div>
+        )
+    }
+
     const renderTheatreFields = () => {
         return (
             <div>
@@ -72,7 +84,7 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
         switch(tab) {
             case "Events": return renderEventFields()
             case "Theatres": return renderTheatreFields()
-            case "Movies": return
+            case "Movies": return renderMovieFields()
             default: return
         }
     }
