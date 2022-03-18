@@ -27,6 +27,11 @@ class UpdateOrDelete extends Component {
         current: 0,
         openUpdatePopup: false,
         openDeleteAlertPopup: false,
+        name: "",
+        address: "",
+        contact: "",
+        price: "",
+        location: ""
     }
 
     TABLE_HEADERS = {

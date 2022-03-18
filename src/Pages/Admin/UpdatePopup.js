@@ -1,7 +1,7 @@
 import React from 'react'
 
 //Material-UI
-import {Modal, Backdrop, Fade, DialogActions} from '@mui/material'
+import {Modal, Backdrop, DialogActions} from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
@@ -77,10 +77,10 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
 
     const renderMainContainer = () => {
         const {selectedRows} = values
-        const selectedRow = selectedRows.length > 0 ? selectedRows[0]: null
+        const selectedRow = selectedRows.length > 0 ? selectedRows[0] : null
         return (
             <div className = {classes.paper}>
-                <h2 id = "transition-modal-title">Update! - {selectedRow && selectedRow.name}</h2>
+                <h2 id = "transition-modal-title">Update - {selectedRow && selectedRow.name}</h2>
                 <div className = {classes.form}>{ renderFields() }</div>
                 { renderBtnFooter() }
             </div>
@@ -88,14 +88,12 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
     }
 
     return (
-        <Modal open = {open}
-            className = {classes.modal}
-            onClose = {handleCancel}
+        <Modal open = {open} className = {classes.modal} onClose = {handleCancel}
             BackdropComponent = {Backdrop}
             BackdropProps = {{ timeout: 500 }}
             closeAfterTransition
         >
-            <Fade in = {open}> { renderMainContainer() } </Fade>
+            { renderMainContainer() }
         </Modal>
     )
 }
