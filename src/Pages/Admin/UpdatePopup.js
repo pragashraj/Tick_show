@@ -58,7 +58,7 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
     const renderMainContainer = () => {
         return (
             <div className = {classes.paper}>
-                <h2 id = "transition-modal-title">Update! - {selectedRow && selectedRow.label}</h2>
+                <h2 id = "transition-modal-title">Update! - {selectedRow && selectedRow.name}</h2>
                 <div className = {classes.form}>
                     { fields.map((i, idx) => {
                         return <div key = {idx}>
@@ -72,17 +72,14 @@ const UpdatePopup = ({open, values, handleCancel, handleUpdate, handleInputOnCha
     }
 
     return (
-        <Modal
+        <Modal open = {open}
             className = {classes.modal}
-            open = {open}
             onClose = {handleCancel}
-            closeAfterTransition
             BackdropComponent = {Backdrop}
             BackdropProps = {{ timeout: 500 }}
+            closeAfterTransition
         >
-            <Fade in = {open}>
-                { renderMainContainer() }
-            </Fade>
+            <Fade in = {open}> { renderMainContainer() } </Fade>
         </Modal>
     )
 }

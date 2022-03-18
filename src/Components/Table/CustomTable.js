@@ -13,7 +13,7 @@ import {
     FormControlLabel
 } from '@mui/material'
 
-const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnClick}) => {
+const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDataOnClick}) => {
     const selected = selectedIndexes
 
     const isSelected = (name) => selected.indexOf(name) !== -1
@@ -42,7 +42,7 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
         let selectedRows = []
         newSelected.forEach(element => {
             tableData.forEach(data => {
-                if (data.label === element) {
+                if (data.name === element) {
                     selectedRows.push(data)
                 }
             })
@@ -144,7 +144,7 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
                 tabIndex = {-1}
                 selected = {isItemSelected}
             >
-                <TableCell padding = "checkbox">{ renderCheckBox(isItemSelected, name) }</TableCell>
+                <TableCell>{ renderCheckBox(isItemSelected, name) }</TableCell>
                 { renderRowData(address) }
                 { renderRowData(contact) }
                 { renderRowData(price) }
@@ -154,8 +154,6 @@ const CustomTable = ({tableHeaders, tableData, selectedIndexes, handleRowDataOnC
     }
     
     const renderData = () => {
-        const tab = this.props.tab
-
         switch(tab) {
             case "Events": return tableData.map((data) => renderEventTableRow(data))
             case "Theatres": return tableData.map((data) => renderTheatreTableRow(data))

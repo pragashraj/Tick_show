@@ -41,12 +41,28 @@ class UpdateOrDelete extends Component {
         switch(tab) {
             case "Movies": this.getMoviesApi(0)
                 break
-            case "Events": this.getEventsApi(0)
+            case "Events": this.dummyDataForEvents()
                 break
             case "Theatres": this.getTheatresApi(0)
                 break
             default: return
         }
+    }
+
+    dummyDataForEvents() {
+        let dummyData = []
+        let arr = ["1", "2", "3", "4", "5"]
+        arr.forEach(i => {
+            let data = {
+                id: i, name: `name-${i}`, address: `address-${i}`, 
+                contact: `contact-${i}`, price: `price-${i}`,
+                location: {location: `location-${i}`}
+            }
+
+            dummyData.push(data)
+        })
+        const res = {events: dummyData, total: 5, current: 1}
+        this.loadData(res)
     }
 
     getEventsApi = async(page) => {
@@ -111,10 +127,12 @@ class UpdateOrDelete extends Component {
     }
 
     handleUpdate = () => {
-        this.props.handleUpdate().then(res => {
+        const data = {}
+
+        this.props.handleUpdate(data).then(res => {
             if (res.success) {
                 this.handleUpdatePopupState()
-                this.props.setSuccessSnackBar("Item(s) updated successfully")
+                this.props.setSuccessSnackBar("Item updated successfully")
             }
         })
     }
@@ -195,11 +213,13 @@ class UpdateOrDelete extends Component {
     renderPagination = () => {
         const {total, current} = this.state
         return (
-            <Page 
-                count = {total} 
-                page = {current} 
-                onChange = {this.handlePaginationOnChange}
-            />
+            <div className = "pagination_root">
+                <Page 
+                    count = {total}
+                    page = {current}
+                    onChange = {this.handlePaginationOnChange}
+                />
+            </div>
         )
     }
 
@@ -237,7 +257,7 @@ class UpdateOrDelete extends Component {
 
     renderUpdatePopup = () => {
         const {openUpdatePopup, tableHeaders, selectedRows} = this.state
-        const values = {fields: tableHeaders, selectedRow: selectedRows[0]}
+        const values = {fields: tableHeaders, selectedRow: selectedRows.length > 0 ? selectedRows[0]: null}
         return <UpdatePopup
             open = {openUpdatePopup}
             values = {values}
