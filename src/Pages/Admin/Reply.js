@@ -8,6 +8,7 @@ import CustomButton from '../../Components/CustomCssButton/CustomButton'
 import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import Alert from '../../Components/Alert'
+import Page from '../../Components/Page'
 import {getMessages} from '../../api/admin'
 
 import './AdminPanel.css'
@@ -18,6 +19,8 @@ class Reply extends Component {
         selectedRows: [],
         tableHeaders: [],
         tableData: [],
+        total: 0,
+        current: 0,
         openReplyPopup: false,
         openDeleteAlertPopup: false,
         reply: ""
@@ -25,18 +28,19 @@ class Reply extends Component {
 
     componentDidMount() {
         const t_Headers = ["Message", "Name", "Email", "Subject", "DateTime"]
-        
-        this.getMessagesApi(0)
 
         this.setState({tableHeaders: t_Headers})
+        
+        this.getMessagesApi(0)
     }
 
     getMessagesApi = async(page) => {
         try {
             this.props.setLoading(true)
             const response = await getMessages(page, this.props.token)
-            if (response) { 
-                this.setState({ tableData: response })
+            if (response) {
+                const {contats, total, current} = response
+                this.setState({ tableData: contats, total, current })
             }
             this.props.setLoading(false)
         } catch (e) {
@@ -46,18 +50,27 @@ class Reply extends Component {
     }
 
     handleReply = () => {
-        this.props.handleReply().then(res => {
+        const {selectedRows, reply} = this.state
+        const selectedRow = selectedRows[0]
+        const data = {message: selectedRow.message, email: selectedRow.email, reply}
+
+        this.props.handleReply(data).then(res => {
             if (res.success) {
                 this.handleReplyPopupState()
+                this.props.setSuccessSnackBar(res.response.message)
             }
         })
     }
 
     handleDelete = () => {
         const {selectedRows} = this.state
+
         this.props.handleDelete(selectedRows).then(res => {
             if (res.success) {
                 this.handleDeletePopupState()
+                const {contats, total, current} = res.response
+                this.setState({ tableData: contats, total, current })
+                this.props.setSuccessSnackBar("Message(s) deleted successfully")
             }
         })
     }
@@ -65,10 +78,14 @@ class Reply extends Component {
     handleReplyOnClick = () => {
         const {selectedRows} = this.state
         if (selectedRows.length === 1) {
-            this.handleReplyPopupState()
+            if (selectedRows[0].isReplied) {
+                this.props.setErrorSnackBar("Response has been already sent to this message!")
+            }
+            else
+                this.handleReplyPopupState()
         }
         else if (selectedRows.length > 1) {
-            this.props.setErrorSnackBar("Please select only one item to update")
+            this.props.setErrorSnackBar("Please select only one item to reply")
         }
         else {
             this.props.setErrorSnackBar("Please select atleast one item first!")
@@ -108,6 +125,21 @@ class Reply extends Component {
     handleInputOnChange = (e) => {
         const {name, value} = e.target
         this.setState({[name]: value})
+    }
+
+    handlePaginationOnChange = (event, page) => {
+        this.setState({ current: page })
+    }
+
+    renderPagination = () => {
+        const {total, current} = this.state
+        return (
+            <Page 
+                count = {total} 
+                page = {current} 
+                onChange = {this.handlePaginationOnChange}
+            />
+        )
     }
 
     renderDeleteAlert = () => {
@@ -212,6 +244,7 @@ class Reply extends Component {
                     tableData.length > 0 ? 
                     <div>
                         { this.renderTableContent() }
+                        { this.renderPagination() }
                         { this.renderBtnFooter() }
                     </div>
                     :

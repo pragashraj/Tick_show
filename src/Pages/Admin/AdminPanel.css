@@ -89,3 +89,8 @@
 .modal_form {
     padding: 15px;
 }
+
+.pagination_root {
+    margin-top: 5px;
+    margin-bottom: 35px;
+}

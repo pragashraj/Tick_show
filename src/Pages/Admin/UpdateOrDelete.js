@@ -9,6 +9,7 @@ import CustomTable from '../../Components/Table/CustomTable'
 import SecondaryButton from '../../Components/CustomCssButton/SecondaryButton'
 import UpdatePopup from './UpdatePopup'
 import Alert from '../../Components/Alert'
+import Page from '../../Components/Page'
 import {getEvents} from '../../api/events'
 import {getTheatres} from '../../api/theatres'
 import {getMovies} from '../../api/movie'
@@ -22,6 +23,8 @@ class UpdateOrDelete extends Component {
         selectedRows: [],
         tableHeaders: [],
         tableData: [],
+        total: 0,
+        current: 0,
         openUpdatePopup: false,
         openDeleteAlertPopup: false,
     }
@@ -36,14 +39,30 @@ class UpdateOrDelete extends Component {
         const tab = this.props.selectedTab
 
         switch(tab) {
-            case "Movies": this.getMoviesApi()
+            case "Movies": this.getMoviesApi(0)
                 break
-            case "Events": this.getEventsApi()
+            case "Events": this.dummyDataForEvents()
                 break
-            case "Theatres": this.getTheatresApi()
+            case "Theatres": this.getTheatresApi(0)
                 break
             default: return
         }
+    }
+
+    dummyDataForEvents() {
+        let dummyData = []
+        let arr = ["1", "2", "3", "4", "5"]
+        arr.forEach(i => {
+            let data = {
+                id: i, name: `name-${i}`, address: `address-${i}`, 
+                contact: `contact-${i}`, price: `price-${i}`,
+                location: {location: `location-${i}`}
+            }
+
+            dummyData.push(data)
+        })
+        const res = {events: dummyData, total: 5, current: 1}
+        this.loadData(res)
     }
 
     getEventsApi = async(page) => {
@@ -88,17 +107,32 @@ class UpdateOrDelete extends Component {
         }
     }
 
-    loadData = (data) => {
+    loadData = (response) => {
         const tab = this.props.selectedTab
         const t_Headers = this.TABLE_HEADERS[tab]
+        const {total, current} = response
+        let t_Data = null
 
-        this.setState({ tableHeaders: t_Headers, tableData: data })
+        switch(tab) {
+            case "Movies": t_Data = response.movies
+                break
+            case "Events": t_Data = response.events
+                break
+            case "Theatres": t_Data = response.theatres
+                break
+            default: t_Data = null
+        }
+
+        this.setState({ tableHeaders: t_Headers, tableData: t_Data, total, current })
     }
 
     handleUpdate = () => {
-        this.props.handleUpdate().then(res => {
+        const data = {}
+
+        this.props.handleUpdate(data).then(res => {
             if (res.success) {
                 this.handleUpdatePopupState()
+                this.props.setSuccessSnackBar("Item updated successfully")
             }
         })
     }
@@ -108,6 +142,8 @@ class UpdateOrDelete extends Component {
         this.props.handleDelete(selectedRows).then(res => {
             if (res.success) {
                 this.handleDeletePopupState()
+                this.loadData(res.response)
+                this.props.setSuccessSnackBar("Item(s) deleted successfully")
             }
         })
     }
@@ -170,6 +206,23 @@ class UpdateOrDelete extends Component {
         this.setState({[name]: value})
     }
 
+    handlePaginationOnChange = (event, page) => {
+        this.setState({ current: page })
+    }
+
+    renderPagination = () => {
+        const {total, current} = this.state
+        return (
+            <div className = "pagination_root">
+                <Page 
+                    count = {total}
+                    page = {current}
+                    onChange = {this.handlePaginationOnChange}
+                />
+            </div>
+        )
+    }
+
     renderNoDataAvailable = () => {
         return (
             <div className = "no_data_container">
@@ -203,11 +256,11 @@ class UpdateOrDelete extends Component {
     }
 
     renderUpdatePopup = () => {
-        const {openUpdatePopup, tableHeaders, selectedRows} = this.state
-        const values = {fields: tableHeaders, selectedRow: selectedRows[0]}
+        const {openUpdatePopup} = this.state
         return <UpdatePopup
             open = {openUpdatePopup}
-            values = {values}
+            values = {this.state}
+            tab = {this.props.selectedTab}
             handleCancel = {this.handleUpdatePopupState}
             handleUpdate = {this.handleUpdate}
             handleInputOnChange = {this.handleInputOnChange}
@@ -267,14 +320,15 @@ class UpdateOrDelete extends Component {
         return (
             <div className = 'new-movie-root'>
                 {
-                    tableData.length > 0 ? 
+                    tableData.length > 0 ?
                     <div>
                         { this.renderSearch() }
                         { this.renderTableContent() }
+                        { this.renderPagination() }
                         { this.renderBtnFooter() }
                     </div>
                     :
-                    this.renderNoDataAvailable() 
+                    this.renderNoDataAvailable()
                 }
                 { openUpdatePopup && this.renderUpdatePopup() }
                 { openDeleteAlertPopup && this.renderDeleteAlert() }
