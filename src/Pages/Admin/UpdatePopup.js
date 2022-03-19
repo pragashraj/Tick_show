@@ -71,11 +71,11 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
     const renderEventFields = () => {
         return (
             <div>
-                { renderInputField("EventName", "Name", "Enter event name") }
-                { renderInputField("EventAddress", "Address", "Enter event address") }
-                { renderInputField("EventContact", "Contact", "Enter contact no") }
-                { renderInputField("EventPrice", "Price", "Enter event price") }
-                { renderInputField("EventLocation", "Location", "Enter event location") }
+                { renderInputField("eventName", "Name", "Enter event name") }
+                { renderInputField("eventAddress", "Address", "Enter event address") }
+                { renderInputField("eventContact", "Contact", "Enter contact no") }
+                { renderInputField("eventPrice", "Price", "Enter event price") }
+                { renderInputField("eventLocation", "Location", "Enter event location") }
             </div>
         )
     }
