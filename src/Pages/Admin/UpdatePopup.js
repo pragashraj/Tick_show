@@ -1,7 +1,7 @@
 import React from 'react'
 
 //Material-UI
-import {Modal, Backdrop, Fade, DialogActions} from '@mui/material'
+import {Modal, Backdrop, DialogActions} from '@mui/material'
 import { makeStyles } from '@mui/styles'
 
 import CustomButton from '../../Components/CustomCssButton/CustomButton'
@@ -44,14 +44,38 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
         )
     }
 
+    const renderMovieFields = () => {
+        return (
+            <div>
+                { renderInputField("movieName", "Name", "Enter theatre name") }
+                { renderInputField("movieDuration", "Duration", "Enter theatre address") }
+                { renderInputField("movieReleaseDate", "ReleaseDate", "Enter theatre contact no") }
+                { renderInputField("movieExperience", "Experience", "Enter theatre rate") }
+                { renderInputField("movieGenre", "Genre(s)", "Enter theatre location") }
+            </div>
+        )
+    }
+
+    const renderTheatreFields = () => {
+        return (
+            <div>
+                { renderInputField("theatreName", "Name", "Enter theatre name") }
+                { renderInputField("theatreAddress", "Address", "Enter theatre address") }
+                { renderInputField("theatreContact", "Contact", "Enter theatre contact no") }
+                { renderInputField("theatreRate", "Rate", "Enter theatre rate") }
+                { renderInputField("theatreLocation", "Location", "Enter theatre location") }
+            </div>
+        )
+    }
+
     const renderEventFields = () => {
         return (
             <div>
-                { renderInputField("name", "Name", "Enter event name") }
-                { renderInputField("address", "Address", "Enter event address") }
-                { renderInputField("contact", "Contact", "Enter contact no") }
-                { renderInputField("price", "Price", "Enter event price") }
-                { renderInputField("location", "Location", "Enter event location") }
+                { renderInputField("eventName", "Name", "Enter event name") }
+                { renderInputField("eventAddress", "Address", "Enter event address") }
+                { renderInputField("eventContact", "Contact", "Enter contact no") }
+                { renderInputField("eventPrice", "Price", "Enter event price") }
+                { renderInputField("eventLocation", "Location", "Enter event location") }
             </div>
         )
     }
@@ -59,9 +83,8 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
     const renderFields = () => {
         switch(tab) {
             case "Events": return renderEventFields()
-            case "Theatres": return
-            case "Messages": return
-            case "Movies": return
+            case "Theatres": return renderTheatreFields()
+            case "Movies": return renderMovieFields()
             default: return
         }
     }
@@ -77,10 +100,10 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
 
     const renderMainContainer = () => {
         const {selectedRows} = values
-        const selectedRow = selectedRows.length > 0 ? selectedRows[0]: null
+        const selectedRow = selectedRows.length > 0 ? selectedRows[0] : null
         return (
             <div className = {classes.paper}>
-                <h2 id = "transition-modal-title">Update! - {selectedRow && selectedRow.name}</h2>
+                <h2 id = "transition-modal-title">Update - {selectedRow && selectedRow.name}</h2>
                 <div className = {classes.form}>{ renderFields() }</div>
                 { renderBtnFooter() }
             </div>
@@ -88,14 +111,12 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
     }
 
     return (
-        <Modal open = {open}
-            className = {classes.modal}
-            onClose = {handleCancel}
+        <Modal open = {open} className = {classes.modal} onClose = {handleCancel}
             BackdropComponent = {Backdrop}
             BackdropProps = {{ timeout: 500 }}
             closeAfterTransition
         >
-            <Fade in = {open}> { renderMainContainer() } </Fade>
+            { renderMainContainer() }
         </Modal>
     )
 }

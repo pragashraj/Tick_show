@@ -27,6 +27,21 @@ class UpdateOrDelete extends Component {
         current: 0,
         openUpdatePopup: false,
         openDeleteAlertPopup: false,
+        eventName: "",
+        eventAddress: "",
+        eventContact: "",
+        eventPrice: "",
+        eventLocation: "",
+        theatreName: "",
+        theatreAddress: "",
+        theatreContact: "",
+        theatreRate: "",
+        theatreLocation: "",
+        movieName: "",
+        movieDuration: "",
+        movieReleaseDate: "",
+        movieExperience: "",
+        movieGenre: ""
     }
 
     TABLE_HEADERS = {
@@ -41,7 +56,7 @@ class UpdateOrDelete extends Component {
         switch(tab) {
             case "Movies": this.getMoviesApi(0)
                 break
-            case "Events": this.dummyDataForEvents()
+            case "Events": this.getEventsApi(0)
                 break
             case "Theatres": this.getTheatresApi(0)
                 break
@@ -127,7 +142,39 @@ class UpdateOrDelete extends Component {
     }
 
     handleUpdate = () => {
-        const data = {}
+        let data = null
+        const tab = this.props.selectedTab
+
+        if (tab === "Movies") {
+            const {movieName, movieDuration, movieReleaseDate, movieExperience, movieGenre} = this.state
+            data = {
+                name: movieName,
+                duration: movieDuration,
+                releaseDate: movieReleaseDate,
+                experince: movieExperience,
+                genre: movieGenre
+            }
+        }
+        else if (tab === "Events") {
+            const {eventName, eventAddress, eventContact, eventPrice, eventLocation} = this.state
+            data = {
+                name: eventName,
+                address: eventAddress,
+                contact: eventContact,
+                price: eventPrice,
+                location: eventLocation
+            }
+        }
+        else {
+            const {theatreName, theatreAddress, theatreContact, theatreRate, theatreLocation} = this.state
+            data = {
+                name: theatreName,
+                address: theatreAddress,
+                contact: theatreContact,
+                rate: theatreRate,
+                location: theatreLocation
+            }
+        }
 
         this.props.handleUpdate(data).then(res => {
             if (res.success) {

@@ -134,11 +134,13 @@ class Reply extends Component {
     renderPagination = () => {
         const {total, current} = this.state
         return (
-            <Page 
-                count = {total} 
-                page = {current} 
-                onChange = {this.handlePaginationOnChange}
-            />
+            <div className = "pagination_root">
+                <Page 
+                    count = {total} 
+                    page = {current} 
+                    onChange = {this.handlePaginationOnChange}
+                />
+            </div>
         )
     }
 
