@@ -51,9 +51,15 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
         handleRowDataOnClick(selectedRows, newSelected)
     }
 
-    const renderCheckBox = (isItemSelected, label) => (
+    const renderCheckBox = (isItemSelected, label, id) => (
         <FormControlLabel 
-            control = {<Checkbox color = 'primary' checked = {isItemSelected}/>} 
+            control = {
+                <Checkbox 
+                    color = 'primary' 
+                    checked = {isItemSelected} 
+                    onClick = {(e) => handleClick(id)}
+                />
+            } 
             label = {label}
             sx = {{color: "rgba(255, 255, 255, 0.7)"}}
         />
@@ -78,13 +84,12 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
         genres.forEach(e => { genre += `${e} `})
         return (
             <TableRow hover key = {id}
-                onClick = {(e) => handleClick(id)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
                 selected = {isItemSelected}
             >
-                <TableCell>{ renderCheckBox(isItemSelected, name) }</TableCell>
+                <TableCell>{ renderCheckBox(isItemSelected, name, id) }</TableCell>
                 { renderRowData(duration) }
                 { renderRowData(releaseDate) }
                 { renderRowData(experience) }
@@ -98,13 +103,12 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
         const isItemSelected = isSelected(id)
         return (
             <TableRow hover key = {id}
-                onClick = {(e) => handleClick(id)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
                 selected = {isItemSelected}
             >
-                <TableCell>{ renderCheckBox(isItemSelected, message) }</TableCell>
+                <TableCell>{ renderCheckBox(isItemSelected, message, id) }</TableCell>
                 { renderRowData(email) }
                 { renderRowData(name) }
                 { renderRowData(subject) }
@@ -118,13 +122,12 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
         const isItemSelected = isSelected(id)
         return (
             <TableRow hover key = {id}
-                onClick = {(e) => handleClick(id)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
                 selected = {isItemSelected}
             >
-                <TableCell>{ renderCheckBox(isItemSelected, name) }</TableCell>
+                <TableCell>{ renderCheckBox(isItemSelected, name, id) }</TableCell>
                 { renderRowData(address) }
                 { renderRowData(contact) }
                 { renderRowData(rate.imdb) }
@@ -138,13 +141,12 @@ const CustomTable = ({tab, tableHeaders, tableData, selectedIndexes, handleRowDa
         const isItemSelected = isSelected(id)
         return (
             <TableRow hover key = {id}
-                onClick = {(e) => handleClick(id)}
                 role = "checkbox"
                 aria-checked = {isItemSelected}
                 tabIndex = {-1}
                 selected = {isItemSelected}
             >
-                <TableCell>{ renderCheckBox(isItemSelected, name) }</TableCell>
+                <TableCell>{ renderCheckBox(isItemSelected, name, id) }</TableCell>
                 { renderRowData(address) }
                 { renderRowData(contact) }
                 { renderRowData(price) }
