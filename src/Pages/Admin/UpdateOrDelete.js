@@ -35,13 +35,11 @@ class UpdateOrDelete extends Component {
         theatreName: "",
         theatreAddress: "",
         theatreContact: "",
-        theatreRate: "",
         theatreLocation: "",
         movieName: "",
         movieDuration: "",
         movieReleaseDate: "",
-        movieExperience: "",
-        movieGenre: ""
+        movieExperience: ""
     }
 
     TABLE_HEADERS = {
@@ -146,33 +144,34 @@ class UpdateOrDelete extends Component {
         const tab = this.props.selectedTab
 
         if (tab === "Movies") {
-            const {movieName, movieDuration, movieReleaseDate, movieExperience, movieGenre} = this.state
+            const {movieName, movieDuration, movieReleaseDate, movieExperience, current} = this.state
             data = {
                 name: movieName,
                 duration: movieDuration,
                 releaseDate: movieReleaseDate,
                 experince: movieExperience,
-                genre: movieGenre
+                page: current
             }
         }
         else if (tab === "Events") {
-            const {eventName, eventAddress, eventContact, eventPrice, eventLocation} = this.state
+            const {eventName, eventAddress, eventContact, eventPrice, eventLocation, current} = this.state
             data = {
                 name: eventName,
                 address: eventAddress,
                 contact: eventContact,
                 price: eventPrice,
-                location: eventLocation
+                location: eventLocation,
+                page: current
             }
         }
         else {
-            const {theatreName, theatreAddress, theatreContact, theatreRate, theatreLocation} = this.state
+            const {theatreName, theatreAddress, theatreContact, theatreLocation, current} = this.state
             data = {
                 name: theatreName,
                 address: theatreAddress,
                 contact: theatreContact,
-                rate: theatreRate,
-                location: theatreLocation
+                location: theatreLocation,
+                page: current
             }
         }
 
@@ -180,6 +179,7 @@ class UpdateOrDelete extends Component {
             if (res.success) {
                 this.handleUpdatePopupState()
                 this.props.setSuccessSnackBar("Item updated successfully")
+                this.loadData(res.response)
             }
         })
     }

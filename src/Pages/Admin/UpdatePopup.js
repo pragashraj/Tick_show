@@ -51,7 +51,6 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
                 { renderInputField("movieDuration", "Duration", "Enter theatre address") }
                 { renderInputField("movieReleaseDate", "ReleaseDate", "Enter theatre contact no") }
                 { renderInputField("movieExperience", "Experience", "Enter theatre rate") }
-                { renderInputField("movieGenre", "Genre(s)", "Enter theatre location") }
             </div>
         )
     }
@@ -62,7 +61,6 @@ const UpdatePopup = ({open, values, tab, handleCancel, handleUpdate, handleInput
                 { renderInputField("theatreName", "Name", "Enter theatre name") }
                 { renderInputField("theatreAddress", "Address", "Enter theatre address") }
                 { renderInputField("theatreContact", "Contact", "Enter theatre contact no") }
-                { renderInputField("theatreRate", "Rate", "Enter theatre rate") }
                 { renderInputField("theatreLocation", "Location", "Enter theatre location") }
             </div>
         )
