@@ -54,7 +54,7 @@ class UpdateOrDelete extends Component {
         switch(tab) {
             case "Movies": this.getMoviesApi(0)
                 break
-            case "Events": this.dummyDataForEvents()
+            case "Events": this.getEventsApi(0)
                 break
             case "Theatres": this.getTheatresApi(0)
                 break
