@@ -112,3 +112,16 @@
     cursor: pointer;
     font-size: 0.9rem;
 }
+
+.fab_add-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.fab_add-btn span {
+    color: white;
+    margin-left: 15px;
+    letter-spacing: 0.05rem;
+    font-size: 1.2rem;
+}

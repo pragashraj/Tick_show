@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
 //Material-UI
-import {Grid, Modal, Backdrop, DialogActions} from '@mui/material'
+import {Grid, Modal, Backdrop, DialogActions, Fab} from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 
 import InputField from '../../Components/InputField'
 import InputFile from '../../Components/InputFile/InputFile'
@@ -30,6 +31,7 @@ class NewMovie extends Component {
         showType: "Now Showing",
         openCastSelectionPopup: false,
         openCrewSelectionPopup: false,
+        castFields: [1]
     }
 
     handleSubmitOnClick = () => {
@@ -84,6 +86,10 @@ class NewMovie extends Component {
         this.setState({ file: file })
     }
 
+    handleConfirmOnClick = () => {
+
+    }
+
     handlFileRemoveOnClick = () => {
         this.setState({ fileOnLoad : null, file: null })
     }
@@ -104,25 +110,54 @@ class NewMovie extends Component {
         }
     }
 
-    renderselctorOptions = () => {
+    handleCastCrewCancelOnClick = (tag) => {
+        this.handleCastCrewOnClick(tag)
+        if (tag === "cast") {
+
+        }
+        else {
+
+        }
+    }
+
+    handleAddMoreCastFieldOnClick = () => {
+        const {castFields} = this.state
+
+        this.setState({castFields: [1, 2]})
+    }
+
+    renderCrewSelectorOption = (name, label, placeholder, roleName, roleOptions) => {
         return (
-            <Grid container>
+            <Grid container key = {name}>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    {this.renderInputField("name", "Name", "Enter movie name")}
+                    {this.renderInputField(name, label, placeholder)}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    {this.renderInputField("duration", "Duration", "Enter movie duration")}
+                    {this.renderDropDown(roleName, "Role", roleOptions)}
+                </Grid> 
+            </Grid>
+        )
+    }
+
+    renderCastSelectorOption = (nameA, label, placeholderA, nameB, placeholderB) => {
+        return (
+            <Grid container key = {nameA}>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    {this.renderInputField(nameA, label, placeholderA)}
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    {this.renderInputField(nameB, "As", placeholderB)}
                 </Grid> 
             </Grid>
         )
     }
 
     renderCrewPopup = () => {
-        const {openCrewSelectionPopup} = this.state
+        
     }
 
     renderCastPopup = () => {
-        const {openCastSelectionPopup} = this.state
+        const {openCastSelectionPopup, castFields} = this.state
         return (
             <Modal
                 open = {openCastSelectionPopup}
@@ -133,13 +168,23 @@ class NewMovie extends Component {
                 sx = {{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
             >
                 <div className = 'modal_paper'>
-                    <h2 id = "transition-modal-title">Reply</h2>
+                    <h2 id = "transition-modal-title">Provide casts for the movie</h2>
                     <div className = 'modal_form'>
-                        
+                        {  castFields.map(i => {
+                            return this.renderCastSelectorOption(
+                                `artist-${i}`, "Artist", "Enter artist name", `character-${i}`, "Enter character name"
+                            )
+                        })}
+                        <div className = 'fab_add-btn'>
+                            <Fab color = "secondary" onClick = {this.handleAddMoreCastFieldOnClick}>
+                                <AddIcon />
+                            </Fab>
+                            <span>Add more artist</span>
+                        </div>
                     </div>
                     <DialogActions>
-                        <SecondaryButton label = "Cancel" onClick = {() => this.handleCastCrewOnClick("cast")}/>
-                        <CustomButton label = "Confirm & Reply" onClick = {() => {}}/>
+                        <SecondaryButton label = "Cancel" onClick = {() => this.handleCastCrewCancelOnClick("cast")}/>
+                        <CustomButton label = "Confirm" onClick = {this.handleConfirmOnClick}/>
                     </DialogActions>
                 </div>
             </Modal>
