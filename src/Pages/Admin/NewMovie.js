@@ -28,6 +28,8 @@ class NewMovie extends Component {
         language: "English",
         experience: "2D",
         showType: "Now Showing",
+        openCastSelectionPopup: false,
+        openCrewSelectionPopup: false,
     }
 
     handleSubmitOnClick = () => {
@@ -86,10 +88,20 @@ class NewMovie extends Component {
         this.setState({ fileOnLoad : null, file: null })
     }
 
+    handleCastCrewOnClick = (tag) => {
+        const {openCastSelectionPopup, openCrewSelectionPopup} = this.state
+        if (tag === "cast") {
+            this.setState({openCastSelectionPopup: !openCastSelectionPopup})
+        }
+        else {
+            this.setState({openCrewSelectionPopup: !openCrewSelectionPopup})
+        }
+    }
+
     renderCastCrewselection = (tag) => {
         return (
             <div className = 'cast_crew_popup_selector'>
-                <span>{`Select ${tag} members`}</span>
+                <span onClick = {() => this.handleCastCrewOnClick(tag)}>{`Select ${tag} members`}</span>
             </div>
         )
     }
