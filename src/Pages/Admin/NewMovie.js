@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 //Material-UI
-import {Grid} from '@mui/material'
+import {Grid, Modal, Backdrop, DialogActions} from '@mui/material'
 
 import InputField from '../../Components/InputField'
 import InputFile from '../../Components/InputFile/InputFile'
@@ -91,11 +91,59 @@ class NewMovie extends Component {
     handleCastCrewOnClick = (tag) => {
         const {openCastSelectionPopup, openCrewSelectionPopup} = this.state
         if (tag === "cast") {
-            this.setState({openCastSelectionPopup: !openCastSelectionPopup})
+            this.setState({
+                openCastSelectionPopup: !openCastSelectionPopup,
+                openCrewSelectionPopup: false
+            })
         }
         else {
-            this.setState({openCrewSelectionPopup: !openCrewSelectionPopup})
+            this.setState({
+                openCrewSelectionPopup: !openCrewSelectionPopup,
+                openCastSelectionPopup: false
+            })
         }
+    }
+
+    renderselctorOptions = () => {
+        return (
+            <Grid container>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    {this.renderInputField("name", "Name", "Enter movie name")}
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    {this.renderInputField("duration", "Duration", "Enter movie duration")}
+                </Grid> 
+            </Grid>
+        )
+    }
+
+    renderCrewPopup = () => {
+        const {openCrewSelectionPopup} = this.state
+    }
+
+    renderCastPopup = () => {
+        const {openCastSelectionPopup} = this.state
+        return (
+            <Modal
+                open = {openCastSelectionPopup}
+                onClose = {() => this.handleCastCrewOnClick("cast")}
+                closeAfterTransition
+                BackdropComponent = {Backdrop}
+                BackdropProps = {{ timeout: 500 }}
+                sx = {{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+            >
+                <div className = 'modal_paper'>
+                    <h2 id = "transition-modal-title">Reply</h2>
+                    <div className = 'modal_form'>
+                        
+                    </div>
+                    <DialogActions>
+                        <SecondaryButton label = "Cancel" onClick = {() => this.handleCastCrewOnClick("cast")}/>
+                        <CustomButton label = "Confirm & Reply" onClick = {() => {}}/>
+                    </DialogActions>
+                </div>
+            </Modal>
+        )
     }
 
     renderCastCrewselection = (tag) => {
@@ -229,6 +277,8 @@ class NewMovie extends Component {
                 <div className = 'form-btn-footer'>
                     { this.renderBtnFooter() }
                 </div>
+                { this.renderCastPopup() }
+                { this.renderCrewPopup() }
             </div>
         )
     }
