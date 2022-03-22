@@ -86,6 +86,14 @@ class NewMovie extends Component {
         this.setState({ fileOnLoad : null, file: null })
     }
 
+    renderCastCrewselection = (tag) => {
+        return (
+            <div className = 'cast_crew_popup_selector'>
+                <span>{`Select ${tag} members`}</span>
+            </div>
+        )
+    }
+
     renderMultiline = (name, label, placeholder) => {
         return (
             <div className = "input_wrapper">
@@ -146,38 +154,40 @@ class NewMovie extends Component {
         return (
             <Grid container>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("name", "Name", "Enter movie name") }
+                    {this.renderInputField("name", "Name", "Enter movie name")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("duration", "Duration", "Enter movie duration") }
+                    {this.renderInputField("duration", "Duration", "Enter movie duration")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("release", "Release", "Enter movie release date") }
+                    {this.renderInputField("release", "Release", "Enter movie release date")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("genre", "Genre", options["genreOptions"]) }
+                    {this.renderDropDown("genre", "Genre", options["genreOptions"])}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("language", "Language", options["languageOptions"]) }
+                    {this.renderDropDown("language", "Language", options["languageOptions"])}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("experience", "Experience", options["experienceOptions"]) }
+                    {this.renderDropDown("experience", "Experience", options["experienceOptions"])}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("showType", "Show Type", options["showTypeOptions"]) }
+                    {this.renderDropDown("showType", "Show Type", options["showTypeOptions"])}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {12}>
-                    { this.renderMultiline("synopsis", "Synopsis", "Enter movie synopsis") }
+                    {this.renderMultiline("synopsis", "Synopsis", "Enter movie synopsis")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("url", "Trailer url", "Enter movie trailer url") }
+                    {this.renderInputField("url", "Trailer url", "Enter movie trailer url")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("imdb", "Imdb", "Enter movie imdb rate") }
+                    {this.renderInputField("imdb", "Imdb", "Enter movie imdb rate")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("rotten", "Rotten", "Enter movie rotten rate") }
+                    {this.renderInputField("rotten", "Rotten", "Enter movie rotten rate")}
                 </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>{this.renderCastCrewselection("cast")}</Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>{this.renderCastCrewselection("crew")}</Grid>
             </Grid>
         )
     }
