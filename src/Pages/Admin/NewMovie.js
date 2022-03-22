@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 
 //Material-UI
-import {Grid} from '@mui/material'
+import {Grid, Modal, Backdrop, DialogActions, Fab} from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
 
 import InputField from '../../Components/InputField'
 import InputFile from '../../Components/InputFile/InputFile'
@@ -28,6 +29,9 @@ class NewMovie extends Component {
         language: "English",
         experience: "2D",
         showType: "Now Showing",
+        openCastSelectionPopup: false,
+        openCrewSelectionPopup: false,
+        castFields: [1]
     }
 
     handleSubmitOnClick = () => {
@@ -82,8 +86,117 @@ class NewMovie extends Component {
         this.setState({ file: file })
     }
 
+    handleConfirmOnClick = () => {
+
+    }
+
     handlFileRemoveOnClick = () => {
         this.setState({ fileOnLoad : null, file: null })
+    }
+
+    handleCastCrewOnClick = (tag) => {
+        const {openCastSelectionPopup, openCrewSelectionPopup} = this.state
+        if (tag === "cast") {
+            this.setState({
+                openCastSelectionPopup: !openCastSelectionPopup,
+                openCrewSelectionPopup: false
+            })
+        }
+        else {
+            this.setState({
+                openCrewSelectionPopup: !openCrewSelectionPopup,
+                openCastSelectionPopup: false
+            })
+        }
+    }
+
+    handleCastCrewCancelOnClick = (tag) => {
+        this.handleCastCrewOnClick(tag)
+        if (tag === "cast") {
+
+        }
+        else {
+
+        }
+    }
+
+    handleAddMoreCastFieldOnClick = () => {
+        const {castFields} = this.state
+
+        this.setState({castFields: [1, 2]})
+    }
+
+    renderCrewSelectorOption = (name, label, placeholder, roleName, roleOptions) => {
+        return (
+            <Grid container key = {name}>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    {this.renderInputField(name, label, placeholder)}
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {4}>
+                    {this.renderDropDown(roleName, "Role", roleOptions)}
+                </Grid> 
+            </Grid>
+        )
+    }
+
+    renderCastSelectorOption = (nameA, label, placeholderA, nameB, placeholderB) => {
+        return (
+            <Grid container key = {nameA}>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    {this.renderInputField(nameA, label, placeholderA)}
+                </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>
+                    {this.renderInputField(nameB, "As", placeholderB)}
+                </Grid> 
+            </Grid>
+        )
+    }
+
+    renderCrewPopup = () => {
+        
+    }
+
+    renderCastPopup = () => {
+        const {openCastSelectionPopup, castFields} = this.state
+        return (
+            <Modal
+                open = {openCastSelectionPopup}
+                onClose = {() => this.handleCastCrewOnClick("cast")}
+                closeAfterTransition
+                BackdropComponent = {Backdrop}
+                BackdropProps = {{ timeout: 500 }}
+                sx = {{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+            >
+                <div className = 'modal_paper'>
+                    <h2 id = "transition-modal-title">Provide casts for the movie</h2>
+                    <div className = 'modal_form'>
+                        {  castFields.map(i => {
+                            return this.renderCastSelectorOption(
+                                `artist-${i}`, "Artist", "Enter artist name", `character-${i}`, "Enter character name"
+                            )
+                        })}
+                        <div className = 'fab_add-btn'>
+                            <Fab color = "secondary" onClick = {this.handleAddMoreCastFieldOnClick}>
+                                <AddIcon />
+                            </Fab>
+                            <span>Add more artist</span>
+                        </div>
+                    </div>
+                    <DialogActions>
+                        <SecondaryButton label = "Cancel" onClick = {() => this.handleCastCrewCancelOnClick("cast")}/>
+                        <CustomButton label = "Confirm" onClick = {this.handleConfirmOnClick}/>
+                    </DialogActions>
+                </div>
+            </Modal>
+        )
+    }
+
+    renderCastCrewselection = (tag) => {
+        return (
+            <div className = 'cast_crew_popup_selector'>
+                <span onClick = {() => this.handleCastCrewOnClick(tag)}>{`Select ${tag} members`}</span>
+            </div>
+        )
     }
 
     renderMultiline = (name, label, placeholder) => {
@@ -146,38 +259,40 @@ class NewMovie extends Component {
         return (
             <Grid container>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("name", "Name", "Enter movie name") }
+                    {this.renderInputField("name", "Name", "Enter movie name")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("duration", "Duration", "Enter movie duration") }
+                    {this.renderInputField("duration", "Duration", "Enter movie duration")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("release", "Release", "Enter movie release date") }
+                    {this.renderInputField("release", "Release", "Enter movie release date")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("genre", "Genre", options["genreOptions"]) }
+                    {this.renderDropDown("genre", "Genre", options["genreOptions"])}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("language", "Language", options["languageOptions"]) }
+                    {this.renderDropDown("language", "Language", options["languageOptions"])}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("experience", "Experience", options["experienceOptions"]) }
+                    {this.renderDropDown("experience", "Experience", options["experienceOptions"])}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {6}>
-                    { this.renderDropDown("showType", "Show Type", options["showTypeOptions"]) }
+                    {this.renderDropDown("showType", "Show Type", options["showTypeOptions"])}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {12}>
-                    { this.renderMultiline("synopsis", "Synopsis", "Enter movie synopsis") }
+                    {this.renderMultiline("synopsis", "Synopsis", "Enter movie synopsis")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("url", "Trailer url", "Enter movie trailer url") }
+                    {this.renderInputField("url", "Trailer url", "Enter movie trailer url")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("imdb", "Imdb", "Enter movie imdb rate") }
+                    {this.renderInputField("imdb", "Imdb", "Enter movie imdb rate")}
                 </Grid>
                 <Grid item xs = {12} sm = {12} md = {4}>
-                    { this.renderInputField("rotten", "Rotten", "Enter movie rotten rate") }
+                    {this.renderInputField("rotten", "Rotten", "Enter movie rotten rate")}
                 </Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>{this.renderCastCrewselection("cast")}</Grid>
+                <Grid item xs = {12} sm = {12} md = {6}>{this.renderCastCrewselection("crew")}</Grid>
             </Grid>
         )
     }
@@ -207,6 +322,8 @@ class NewMovie extends Component {
                 <div className = 'form-btn-footer'>
                     { this.renderBtnFooter() }
                 </div>
+                { this.renderCastPopup() }
+                { this.renderCrewPopup() }
             </div>
         )
     }
